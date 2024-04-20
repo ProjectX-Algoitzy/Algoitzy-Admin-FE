@@ -1,8 +1,8 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom" 
-import Home from "./sharing-pages/Home"
-import Login from "./sharing-pages/Login"
-import Header from "./components/Header"
-import MakingApplicationForm from "./admin-pages/MakingApplicationForm"
+import Home from "./APP/sharing-pages/Home"
+import Login from "./APP/sharing-pages/Login"
+import Header from "./APP/components/Header"
+import MakingApplicationForm from "./APP/admin-pages/MakingApplicationForm"
 function App() {
   return (
     <div className="App">

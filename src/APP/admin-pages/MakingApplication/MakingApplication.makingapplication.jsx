@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
 import * as items from './Styled/MakingApplication.makingapplication.styles'
 import axios from 'axios'
-import styled from "styled-components";
-import * as tokens from "../../../tokens"
 
-export default function MakingApplication() {
-    const accessToken = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJndGo1NTdAbmF2ZXIuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsImVtYWlsIjoiZ3RqNTU3QG5hdmVyLmNvbSIsImV4cCI6MTcxNDIyMzEyOX0.zxRcPTxqMVjosrf6PpWLarnu0cEN6ZFEqZLGSedLQQt0USN-CihxJklCPHEPWdmfFcoSo1xTA9Z8Gpy0XhmndQ";
+export default function MakingApplication() { 
+    //지원저 제작을 담당하는 페이지입니다. 로그인화면이 구현됨에 따라 accesstoken을 따로 받아올 수 있돌고 처리하겠습니다
+    const accessToken = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJndGo1NTdAbmF2ZXIuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsImVtYWlsIjoiZ3RqNTU3QG5hdmVyLmNvbSIsImV4cCI6MTcxNDI5MjQxM30.A5yByCAjusF8UJR2FJFympsxXn_V-FIkC4sLz7OAUjVqVW_cPW6eoGbfhoGqqC-YnLTVVbgT3q0tiI_0vRNhnA";
     const [title, setTitle] = useState('');
     const [textQuestion, setTextQuestion] = useState('');
     const [selectQuestion, setSelectQuestion] = useState('');
@@ -24,26 +23,22 @@ export default function MakingApplication() {
         setSelectQuestion(e.target.value);
     }
 
-    const onChangeHowManyFields = (e) => {
+    const onChangeHowManyFields = (e) => { //객관식 문항을 담당하는 onChange함수입니다
         const count = parseInt(e.target.value);
         setHowManyFields(count);
 
-        // Create an array with specified length filled with empty strings
         const fieldsArray = Array.from({ length: count }, () => '');
         setStringFields(fieldsArray);
     }
 
-    const onChangeStringField = (e, index) => {
+    const onChangeStringField = (e, index) => { //객관식 문항의 개수를 담당하는 onChnage함수입니다
         const updatedFields = [...stringFields];
         updatedFields[index] = e.target.value;
         setStringFields(updatedFields);
     }
 
     const makeApplicationForm = async () => {
-        // Build createFieldRequestList based on stringFields
-        const createFieldRequestList = stringFields.map(value => ({ stringField: value }));
-
-        // Build requestData object
+        const createFieldRequestList = stringFields.map(value => ({ context: value }));
         const requestData = {
             studyId: 1,
             title: title,

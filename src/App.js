@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom" 
 import Home from "./APP/sharing-pages/Home"
-import Login from "./APP/sharing-pages/Login"
+import Login from "./APP/admin-pages/Auth/Auth.login"
 import Header from "./APP/components/Header/Header.header"
 import Footer from "./APP/components/Footer/Footer.footer"
 import MakingApplicationForm from "./APP/admin-pages/MakingApplication/MakingApplication.makingapplication"

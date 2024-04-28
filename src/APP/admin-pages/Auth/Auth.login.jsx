@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext  } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import * as itemS from "../../user-pages/Auth/Styled/Auth.login.styles"
-import axios from 'axios';
+import * as itemS from "../../admin-pages/Auth/Styled/Auth.login.styles"
+import request, { ACCESS_TOKEN } from '../../Api/request';
 
 export default function Login() {
 
@@ -18,9 +18,12 @@ export default function Login() {
       password: password,
     };
     try {
-      const response = await axios.post('http://3.35.47.250:8281/member/login', requestData);
+      const response = await request.post('/member/login', requestData);
       console.log("response",response);
-      if (response.status === 200) {
+      console.log("RES",response.result);
+    //   const { accessToken } = response.result;
+      localStorage.setItem(ACCESS_TOKEN, response.result.accessToken);
+      if (response["isSuccess"]) {
         console.log("로그인 성공!");
         alert("로그인을 성공하셨습니다.");
         navigate("/");

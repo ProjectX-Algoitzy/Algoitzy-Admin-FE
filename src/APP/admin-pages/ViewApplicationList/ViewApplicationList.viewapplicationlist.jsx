@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios'
+// import axios from 'axios'
+import request, { ACCESS_TOKEN } from '../../Api/request';
 import { Link } from 'react-router-dom';
 
 export default function ViewApplicationList() {
@@ -11,14 +12,24 @@ export default function ViewApplicationList() {
 
     useEffect(() => {
         const fetchApplications = async () => {
+            // try {
+            //     const response = await axios.get('http://3.35.47.250:8181/answer?page=1&size=10', {
+            //         headers: {
+            //             accept: '*/*',
+            //             Authorization: `Bearer ${accessToken}`,
+            //         },
+            //     });
+            //     setApplications(response.data.result.answerList);
+            //     setLoading(false);
+            // } catch (error) {
+            //     console.error('지원서 열람 오류', error);
+            //     setError(error);
+            //     setLoading(false);
+            // }
             try {
-                const response = await axios.get('http://3.35.47.250:8181/answer?page=1&size=10', {
-                    headers: {
-                        accept: '*/*',
-                        Authorization: `Bearer ${accessToken}`,
-                    },
-                });
-                setApplications(response.data.result.answerList);
+                const response = await request.get('/answer?page=1&size=10');
+                console.log("response", response);
+                setApplications(response.result.answerList);
                 setLoading(false);
             } catch (error) {
                 console.error('지원서 열람 오류', error);

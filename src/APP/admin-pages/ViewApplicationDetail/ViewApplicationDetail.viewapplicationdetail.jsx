@@ -1,10 +1,9 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
+import request from '../../Api/request';
 
 export default function ViewApplicationDetail() {
     //지원서 상세페이지입니다. 이 페이지를 통해 지원한 학생의 지원서를 보게하고자 합니다
-    const accessToken = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJndGo1NTdAbmF2ZXIuY29tIiwiYXV0aCI6IlJPTEVfVVNFUiIsImVtYWlsIjoiZ3RqNTU3QG5hdmVyLmNvbSIsImV4cCI6MTcxNDI5MzYyNX0.kJ_Yf8nt-zQsn360JUn8aLykI85Wg_KAjepAwW1Oyia6QLxhFNA3u4T5iaTwQ5I5m8ze0o9Q2wBX8U6OhGqsJw";
     const { id } = useParams();  //파라미터로 각 학생별로 부여된 id를 받아옵니다
     const [detail, setDetail] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -13,13 +12,8 @@ export default function ViewApplicationDetail() {
     useEffect(() => {
         const fetchDetail = async () => {
             try {
-                const response = await axios.get(`http://3.35.47.250:8181/answer/${id}`, {
-                    headers: {
-                        accept: '*/*',
-                        Authorization: `Bearer ${accessToken}`,
-                    }
-                });
-                setDetail(response.data.result);
+                const response = await request.get(`/answer/${id}`);
+                setDetail(response.result);
                 setLoading(false);
             } catch (error) {
                 console.error("상세페이지 조회 오류", error);

@@ -6,7 +6,7 @@ export const REFRESH_TOKEN = 'refreshToken';
 //앞으로 토큰은 여기서 사용하시면 됩니다.
 // Authorization 에 토큰 자동으로 들어가도록 설정하였습니다.
 const request = axios.create({
-  baseURL: 'http://3.35.47.250:8181',
+  baseURL: 'http://3.36.176.175:8181',
   headers: {
     withCredentials: true,
     transformRequest: true,

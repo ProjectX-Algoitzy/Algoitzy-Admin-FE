@@ -6,6 +6,8 @@ import Footer from "./APP/components/Footer/Footer.footer"
 import MakingApplicationForm from "./APP/admin-pages/MakingApplication/MakingApplication.makingapplication"
 import ViewApplicationList from "./APP/admin-pages/ViewApplicationList/ViewApplicationList.viewapplicationlist"
 import ViewApplicationDetail from "./APP/admin-pages/ViewApplicationDetail/ViewApplicationDetail.viewapplicationdetail"
+import MakedApplicationList from "./APP/admin-pages/MakedApplicationList/MakedApplicationList.makedapplicationlist"
+import MakedApplicationDetail from "./APP/admin-pages/MakedApplicationDetail/MakedApplicationDetail.makedapplicationdetail"
 
 function App() {
   return (
@@ -15,6 +17,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/makedapplicationlist" element={<MakedApplicationList />} />
+          <Route path="/makedapplicationdetail/:id" element={<MakedApplicationDetail />} />
           <Route path="/makingapplicationform" element={<MakingApplicationForm />} />
           <Route path="/viewapplicationlist" element={<ViewApplicationList />} />
           <Route path="/viewapplicationlist/:id" element={<ViewApplicationDetail />} />

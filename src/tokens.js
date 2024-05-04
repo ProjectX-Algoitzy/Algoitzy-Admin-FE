@@ -40,6 +40,7 @@ export const colors = {
 	// Gradient
 	G_Blue_1: "linear-gradient(#65BCF8, #3083F7)",
 	G_Blue_2: "linear-gradient(#3083F7, #364B8B)",
+	G_Blue_3: "linear-gradient(#3688FA, #1766D4)",
 	G_Yellow_1: "linear-gradient(#F9D581, #F88F78)",
 };
 
@@ -47,56 +48,7 @@ export const colors = {
 // bold : 700
 // medium : 500
 export const typography = {
-	// title_lg: {
-	// 	fontFamily: "Pretendard Variable",
-	// 	fontWeight: "600",
-	// 	fontSize: "48px",
-	// 	lineHeight: "120%",
-	// },
-	// title_md: {
-	// 	fontFamily: "Pretendard Variable",
-	// 	fontWeight: "semibold",
-	// 	fontSize: "36px",
-	// 	lineHeight: "120%",
-	// },
-	// title_sm: {
-	// 	fontFamily: "Pretendard Variable",
-	// 	fontWeight: "semibold",
-	// 	fontSize: "24px",
-	// 	lineHeight: "130%",
-	// },
-	// text_lg: {
-	// 	fontFamily: "Pretendard Variable",
-	// 	fontWeight: "semibold",
-	// 	fontSize: "18px",
-	// 	lineHeight: "140%",
-	// },
-	// text_md: {
-	// 	fontFamily: "Pretendard Variable",
-	// 	fontWeight: "regular",
-	// 	fontSize: "16px",
-	// 	lineHeight: "140%",
-	// },
-	// text_sm: {
-	// 	fontFamily: "Pretendard Variable",
-	// 	fontWeight: "regular",
-	// 	fontSize: "14px",
-	// 	lineHeight: "140%",
-	// },
-	// caption: {
-	// 	fontFamily: "Pretendard Variable",
-	// 	fontWeight: "regular",
-	// 	fontSize: "12px",
-	// 	lineHeight: "140%",
-	// },
-
-	// Pretendard 폰트 - 가독성 높은 폰트
-	// HEAD_0: {
-	// 	fontFamily: "Pretendard",
-	// 	fontWeight: "bold",
-	// 	fontSize: "60px",
-	// 	lineHeight: "80px",
-	// },
+	
 	H1_B_60: {
 		fontFamily: "Pretendard",
 		fontWeight: "700",
@@ -170,15 +122,6 @@ export const typography = {
 		lineHeight: "15px",
 	},
 };
- 
-/* 예시 사용법
-export const Title_4 = styled.div`
-  display: flex;
-  background-color: ${tokens.colors.Blue_3};
-  ${tokens.typography.Title_4}
-  
-`;
-*/
 
 export const Btns = {
 	Btn_fill_certi_disable: {

@@ -101,10 +101,16 @@ export default function MakingApplication() {
         const temp = updatedQuestions[sourceIndex];
         updatedQuestions[sourceIndex] = updatedQuestions[targetIndex];
         updatedQuestions[targetIndex] = temp;
+
+        // 순서 변경에 따라 sequence 업데이트
+        updatedQuestions.forEach((question, index) => {
+            question.sequence = index + 1;
+        }); 
+
         setQuestions(updatedQuestions.map((question, i) => ({ ...question, text: `문항 ${i + 1}` })));
     }
 
-    const TypeSelection = ({ index }) => { //어떤 종류의 질문인지 정하고 그 종류에 맞는 Question 배열을 초기화하는 함수
+    const TypeSelection = ({ index, sequenceByIndex }) => { //어떤 종류의 질문인지 정하고 그 종류에 맞는 Question 배열을 초기화하는 함수
         const handleTypeSelection = (selectedType) => {
             const updatedQuestions = [...questions];
             let newQuestion = {};
@@ -113,7 +119,8 @@ export default function MakingApplication() {
                 newQuestion = {
                     type: selectedType,
                     textQuestion: '',
-                    isRequired_Text: false
+                    isRequired_Text: false,
+                    sequence: sequenceByIndex
                 };
             } else if (selectedType === "객관식-단일") {
                 newQuestion = {
@@ -121,6 +128,7 @@ export default function MakingApplication() {
                     selectQuestion: '',
                     isRequired_Select: false,
                     isMultiselect: false,
+                    sequence: sequenceByIndex,
                     howManyFields: 0,
                     stringFields: []
                 };
@@ -130,6 +138,7 @@ export default function MakingApplication() {
                     selectQuestion: '',
                     isRequired_Select: false,
                     isMultiselect: true,
+                    sequence: sequenceByIndex,
                     howManyFields: 0,
                     stringFields: []
                 };
@@ -210,7 +219,8 @@ export default function MakingApplication() {
             if (question.type === '주관식') {
                 createTextQuestionRequestList.push({
                     question: question.textQuestion,
-                    isRequired: question.isRequired_Text
+                    isRequired: question.isRequired_Text,
+                    sequence: question.sequence
                 });
             } else if (question.type === '객관식-단일' || question.type === '객관식-복수') {
                 const createFieldRequestList = question.stringFields.map(value => ({ context: value }));
@@ -218,6 +228,7 @@ export default function MakingApplication() {
                     question: question.selectQuestion,
                     isRequired: question.isRequired_Select,
                     isMultiSelect: question.isMultiselect,
+                    sequence: question.sequence,
                     createFieldRequestList: createFieldRequestList
                 });
             }
@@ -260,7 +271,7 @@ export default function MakingApplication() {
                     <TitleContainer>문항 {index + 1}</TitleContainer>
                     <ContentContainer>
                         <TypeContainer>
-                            <TypeSelection index={index} />
+                            <TypeSelection index={index} sequenceByIndex={index + 1} />
                             {question.type === '주관식' ? (
                                 <TextQuestionContainer>
                                     <input type='text' placeholder='질문을 작성해주세요-주관식-' value={question.textQuestion} onChange={(e) => onChangeTextQuestion(index, e)} />

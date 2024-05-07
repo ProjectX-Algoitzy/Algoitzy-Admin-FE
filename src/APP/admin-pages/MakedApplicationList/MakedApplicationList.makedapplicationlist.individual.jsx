@@ -1,53 +1,76 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import * as itemS from "../../admin-pages/MakedApplicationList/Styled/MakedApplicationList.makedapplicationlist.individual.styles";
+import MakeModal from './MakedApplicationList.modal';
 
 export default function MakedApplicationListIndividual({ application }){
+
+	const navigate = useNavigate();
+
+	// 모달 상태 관리
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+	// 모달 열기
+	const openModal = () => {
+		setIsModalOpen(true);
+	};
+
+	// 모달 닫기
+	const closeModal = () => {
+		setIsModalOpen(false);
+	}
+
+	const moveToDetail = (id) => { // 보기 추가 함수
+		navigate(`/makedapplicationdetail/${id}`);
+	}
+
   return (
     
-        <itemS.InnerContainer key={application.applicationId}>
-          {/* <Link to={`/makedapplicationdetail/${application.applicationId}`}>
-            applicationId: {application.applicationId}
-          </Link> */}
-					<itemS.TopContainer>
-						<itemS.Top>
-							<itemS.TopInner>
-								<itemS.SM12default>제작일</itemS.SM12default>
-								<itemS.B3M14TOP>{application.createdTime}</itemS.B3M14TOP>
-							</itemS.TopInner>
-							<itemS.TopInner>
-								<itemS.SM12default>:::</itemS.SM12default>
-							</itemS.TopInner>
-						</itemS.Top>
-						<itemS.Top>
-							<itemS.TopInner>
-								<itemS.SM12default>제작자</itemS.SM12default>
-								<itemS.B3M14TOP>00 {application.createdName}</itemS.B3M14TOP>
-							</itemS.TopInner>
-						</itemS.Top>
-					</itemS.TopContainer>
+		<itemS.InnerContainer key={application.applicationId}>
+			<itemS.TopContainer>
+				<itemS.Top>
+					<itemS.TopInner>
+						<itemS.TopText>제작일</itemS.TopText>
+						<itemS.CreatedText>{application.createdTime}</itemS.CreatedText>
+					</itemS.TopInner>
+					<itemS.TopInner>
+						<itemS.KeyIcon onClick={openModal}></itemS.KeyIcon>
+					</itemS.TopInner>
+				</itemS.Top>
+				<itemS.Top>
+					<itemS.TopInner>
+						<itemS.TopText>제작자</itemS.TopText>
+						<itemS.createdContainer>
+							<itemS.Img></itemS.Img>
+							<itemS.CreatedText>{application.createdName}</itemS.CreatedText>
+						</itemS.createdContainer>
+					</itemS.TopInner>
+				</itemS.Top>
+				{/* 모달창 */}
+				<MakeModal isOpen={isModalOpen} onClose={closeModal} />
+			</itemS.TopContainer>
 
-					<itemS.BottomContainer>
-						<itemS.Bottom>
-							<itemS.T3B24>{application.title}</itemS.T3B24>
-						</itemS.Bottom>
-						<itemS.Bottom>
-							<itemS.T5SB16>{application.studyName}</itemS.T5SB16>
-						</itemS.Bottom>
-						<itemS.Bottom>
-							<itemS.BottomInner>	
-								<itemS.SM12>최종 수정</itemS.SM12>
-								<itemS.B3M14>{application.updatedTime}</itemS.B3M14>
-							</itemS.BottomInner>
-							<itemS.BottomInner>
-								<itemS.B3M14>00</itemS.B3M14>
-								<itemS.B3M14>{application.updatedName}</itemS.B3M14>
-							</itemS.BottomInner>
-						</itemS.Bottom>
-					</itemS.BottomContainer>
+			<itemS.BottomContainer>
+				<itemS.Bottom>
+					<itemS.Title onClick={() => moveToDetail(application.applicationId)}>{application.title}</itemS.Title>
+				</itemS.Bottom>
+				<itemS.Bottom>
+					<itemS.StudyName>{application.studyName}</itemS.StudyName>
+				</itemS.Bottom>
+				<itemS.Bottom>
+					<itemS.BottomInner>	
+						<itemS.BottomText>최종 수정</itemS.BottomText>
+						<itemS.UpdatedText>{application.updatedTime}</itemS.UpdatedText>
+					</itemS.BottomInner>
+					<itemS.BottomInner>
+						<itemS.Img></itemS.Img>
+						<itemS.UpdatedText>{application.updatedName}</itemS.UpdatedText>
+					</itemS.BottomInner>
+				</itemS.Bottom>
+			</itemS.BottomContainer>
 
-        </itemS.InnerContainer>
-      )
+		</itemS.InnerContainer>
+	)
     
 };
 

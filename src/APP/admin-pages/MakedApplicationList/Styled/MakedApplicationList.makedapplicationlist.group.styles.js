@@ -4,7 +4,6 @@ import * as tokens from "../../../../tokens"
 export const Container = styled.div`
 
 `;
-// Btn_fill_certi_disable
 export const Head = styled.div`
   ${tokens.typography.T1_SB_32};
   margin-bottom: 24px;
@@ -36,17 +35,27 @@ export const ApplicationText = styled.div`
     cursor: pointer; 
   `;
 
+// export const Group = styled.div`
+//   display: flex;
+//   flex-direction: row;
+//   align-items: center; 
+//   justify-content: center; 
+//   background-color: ${tokens.colors.White};
+//   width: 1200px;
+//   border-top: 1px solid ${tokens.colors.Grey_4};
+//   margin-top:20px;
+// `;
+
 export const Group = styled.div`
   display: flex;
-  flex-direction: row;
-  align-items: center; 
-  justify-content: center; 
+  flex-wrap: wrap;
+  // justify-content: space-between;
+  align-items: flex-start; 
   background-color: ${tokens.colors.White};
-  width: 1200px;
+  width: 1220px;
   border-top: 1px solid ${tokens.colors.Grey_4};
   margin-top:20px;
 `;
-
 
 
 

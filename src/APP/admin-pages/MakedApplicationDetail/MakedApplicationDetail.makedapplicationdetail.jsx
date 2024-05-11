@@ -43,6 +43,7 @@ export default function MakedApplicationDetail() {
             <h2>Title: {detail.title}</h2>
             <p>Generation: {detail.generation}</p>
             <p>Study Name: {detail.studyName}</p>
+            <p>title: {detail.title}</p>
             <h3>Questions:</h3>
             <ul>
                 {allQuestions.map(question => (

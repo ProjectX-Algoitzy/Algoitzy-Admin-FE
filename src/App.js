@@ -23,7 +23,7 @@ function App() {
           <Route path="/viewapplicationlist" element={<ViewApplicationList />} />
           <Route path="/viewapplicationlist/:id" element={<ViewApplicationDetail />} />
         </Routes>
-        <Footer />
+        {/* <Footer /> */} {/* figma에 보니 admin은 푸터가 없었기에 일단 임시로 주석처리를 했다 */}
       </BrowserRouter>
     </div>
   );

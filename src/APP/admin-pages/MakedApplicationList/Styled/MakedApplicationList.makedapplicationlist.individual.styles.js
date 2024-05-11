@@ -10,7 +10,7 @@ export const InnerContainer = styled.div`
   height: 360px;
   background-color: ${tokens.colors.White};
   // border: 1px solid ${tokens.colors.Grey_4};
-  border-radius: 8px;;
+  border-radius: 8px;
   margin: 44px 10px;
 	box-shadow: rgba(58, 107, 135, 0.08) 0px 4px 10px 4px;
 	
@@ -23,7 +23,7 @@ export const TopContainer = styled.div`
 	position: relative;
 	width: 285px;
   height: 210px;
-	border-radius: 8px; 8px; 0px 0px;
+	border-radius: 8px 8px 0px 0px;
 	// background: ${tokens.colors.G_Blue_3};
 	background-color: #99B8C5;
 `;
@@ -66,7 +66,7 @@ export const BottomContainer = styled.div`
 	flex-direction: column; 
 	width: 285px;
 	height: 150px;
-	border-radius: 0px 0px 8px; 8px;;
+	border-radius: 0px 0px 8px 8px;
 `;
 
 export const Bottom = styled.div`

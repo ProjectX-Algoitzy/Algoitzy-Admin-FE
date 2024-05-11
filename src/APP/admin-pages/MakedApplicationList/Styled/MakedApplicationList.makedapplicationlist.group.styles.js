@@ -4,20 +4,18 @@ import * as tokens from "../../../../tokens"
 export const Container = styled.div`
 
 `;
-export const Head = styled.div`
-  ${tokens.typography.T1_SB_32};
-  margin-bottom: 24px;
-`;
 
+// export const Head = styled.div`
+//   ${tokens.typography.T1_SB_32};
+//   margin-bottom: 24px;
+// `;
 
 export const TxtBtnBox = styled.div`
   display: flex;
   // flex-direction: column-reverse;
   flex-direction: row;
   justify-content: space-between; 
-  
   ${tokens.typography.T1_SB_32};
-  
 `;
 
 export const ApplicationText = styled.div`
@@ -25,15 +23,15 @@ export const ApplicationText = styled.div`
   ${tokens.typography.T3_B_24};
   `;
   
-  export const BtnMakeApp = styled.button`
-    width: 190px;
-    height: 47px;
-    background: #00A5FF; 
-    color: white;
-    border-radius: 5px; 
-    border: none; 
-    cursor: pointer; 
-  `;
+export const BtnMakeApp = styled.button`
+  width: 190px;
+  height: 47px;
+  background: #00A5FF; 
+  color: white;
+  border-radius: 5px; 
+  border: none; 
+  cursor: pointer; 
+`;
 
 // export const Group = styled.div`
 //   display: flex;

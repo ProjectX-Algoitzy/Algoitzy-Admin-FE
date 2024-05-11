@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import * as itemS from "../../admin-pages/MakedApplicationList/Styled/MakedApplicationList.makedapplicationlist.individual.styles";
 import MakeModal from './MakedApplicationList.modal';
 
-export default function MakedApplicationListIndividual({ application }){
+export default function MakedApplicationListIndividual({ application, setCntApp }){
 
 	const navigate = useNavigate();
 
@@ -47,7 +47,7 @@ export default function MakedApplicationListIndividual({ application }){
 					</itemS.TopInner>
 				</itemS.Top>
 				{/* 모달창 */}
-				<MakeModal isOpen={isModalOpen} onClose={closeModal} />
+				<MakeModal applicationId={application.applicationId} isOpen={isModalOpen} onClose={closeModal} setCntApp={setCntApp} />
 			</itemS.TopContainer>
 
 			<itemS.BottomContainer>

@@ -65,39 +65,6 @@ export default function MakedApplicationDetail() {
                 ))}
             </ul>
             </div>
-            // <div>
-            //     <h2>Title: {detail.title}</h2>
-            //     <p>Generation: {detail.generation}</p>
-            //     <p>Study Name: {detail.studyName}</p>
-            //     <h3>Select Questions:</h3>
-            //     <ul>
-            //         {detail.selectQuestionList.map(question => (
-            //             <li key={question.selectQuestionId}>
-            //                 <p>Question: {question.question}</p>
-            //                 <p>sequence: {question.sequence}</p>
-            //                 <p>Multi Select: {question.multiSelect ? 'Yes' : 'No'}</p>
-            //                 <p>Required: {question.required ? 'Yes' : 'No'}</p>
-            //                 <ul>
-            //                     {question.fieldList.map(field => (
-            //                         <li key={field.fieldId}>
-            //                             <p>Field Context: {field.context}</p>
-            //                         </li>
-            //                     ))}
-            //                 </ul>
-            //             </li>
-            //         ))}
-            //     </ul>
-            //     <h3>Text Questions:</h3>
-            //     <ul>
-            //         {detail.textQuestionList.map(question => (
-            //             <li key={question.textQuestionId}>
-            //                 <p>Question: {question.question}</p>
-            //                 <p>sequence: {question.sequence}</p>
-            //                 <p>Required: {question.required ? 'Yes' : 'No'}</p>
-            //             </li>
-            //         ))}
-            //     </ul>
-            // </div>
         )}
     </div>
   )

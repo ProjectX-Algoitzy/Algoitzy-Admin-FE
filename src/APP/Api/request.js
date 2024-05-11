@@ -7,7 +7,7 @@ export const REFRESH_TOKEN = 'refreshToken';
 // Authorization 에 토큰 자동으로 들어가도록 설정하였습니다.
 const request = axios.create({
   //baseURL: 'http://3.39.20.129:8181',
-  baseURL: 'https://admin-dev.kau-koala.com',
+  baseURL: 'https://admin-dev.kau-koala.com', //변경된 url입니다
   headers: {
     withCredentials: true,
     transformRequest: true,

@@ -2,17 +2,27 @@ import React, { useState } from 'react'
 import * as items from './Styled/MakingApplication.makingapplication.styles'
 import request from '../../Api/request';
 import { useNavigate } from 'react-router-dom';
-import Select from 'react-select';
+import Select, { components } from 'react-select';
 
 export default function MakingApplication() { 
     //지원저 제작을 담당하는 페이지입니다. 로그인화면이 구현됨에 따라 accesstoken을 따로 받아올 수 있돌고 처리하겠습니다
     const [title, setTitle] = useState('');  // 해당 지원서의 제목을 저장
-    const [questions, setQuestions] = useState([]); //각 문항들을 저장하는 배열
+    const [showImage, setShowImage] = useState(false); // 문항번호 이미지 표시 여부를 관리하는 상태
+
+    const [initialQuestion, setInitialQuestion] = useState({ 
+        type: '객관식-복수',
+        selectQuestion: '가능한 면접 일정을 선택해주세요',
+        isRequired: true,
+        isMultiselect: true,
+        sequence: 1,
+        howManyFields: 0,
+        stringFields: [''] // 여기서는 하나의 보기를 기본으로 가정합니다.
+    }); 
+    const [questions, setQuestions] = useState([initialQuestion]); //각 문항들을 저장하는 배열
     const navigate = useNavigate();
 
     const StudySelect =  ({ value, onChange }) => {  //어떤 스터디인지 react-select를 통해 선택
         const options = [
-            {value: "", label:"스터디 선택"},
             {value: "코딩테스트 대비반", label:"코딩테스트 대비반"},
             {value: "코딩테스트 기초반", label:"코딩테스트 기초반"},
             {value: "CS면접대비", label:"CS면접대비"}
@@ -28,7 +38,15 @@ export default function MakingApplication() {
     } 
     
     const addQuestion = () => { // 문항 추가
-        setQuestions([...questions, {type: ''}]);
+        setQuestions([...questions, { 
+            type: '객관식-단일', // 새로운 문항의 타입을 '객관식-단일'로 설정
+            selectQuestion: '', // 초기값 설정 가능한 필드들은 모두 초기화
+            isRequired: false,
+            isMultiselect: false,
+            sequence: questions.length + 1, // 새로운 문항의 순서 설정
+            howManyFields: 0,
+            stringFields: ['']
+        }]);
     }
 
     const removeQuestion = (index) => { //문항 제거
@@ -60,62 +78,11 @@ export default function MakingApplication() {
         setQuestions(updatedQuestions.map((question, i) => ({ ...question, text: `문항 ${i + 1}` })));
     }
 
-    // const TypeSelection = ({ index, sequenceByIndex }) => { //어떤 종류의 질문인지 정하고 그 종류에 맞는 Question 배열을 초기화하는 함수
-    //     const handleTypeSelection = (selectedType) => {
-    //         const updatedQuestions = [...questions];
-    //         let newQuestion = {};
-    
-    //         if (selectedType === "주관식") {
-    //             newQuestion = {
-    //                 type: selectedType,
-    //                 textQuestion: '',
-    //                 isRequired: false,
-    //                 sequence: sequenceByIndex
-    //             };
-    //         } else if (selectedType === "객관식-단일") {
-    //             newQuestion = {
-    //                 type: selectedType,
-    //                 selectQuestion: '',
-    //                 isRequired: false,
-    //                 isMultiselect: false,
-    //                 sequence: sequenceByIndex,
-    //                 howManyFields: 0,
-    //                 stringFields: []
-    //             };
-    //         } else if (selectedType === '객관식-복수') {
-    //             newQuestion = {
-    //                 type: selectedType,
-    //                 selectQuestion: '',
-    //                 isRequired: false,
-    //                 isMultiselect: true,
-    //                 sequence: sequenceByIndex,
-    //                 howManyFields: 0,
-    //                 stringFields: []
-    //             };
-    //         }
-    
-    //         updatedQuestions[index] = newQuestion;
-    //         setQuestions(updatedQuestions);
-    //     };
+    const handleContainerClick = () => {
+        setShowImage(!showImage); // 이미지 표시 상태를 토글
+    };
 
-    //     const options = [
-    //         { value: '', label: '질문 유형 선택' },
-    //         { value: '객관식-단일', label: '객관식 질문 (단일 응답)' },
-    //         { value: '객관식-복수', label: '객관식 질문 (복수 응답)' },
-    //         { value: '주관식', label: '주관식 질문' }
-    //     ];
-    
-    //     return (
-    //         <select value={questions[index]?.type} onChange={(e) => handleTypeSelection(e.target.value)}>
-    //             <option value="">질문 유형 선택</option>
-    //             <option value="주관식">주관식 질문</option>
-    //             <option value="객관식-단일">객관식 질문 (단일 응답) </option>
-    //             <option value="객관식-복수">객관식 질문 (복수 응답) </option>
-    //         </select>
-    //     );
-    // };
-
-    const TypeSelection = ({ index, sequenceByIndex }) => {
+    const TypeSelection = ({ index, sequenceByIndex }) => { //어떤 종류의 질문인지 정하고 그 종류에 맞는 Question 배열을 초기화하는 함수
         const handleTypeSelection = (selectedOption) => {
             const selectedType = selectedOption.value;
             const updatedQuestions = [...questions];
@@ -136,7 +103,7 @@ export default function MakingApplication() {
                     isMultiselect: false,
                     sequence: sequenceByIndex,
                     howManyFields: 0,
-                    stringFields: []
+                    stringFields: [''] //기본적으로 하나는 있음
                 };
             } else if (selectedType === '객관식-복수') {
                 newQuestion = {
@@ -146,7 +113,7 @@ export default function MakingApplication() {
                     isMultiselect: true,
                     sequence: sequenceByIndex,
                     howManyFields: 0,
-                    stringFields: []
+                    stringFields: [''] //기본적으로 하나는 있음
                 };
             }
     
@@ -159,13 +126,73 @@ export default function MakingApplication() {
             { value: '객관식-복수', label: '객관식 질문 (복수 응답)' },
             { value: '주관식', label: '주관식 질문' }
         ];
-    
+
+        const CustomValueContainer = ({ children, ...props }) => {
+            // 현재 선택된 옵션을 찾음
+            const selectedOption = props.getValue()[0];
+          
+            // 선택된 옵션의 이미지 경로 설정
+            let iconSrc;
+            switch (selectedOption.value) {
+              case '주관식':
+                iconSrc = "/img/icontext.png";
+                break;
+              case '객관식-단일':
+                iconSrc = "/img/icondoublecircle.png";
+                break;
+              case '객관식-복수':
+                iconSrc = "/img/icondoublesquare.png";
+                break;
+              default:
+                iconSrc = null;
+            }   
+            return (
+              <components.ValueContainer {...props} className="custom-option">
+                {iconSrc && <img src={iconSrc} alt={selectedOption.value} className="custom-option-icon" />}
+                <span className="custom-option-label">{children}</span>
+              </components.ValueContainer>
+            );
+        };
+
+        const CustomOption = (props) => {
+            let iconSrc;
+            switch (props.value) {
+              case '주관식':
+                iconSrc = "/img/icontext.png";
+                break;
+              case '객관식-단일':
+                iconSrc = "/img/icondoublecircle.png";
+                break;
+              case '객관식-복수':
+                iconSrc = "/img/icondoublesquare.png";
+                break;
+              default:
+                iconSrc = null;
+            }
+        
+            return (
+              <components.Option {...props} className="custom-option">
+                {iconSrc && <img src={iconSrc} alt={props.value} className="custom-option-icon" />}
+                <span className="custom-option-label">{props.label}</span>
+              </components.Option>
+            );
+        };
+
+        const CustomDropdownIndicator = props => {  //주관식인지 객관식인지 판별하는 과정에서 역삼각형을 꾸며주는 컴포넌트
+            return (
+              <components.DropdownIndicator {...props}>
+                <img src="/img/icontriangle.png" alt="triangle-icon" style={{width: "24px", height: "24px"}} />
+              </components.DropdownIndicator>
+            );
+        };
+        
         return (
             <items.TypeSelectContainer 
                 options={options} 
                 value={options.find(option => option.value === questions[index]?.type)}
                 onChange={handleTypeSelection} 
-                placeholder="질문 유형 선택"
+                // components={{Option: CustomOption}}
+                components={{ Option: CustomOption, ValueContainer: CustomValueContainer, DropdownIndicator: CustomDropdownIndicator }}
             />
         );
     };
@@ -181,17 +208,6 @@ export default function MakingApplication() {
         updatedQuestions[index].selectQuestion = e.target.value;
         setQuestions(updatedQuestions);
     }
-
-    // const onChangeHowManyFields = (index, e) => {  //객관식 보기의 개수를 담당하는 onChnage함수 
-    //     const count = parseInt(e.target.value);
-    //     const updatedQuestions = [...questions];
-    //     updatedQuestions[index].howManyFields = count;
-
-    //     const fieldsArray = Array.from({ length: count }, () => '');
-    //     updatedQuestions[index].stringFields = fieldsArray;
-
-    //     setQuestions(updatedQuestions);
-    // }
 
     const addStringField = (index) => { // 보기 추가 함수
         const updatedQuestions = [...questions];
@@ -210,12 +226,6 @@ export default function MakingApplication() {
         updatedQuestions[questionIndex].stringFields[fieldIndex] = e.target.value;
         setQuestions(updatedQuestions);
     }
-
-    // const onChangeIsRequired = (index, e) => { //주관식이든 객관식이든 모두 이 함수로 필수대답 여부를 결정한다
-    //     const updatedQuestions = [...questions];
-    //     updatedQuestions[index].isRequired = e.target.checked;
-    //     setQuestions(updatedQuestions);
-    // }
 
     const onChangeIsRequired = (index, value) => { //주관식이든 객관식이든 모두 이 함수로 필수대답 여부를 결정한다
         const updatedQuestions = [...questions];
@@ -297,25 +307,23 @@ export default function MakingApplication() {
 
             {questions.map((question, index) => (
                 <items.InnerContainer key={index} draggable="true" onDragStart={(e) => handleDragStart(e, index)} onDragOver={(e) => handleDragOver(e)} onDrop={(e) => handleDrop(e, index)} >
-                    <items.QuestionNumberContainer>문항 {index + 1}</items.QuestionNumberContainer>
+                    <items.QuestionNumberContainer>
+                        {/* <img src="/img/touchblock.png" alt="터치블록" style={{width:"17.2", height:"10.64px", marginRight:"12px"}} /> */}
+                        <items.QuestionNumberText>문항 {index + 1}</items.QuestionNumberText>
+                    </items.QuestionNumberContainer>
                     <items.ContentContainer>
                         <items.TypeAndQuestionContainer>
                             <TypeSelection index={index} sequenceByIndex={index + 1} />
                             {question.type === '주관식' ? (
                                 <items.TextQuestionContainer>
                                     <items.QuestionContainer type='text' placeholder='질문을 작성해주세요' value={question.textQuestion} onChange={(e) => onChangeTextQuestion(index, e)} />
-                                    {/* <div>필수설정<input type="checkbox" checked={question.isRequired} onChange={(e) => onChangeIsRequired(index, e)}/></div>
-                                    <button onClick={() => removeQuestion(index)}>문항 삭제</button> */}
                                 </items.TextQuestionContainer>
                             ) : question.type === '객관식-단일' || question.type === '객관식-복수' ? (
                                 <items.SelectionQuestionContainer>
                                     <items.QuestionContainer type='text' placeholder='질문을 작성해주세요' value={question.selectQuestion} onChange={(e) => onChangeSelectQuestion(index, e)} />
-                                    {/* <div>답변개수<input type='number' value={question.howManyFields} onChange={(e) => onChangeHowManyFields(index, e)} /></div> */}
                                     
                                     {question.stringFields.map((value, fieldIndex) => (
                                         <div key={fieldIndex}>
-                                            {/* <input type='text' value={value} onChange={(e) => onChangeStringField(index, fieldIndex, e)} /> */}
-                                            {/* <button onClick={() => removeStringField(index, fieldIndex)}>-</button> */}
                                             {question.type === '객관식-단일' ? (
                                                 <img src="/img/iconcircle.png" alt="단일응답" style={{width:"20px", height:"20px"}} />
                                             ) : question.type === '객관식-복수' ? (
@@ -325,7 +333,6 @@ export default function MakingApplication() {
                                             <img onClick={() => removeStringField(index, fieldIndex)} src="/img/iconx.png" alt="x표시" style={{width:"24px", height:"24px"}} />
                                         </div>
                                     ))}
-                                    {/* <button onClick={() => addStringField(index)}>+</button> */}
                                     <div style={{ display: 'flex', alignItems: 'center' }}>
                                         {question.type === '객관식-단일' ? (
                                             <img src="/img/iconcircle.png" alt="단일응답" style={{ width: "20px", height: "20px", marginRight: "5px" }} />
@@ -334,8 +341,6 @@ export default function MakingApplication() {
                                         ) : null}
                                         <div onClick={() => addStringField(index)} style={{ display: "inline", paddingLeft:"12px" }}>옵션 추가 또는 '기타' 추가</div>
                                     </div>
-                                    {/* <div>필수설정<input type="checkbox" checked={question.isRequired} onChange={(e) => onChangeIsRequired(index, e)}/></div>
-                                    <button onClick={() => removeQuestion(index)}>문항 삭제</button> */}
                                 </items.SelectionQuestionContainer>
                             ) : (
                                 <div>어느 타입인지 선택해주세요.</div>
@@ -345,10 +350,8 @@ export default function MakingApplication() {
                         <items.RequiredAndDeleteContainer>
                             <items.RequiredContainer>
                                 <div style={{marginRight:"17px"}}>필수&nbsp;설정</div>
-                                {/* <input type="checkbox" checked={question.isRequired} onChange={(e) => onChangeIsRequired(index, e)}/> */}
                                 <RoundedSwitch onChange={(value) => onChangeIsRequired(index, value)} checked={question.isRequired} />
                             </items.RequiredContainer>
-                            {/* <button onClick={() => removeQuestion(index)}>문항 삭제</button> */}
                             <img onClick={() => removeQuestion(index)} src="/img/trashcan.png" alt="쓰레기통" style={{width:"24px", height:"24px"}} />
                         </items.RequiredAndDeleteContainer> 
                     </items.ContentContainer>

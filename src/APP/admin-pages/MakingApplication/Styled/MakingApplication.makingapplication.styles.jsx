@@ -1,11 +1,12 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import * as tokens from "../../../../tokens";
-import Select from 'react-select';
+import Select, { components } from 'react-select';
 
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center; 
+  background-image: url('/img/makingapplication.png');
   //background-image: url('/img/be1950356c5de7b24020c9c388af7e10 1.png');
 `;
 
@@ -80,17 +81,19 @@ export const StudySelectContainer = styled(Select).attrs({
     color: ${tokens.colors.Grey_8};
     ${tokens.typography.B3_M_14};
     border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
-  .react-select__menu {
+  .react-select__menu {  //클릭 시 나오는 select 박스 틀
     margin-left: 32px;
     width: 210px;
-    height: 48px;
+    height: 110px;
     border-radius: 4px;
     border: none; /* 드롭다운 메뉴 경계선 제거 */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     font-weight: 600;
     text-align: center;
-    border: none;
   }
   .react-select__option {
     color: ${tokens.colors.Grey_8};
@@ -121,8 +124,10 @@ export const StudySelectContainer = styled(Select).attrs({
 
 export const QuestionNumberContainer = styled.div`  //문항1, 문항2 같은 문항 숫자를 위한 콘테이너
   display: flex;
-  flex-direction: column;
-  width: 52px;
+  flex-direction: row;
+  /* width: 93px;
+  height: 40px; */
+  width: 66px;
   height: 37px;
   background: #3083F7; 
   color: white;
@@ -133,17 +138,21 @@ export const QuestionNumberContainer = styled.div`  //문항1, 문항2 같은 �
   ${tokens.typography.T5_SB_16};
 `;
 
+export const QuestionNumberText = styled.div`
+  ${tokens.typography.T5_SB_16};
+`;
+
 export const ContentContainer = styled.div` //하나의 질문 전체를 담아주는 컨테이너
   display: flex;
   flex-direction: column;
   //align-items: center; 
   background-color: ${tokens.colors.White};
-  border: 1px solid ${tokens.colors.White};
   border-top: 8px solid #3083F7;
   border-radius: 4px;
   padding: 40px 31px 8px 24px;
   height: auto;
   width: 793px;
+  box-shadow: 0px 2px 3px 2px #D6DaF0;
   //width: 92%;
 `;
 
@@ -152,6 +161,10 @@ export const TypeAndQuestionContainer = styled.div` //주관식인지 객관식�
   flex-direction: row-reverse;
   /* border: 2px solid red; */
   justify-content: space-between;
+   /* 조건부 스타일링 
+   //${({ isSelection }) => isSelection && css`
+    margin-bottom: 40px; 
+  `} */
 `;
 
 export const TypeSelectContainer = styled(Select).attrs({  //주관식인지 객관식인지 판별하는 부분
@@ -163,22 +176,21 @@ export const TypeSelectContainer = styled(Select).attrs({  //주관식인지 객
   border: none;
   border-radius: 4px;
   border: 1px solid ${tokens.colors.B_Grey_5};
-  text-align: center;
 }
 .react-select__single-value {
   color: ${tokens.colors.Grey_8};
   ${tokens.typography.B3_M_14};
   border: none;
+  display: flex;
+  
 }
-.react-select__menu {
+.react-select__menu { //클릭시 나오는 select box틀
   width: 246px;
-  height: 56px;
+  height: 130px;
   border-radius: 4px;
-  border: none; /* 드롭다운 메뉴 경계선 제거 */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   font-weight: 600;
-  text-align: center;
-  border: none;
+  display: flex;
 }
 .react-select__option {
   color: ${tokens.colors.Grey_8};
@@ -199,6 +211,23 @@ export const TypeSelectContainer = styled(Select).attrs({  //주관식인지 객
   font-weight: 600;
   border: none;
 }  
+.custom-option {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custom-option-icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 5px; /* 이미지와 라벨 사이의 간격 조정 */
+}
+
+.custom-option-label {
+  flex-grow: 1; /* 라벨이 가능한 최대 공간을 차지하도록 함 */
+  align-items: center;
+  justify-content: center;
+}
 `;
 
 export const TextQuestionContainer = styled.div` // 주관식 문항을 위한 컨테이너
@@ -301,26 +330,22 @@ export const BtnContainer = styled.div`
   justify-content: space-evenly;
   width: 100%;
   height: 96px;
-  border: 1px solid red;
 
   position: fixed;
-    bottom: 0; /* 아래쪽으로 고정 */
-    left: 0; /* 왼쪽으로 고정 */
-    width: 100%; /* 가로폭을 화면 전체로 확장 */
-    background-color: white; /* 배경색을 설정 */
-    z-index: 1000; /* 다른 요소 위에 표시되도록 z-index 설정 */
-    /* 필요에 따라 추가적인 스타일을 지정할 수 있습니다. */
+  bottom: 0; /* 아래쪽으로 고정 */
+  left: 0; /* 왼쪽으로 고정 */
+  width: 100%; /* 가로폭을 화면 전체로 확장 */
+  background-color: rgba(102, 201, 255, 0.2); /* 색상 코드를 rgba 형식으로 변경하고, 투명도를 20%로 설정 */
+  backdrop-filter: blur(8px); /* 필터를 원하는 것으로 설정 */
+  backdrop-filter: 20%;
+  z-index: 1000; /* 다른 요소 위에 표시되도록 z-index 설정 */
 `;
 
 export const Btn = styled.button` // 저장하기 버튼
-	/* width: "388px";
-	height: "48px";
-	background: ${tokens.colors.Blue_0_Main};
-	color: ${tokens.colors.White};
 	border-radius: "4px";
 	border: "none";
 	cursor: "pointer";
-  ${tokens.typography.T5_SB_16}; */
+  ${tokens.typography.T5_SB_16}; 
   ${tokens.Btns.Btn_fill_default}
 	color: ${tokens.colors.White};
 	${tokens.typography.T4_SB_20}

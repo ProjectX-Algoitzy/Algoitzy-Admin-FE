@@ -42,6 +42,7 @@ export const DropBox = styled.div`
   width: 142px;
   height: 36px;
   margin-bottom: 16px;
+  margin-right: 16px;
 `;
 
 // 탭 컨테이너

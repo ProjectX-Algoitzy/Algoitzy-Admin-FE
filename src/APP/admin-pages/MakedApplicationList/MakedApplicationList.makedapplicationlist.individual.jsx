@@ -24,6 +24,15 @@ export default function MakedApplicationListIndividual({ application, setCntApp 
 		navigate(`/makedapplicationdetail/${id}`);
 	}
 
+	// 스터디 제목 글자수 자르기
+	const truncateStudyName = (name) => {
+		console.log("길이",name.length);
+		if (name.length > 12) {
+			return name.slice(0, 11) + '...';
+		}
+		return name;
+	}
+
   return (
     
 		<itemS.InnerContainer key={application.applicationId}>
@@ -52,7 +61,7 @@ export default function MakedApplicationListIndividual({ application, setCntApp 
 
 			<itemS.BottomContainer>
 				<itemS.Bottom>
-					<itemS.Title onClick={() => moveToDetail(application.applicationId)}>{application.title}</itemS.Title>
+					<itemS.Title onClick={() => moveToDetail(application.applicationId)}>{truncateStudyName(application.title)}</itemS.Title>
 				</itemS.Bottom>
 				<itemS.Bottom>
 					<itemS.StudyName>{application.studyName}</itemS.StudyName>

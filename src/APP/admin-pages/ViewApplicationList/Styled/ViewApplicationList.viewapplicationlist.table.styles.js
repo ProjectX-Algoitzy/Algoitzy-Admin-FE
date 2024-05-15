@@ -62,7 +62,7 @@ export const CategoryDrop = styled.div`
 export const TupleContainer = styled.div`
   display: flex;
   flex-direction: column;
-  height: 495px;
+  height: 611px;
   overflow: auto;
   
   &::-webkit-scrollbar {

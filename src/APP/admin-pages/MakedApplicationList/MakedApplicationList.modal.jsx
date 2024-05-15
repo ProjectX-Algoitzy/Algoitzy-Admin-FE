@@ -15,6 +15,7 @@ const MakeModal = ({ isOpen, onClose, applicationId, setCntApp }) => {
         console.log("삭제 성공", response);
         // 삭제가 성공했을 때 추가적인 작업 수행
         setCntApp(cnt => cnt + 1); 
+        onClose(); // 모달창 닫기
       })
       .catch(error => {
         console.error("삭제 오류", error);
@@ -29,6 +30,7 @@ const MakeModal = ({ isOpen, onClose, applicationId, setCntApp }) => {
         console.log("복사 성공", response);
         // 복사가 성공했을 때 추가적인 작업 수행
         setCntApp(cnt => cnt + 1); 
+        onClose(); // 모달창 닫기
         
       })
       .catch(error => {

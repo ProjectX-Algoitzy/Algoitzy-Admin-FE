@@ -19,7 +19,7 @@ export const TxtBtnBox = styled.div`
 `;
 
 export const ApplicationText = styled.div`
-  padding-top: 23px;
+  padding-top: 55px;
   ${tokens.typography.T3_B_24};
   `;
   
@@ -52,6 +52,7 @@ export const Group = styled.div`
   background-color: ${tokens.colors.White};
   width: 1220px;
   border-top: 1px solid ${tokens.colors.Grey_4};
+  padding-top: 44px;
   margin-top:20px;
 `;
 

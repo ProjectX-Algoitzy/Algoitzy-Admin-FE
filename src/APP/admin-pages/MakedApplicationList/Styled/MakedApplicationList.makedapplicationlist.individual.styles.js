@@ -11,7 +11,7 @@ export const InnerContainer = styled.div`
   background-color: ${tokens.colors.White};
   // border: 1px solid ${tokens.colors.Grey_4};
   border-radius: 8px;
-  margin: 44px 10px;
+  margin: 0px 10px 20px 10px;
 	box-shadow: rgba(58, 107, 135, 0.08) 0px 4px 10px 4px;
 	
 `;

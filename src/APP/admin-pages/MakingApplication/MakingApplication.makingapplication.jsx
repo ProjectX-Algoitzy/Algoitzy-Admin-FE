@@ -17,10 +17,10 @@ export default function MakingApplication() { //지원저 제작을 담당하는
     }); 
     const [questions, setQuestions] = useState([initialQuestion]); //각 문항들을 저장하는 배열
     const [innerContainerClicked, setInnerContainerClicked] = useState(Array(questions.length).fill(false));  // useState(false)하나의 문단 클릭시 색을 변화시키는 용도
+    const [selectedFieldIndex, setSelectedFieldIndex] = useState(null);
     const navigate = useNavigate();
 
     const handleClick = (index) => {    //하나의 문단 클릭했음을 나타내는 함수
-        // setInnerContainerClicked(!innerContainerClicked);
         const updatedClickedState = [...innerContainerClicked];
         updatedClickedState[index] = !updatedClickedState[index]; // 클릭된 문항의 상태를 반전시킴
         setInnerContainerClicked(updatedClickedState);
@@ -351,12 +351,12 @@ export default function MakingApplication() { //지원저 제작을 담당하는
                         ):  question.type === '객관식-단일' || question.type === '객관식-복수' ? (
                             <items.SelectContainer>    
                                 {question.stringFields.map((value, fieldIndex) => (
-                                    <items.OptionsContainer key={fieldIndex}>
-                                        {/* <items.OptionImg src='/img/optionblock.png' alt='옵션블록'  /> */}
+                                    <items.OptionsContainer key={fieldIndex} onClick={() => setSelectedFieldIndex(fieldIndex)}>
+                                        <items.OptionImg src='/img/optionblock.png' alt='옵션블록' style={{ display: selectedFieldIndex === fieldIndex ? 'block' : 'none' }} />
                                         {question.type === '객관식-단일' ? (
-                                            <img src="/img/iconcircle.png" alt="단일응답" style={{width:"20px", height:"20px"}}  />
+                                            <img src="/img/iconcircle.png" alt="단일응답" style={{width:"20px", height:"20px", marginLeft: selectedFieldIndex === fieldIndex ? '0px' : '24px'}}  />
                                         ) : question.type === '객관식-복수' ? (
-                                            <img src="/img/iconsquare.png" alt="복수응답" style={{width:"20px", height:"20px"}} />
+                                            <img src="/img/iconsquare.png" alt="복수응답" style={{width:"20px", height:"20px", marginLeft: selectedFieldIndex === fieldIndex ? '0px' : '24px'}} />
                                         ) : null}
                                         <items.ChoiceForSelectQuestionContainer placeholder='옵션' type='text' value={value} onChange={(e) => onChangeStringField(index, fieldIndex, e)} />
                                         <items.ximg innerContainerClicked={innerContainerClicked[index]} onClick={() => removeStringField(index, fieldIndex)} src="/img/iconx.png" alt="x표시" />
@@ -364,9 +364,9 @@ export default function MakingApplication() { //지원저 제작을 담당하는
                                 ))}
                                 <items.AddOptionContainer innerContainerClicked={innerContainerClicked[index]}>
                                     {question.type === '객관식-단일' ? (
-                                        <img src="/img/iconcircle.png" alt="단일응답" style={{ width: "20px", height: "20px", marginRight: "5px" }} />
+                                        <img src="/img/iconcircle.png" alt="단일응답" style={{ width: "20px", height: "20px", marginRight: "5px", marginLeft: "24px" }} />
                                     ) : question.type === '객관식-복수' ? (
-                                        <img src="/img/iconsquare.png" alt="복수응답" style={{ width: "20px", height: "20px", marginRight: "5px" }} />
+                                        <img src="/img/iconsquare.png" alt="복수응답" style={{ width: "20px", height: "20px", marginRight: "5px", marginLeft: "24px" }} />
                                     ) : null}
                                     <items.AddOptionParagraphContainer onClick={() => addStringField(index)}>
                                         <items.paragraph1>옵션 추가</items.paragraph1>

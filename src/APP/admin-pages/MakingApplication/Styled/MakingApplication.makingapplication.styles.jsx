@@ -374,27 +374,22 @@ export const SelectContainer = styled.div` //객관식 보기 및 추가버튼�
 
 export const OptionsContainer = styled.div` //객관식 보기들과 그 보기 지우기 버튼을 모두 감싸주는 컨테이너
   display: flex;
+  position: relative;
   flex-direction: row;
   width: 100%;
   height: 100%;
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
 `;
 
 export const OptionImg = styled.img` //객관식 보기들을 하나하나 클릭시 나오는 이미지를 위한 스타일드 컴포넌트
-  ${({ innerContainerClicked }) => 
-    innerContainerClicked ? css`
-      display: none;
-    `: css`
-      width: 12px;
-      height: 12px;
-    `
-  }
+  width: 24px;
+  height: 24px;
 `;
 
 export const ChoiceForSelectQuestionContainer = styled.input` // 객관식 문항의 보기input들을 감싸주는 컨테이너
   padding-left: 12px;
-  width: 100%;
+  width: 618px;
   height: 48px;
   border: none;
   ${tokens.typography.B3_M_14};
@@ -416,6 +411,10 @@ export const ximg = styled.img` //객관식에서 보기문항 하나하나를 �
     innerContainerClicked ? css`
         width: 24px;
         height: 24px;
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
     `: css`
         display: none;
   `} 

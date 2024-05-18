@@ -8,10 +8,20 @@ import ViewApplicationList from "./APP/admin-pages/ViewApplicationList/ViewAppli
 import ViewApplicationDetail from "./APP/admin-pages/ViewApplicationDetail/ViewApplicationDetail.viewapplicationdetail"
 import MakedApplicationList from "./APP/admin-pages/MakedApplicationList/MakedApplicationList.makedapplicationlist.main"
 import MakedApplicationDetail from "./APP/admin-pages/MakedApplicationDetail/MakedApplicationDetail.makedapplicationdetail"
+import styled from "styled-components"
+
+const Root = styled.div`
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  width: 100%;
+`;
 
 function App() {
   return (
-    <div className="App">
+    <Root>
       <BrowserRouter>
         <Header />
         <Routes>
@@ -25,7 +35,7 @@ function App() {
         </Routes>
         {/* <Footer /> */} {/* figma에 보니 admin은 푸터가 없었기에 일단 임시로 주석처리를 했다 */}
       </BrowserRouter>
-    </div>
+    </Root>
   );
 }
 

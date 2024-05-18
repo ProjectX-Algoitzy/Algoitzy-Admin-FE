@@ -26,7 +26,9 @@ export default function Login() {
       if (response["isSuccess"]) {
         console.log("로그인 성공!");
         alert("로그인을 성공하셨습니다.");
+        localStorage.setItem("isLoggedIn", "true");  //로그인 유무를 확인하고자 
         navigate("/");
+        window.location.reload(); // 페이지 새로고침 추가
       } else {
         console.error("로그인 실패:", response.data);
       }

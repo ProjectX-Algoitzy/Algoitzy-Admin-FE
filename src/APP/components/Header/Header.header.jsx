@@ -5,6 +5,10 @@ import * as itemS from "./Styled/Header.headr"
 export default function Header() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);  // 로그인 유무를 확인하고자는 하는 useState
   const location = useLocation();
+
+  const isActiveForApplication = location.pathname === '/makedapplicationlist' ||  //지원자 관리와 관련된 페이지의 경우, 해당 링크 글씨색을 바꾸기 위함
+                                  location.pathname === '/makingapplicationform' ||
+                                  /^\/makedapplicationdetail\/[^\/]+$/.test(location.pathname);
   useEffect(() => {
     const checkLoginStatus = async () => {
       if(window.localStorage.getItem("isLoggedIn") === "true") {
@@ -26,7 +30,7 @@ export default function Header() {
           {isLoggedIn ? (
             <itemS.HeaderRightWrap>
                 <itemS.StyledLink to="/makedapplicationlist">
-                  <itemS.PageLink isActive={location.pathname === '/makedapplicationlist' || '/makingapplicationform' || '/makedapplicationdetail/:id'}>
+                  <itemS.PageLink isActive={isActiveForApplication}>
                     지원자 관리
                   </itemS.PageLink>
                 </itemS.StyledLink>

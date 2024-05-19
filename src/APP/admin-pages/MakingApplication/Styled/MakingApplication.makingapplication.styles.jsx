@@ -130,7 +130,7 @@ export const SecondInnerContainer = styled.div` //문항들 하나하나를 감�
   align-items: flex-start;
   gap: 12px;
   margin-top: 24px;
-`
+`;
 
 export const QuestionNumberContainer = styled.div`  //문항1, 문항2 같은 문항 숫자를 위한 콘테이너
   display: flex;

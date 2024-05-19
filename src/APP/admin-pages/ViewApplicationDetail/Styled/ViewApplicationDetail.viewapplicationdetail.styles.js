@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import * as tokens from "../../../../tokens"
 
 export const ModalContainer = styled.div`
@@ -150,36 +150,35 @@ export const BtnContainer = styled.div`
 
 // 불합격 버튼
 export const NonPassBtn = styled.button`
-  // display: flex;
-  // align-items: center;
-  // justify-content: center;
   width: 448px;
   height: 48px;
-  background-color: ${tokens.colors.White};
+  background-color: ${props => (props.isActive ? 'rgba(220, 74, 65, 0.1)' : tokens.colors.White)};
   color: ${tokens.colors.Red};
   border-radius: 4px;
-  border: 1px solid ${tokens.colors.Red};
+  border: ${props => (props.isActive ? '3px solid' : '1px solid')} ${tokens.colors.Red};
   margin-right: 24px;
+
+  &:hover {
+    background-color: rgba(220, 74, 65, 0.1);
+  }
 `;
 
 // 합격 버튼 
 export const PassBtn = styled.button`
-  // display: flex;
-  // align-items: center;
-  // justify-content: center;
   width: 448px;
   height: 48px;
-  background-color: ${tokens.colors.White};
+  background-color: ${props => (props.isActive ? 'rgba(0, 165, 255, 0.1)' : tokens.colors.White)};
   color: ${tokens.colors.Blue_0_Main};
   border-radius: 4px;
-  border: 1px solid ${tokens.colors.Blue_0_Main};
+  border: ${props => (props.isActive ? '3px solid' : '1px solid')} ${tokens.colors.Blue_0_Main};
+
+  &:hover {
+    background-color: rgba(0, 165, 255, 0.1);
+  }
 `;
 
 // 확정하기 버튼 
 export const DecisionBtn = styled.button`
-  // display: flex;
-  // align-items: center;
-  // justify-content: center;
   background-color: ${tokens.colors.B_Grey_7};
   width: 239px;
   height: 56px;

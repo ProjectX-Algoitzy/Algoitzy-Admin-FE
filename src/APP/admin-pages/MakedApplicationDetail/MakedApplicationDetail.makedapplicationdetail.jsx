@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import * as items from './Styled/MakedApplicationDetail.makedapplicationDetail'
 import { useParams } from 'react-router-dom';
 import request from '../../Api/request';
 
@@ -36,36 +37,59 @@ export default function MakedApplicationDetail() {
     allQuestions.sort((a, b) => a.sequence - b.sequence); // sequence로 재정렬
 
   return (
-    <div>
-        <h1>지원서 양식 상세조회</h1>
-        {detail && (
-            <div>
-            <h2>Title: {detail.title}</h2>
-            <p>Generation: {detail.generation}</p>
-            <p>Study Name: {detail.studyName}</p>
-            <p>title: {detail.title}</p>
-            <h3>Questions:</h3>
-            <ul>
-                {allQuestions.map(question => (
-                    <li key={question.sequence}>
-                        <p>sequence: {question.sequence}</p> {/* 몇 번째 문항인지 */}
-                        <p>Question: {question.question}</p> {/* 지원서 질문내용 */}
-                        {question.multiSelect !== undefined && <p>Multi Select: {question.multiSelect ? 'Yes' : 'No'}</p>} {/* 만약 객관식일 경우 복수형인지 단일형인지 알려주는 부분 */}
-                        {question.required !== undefined && <p>Required: {question.required ? 'Yes' : 'No'}</p>} {/* 해당 문항이 필수인지 아닌지 알려주는 부분 */}
-                        {question.fieldList && ( //만약 객관실일 경우 객관식 보기 문항들을 한번에 보여주는 부분
-                            <ul>
+    <items.Container>
+        <items.InnerContainer>
+            <items.ContentForTitleContainer>
+                <items.ApplicationName>KOALA 1기 스터디 지원서</items.ApplicationName>
+                <items.StudySelectContainer>{detail.title}</items.StudySelectContainer>
+            </items.ContentForTitleContainer>
+        </items.InnerContainer>
+
+        {allQuestions.map(question => (
+            <items.SecondInnerContainer key={question.sequence}>
+                <items.ContentContainer>
+                    <items.QuestionAndMultiSelectCheckContainer>
+                        <items.QuestionContainer>
+                            {question.question}
+                            {question.required === true ? (
+                                <items.NecessaryImg src='/img/necessarystar.png' alt='필수'/>
+                            ): (null)} 
+                        </items.QuestionContainer>
+                        {question.multiSelect === true ? (
+                            <items.MultiselectImg src='/img/textmultiselect.png' alt='복수응답'/>
+                        ): (null)}
+                    </items.QuestionAndMultiSelectCheckContainer>
+
+                    <items.SelectAndAnswerContainer>
+                        {question.fieldList ? (
+                            <items.SelectContainer>
                                 {question.fieldList.map(field => (
-                                    <li key={field.fieldId}>
-                                        <p>Field Context: {field.context}</p>
-                                    </li>
+                                    <items.OptionsContainer key={field.fieldId}>
+                                        {question.multiSelect === true ? (
+                                            <img src="/img/iconsquare.png" alt="복수응답" style={{width:"20px", height:"20px"}} />
+                                            // <items.SquareCheckBox type='checkbox' />
+                                        ): (
+                                            <img src="/img/iconcircle.png" alt="단일응답" style={{width:"20px", height:"20px"}} />
+                                            // <items.CircleCheckBox type='checkbox'/>
+                                        )}
+                                        <items.ChoiceForSelectQuestionContainer>{field.context}</items.ChoiceForSelectQuestionContainer>
+                                    </items.OptionsContainer>
                                 ))}
-                            </ul>
-                        )}
-                    </li>
-                ))}
-            </ul>
-            </div>
-        )}
-    </div>
+                            </items.SelectContainer>
+                        ): (
+                            <items.AnswerInputContainer type='text' placeholder='답변을 적어주세요' />
+                        )}  
+                    </items.SelectAndAnswerContainer>
+                </items.ContentContainer>
+            </items.SecondInnerContainer>
+        ))}
+
+        {/* <items.BtnContainer>
+            <items.BtnContainer2>
+                <items.ArbitaryBtn>임시저장</items.ArbitaryBtn>
+                <items.Btn>저장하기</items.Btn>
+            </items.BtnContainer2>
+        </items.BtnContainer> */}
+    </items.Container>
   )
 }

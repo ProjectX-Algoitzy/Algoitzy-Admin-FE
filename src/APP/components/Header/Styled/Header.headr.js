@@ -42,7 +42,7 @@ export const HeaderRightWrap = styled.div` /*헤더의 오른쪽 Wrap...페이�
 `;
 
 export const PageLink = styled.div` /*페이지 이동 버튼*/
-  color: ${(props) => (props.isActive ? 'black' : tokens.colors.B_Grey_6)};
+  color: ${(props) => (props.isActive ? tokens.colors.B_Grey_8 : tokens.colors.B_Grey_6)};
   height: 21px;
   margin-top: 10px;
   margin-right: 46px;

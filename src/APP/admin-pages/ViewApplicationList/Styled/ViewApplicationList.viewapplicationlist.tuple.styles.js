@@ -9,6 +9,7 @@ export const Container = styled.div`
 // 튜플 파트 시작
 export const TupleContainer = styled.div`
   display: flex;
+  // position: relative;
   flex-direction: row;
   justify-content: center;
   align-items: center;

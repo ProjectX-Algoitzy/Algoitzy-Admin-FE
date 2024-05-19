@@ -90,7 +90,7 @@ export const dummyData = [
     "interview_schedule": "-"
   },
   {
-    "id": 1,
+    "id": 11,
     "name": "구교연",
     "grade": 1,
     "department": "소프트웨어 학과",
@@ -99,7 +99,7 @@ export const dummyData = [
     "interview_schedule": "-"
   },
   {
-    "id": 2,
+    "id": 12,
     "name": "구교연",
     "grade": 2,
     "department": "컴퓨터 공학과",
@@ -108,7 +108,7 @@ export const dummyData = [
     "interview_schedule": "4월 5일 10:00"
   },
   {
-    "id": 3,
+    "id": 13,
     "name": "구교연",
     "grade": 3,
     "department": "전기공학과",
@@ -117,7 +117,7 @@ export const dummyData = [
     "interview_schedule": "-"
   },
   {
-    "id": 4,
+    "id": 14,
     "name": "구교연",
     "grade": 4,
     "department": "정보기술학과",
@@ -126,7 +126,7 @@ export const dummyData = [
     "interview_schedule": "-"
   },
   {
-    "id": 5,
+    "id": 15,
     "name": "구교연",
     "grade": 3,
     "department": "컴퓨터 공학과",
@@ -135,7 +135,7 @@ export const dummyData = [
     "interview_schedule": "4월 3일 11:00"
   },
   {
-    "id": 6,
+    "id": 16,
     "name": "구교연",
     "grade": 2,
     "department": "소프트웨어 공학과",
@@ -144,7 +144,7 @@ export const dummyData = [
     "interview_schedule": "-"
   },
   {
-    "id": 7,
+    "id": 17,
     "name": "구교연",
     "grade": 4,
     "department": "컴퓨터 공학과",
@@ -153,7 +153,7 @@ export const dummyData = [
     "interview_schedule": "4월 7일 09:30"
   },
   {
-    "id": 8,
+    "id": 18,
     "name": "구교연",
     "grade": 3,
     "department": "전자공학과",
@@ -162,7 +162,7 @@ export const dummyData = [
     "interview_schedule": "-"
   },
   {
-    "id": 9,
+    "id": 19,
     "name": "구교연",
     "grade": 2,
     "department": "정보 시스템학과",
@@ -171,7 +171,7 @@ export const dummyData = [
     "interview_schedule": "4월 20일 10:30"
   },
   {
-    "id": 10,
+    "id": 20,
     "name": "구교연10",
     "grade": 1,
     "department": "컴퓨터 공학과",

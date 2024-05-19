@@ -9,7 +9,6 @@ export default function Header() {
   const isActiveForApplication = location.pathname === '/makedapplicationlist' ||  //지원자 관리와 관련된 페이지의 경우, 해당 링크 글씨색을 바꾸기 위함
                                   location.pathname === '/makingapplicationform' ||
                                   /^\/makedapplicationdetail\/[^\/]+$/.test(location.pathname);
-
   useEffect(() => {
     const checkLoginStatus = async () => {
       if(window.localStorage.getItem("isLoggedIn") === "true") {

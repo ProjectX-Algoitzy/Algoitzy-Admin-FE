@@ -3,6 +3,7 @@ import * as tokens from "../../../../tokens"
 
 
 export const OuterContainer = styled.div`
+  position: relative;
   width: 100%;
 `;
 

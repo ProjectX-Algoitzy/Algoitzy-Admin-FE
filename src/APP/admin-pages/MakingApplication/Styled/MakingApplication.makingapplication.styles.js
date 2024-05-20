@@ -5,8 +5,9 @@ import Select, { components } from 'react-select';
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  align-items : center;
-  //background-image: url('/img/makingapplication.png');
+  margin-top: 161px;
+  /* align-items : center; */
+  /* background-image: url('/img/makingapplication.png'); */
 `;
 
 export const InnerContainer = styled.div`
@@ -15,6 +16,16 @@ export const InnerContainer = styled.div`
   align-items: flex-start;
   gap: 12px;
   margin-top: 100px;
+  margin-left: 500px;
+`;
+
+export const SecondInnerContainer = styled.div` /*문항들 하나하나를 감싸주는 컨테이너*/
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 12px;
+  margin-top: 24px;
+  margin-left: 453px;
 `;
 
 export const TitleContainer = styled.div`
@@ -48,11 +59,11 @@ export const ApplicationName = styled.div`
   display: flex;
   flex-direction: column;
   ${tokens.typography.H2_SB_48};
-  //align-items: center; 
-  margin-left: 32px;
+  /*align-items: center;*/ 
+  /* margin-left: 32px; */
   justify-content: center; 
   background-color: ${tokens.colors.White};
-  margin-top: 44px;
+  /* margin-top: 44px; */
   width: 745px;
   padding-bottom: 16px;
   border-bottom: 2px solid ${tokens.colors.Black};
@@ -61,9 +72,9 @@ export const ApplicationName = styled.div`
 export const StudySelectContainer = styled(Select).attrs({
     classNamePrefix: 'react-select',
 })`
-  .react-select__control { //선택 상자의 컨트롤 부분을 스타일링
+  .react-select__control { /*선택 상자의 컨트롤 부분을 스타일링*/
     margin-top: 32px;
-    margin-left: 32px;
+    /* margin-left: 32px; */
     width: 210px;
     height: 48px;
     border: none;
@@ -73,7 +84,7 @@ export const StudySelectContainer = styled(Select).attrs({
     text-align: center;
     justify-content: center;
   }
-  .react-select__single-value { //선택된 값의 텍스트를 스타일링
+  .react-select__single-value { /*선택된 값의 텍스트를 스타일링*/
     color: ${tokens.colors.Grey_8};
     ${tokens.typography.B3_M_14};
     border: none;
@@ -81,8 +92,8 @@ export const StudySelectContainer = styled(Select).attrs({
     justify-content: center;
     align-items: center;
   }
-  .react-select__menu {  //클릭 시 나오는 드롭다운 메뉴의 스타일을 지정
-    margin-left: 32px;
+  .react-select__menu {  /*클릭 시 나오는 드롭다운 메뉴의 스타일을 지정*/
+    /* margin-left: 32px; */
     width: 210px;
     height: 110px;
     border-radius: 4px;
@@ -91,12 +102,12 @@ export const StudySelectContainer = styled(Select).attrs({
     font-weight: 600;
     text-align: center;
   }
-  .react-select__option { //각각의 선택 옵션을 스타일링
+  .react-select__option { /*각각의 선택 옵션을 스타일링*/
     color: ${tokens.colors.Grey_8};
     ${tokens.typography.B3_M_14};
     border: none;
   }
-  .react-select__option--is-selected { //현재 선택된 옵션의 스타일을 지정
+  .react-select__option--is-selected { /*현재 선택된 옵션의 스타일을 지정*/
     background-color: #66C9FF;
     background-color: rgba(102, 201, 255, 0.2); /* 색상 코드를 rgba 형식으로 변경하고, 투명도를 20%로 설정 */
     backdrop-filter: blur(8px); /* 필터를 원하는 것으로 설정 */
@@ -104,13 +115,13 @@ export const StudySelectContainer = styled(Select).attrs({
     border: none;
   }
   
-  .react-select__option--is-focused { //현재 포커스된 옵션의 스타일을 지정
+  .react-select__option--is-focused { /*현재 포커스된 옵션의 스타일을 지정*/
     border: none;
     background-color: rgba(102, 201, 255, 0.2); /* 색상 코드를 rgba 형식으로 변경하고, 투명도를 20%로 설정 */
     backdrop-filter: blur(8px); /* 필터를 원하는 것으로 설정 */
   }
 
-  .react-select__placeholder { //선택 상자에 표시되는 기본 플레이스홀더(placeholder) 텍스트의 스타일을 지정
+  .react-select__placeholder { /*선택 상자에 표시되는 기본 플레이스홀더(placeholder) 텍스트의 스타일을 지정*/
     color: black;
     font-weight: 600;
     border: none;
@@ -124,15 +135,9 @@ export const StudySelectContainer = styled(Select).attrs({
   }
 `;
 
-export const SecondInnerContainer = styled.div` //문항들 하나하나를 감싸주는 컨테이너
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  gap: 12px;
-  margin-top: 24px;
-`;
 
-export const QuestionNumberContainer = styled.div`  //문항1, 문항2 같은 문항 숫자를 위한 콘테이너
+
+export const QuestionNumberContainer = styled.div`  /*문항1, 문항2 같은 문항 숫자를 위한 콘테이너*/
   display: flex;
   flex-direction: row;
   background: #3083F7; 
@@ -143,16 +148,17 @@ export const QuestionNumberContainer = styled.div`  //문항1, 문항2 같은 �
   justify-content: center;
   ${tokens.typography.T5_SB_16};
 
-   //조건부 스타일링 
+   /*조건부 스타일링*/ 
    ${({ innerContainerClicked }) => 
     innerContainerClicked ? css`
-      /* width: 99px;
-      height: 40px; */
-      width: 66px;
-      height: 37px;
+      width: 99px;
+      height: 40px;
+      /* width: 66px;
+      height: 37px; */
     `: css`
       width: 66px;
       height: 37px;
+      margin-left: 33px;
     `} 
 `;
 
@@ -171,16 +177,16 @@ export const QuestionNumberText = styled.div`
   ${tokens.typography.T5_SB_16};
 `;
 
-export const ContentContainer = styled.div` //하나의 질문 전체를 담아주는 컨테이너
+export const ContentContainer = styled.div` /*하나의 질문 전체를 담아주는 컨테이너*/
   display: flex;
   flex-direction: column;
-  //align-items: center; 
+  /*align-items: center; */
   background-color: ${tokens.colors.White};
   border-radius: 4px;
   padding: 32px 31px 8px 24px;
   width: 793px;
   box-shadow: 0px 2px 3px 2px #D6DaF0;
-  //width: 92%;
+  /*width: 92%;*/
   ${({ innerContainerClicked }) => 
     innerContainerClicked ? css`
       border-top: 8px solid #3083F7;
@@ -189,7 +195,7 @@ export const ContentContainer = styled.div` //하나의 질문 전체를 담아�
   `} 
 `;
 
-export const TypeAndQuestionContainer = styled.div` //주관식인지 객관식인지 판별하는 부분과 질문작성을 모두 감싸주는 콘테이너
+export const TypeAndQuestionContainer = styled.div` /*주관식인지 객관식인지 판별하는 부분과 질문작성을 모두 감싸주는 콘테이너*/
   ${({ innerContainerClicked }) => 
     innerContainerClicked ? css`
         display: flex;
@@ -202,7 +208,7 @@ export const TypeAndQuestionContainer = styled.div` //주관식인지 객관식�
   `} 
 `;
 
-export const TypeSelectContainer = styled(Select).attrs({  //주관식인지 객관식인지 판별하는 부분
+export const TypeSelectContainer = styled(Select).attrs({  /*주관식인지 객관식인지 판별하는 부분*/
   classNamePrefix: 'react-select'
 })`
 ${({ innerContainerClicked }) => 
@@ -222,7 +228,7 @@ ${({ innerContainerClicked }) =>
         border: none;
         display: flex;
       }
-      .react-select__menu { //클릭시 나오는 select box틀
+      .react-select__menu { /*클릭시 나오는 select box틀*/
         display: flex;
         width: 250px;
         height: 130px;
@@ -244,7 +250,7 @@ ${({ innerContainerClicked }) =>
         border: none;
         width: 250px;
       }
-      .react-select__option--is-focused { //현재 포커스된 옵션의 스타일을 지정
+      .react-select__option--is-focused { /*현재 포커스된 옵션의 스타일을 지정*/
           border: none;
           background-color: rgba(102, 201, 255, 0.2); /* 색상 코드를 rgba 형식으로 변경하고, 투명도를 20%로 설정 */
           backdrop-filter: blur(8px); /* 필터를 원하는 것으로 설정 */
@@ -276,19 +282,19 @@ ${({ innerContainerClicked }) =>
   `} 
 `;
 
-export const TextQuestionContainer = styled.div` // 주관식 문항을 위한 컨테이너
+export const TextQuestionContainer = styled.div` /*주관식 문항을 위한 컨테이너*/
   display: flex;
   flex-direction: row; 
   border: none;
 `;
 
-export const SelectionQuestionContainer = styled.div` //객관식 문항을 위한 컨테이너
+export const SelectionQuestionContainer = styled.div` /*객관식 문항을 위한 컨테이너*/
   display: flex;
   flex-direction: row; 
   border: none;
 `;
 
-export const QuestionContainer = styled.input`  // 어떤 질문을 할지 적기위한 input을 감싸주는 컨테이너
+export const QuestionContainer = styled.input`  /* 어떤 질문을 할지 적기위한 input을 감싸주는 컨테이너 */
   ${({ innerContainerClicked }) => 
     innerContainerClicked ? css`
         padding-left: 12px;
@@ -316,18 +322,19 @@ export const QuestionContainer = styled.input`  // 어떤 질문을 할지 적�
   `}
 `;
 
-export const NecessaryImg = styled.img` //필수질문일 때 넣을 별표이미지를 꾸며주는 스타일드 컴포넌트
+export const NecessaryImg = styled.img` /*필수질문일 때 넣을 별표이미지를 꾸며주는 스타일드 컴포넌트*/
   ${({ innerContainerClicked }) => 
     innerContainerClicked ? css`
       display: none;
     `: css`
+      margin-left: 8px;
       width: 12px;
       height: 12px;
     `
   }
 `;
 
-export const MultiselectImg = styled.img` //객관식 복수일 때 넣을 '복수응답' 이미지를 꾸며주는 스타일드 컴포넌트
+export const MultiselectImg = styled.img` /*객관식 복수일 때 넣을 '복수응답' 이미지를 꾸며주는 스타일드 컴포넌트*/
   ${({ innerContainerClicked }) => 
     innerContainerClicked ? css`
       display: none;
@@ -338,14 +345,14 @@ export const MultiselectImg = styled.img` //객관식 복수일 때 넣을 '복�
   }
 `;
 
-export const SelectAndAnswerContainer = styled.div` //주관식 응답과 객관식 응답(보기)부분을 모두 감싸주는 컨테이너
+export const SelectAndAnswerContainer = styled.div` /*주관식 응답과 객관식 응답(보기)부분을 모두 감싸주는 컨테이너*/
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 `;
 
-export const AnswerInputContainer = styled.input` //스터디원이 주관식 질문에 답하기 위한 input콘테이너
+export const AnswerInputContainer = styled.input` /*스터디원이 주관식 질문에 답하기 위한 input콘테이너*/
   margin-top: 16px;
   height: 48px;
   width: 100%;
@@ -362,7 +369,7 @@ export const AnswerInputContainer = styled.input` //스터디원이 주관식 �
   }
 `;
 
-export const SelectContainer = styled.div` //객관식 보기 및 추가버튼을 모두 감싸주는 컨테이너
+export const SelectContainer = styled.div` /*객관식 보기 및 추가버튼을 모두 감싸주는 컨테이너*/
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -372,7 +379,7 @@ export const SelectContainer = styled.div` //객관식 보기 및 추가버튼�
   justify-content: center;
 `;
 
-export const OptionsContainer = styled.div` //객관식 보기들과 그 보기 지우기 버튼을 모두 감싸주는 컨테이너
+export const OptionsContainer = styled.div` /*객관식 보기들과 그 보기 지우기 버튼을 모두 감싸주는 컨테이너*/
   display: flex;
   position: relative;
   flex-direction: row;
@@ -382,13 +389,13 @@ export const OptionsContainer = styled.div` //객관식 보기들과 그 보기 
   align-items: center;
 `;
 
-export const OptionImg = styled.img` //객관식 보기들을 하나하나 클릭시 나오는 이미지를 위한 스타일드 컴포넌트
+export const OptionImg = styled.img` /*객관식 보기들을 하나하나 클릭시 나오는 이미지를 위한 스타일드 컴포넌트*/
   width: 24px;
   height: 24px;
 `;
 
-export const ChoiceForSelectQuestionContainer = styled.input` // 객관식 문항의 보기input들을 감싸주는 컨테이너
-  padding-left: 12px;
+export const ChoiceForSelectQuestionContainer = styled.input` /*객관식 문항의 보기input들을 감싸주는 컨테이너*/
+  padding-left: 8px;
   width: 618px;
   height: 48px;
   border: none;
@@ -399,6 +406,7 @@ export const ChoiceForSelectQuestionContainer = styled.input` // 객관식 문�
   }
 
   &:focus {
+    margin-left: 8px;
     outline: none; /* 클릭 시 테두리 제거 */
     background-color: rgba(102, 201, 255, 0.1); /* 색상 코드를 rgba 형식으로 변경하고, 투명도를 20%로 설정 */
     backdrop-filter: blur(8px); /* 필터를 원하는 것으로 설정 */
@@ -406,7 +414,7 @@ export const ChoiceForSelectQuestionContainer = styled.input` // 객관식 문�
   }
 `;
 
-export const ximg = styled.img` //객관식에서 보기문항 하나하나를 지우기 위해 사용되는 x 이미지를 위한 스타일드 컴포넌트
+export const ximg = styled.img` /*객관식에서 보기문항 하나하나를 지우기 위해 사용되는 x 이미지를 위한 스타일드 컴포넌트*/
   ${({ innerContainerClicked }) => 
     innerContainerClicked ? css`
         width: 24px;
@@ -420,7 +428,7 @@ export const ximg = styled.img` //객관식에서 보기문항 하나하나를 �
   `} 
 `;
 
-export const AddOptionContainer = styled.div` //객관식 문항의 보기를 추가하는 컴포넌트를 감싸는 컨테이너
+export const AddOptionContainer = styled.div` /*객관식 문항의 보기를 추가하는 컴포넌트를 감싸는 컨테이너*/
   ${({ innerContainerClicked }) => 
     innerContainerClicked ? css`
         display: flex;
@@ -434,30 +442,30 @@ export const AddOptionContainer = styled.div` //객관식 문항의 보기를 �
   `}
 `;
 
-export const AddOptionParagraphContainer = styled.div` //객관식 문항의 보기를 추가하는 paragraph가 있는데, 그 paragraph를 3개 놓을 계획이다. 아무튼 그 각각의 paragraph를 감싸는 컨테이너
+export const AddOptionParagraphContainer = styled.div` /*객관식 문항의 보기를 추가하는 paragraph가 있는데, 그 paragraph를 3개 놓을 계획이다. 아무튼 그 각각의 paragraph를 감싸는 컨테이너*/
   display: inline;
   ${tokens.typography.B3_M_14};
   justify-content: center;
-  margin-left: 7px;
+  margin-left: 8px;
 `;
 
-export const paragraph1 = styled.div` //옵션추가 라는 회색글자
+export const paragraph1 = styled.div` /*옵션추가 라는 회색글자*/
   display: inline;
   color: ${tokens.colors.B_Grey_6};
 `;
 
-export const paragraph2 = styled.div` // 또는 이라는 검은글자
+export const paragraph2 = styled.div` /* 또는 이라는 검은글자 */
   display: inline;
   color: ${tokens.colors.B_Grey_8};
 `;
 
-export const paragraph3 = styled.div` // '기타'추가 라는 파란 글자
+export const paragraph3 = styled.div` /* '기타'추가 라는 파란 글자 */
   display: inline;
   color: ${tokens.colors.Blue_0_Main};
 `;
 
 
-export const RequiredAndDeleteContainer = styled.div` //필수설정과 문항삭제를 감싸주는 컨테이너
+export const RequiredAndDeleteContainer = styled.div` /*필수설정과 문항삭제를 감싸주는 컨테이너*/
   ${({ innerContainerClicked }) => 
     innerContainerClicked ? css`
       display: flex;
@@ -466,14 +474,14 @@ export const RequiredAndDeleteContainer = styled.div` //필수설정과 문항�
       margin-top: 32px;
       border: none;
       border-top: 1px solid ${tokens.colors.B_Grey_2};
-      padding-top: 22px;
-      padding-bottom: 25px;
+      padding-top: 14px;
+      padding-bottom: 18px;
     `: css`
       display: none;
   `}
 `;
 
-export const RequiredContainer = styled.div` //필수설정을 감싸주는 컨테이너
+export const RequiredContainer = styled.div` /*필수설정을 감싸주는 컨테이너*/
   display: flex;
   flex-direction: row;
   ${tokens.typography.T5_SB_16}
@@ -486,12 +494,12 @@ export const RequiredText = styled.div`
   ${tokens.typography.T5_SB_16};
 `
 
-export const SwitchContainer = styled.div` // 스위치 컨테이너
+export const SwitchContainer = styled.div` /* 스위치 컨테이너*/
   display: inline-block;
   cursor: pointer;
 `;
 
-export const Switch = styled.div` // 스위치 스타일
+export const Switch = styled.div` /* 스위치 스타일*/
   width: 42px;
   height: 20px;
   background-color: ${({ isActive }) => (isActive ? '#BCE7FF' : tokens.colors.B_Grey_2)};
@@ -501,7 +509,7 @@ export const Switch = styled.div` // 스위치 스타일
   transition: background-color 0.2s ease;
 `;
 
-export const Handle = styled.div` // 스위치 핸들 스타일
+export const Handle = styled.div` /* 스위치 핸들 스타일*/
   position: relative;
   width: 16px;
   height: 16px;
@@ -607,37 +615,43 @@ export const BtnContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+  /* justify-content: center; */
   width: 100%;
   height: 96px;
 
   position: fixed;
   bottom: 0; /* 아래쪽으로 고정 */
   left: 0; /* 왼쪽으로 고정 */
-  background-color: rgba(255, 255, 255, 0.2); /* 색상 코드를 rgba 형식으로 변경하고, 투명도를 20%로 설정 */
-  backdrop-filter: blur(8px); /* 필터를 원하는 것으로 설정 */
-  backdrop-filter: 20%;
+  background-color: rgba(255, 255, 255, 0.1); /* 색상 코드를 rgba 형식으로 변경하고, 투명도를 20%로 설정 */
+  backdrop-filter: blur(200px); /* 필터를 원하는 것으로 설정 */
   z-index: 1000; /* 다른 요소 위에 표시되도록 z-index 설정 */
 `;
 
 export const BtnContainer2 = styled.div`
   display: flex;
   flex-direction: row;
-  margin-left: 19%;
+  margin-left: 564px;
 `;
 
-export const ArbitaryBtn = styled.button` // 임시 저장하기 버튼
-  ${tokens.Btns.Btn_fill_default}
+export const ArbitaryBtn = styled.button` /* 임시 저장하기 버튼*/
+  width: 388px;
+	height: 48px;
+  border-radius: 4px;
+	border: none;
+	cursor: pointer;
 	color: ${tokens.colors.White};
-	${tokens.typography.T4_SB_20}
+	${tokens.typography.T5_SB_16}
   background-color: ${tokens.colors.B_Grey_7};
-  margin-right: 80px; //임시로 픽셀로 마진을 놓았음... 나중에 추가수정 필요
 `;
 
-export const Btn = styled.button` // 저장하기 버튼
-	border-radius: "4px";
-	border: "none";
-	cursor: "pointer";
-  ${tokens.Btns.Btn_fill_default};
+export const Btn = styled.button` /*저장하기 버튼*/
+	margin-left: 73px;
+  width: 388px;
+	height: 48px;
+  border-radius: 4px;
+	border: none;
+	cursor: pointer;
 	color: ${tokens.colors.White};
-	${tokens.typography.T4_SB_20};
+	${tokens.typography.T5_SB_16}
+  background-color: ${tokens.colors.Blue_0_Main};
 `;

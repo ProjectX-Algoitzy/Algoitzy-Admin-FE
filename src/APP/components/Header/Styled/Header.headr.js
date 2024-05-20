@@ -13,6 +13,7 @@ export const HeaderContainer = styled.div`  /* 헤더 전체의 컨테이너 */
 
 export const HeaderWrap = styled.div` /*헤더 안을 깜싸주는 wrap*/
   background-color: rgba(255, 255, 255, 0.05); 
+  backdrop-filter: blur(200px); /* 필터를 원하는 것으로 설정 */
   margin: 0 auto;
   display: flex;
   flex-direction: row;
@@ -38,14 +39,14 @@ export const Rabel = styled.img` /* 코알로 로고를 꾸며주는 이미지 �
 export const HeaderRightWrap = styled.div` /*헤더의 오른쪽 Wrap...페이지 링크들을 감싸주는 용도*/
   display: flex;
   align-items: center;
-  margin-right: 12%;
+  margin-right: 361px;
 `;
 
 export const PageLink = styled.div` /*페이지 이동 버튼*/
   color: ${(props) => (props.isActive ? tokens.colors.B_Grey_8 : tokens.colors.B_Grey_6)};
   height: 21px;
   margin-top: 10px;
-  margin-right: 46px;
+  margin-right: 66px;
   ${tokens.typography.T5_SB_16};
   
 `;

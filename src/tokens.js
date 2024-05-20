@@ -188,10 +188,10 @@ export const Btns = {
 	Btn_ghost_default : {
 		width: "145px",
 		height: "40px",
-		background: colors.Black,
-		color: colors.Blue_4_Dark,
+		background: colors.White,
+		color: colors.Blue_0_Main,
 		borderRadius: "4px",
-		borderColor: colors.Blue_4_Dark,
+		borderColor: colors.Blue_0_Main,
 		cursor: "pointer",
 	}
 };

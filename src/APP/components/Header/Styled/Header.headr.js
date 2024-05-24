@@ -27,7 +27,7 @@ export const StyledLink = styled(Link)` /*링크를 꾸며주는 컴포넌트*/
 
 export const HeaderLeftWrap = styled.div` /*헤더의 왼쪽 Wrap...코알라 로고를 감싸주는 용도*/
   display: flex;
-  margin-left: 12%;
+  margin-left: 360px;
 `;
 
 export const Rabel = styled.img` /* 코알로 로고를 꾸며주는 이미지 스타일드 컴포넌트 */

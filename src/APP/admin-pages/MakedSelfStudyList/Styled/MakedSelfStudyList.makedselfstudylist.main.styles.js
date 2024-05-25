@@ -20,15 +20,14 @@ export const TitleContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between; 
-  align-items: center;
+  align-items: flex-end;
   width: 1200px;
-  ${tokens.typography.T1_SB_32};
   border-bottom: 1px solid ${tokens.colors.Grey_4};
-  padding-bottom:20px;
+  padding-bottom:12px;
 `;
 
 export const ApplicationText = styled.div`
-  ${tokens.typography.T1_SB_32};
+  ${tokens.typography.T3_B_24};
   `;
   
 export const Select = styled.div`

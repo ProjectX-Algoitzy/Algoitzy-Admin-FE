@@ -8,6 +8,7 @@ import ViewApplicationList from "./APP/admin-pages/ViewApplicationList/ViewAppli
 import ViewApplicationDetail from "./APP/admin-pages/ViewApplicationDetail/ViewApplicationDetail.viewapplicationdetail"
 import MakedApplicationList from "./APP/admin-pages/MakedApplicationList/MakedApplicationList.makedapplicationlist.main"
 import MakedApplicationDetail from "./APP/admin-pages/MakedApplicationDetail/MakedApplicationDetail.makedapplicationdetail"
+import MakedSelfStudyList from "./APP/admin-pages/MakedSelfStudyList/MakedSelfStudyList.makedselfstudylist.main"
 import RegularStudy from "./APP/admin-pages/RegularStudy/RegularStudy.regularstudy.main"
 import styled from "styled-components"
 
@@ -33,6 +34,7 @@ function App() {
           <Route path="/makingapplicationform" element={<MakingApplicationForm />} />
           <Route path="/viewapplicationlist" element={<ViewApplicationList />} />
           <Route path="/viewapplicationlist/:id" element={<ViewApplicationDetail />} />
+          <Route path="/makedselfstudylist" element={<MakedSelfStudyList />} />
           <Route path="/regularstudy" element={<RegularStudy />} />
         </Routes>
         {/* <Footer /> */} {/* figma에 보니 admin은 푸터가 없었기에 일단 임시로 주석처리를 했다 */}

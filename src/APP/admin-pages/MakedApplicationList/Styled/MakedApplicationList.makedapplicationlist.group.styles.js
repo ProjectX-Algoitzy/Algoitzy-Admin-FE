@@ -16,6 +16,7 @@ export const TxtBtnBox = styled.div`
   flex-direction: row;
   justify-content: space-between; 
   ${tokens.typography.T1_SB_32};
+  
 `;
 
 export const ApplicationText = styled.div`

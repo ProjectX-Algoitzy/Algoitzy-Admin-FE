@@ -3,7 +3,7 @@ import Home from "./APP/sharing-pages/Home"
 import Login from "./APP/admin-pages/Auth/Auth.login"
 import Header from "./APP/components/Header/Header.header"
 import Footer from "./APP/components/Footer/Footer.footer"
-import MakingApplicationForm from "./APP/admin-pages/MakingApplication/MakingApplication.makingapplication"
+// import MakingApplicationForm from "./APP/admin-pages/MakingApplication/MakingApplication.makingapplication"
 import ViewApplicationList from "./APP/admin-pages/ViewApplicationList/ViewApplicationList.viewapplicationlist.main"
 import ViewApplicationDetail from "./APP/admin-pages/ViewApplicationDetail/ViewApplicationDetail.viewapplicationdetail"
 import MakedApplicationList from "./APP/admin-pages/MakedApplicationList/MakedApplicationList.makedapplicationlist.main"
@@ -30,7 +30,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/makedapplicationlist" element={<MakedApplicationList />} />
           <Route path="/makedapplicationdetail/:id" element={<MakedApplicationDetail />} />
-          <Route path="/makingapplicationform" element={<MakingApplicationForm />} />
+          {/* <Route path="/makingapplicationform" element={<MakingApplicationForm />} /> */}
           <Route path="/viewapplicationlist" element={<ViewApplicationList />} />
           <Route path="/viewapplicationlist/:id" element={<ViewApplicationDetail />} />
           <Route path="/regularstudy" element={<RegularStudy />} />

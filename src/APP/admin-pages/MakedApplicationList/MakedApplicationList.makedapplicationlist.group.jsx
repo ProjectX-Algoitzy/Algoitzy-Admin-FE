@@ -42,8 +42,24 @@ export default function MakedApplicationListGroup() {
   // const dummyDataArray = [dummyData1, dummyData2, dummyData3, dummyData4];
   // const generationTexts = ["4기", "3기", "2기", "1기"];
 
-  const handleMakeApp = () => {
-    navigate('/makingapplicationform');
+  // const handleMakeApp = () => { //기존의 handleMakeApp함수
+  //   navigate('/makingapplicationform');
+  // };
+
+  const handleMakeApp = async () => { //수정된 api에 따라 제가 수정을 했습니다. 
+    try {
+      const responseApplication = await request.post(`/application`);
+      console.log("responseApplication", responseApplication); // 받아온 api response에는 새롭게 생성된 applicationId가 있습니다. 
+      if(responseApplication["isSuccess"]) {
+        console.log("지원서 제작 페이지로 이동");
+        navigate(`/makedapplicationdetail/${responseApplication.result.applicationId}`); //버튼을 누르면 우선적으로 디비에 지원서가 디폴트값들로 생성되는 규칙이 적용되었기에, 여기서는 새롭게 생성된 id에 따라 바로 MakedApplicationDetail로 갈 수 있도록 수정했습니다. 
+      } else {
+        console.error("지원서 제작 페이지로 이동 실패", responseApplication);
+      }
+
+    } catch (error) {
+      console.error("지원서 생성 오류", error);
+    }
   };
 
   return (

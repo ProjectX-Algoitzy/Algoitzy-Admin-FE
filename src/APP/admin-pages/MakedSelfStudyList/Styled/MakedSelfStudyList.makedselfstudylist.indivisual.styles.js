@@ -79,13 +79,7 @@ export const Bottom = styled.div`
 export const BottomHeadCount = styled.div`
 	display: flex;
   flex-direction: row;
-	margin-bottom: 4px;
-`;
-
-export const BottomLocationIcon = styled.div`
-	display: flex;
-  flex-direction: row;
-	margin-bottom: 19px;
+	margin-bottom: 47px;
 `;
 
 export const BottomInner = styled.div`

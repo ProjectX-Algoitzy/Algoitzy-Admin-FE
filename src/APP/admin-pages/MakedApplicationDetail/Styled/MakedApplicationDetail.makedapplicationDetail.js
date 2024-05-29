@@ -352,6 +352,11 @@ export const SelectAndAnswerContainer = styled.div` /*주관식 응답과 객관
 `;
 
 export const AnswerInputContainer = styled.input` /*스터디원이 주관식 질문에 답하기 위한 input콘테이너*/
+  padding: 0;
+  
+  /* margin-top: 36px;
+  height: 28px; */
+  
   margin-top: 16px;
   height: 48px;
   width: 100%;
@@ -365,6 +370,13 @@ export const AnswerInputContainer = styled.input` /*스터디원이 주관식 �
 
   &:focus {
     outline: none; /* 클릭 시 테두리 제거 */
+  }
+
+  ${({ innerContainerClicked }) => 
+    innerContainerClicked ? css`
+    `: css`
+      margin-bottom: 32px;
+    `
   }
 `;
 

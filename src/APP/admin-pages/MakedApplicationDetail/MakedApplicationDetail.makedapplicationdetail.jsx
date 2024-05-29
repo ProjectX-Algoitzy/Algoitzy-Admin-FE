@@ -67,8 +67,12 @@ export default function MakedApplicationDetail() {
     if (error) return <div>Error: {error.message}</div>;
 
     const handleClick = (index) => {    //하나의 문단 클릭했음을 나타내는 함수
-        const updatedClickedState = [...innerContainerClicked];
-        updatedClickedState[index] = !updatedClickedState[index]; // 클릭된 문항의 상태를 반전시킴
+        // const updatedClickedState = [...innerContainerClicked];
+        // updatedClickedState[index] = !updatedClickedState[index]; // 클릭된 문항의 상태를 반전시킴
+        // setInnerContainerClicked(updatedClickedState);
+        // 모든 문항을 false로 설정한 후 클릭된 문항만 true로 설정
+        const updatedClickedState = Array(questions.length).fill(false);
+        updatedClickedState[index] = true;
         setInnerContainerClicked(updatedClickedState);
     };
 
@@ -354,7 +358,7 @@ export default function MakedApplicationDetail() {
     };
 
     return (
-        <items.Container>
+        <items.Container onClick={() => setInnerContainerClicked(false)}>
             <items.InnerContainer>
                 <items.TitleContainer>제목</items.TitleContainer>
                 <items.ContentForTitleContainer>
@@ -364,8 +368,8 @@ export default function MakedApplicationDetail() {
             </items.InnerContainer>
 
             {questions.map((question, index) => (
-            <items.SecondInnerContainer key={index} draggable="true" onDragStart={(e) => handleDragStart(e, index)} onDragOver={(e) => handleDragOver(e)} onDrop={(e) => handleDrop(e, index)} >
-                <items.QuestionNumberContainer onClick={() => handleClick(index)} innerContainerClicked={innerContainerClicked[index]}>
+            <items.SecondInnerContainer onClick={(e) => { e.stopPropagation(); handleClick(index); }} innerContainerClicked={innerContainerClicked[index]} key={index} draggable="true" onDragStart={(e) => handleDragStart(e, index)} onDragOver={(e) => handleDragOver(e)} onDrop={(e) => handleDrop(e, index)} >
+                <items.QuestionNumberContainer innerContainerClicked={innerContainerClicked[index]}>
                     <items.QuestionNumberImg innerContainerClicked={innerContainerClicked[index]} src="/img/touchblock.png" alt="터치블록" />
                     <items.QuestionNumberText>문항 {index + 1}</items.QuestionNumberText>
                 </items.QuestionNumberContainer>
@@ -402,7 +406,7 @@ export default function MakedApplicationDetail() {
                     
                     <items.SelectAndAnswerContainer>
                         {question.type === '주관식' ? (
-                            <items.AnswerInputContainer type='text' placeholder='답변을 적어주세요' />
+                            <items.AnswerInputContainer innerContainerClicked={innerContainerClicked[index]} type='text' placeholder='답변을 적어주세요' />
                         ):  question.type === '객관식-단일' || question.type === '객관식-복수' ? (
                             <items.SelectContainer>    
                                 {question.stringFields.map((value, fieldIndex) => (

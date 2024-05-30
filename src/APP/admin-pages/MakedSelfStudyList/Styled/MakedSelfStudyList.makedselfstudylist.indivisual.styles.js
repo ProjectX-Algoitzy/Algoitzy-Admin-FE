@@ -53,12 +53,6 @@ export const PeopleIcon = styled.div`
 	margin-right: 8px;
 `;
 
-export const LocationIcon = styled.div`
-  background-image: url('/img/location.png');
-	width: 24px;
-	height: 24px;
-	margin-right: 8px;
-`;
 
 // 하단 스타일들
 export const BottomContainer = styled.div`
@@ -79,13 +73,7 @@ export const Bottom = styled.div`
 export const BottomHeadCount = styled.div`
 	display: flex;
   flex-direction: row;
-	margin-bottom: 4px;
-`;
-
-export const BottomLocationIcon = styled.div`
-	display: flex;
-  flex-direction: row;
-	margin-bottom: 19px;
+	margin-bottom: 47px;
 `;
 
 export const BottomInner = styled.div`

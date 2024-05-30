@@ -10,6 +10,7 @@ import MakedApplicationList from "./APP/admin-pages/MakedApplicationList/MakedAp
 import MakedApplicationDetail from "./APP/admin-pages/MakedApplicationDetail/MakedApplicationDetail.makedapplicationdetail"
 import MakedSelfStudyList from "./APP/admin-pages/MakedSelfStudyList/MakedSelfStudyList.makedselfstudylist.main"
 import RegularStudy from "./APP/admin-pages/RegularStudy/RegularStudy.regularstudy.main"
+import QuillPractice from "./APP/sharing-pages/QuillPractice"
 import styled from "styled-components"
 
 const Root = styled.div`
@@ -36,6 +37,7 @@ function App() {
           <Route path="/viewapplicationlist/:id" element={<ViewApplicationDetail />} />
           <Route path="/makedselfstudylist" element={<MakedSelfStudyList />} />
           <Route path="/regularstudy" element={<RegularStudy />} />
+          <Route path="/quillpractice" element={<QuillPractice />} />
         </Routes>
         {/* <Footer /> */} {/* figma에 보니 admin은 푸터가 없었기에 일단 임시로 주석처리를 했다 */}
       </BrowserRouter>

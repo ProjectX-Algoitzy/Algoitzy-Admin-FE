@@ -4,7 +4,6 @@ import * as itemS from "../../admin-pages/MakedApplicationList/Styled/MakedAppli
 import MakeModal from './MakedApplicationList.modal';
 
 export default function MakedApplicationListIndividual({ application, setCntApp }){
-
 	const navigate = useNavigate();
 
 	// 모달 상태 관리

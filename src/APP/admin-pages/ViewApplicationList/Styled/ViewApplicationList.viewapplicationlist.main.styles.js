@@ -66,6 +66,7 @@ export const Tab = styled.div`
   border: 1px solid ${tokens.colors.B_Grey_4};
   border-radius: 4px;
   margin: 40px 8px 40px 0px;
+  cursor: pointer;
   
 `;
 // 선택된 탭 메뉴
@@ -80,7 +81,7 @@ export const TabSelected = styled.div`
   border: 2px solid ${tokens.colors.B_Grey_7};
   border-radius: 4px;
   margin: 40px 8px 40px 0px;
-  
+  cursor: pointer;
 `;
 
 //

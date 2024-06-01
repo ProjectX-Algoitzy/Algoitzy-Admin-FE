@@ -72,9 +72,8 @@ export const ApplicationName = styled.div`
 export const StudySelectContainer = styled(Select).attrs({
     classNamePrefix: 'react-select',
 })`
-  .react-select__control { /*선택 상자의 컨트롤 부분을 스타일링*/
+  .react-select__control { /*선택 상자의 컨트롤 부분 스타일링*/
     margin-top: 32px;
-    /* margin-left: 32px; */
     width: 210px;
     height: 48px;
     border: none;
@@ -83,55 +82,80 @@ export const StudySelectContainer = styled(Select).attrs({
     backdrop-filter: blur(8px); /* 필터를 원하는 것으로 설정 */
     text-align: center;
     justify-content: center;
+    padding-right: 10px; /* 임시로 놓은 역삼각형을 위한 패딩픽셀입니다 */
   }
-  .react-select__single-value { /*선택된 값의 텍스트를 스타일링*/
-    color: ${tokens.colors.Grey_8};
-    ${tokens.typography.B3_M_14};
+
+  .react-select__single-value { /*선택된 텍스트를 스타일링*/
     border: none;
     display: flex;
+    padding-left: 25px; /* 임시로 놓은 글자를 위한 패딩픽셀입니다 */
     justify-content: center;
-    align-items: center;
+    color: ${tokens.colors.Grey_8};
+    ${tokens.typography.B3_M_14};
   }
+
   .react-select__menu {  /*클릭 시 나오는 드롭다운 메뉴의 스타일을 지정*/
-    /* margin-left: 32px; */
-    width: 210px;
-    height: 110px;
+    position: absolute;
+    top: -10px;  
+    left: -1px;
+    width: 212px;
+    height: 144px; 
     border-radius: 4px;
-    border: none; /* 드롭다운 메뉴 경계선 제거 */
+    border: none;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     font-weight: 600;
     text-align: center;
+    ${tokens.typography.B3_M_14};
   }
-  .react-select__option { /*각각의 선택 옵션을 스타일링*/
+
+  .react-select__option:not(:last-child) { /* 각 옵션 사이에 회색 줄 추가 */
+    border-bottom: 1px solid ${tokens.colors.B_Grey_2}; 
+  }
+
+  .react-select__option { /*옵션 한칸 한칸의 스타일*/
     color: ${tokens.colors.Grey_8};
     ${tokens.typography.B3_M_14};
     border: none;
+    height: 48px;
+    padding-top: 15px;
   }
-  .react-select__option--is-selected { /*현재 선택된 옵션의 스타일을 지정*/
-    background-color: #66C9FF;
-    background-color: rgba(102, 201, 255, 0.2); /* 색상 코드를 rgba 형식으로 변경하고, 투명도를 20%로 설정 */
-    backdrop-filter: blur(8px); /* 필터를 원하는 것으로 설정 */
+
+  .react-select__option--is-selected:first-of-type { /* 첫 번째 옵션의 스타일을 지정 */
+    background-color: rgba(102, 201, 255, 0.2);
+    backdrop-filter: blur(8px);
+    color: ${tokens.colors.Grey_8};
+    border-top-left-radius: 4px; /* 상단 왼쪽 모서리를 둥글게 만듭니다. */
+    border-top-right-radius: 4px; /* 상단 오른쪽 모서리를 둥글게 만듭니다. */
+    border: none;
+    ${tokens.typography.B3_M_14};
+    position: relative; /* 요소를 상대적인 위치로 설정 */
+    top: -4px; /* 원하는 만큼 위로 이동 */
+  }
+
+  .react-select__option--is-selected:last-of-type { /* 마지막 옵션의 스타일을 지정 */
+    background-color: rgba(102, 201, 255, 0.2);
+    backdrop-filter: blur(8px);
+    color: ${tokens.colors.Grey_8};
+    border-bottom-left-radius: 4px; /* 하단 왼쪽 모서리를 둥글게 만듭니다. */
+    border-bottom-right-radius: 4px; /* 하단 오른쪽 모서리를 둥글게 만듭니다. */
+    border: none;
+    ${tokens.typography.B3_M_14};
+  }
+
+  .react-select__option--is-selected:not(:first-of-type):not(:last-of-type) { /* 중간의 옵션 */
+    background-color: rgba(102, 201, 255, 0.2);
+    backdrop-filter: blur(8px);
     color: ${tokens.colors.Grey_8};
     border: none;
+    ${tokens.typography.B3_M_14};
   }
   
   .react-select__option--is-focused { /*현재 포커스된 옵션의 스타일을 지정*/
-    border: none;
-    background-color: rgba(102, 201, 255, 0.2); /* 색상 코드를 rgba 형식으로 변경하고, 투명도를 20%로 설정 */
-    backdrop-filter: blur(8px); /* 필터를 원하는 것으로 설정 */
+    background-color: transparent;
   }
 
-  .react-select__placeholder { /*선택 상자에 표시되는 기본 플레이스홀더(placeholder) 텍스트의 스타일을 지정*/
-    color: black;
-    font-weight: 600;
-    border: none;
-    align-items: center;
-    justify-content: center;
-  }  
-  .custom-option-label {
-    flex-grow: 1; /* 라벨이 가능한 최대 공간을 차지하도록 함 */
-    align-items: center;
-    justify-content: center;
+  .react-select__option:active {
+    background-color: transparent;
   }
 `;
 
@@ -207,6 +231,14 @@ export const TypeAndQuestionContainer = styled.div` /*주관식인지 객관식�
   `} 
 `;
 
+export const ContainerForTypeSelectContainer = styled.div` /*주관식인지 객관식인지 판별하는 부분을 한번 더 감싸주는 container*/
+  ${({ innerContainerClicked }) => 
+    innerContainerClicked ? css`
+    `: css`
+        display: none;
+  `} 
+`;
+
 export const TypeSelectContainer = styled(Select).attrs({  /*주관식인지 객관식인지 판별하는 부분*/
   classNamePrefix: 'react-select'
 })`
@@ -214,12 +246,12 @@ ${({ innerContainerClicked }) =>
     innerContainerClicked ? css`
       .react-select__control {
         display: flex; /* 요소들을 수평으로 배치하기 위해 flexbox를 사용합니다. */
-        align-items: center; /* 요소들을 수직 중앙 정렬합니다. */
-        width: 250px;
+        width: 246px;
         height: 56px;
         border: none;
         border-radius: 4px;
         border: 1px solid ${tokens.colors.B_Grey_5};
+        padding-right: 8px;
       }
       .react-select__single-value {
         color: ${tokens.colors.Grey_8};
@@ -227,32 +259,70 @@ ${({ innerContainerClicked }) =>
         border: none;
         display: flex;
       }
+
       .react-select__menu { /*클릭시 나오는 select box틀*/
         display: flex;
-        width: 250px;
-        height: 130px;
+        width: 246x;
+        /* height: 165px; */
         border-radius: 4px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         font-weight: 600;
-        
+        margin-top: 3px;
+        ${tokens.typography.B3_M_14};
       }
-      .react-select__option {
+
+      .react-select__option:not(:last-child) { /* 각 옵션 사이에 회색 줄 추가 */
+        border-bottom: 1px solid ${tokens.colors.B_Grey_2}; 
+      }
+
+      .react-select__option { /*옵션 한칸 한칸의 스타일*/
         color: ${tokens.colors.Grey_8};
         ${tokens.typography.B3_M_14};
         border: none;
+        height: 55px;
+        padding-left: 8px;
       }
-      .react-select__option--is-selected {
-        background-color: #66C9FF;
-        background-color: rgba(102, 201, 255, 0.2); /* 색상 코드를 rgba 형식으로 변경하고, 투명도를 20%로 설정 */
-        backdrop-filter: blur(8px); /* 필터를 원하는 것으로 설정 */
+
+      .react-select__option--is-selected:first-of-type { /* 첫 번째 옵션의 스타일을 지정 */
+        background-color: rgba(102, 201, 255, 0.2);
+        backdrop-filter: blur(8px);
+        color: ${tokens.colors.Grey_8};
+        border-top-left-radius: 4px; /* 상단 왼쪽 모서리를 둥글게 만듭니다. */
+        border-top-right-radius: 4px; /* 상단 오른쪽 모서리를 둥글게 만듭니다. */
+        border: none;
+        ${tokens.typography.B3_M_14};
+        width: 246px;
+        position: relative; /* 요소를 상대적인 위치로 설정 */
+        top: -4px; /* 원하는 만큼 위로 이동 */
+      }
+
+      .react-select__option--is-selected:last-of-type { /* 마지막 옵션의 스타일을 지정 */
+        background-color: rgba(102, 201, 255, 0.2);
+        backdrop-filter: blur(8px);
+        color: ${tokens.colors.Grey_8};
+        border-bottom-left-radius: 4px; /* 하단 왼쪽 모서리를 둥글게 만듭니다. */
+        border-bottom-right-radius: 4px; /* 하단 오른쪽 모서리를 둥글게 만듭니다. */
+        border: none;
+        ${tokens.typography.B3_M_14};
+        width: 246px;
+        position: relative; /* 요소를 상대적인 위치로 설정 */
+        top: 2px;
+      }
+
+      .react-select__option--is-selected:not(:first-of-type):not(:last-of-type) { /* 중간의 옵션 */
+        background-color: rgba(102, 201, 255, 0.2);
+        backdrop-filter: blur(8px);
         color: ${tokens.colors.Grey_8};
         border: none;
-        width: 250px;
+        ${tokens.typography.B3_M_14};
+        width: 246px;
       }
+
       .react-select__option--is-focused { /*현재 포커스된 옵션의 스타일을 지정*/
-          border: none;
-          background-color: rgba(102, 201, 255, 0.2); /* 색상 코드를 rgba 형식으로 변경하고, 투명도를 20%로 설정 */
-          backdrop-filter: blur(8px); /* 필터를 원하는 것으로 설정 */
+        background-color: transparent;
+      }
+      .react-select__option:active {
+        background-color: transparent;
       }
       .react-select__placeholder {
         color: black;
@@ -262,7 +332,6 @@ ${({ innerContainerClicked }) =>
       .custom-option {
         display: flex;
         align-items: center;
-        justify-content: center;
       }
 
       .custom-option-icon {
@@ -285,16 +354,36 @@ export const TextQuestionContainer = styled.div` /*주관식 문항을 위한 �
   display: flex;
   flex-direction: row; 
   border: none;
+  position: relative;
 `;
 
 export const SelectionQuestionContainer = styled.div` /*객관식 문항을 위한 컨테이너*/
   display: flex;
   flex-direction: row; 
   border: none;
+  position: relative;
 `;
 
+// 평균 너비를 미리 설정합니다.
+const AVERAGE_ENGLISH_CHAR_WIDTH = 14.1; // 영어 문자 평균 너비 (픽셀 단위)
+const AVERAGE_KOREAN_CHAR_WIDTH = 15.3; // 한글 문자 평균 너비 (픽셀 단위)
+
+const calculateWidth = (value) => {
+  let totalWidth = 0;
+  for (let char of value) {
+    if (char.match(/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/)) {
+      // 한글 문자일 경우
+      totalWidth += AVERAGE_KOREAN_CHAR_WIDTH;
+    } else {
+      // 영어 문자일 경우
+      totalWidth += AVERAGE_ENGLISH_CHAR_WIDTH;
+    }
+  }
+  return totalWidth;
+};
+
 export const QuestionContainer = styled.input`  /* 어떤 질문을 할지 적기위한 input을 감싸주는 컨테이너 */
-  ${({ innerContainerClicked }) => 
+  ${({ innerContainerClicked, value  }) => 
     innerContainerClicked ? css`
         padding-left: 12px;
         width: 460px;
@@ -314,7 +403,7 @@ export const QuestionContainer = styled.input`  /* 어떤 질문을 할지 적�
           border-bottom: 2px solid ${tokens.colors.Black};
         }
     `: css`
-        width: ${({ value }) => (value ? `${value.length * 14.1}px` : '460px')};
+        width: ${value ? `${calculateWidth(value)}px` : '460px'};
         height: auto;
         border: none;
         ${tokens.typography.T5_SB_16};
@@ -326,9 +415,11 @@ export const NecessaryImg = styled.img` /*필수질문일 때 넣을 별표이�
     innerContainerClicked ? css`
       display: none;
     `: css`
-      margin-left: 8px;
       width: 12px;
       height: 12px;
+      position: absolute;
+      left: 100%;
+      margin-left: 8px;
     `
   }
 `;
@@ -338,6 +429,7 @@ export const MultiselectImg = styled.img` /*객관식 복수일 때 넣을 '복�
     innerContainerClicked ? css`
       display: none;
     `: css`
+      margin-left: 8px;
       width: 76px;
       height: 29px;
     `

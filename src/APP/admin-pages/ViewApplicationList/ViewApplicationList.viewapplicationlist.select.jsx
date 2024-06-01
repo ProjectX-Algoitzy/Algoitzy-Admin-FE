@@ -23,6 +23,7 @@ const StudySelect = () => {
             options={options}
             defaultValue={options[0]}
             components={{ DropdownIndicator: CustomDropdownIndicator, IndicatorSeparator: null }}
+            isSearchable={false}
         />
     );
 };

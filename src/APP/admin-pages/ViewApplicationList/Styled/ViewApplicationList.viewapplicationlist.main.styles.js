@@ -31,19 +31,20 @@ export const HeadContainer = styled.div`
 
 export const Head = styled.div`
   ${tokens.typography.T1_SB_32};
+  margin-bottom: 16px;
 `;
 
-export const DropBox = styled.div`
+// export const DropBox = styled.div`
   
-  ${tokens.typography.B3_M_14};
-  color: ${tokens.colors.Grey_8};
-  border: 1px solid ${tokens.colors.B_Grey_3};
-  border-radius: 4px;
-  width: 142px;
-  height: 36px;
-  margin-bottom: 16px;
-  margin-right: 16px;
-`;
+//   ${tokens.typography.B3_M_14};
+//   color: ${tokens.colors.Grey_8};
+//   // border: 1px solid ${tokens.colors.B_Grey_3};
+//   border-radius: 4px;
+//   width: 142px;
+//   height: 36px;
+//   margin-bottom: 16px;
+//   margin-right: 16px;
+// `;
 
 // 탭 컨테이너
 export const TabContainer = styled.div`

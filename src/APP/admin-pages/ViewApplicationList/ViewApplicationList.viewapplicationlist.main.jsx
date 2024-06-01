@@ -38,9 +38,9 @@ export default function ViewApplicationList() {
 							<itemS.InnerContainer>
 									<itemS.HeadContainer>
 											<itemS.Head>4기 지원자 목록</itemS.Head>
-											<itemS.DropBox>
+											{/* <itemS.DropBox> */}
 													<StudySelect />
-											</itemS.DropBox>
+											{/* </itemS.DropBox> */}
 									</itemS.HeadContainer>
 									<itemS.TabContainer>
 										{tabs.map(tab => (

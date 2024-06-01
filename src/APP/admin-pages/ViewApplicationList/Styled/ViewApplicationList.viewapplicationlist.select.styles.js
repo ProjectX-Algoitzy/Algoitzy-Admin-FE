@@ -10,7 +10,7 @@ export const StudySelectContainer = styled(Select).attrs({
   // margin-top: 32px;
   /* margin-left: 32px; */
   width: 142px;
-  height: 36px;
+  height: 34px;
   color: ${tokens.colors.Grey_8};
   ${tokens.typography.B3_M_14};
   // border: 1px solid ${tokens.colors.B_Grey_3};

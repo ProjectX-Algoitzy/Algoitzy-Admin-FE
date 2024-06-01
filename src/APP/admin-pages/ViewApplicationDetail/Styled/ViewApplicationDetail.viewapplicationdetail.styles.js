@@ -50,6 +50,7 @@ export const Close = styled.div`
   background-image: url('/img/close.png');
   width: 32px;
   height: 32px;
+  cursor: pointer;
 `;
 
 // 안쪽 컨테이너 너비

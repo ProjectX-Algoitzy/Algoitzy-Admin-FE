@@ -1,5 +1,6 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import * as tokens from "../../../../tokens"
+
 
 
 export const OuterContainer = styled.div`
@@ -30,21 +31,20 @@ export const HeadContainer = styled.div`
 
 export const Head = styled.div`
   ${tokens.typography.T1_SB_32};
+  margin-bottom: 16px;
 `;
 
-export const DropBox = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  ${tokens.typography.B3_M_14};
-  color: ${tokens.colors.Grey_8};
-  border: 1px solid ${tokens.colors.B_Grey_3};
-  border-radius: 4px;
-  width: 142px;
-  height: 36px;
-  margin-bottom: 16px;
-  margin-right: 16px;
-`;
+// export const DropBox = styled.div`
+  
+//   ${tokens.typography.B3_M_14};
+//   color: ${tokens.colors.Grey_8};
+//   // border: 1px solid ${tokens.colors.B_Grey_3};
+//   border-radius: 4px;
+//   width: 142px;
+//   height: 36px;
+//   margin-bottom: 16px;
+//   margin-right: 16px;
+// `;
 
 // 탭 컨테이너
 export const TabContainer = styled.div`
@@ -67,6 +67,7 @@ export const Tab = styled.div`
   border: 1px solid ${tokens.colors.B_Grey_4};
   border-radius: 4px;
   margin: 40px 8px 40px 0px;
+  cursor: pointer;
   
 `;
 // 선택된 탭 메뉴
@@ -81,7 +82,7 @@ export const TabSelected = styled.div`
   border: 2px solid ${tokens.colors.B_Grey_7};
   border-radius: 4px;
   margin: 40px 8px 40px 0px;
-  
+  cursor: pointer;
 `;
 
 //
@@ -161,3 +162,4 @@ export const BtnFinal = styled.button`
   cursor: pointer;
   margin: 24px 8px;
 `;
+

@@ -42,10 +42,7 @@ export default function MakedSelfStudyListIndividual({ application, setCntApp })
 							<itemS.Total>/10</itemS.Total>
 						</itemS.BottomInner>
 					</itemS.BottomHeadCount>
-					<itemS.BottomLocationIcon>
-						<itemS.LocationIcon></itemS.LocationIcon>	
-						<itemS.LocationText>온라인</itemS.LocationText>	
-					</itemS.BottomLocationIcon>
+					
 					<itemS.BottomBottom>
 						<itemS.CreatedNameContainer>
 							<itemS.ProfileIcon></itemS.ProfileIcon>

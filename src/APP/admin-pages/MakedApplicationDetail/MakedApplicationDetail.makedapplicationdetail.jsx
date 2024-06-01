@@ -91,13 +91,16 @@ export default function MakedApplicationDetail() {
             {value: "CS면접대비", label:"CS면접대비"}
         ]
         return(
-            <items.StudySelectContainer
-                options={options}
-                value={options.find(option => option.value === value)}
-                onChange={selectedOption => onChange(selectedOption.value)}
-                defaultValue={options[0]}
-                components={{DropdownIndicator: CustomDropdownIndicator, IndicatorSeparator: null}}
-            />  
+            <div onClick={e => e.stopPropagation()}>
+                <items.StudySelectContainer
+                    options={options}
+                    value={options.find(option => option.value === value)}
+                    onChange={selectedOption => onChange(selectedOption.value)}
+                    placeholder="스터디 선택"
+                    isSearchable={false} // 직접 입력 비활성화
+                    components={{DropdownIndicator: CustomDropdownIndicator, IndicatorSeparator: null}}
+                />  
+            </div>
         )
     } 
     
@@ -142,7 +145,7 @@ export default function MakedApplicationDetail() {
         setQuestions(updatedQuestions.map((question, i) => ({ ...question, text: `문항 ${i + 1}` })));
     };
 
-    const TypeSelection = ({ index, sequenceByIndex }) => { //어떤 종류의 질문인지 정하고 그 종류에 맞는 Question 배열을 초기화하는 함수
+    const TypeSelection = ({ index, sequenceByIndex }) => {
         const handleTypeSelection = (selectedOption) => {
             const selectedType = selectedOption.value;
             const updatedQuestions = [...questions];
@@ -177,6 +180,7 @@ export default function MakedApplicationDetail() {
             }
             updatedQuestions[index] = newQuestion;
             setQuestions(updatedQuestions);
+            console.log("Questions updated: ", updatedQuestions);  // 상태 업데이트 확인용 로그
         };
     
         const options = [
@@ -184,71 +188,73 @@ export default function MakedApplicationDetail() {
             { value: '객관식-복수', label: '객관식 질문 (복수 응답)' },
             { value: '주관식', label: '주관식 질문' }
         ];
-
+    
         const CustomValueContainer = ({ children, ...props }) => {
-            // 현재 선택된 옵션을 찾음
             const selectedOption = props.getValue()[0];
-            // 선택된 옵션의 이미지 경로 설정
             let iconSrc;
             switch (selectedOption.value) {
-              case '주관식':
-                iconSrc = "/img/icontext.png";
-                break;
-              case '객관식-단일':
-                iconSrc = "/img/icondoublecircle.png";
-                break;
-              case '객관식-복수':
-                iconSrc = "/img/icondoublesquare.png";
-                break;
-              default:
-                iconSrc = null;
-            }   
+                case '주관식':
+                    iconSrc = "/img/icontext.png";
+                    break;
+                case '객관식-단일':
+                    iconSrc = "/img/icondoublecircle.png";
+                    break;
+                case '객관식-복수':
+                    iconSrc = "/img/icondoublesquare.png";
+                    break;
+                default:
+                    iconSrc = null;
+            }
             return (
-              <components.ValueContainer {...props} className="custom-option">
-                {iconSrc && <img src={iconSrc} alt={selectedOption.value} className="custom-option-icon" />}
-                {children}
-              </components.ValueContainer>
+                <components.ValueContainer {...props} className="custom-option">
+                    {iconSrc && <img src={iconSrc} alt={selectedOption.value} className="custom-option-icon" style={{width:"20px", height:"20px"}} />}
+                    {children}
+                </components.ValueContainer>
             );
         };
-
+    
         const CustomOption = (props) => {
             let iconSrc;
             switch (props.value) {
-              case '주관식':
-                iconSrc = "/img/icontext.png";
-                break;
-              case '객관식-단일':
-                iconSrc = "/img/icondoublecircle.png";
-                break;
-              case '객관식-복수':
-                iconSrc = "/img/icondoublesquare.png";
-                break;
-              default:
-                iconSrc = null;
-            } 
+                case '주관식':
+                    iconSrc = "/img/icontext.png";
+                    break;
+                case '객관식-단일':
+                    iconSrc = "/img/icondoublecircle.png";
+                    break;
+                case '객관식-복수':
+                    iconSrc = "/img/icondoublesquare.png";
+                    break;
+                default:
+                    iconSrc = null;
+            }
             return (
-              <components.Option {...props} className="custom-option">
-                {iconSrc && <img src={iconSrc} alt={props.value} className="custom-option-icon" />}
-                <span className="custom-option-label">{props.label}</span>
-              </components.Option>
+                <components.Option {...props} className="custom-option">
+                    {iconSrc && <img src={iconSrc} alt={props.value} className="custom-option-icon" style={{width:"20px", height:"20px"}} />}
+                    <span className="custom-option-label">{props.label}</span>
+                </components.Option>
             );
         };
-
-        const CustomDropdownIndicator = props => {  //주관식인지 객관식인지 판별하는 과정에서 역삼각형을 꾸며주는 컴포넌트
+    
+        const CustomDropdownIndicator = props => {
             return (
-              <components.DropdownIndicator {...props}>
-                <img src="/img/icontriangle.png" alt="triangle-icon" style={{width: "24px", height: "24px"}} />
-              </components.DropdownIndicator>
+                <components.DropdownIndicator {...props}>
+                    <img src="/img/icontriangle.png" alt="triangle-icon" style={{width: "24px", height: "24px"}} />
+                </components.DropdownIndicator>
             );
         };
-        
+    
         return (
-            <items.TypeSelectContainer innerContainerClicked={innerContainerClicked[index]} 
-                options={options} 
-                value={options.find(option => option.value === questions[index]?.type)}
-                onChange={handleTypeSelection} 
-                components={{ Option: CustomOption, ValueContainer: CustomValueContainer, DropdownIndicator: CustomDropdownIndicator, IndicatorSeparator: null }}
-            />
+            <items.ContainerForTypeSelectContainer onClick={e => e.stopPropagation()} innerContainerClicked={innerContainerClicked[index]} >
+                <items.TypeSelectContainer
+                    options={options}
+                    value={options.find(option => option.value === questions[index]?.type)}
+                    onChange={handleTypeSelection}
+                    components={{ Option: CustomOption, ValueContainer: CustomValueContainer, DropdownIndicator: CustomDropdownIndicator, IndicatorSeparator: null }}
+                    innerContainerClicked={innerContainerClicked[index]} 
+                    isSearchable={false} // 직접 입력 비활성화
+                />
+            </items.ContainerForTypeSelectContainer>
         );
     };
 

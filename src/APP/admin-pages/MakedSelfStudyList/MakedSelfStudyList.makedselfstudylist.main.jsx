@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import MakedSelfStudyListIndividual from './MakedSelfStudyList.makedselfstudylist.indivisual';
 import * as itemS from "../../admin-pages/MakedSelfStudyList/Styled/MakedSelfStudyList.makedselfstudylist.main.styles";
 import { dummyData } from './dummy';
+import GenerationSelect from './MakedSelfStudy.makedselfstudy.select';
 
 export default function MakedSelfStudyList() {
 
@@ -37,9 +38,7 @@ export default function MakedSelfStudyList() {
           <itemS.ApplicationText>
             자율 스터디
           </itemS.ApplicationText>
-          <itemS.Select>
-            KOALA 4기
-          </itemS.Select>
+          <GenerationSelect />
           
         </itemS.TitleContainer>
         <itemS.Group>

@@ -126,7 +126,7 @@ export const BtnContainer = styled.div`
 
 // 버튼들
 // 지원서 삭제
-export const BtnDelete = styled.button`
+export const BtnNonpass = styled.button`
   width: 239px;
   height: 48px;
   background: ${tokens.colors.White};

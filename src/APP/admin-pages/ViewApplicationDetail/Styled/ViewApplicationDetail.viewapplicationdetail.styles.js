@@ -101,7 +101,7 @@ export const BaseQAContainer = styled.div`
 // 기본 질문 
 export const BaseQuestion = styled.div`
   ${tokens.typography.T5_SB_16};
-  background-color: #E9EDEF;
+  background-color: ${tokens.colors.B_Grey_2};
   width: 920px;
   padding: 18px 0 18px 16px;
 `;

@@ -51,10 +51,28 @@ export const Tuple = styled.div`
   height: 56px;
   cursor: pointer;
 `;
-export const Name = styled.div`
-  
+export const TupleShort = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  ${tokens.typography.T5_SB_16};
+  color: ${tokens.colors.Black};
+  width: 165px;
+  height: 56px;
+  cursor: pointer;
 `;
-
+export const TupleLong = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  ${tokens.typography.T5_SB_16};
+  color: ${tokens.colors.Black};
+  width: 210px;
+  height: 56px;
+  cursor: pointer;
+`;
 
 export const TupleDrop = styled.div`
   ${tokens.typography.T5_SB_16};

@@ -20,6 +20,7 @@ export const InnerContainer = styled.div`
   align-items: center; 
   border-radius: 20px;
   padding: 158px 360px 0px 360px;
+  margin-bottom: 98px;
 `;
 
 export const HeadContainer = styled.div`
@@ -115,6 +116,12 @@ export const BtnContainer = styled.div`
   width: 100%;
   height: 96px;
   box-shadow: rgba(58, 107, 135, 0.08) 0px -4px 10px 4px;
+
+  position: fixed; /* Changed to fixed for better overlay */
+  bottom: 0; /* To ensure it's at the bottom */
+  z-index: 100; /* High value to ensure it's on top */
+
+  background-color: ${tokens.colors.White};
 `;
 
 // 버튼들

@@ -31,6 +31,18 @@ export const Category = styled.div`
   text-align: center;
   width: 180px;
 `;
+export const CategoryShort = styled.div`
+  ${tokens.typography.T5_SB_16};
+  color: ${tokens.colors.Black};
+  text-align: center;
+  width: 165px;
+`;
+export const CategoryLong = styled.div`
+  ${tokens.typography.T5_SB_16};
+  color: ${tokens.colors.Black};
+  text-align: center;
+  width: 210px;
+`;
 
 export const CheckBox = styled.input`
   appearance: none;

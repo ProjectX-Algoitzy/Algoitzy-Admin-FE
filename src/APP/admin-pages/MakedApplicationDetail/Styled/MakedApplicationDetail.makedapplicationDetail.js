@@ -76,23 +76,27 @@ export const StudySelectContainer = styled(Select).attrs({
     margin-top: 32px;
     width: 210px;
     height: 48px;
-    border: none;
+    border: 1px solid ${tokens.colors.B_Grey_5};
     border-radius: 4px;
-    background-color: rgba(102, 201, 255, 0.2); /* 색상 코드를 rgba 형식으로 변경하고, 투명도를 20%로 설정 */
-    backdrop-filter: blur(8px); /* 필터를 원하는 것으로 설정 */
-    text-align: center;
-    justify-content: center;
-    padding-right: 10px; /* 임시로 놓은 역삼각형을 위한 패딩픽셀입니다 */
+    color: ${tokens.colors.Grey_8};
   }
 
   .react-select__single-value { /*선택된 텍스트를 스타일링*/
     border: none;
     display: flex;
-    padding-left: 25px; /* 임시로 놓은 글자를 위한 패딩픽셀입니다 */
+    padding-left: 10px; /* 임시로 놓은 글자를 위한 패딩픽셀입니다 */
     justify-content: center;
     color: ${tokens.colors.Grey_8};
-    ${tokens.typography.B3_M_14};
+    ${tokens.typography.T5_SB_16};
   }
+
+  .react-select__placeholder {
+    border: none;
+    display: flex;
+    padding-left: 48px; /* 임시로 놓은 글자를 위한 패딩픽셀입니다 */
+    color: ${tokens.colors.Grey_8};
+    ${tokens.typography.T5_SB_16};
+  } 
 
   .react-select__menu {  /*클릭 시 나오는 드롭다운 메뉴의 스타일을 지정*/
     position: absolute;

@@ -40,7 +40,8 @@ export const StyledTd = styled.td`
   border-top: ${({ rowIndex }) => (rowIndex === 0 ? 'none' : '1px solid #B9C4D2')};
   border-left: ${({ colIndex }) => (colIndex === 0 ? 'none' : '1px solid #B9C4D2')};
   border-right: ${({ colIndex }) => (colIndex === 8 ? 'none' : '1px solid #B9C4D2')};
-  height: ${({ rowIndex }) => (rowIndex === 0 ? '45px' : '74px')};
+  height: ${({ rowIndex }) => (rowIndex === 0 ? '45px' : '55px')};
+  width: ${({ colIndex }) => (colIndex === 0 ? '176px' : '55px')};
 `;
 
 export const BtnContainer = styled.div`

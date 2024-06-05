@@ -80,7 +80,7 @@ export default function MakedApplicationDetail() {
         const CustomDropdownIndicator = props => {  //주관식인지 객관식인지 판별하는 과정에서 역삼각형을 꾸며주는 컴포넌트
             return (
               <components.DropdownIndicator {...props}>
-                <img src="/img/icontriangle.png" alt="triangle-icon" style={{width: "24px", height: "24px"}} />
+                <img src="/img/icontriangle.png" alt="triangle-icon" style={{width: "20px", height: "20px", marginRight:"10px"}} />
               </components.DropdownIndicator>
             );
         };

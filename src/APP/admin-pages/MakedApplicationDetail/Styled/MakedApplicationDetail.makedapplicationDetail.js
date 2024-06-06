@@ -6,6 +6,7 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 161px;
+  overflow: auto;
   /* align-items : center; */
   /* background-image: url('/img/makingapplication.png'); */
 `;
@@ -26,6 +27,7 @@ export const SecondInnerContainer = styled.div` /*문항들 하나하나를 감�
   gap: 12px;
   margin-top: 24px;
   margin-left: 453px;
+  margin-right: 480px;
 `;
 
 export const TitleContainer = styled.div`

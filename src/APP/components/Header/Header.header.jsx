@@ -16,6 +16,7 @@ export default function Header() {
         console.log(window.localStorage.getItem("isLoggedIn"));
       } else {
         setIsLoggedIn(false);
+        localStorage.removeItem("isLoggedIn"); // 로그인 되어 있지 않다면 키를 삭제합니다.
         console.log("로그인이 제대로 되지 않았다");
       }
     };

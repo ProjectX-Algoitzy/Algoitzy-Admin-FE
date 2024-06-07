@@ -23,7 +23,7 @@ export default function ViewApplicationList() {
         if (stages.includes('면접 전형')) newTabs.push('면접 전형');
         setTabs(newTabs);
 
-        setFilteredApplications(dummyData); // default to all applications
+        setFilteredApplications(dummyData); 
     }, []);
 
     const handleTabClick = (tab) => {
@@ -39,7 +39,7 @@ export default function ViewApplicationList() {
 			if (isChecked) {
 					setCheckedItems(prev => {
 							const newCheckedItems = [...prev, id];
-							console.log('Checked Items:', newCheckedItems); // 추가된 부분
+							console.log('Checked Items:', newCheckedItems); 
 							return newCheckedItems;
 					});
 					if (!firstCheckedStage) {
@@ -48,7 +48,7 @@ export default function ViewApplicationList() {
 			} else {
 					setCheckedItems(prev => {
 							const newCheckedItems = prev.filter(item => item !== id);
-							console.log('Checked Items:', newCheckedItems); // 추가된 부분
+							console.log('Checked Items:', newCheckedItems); 
 							return newCheckedItems;
 					});
 					if (checkedItems.length === 1) {

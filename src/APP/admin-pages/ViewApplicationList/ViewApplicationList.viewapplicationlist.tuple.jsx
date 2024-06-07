@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import * as itemS from "../../admin-pages/ViewApplicationList/Styled/ViewApplicationList.viewapplicationlist.tuple.styles";
 import ViewApplicationDetail from '../ViewApplicationDetail/ViewApplicationDetail.viewapplicationdetail';
 
-export default function ViewApplicationListTuple({ application, isSelected, onOpen, onClose, onCheckChange, selectAll, firstCheckedStage }) {
+export default function ViewApplicationListTuple({ application, isSelected, onOpen, onClose, onCheckChange, firstCheckedStage }) {
     const [isChecked, setIsChecked] = useState(false);
 
-    useEffect(() => {
-        setIsChecked(selectAll);
-    }, [selectAll]);
+    // useEffect(() => {
+    //     setIsChecked(selectAll);
+    // }, [selectAll]);
 
     const handleCheckChange = (event) => {
         const checked = event.target.checked;

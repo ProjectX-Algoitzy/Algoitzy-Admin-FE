@@ -5,7 +5,7 @@ import ViewApplicationListTuple from './ViewApplicationList.viewapplicationlist.
 export default function ViewApplicationListTable({ applications, onCheckChange, firstCheckedStage }) {
     const [selectedApplicationId, setSelectedApplicationId] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [selectAll, setSelectAll] = useState(false);
+    // const [selectAll, setSelectAll] = useState(false);
 
     const closeModal = () => {
         setIsModalOpen(false);
@@ -17,21 +17,22 @@ export default function ViewApplicationListTable({ applications, onCheckChange, 
         setSelectedApplicationId(applicationId);
     };
 
-    const handleSelectAllChange = (event) => {
-        const isChecked = event.target.checked;
-        setSelectAll(isChecked);
-        applications.forEach(application => onCheckChange(application.id, isChecked, application.selection_stage));
-    };
+    // const handleSelectAllChange = (event) => {
+    //     const isChecked = event.target.checked;
+    //     setSelectAll(isChecked);
+    //     applications.forEach(application => onCheckChange(application.id, isChecked, application.selection_stage));
+    // };
 
     return (
         <itemS.Container>
             <itemS.Table>
                 <itemS.CategoryContainer>
-                    <itemS.CheckBox
+                    {/* <itemS.CheckBox
                         type="checkbox"
                         checked={selectAll}
                         onChange={handleSelectAllChange}
-                    />
+                    /> */}
+										<itemS.BlankBox></itemS.BlankBox>
                     <itemS.CategoryShort>이름</itemS.CategoryShort>
                     <itemS.CategoryShort>학년</itemS.CategoryShort>
                     <itemS.CategoryLong>학과</itemS.CategoryLong>
@@ -48,7 +49,7 @@ export default function ViewApplicationListTable({ applications, onCheckChange, 
                             onOpen={() => openModal(application.id)}
                             onClose={closeModal}
                             onCheckChange={onCheckChange}
-                            selectAll={selectAll}
+                            // selectAll={selectAll}
                             firstCheckedStage={firstCheckedStage}
                         />
                     ))}

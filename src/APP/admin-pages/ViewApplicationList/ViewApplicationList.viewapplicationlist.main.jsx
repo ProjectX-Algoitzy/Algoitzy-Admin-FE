@@ -13,6 +13,8 @@ export default function ViewApplicationList() {
     const [checkedItems, setCheckedItems] = useState([]);
     const [firstCheckedStage, setFirstCheckedStage] = useState(null);
 
+    
+
     useEffect(() => {
         setApplications(dummyData);
 
@@ -36,40 +38,75 @@ export default function ViewApplicationList() {
     };
 
     const handleCheckChange = (id, isChecked, stage) => {
-			if (isChecked) {
-					setCheckedItems(prev => {
-							const newCheckedItems = [...prev, id];
-							console.log('Checked Items:', newCheckedItems); 
-							return newCheckedItems;
-					});
-					if (!firstCheckedStage) {
-							setFirstCheckedStage(stage);
-					}
-			} else {
-					setCheckedItems(prev => {
-							const newCheckedItems = prev.filter(item => item !== id);
-							console.log('Checked Items:', newCheckedItems); 
-							return newCheckedItems;
-					});
-					if (checkedItems.length === 1) {
-							setFirstCheckedStage(null);
-					}
-			}
-		};
+        if (isChecked) {
+            setCheckedItems(prev => {
+                    const newCheckedItems = [...prev, id];
+                    console.log('Checked Items:', newCheckedItems); 
+                    return newCheckedItems;
+            });
+            if (!firstCheckedStage) {
+                    setFirstCheckedStage(stage);
+            }
+        } else {
+            setCheckedItems(prev => {
+                    const newCheckedItems = prev.filter(item => item !== id);
+                    console.log('Checked Items:', newCheckedItems); 
+                    return newCheckedItems;
+            });
+            if (checkedItems.length === 1) {
+                    setFirstCheckedStage(null);
+            }
+        }
+    };
+
+    const handleEmailSend = async (type) => {
+        const emailList = filteredApplications
+            .filter(app => checkedItems.includes(app.id))
+            .map(app => app.email);
+    
+        const requestBody = {
+            type,
+            emailList
+        };
+    
+        try {
+            console.log("zz", requestBody);
+            const response = await request.post('/email', requestBody);
+            console.log('Email send response:', response);
+        } catch (error) {
+            console.error('Error sending email:', error);
+        }
+    };
 
     const renderButton = () => {
-        switch (firstCheckedStage) {
-            case '서류 합격':
-                return <itemS.BtnPass>서류 합격 메일 발송</itemS.BtnPass>;
-            case '서류 불합격':
-                return <itemS.BtnNonpass>서류 불합격 메일 발송</itemS.BtnNonpass>;
-            case '면접 전형':
-                return <itemS.BtnMail>면접 일정 메일 발송</itemS.BtnMail>;
-            case '최종 합격':
-                return <itemS.BtnFinal>최종 합격 메일 발송</itemS.BtnFinal>;
-            default:
-                return null;
-        }
+    switch (firstCheckedStage) {
+        case '서류 합격':
+        return (
+            <itemS.BtnPass onClick={() => handleEmailSend('DOCUMENT_PASS')}>
+            서류 합격 메일 발송
+            </itemS.BtnPass>
+        );
+        case '서류 불합격':
+        return (
+            <itemS.BtnNonpass onClick={() => handleEmailSend('DOCUMENT_FAIL')}>
+            서류 불합격 메일 발송
+            </itemS.BtnNonpass>
+        );
+        case '면접 전형':
+        return (
+            <itemS.BtnMail onClick={() => handleEmailSend('INTERVIEW')}>
+            면접 일정 메일 발송
+            </itemS.BtnMail>
+        );
+        case '최종 합격':
+        return (
+            <itemS.BtnFinal onClick={() => handleEmailSend('PASS')}>
+            최종 합격 메일 발송
+            </itemS.BtnFinal>
+        );
+        default:
+        return null;
+    }
     };
 
     return (

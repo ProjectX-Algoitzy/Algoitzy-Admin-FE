@@ -6,7 +6,8 @@ export const dummyData = [
     "department": "소프트웨어 학과",
     "desired_study": "코딩 테스트 대비반",
     "selection_stage": "서류 합격",
-    "interview_schedule": "-"
+    "interview_schedule": "-",
+    "email": "pch990824@naver.com"
   },
   {
     "id": 2,
@@ -15,7 +16,8 @@ export const dummyData = [
     "department": "컴퓨터 공학과",
     "desired_study": "코딩 테스트 대비반",
     "selection_stage": "면접 전형",
-    "interview_schedule": "4월 5일 10:00"
+    "interview_schedule": "4월 5일 10:00",
+    "email": "pch990824@naver.com"
   },
   {
     "id": 3,
@@ -24,7 +26,8 @@ export const dummyData = [
     "department": "전기공학과",
     "desired_study": "코딩 테스트 대비반",
     "selection_stage": "최종 합격",
-    "interview_schedule": "-"
+    "interview_schedule": "-",
+    "email": "pch990824@naver.com"
   },
   {
     "id": 4,
@@ -33,7 +36,8 @@ export const dummyData = [
     "department": "정보기술학과",
     "desired_study": "코딩 테스트 대비반",
     "selection_stage": "서류 합격",
-    "interview_schedule": "-"
+    "interview_schedule": "-",
+    "email": "gtj556@kau.kr"
   },
   {
     "id": 5,
@@ -42,7 +46,8 @@ export const dummyData = [
     "department": "컴퓨터 공학과",
     "desired_study": "코딩 테스트 대비반",
     "selection_stage": "면접 전형",
-    "interview_schedule": "4월 3일 11:00"
+    "interview_schedule": "4월 3일 11:00",
+    "email": "pch990824@naver.com"
   },
   {
     "id": 6,
@@ -51,7 +56,8 @@ export const dummyData = [
     "department": "소프트웨어 공학과",
     "desired_study": "코딩 테스트 대비반",
     "selection_stage": "서류 합격",
-    "interview_schedule": "-"
+    "interview_schedule": "-",
+    "email": "pch990824@naver.com"
   },
   {
     "id": 7,
@@ -60,7 +66,8 @@ export const dummyData = [
     "department": "컴퓨터 공학과",
     "desired_study": "코딩 테스트 대비반",
     "selection_stage": "면접 전형",
-    "interview_schedule": "4월 7일 09:30"
+    "interview_schedule": "4월 7일 09:30",
+    "email": "pch990824@naver.com"
   },
   {
     "id": 8,
@@ -69,7 +76,8 @@ export const dummyData = [
     "department": "전자공학과",
     "desired_study": "코딩 테스트 대비반",
     "selection_stage": "서류 전형",
-    "interview_schedule": "-"
+    "interview_schedule": "-",
+    "email": "pch990824@naver.com"
   },
   {
     "id": 9,
@@ -78,7 +86,8 @@ export const dummyData = [
     "department": "정보 시스템학과",
     "desired_study": "코딩 테스트 대비반",
     "selection_stage": "면접 전형",
-    "interview_schedule": "4월 20일 10:30"
+    "interview_schedule": "4월 20일 10:30",
+    "email": "pch990824@naver.com"
   },
   {
     "id": 10,
@@ -87,7 +96,8 @@ export const dummyData = [
     "department": "컴퓨터 공학과",
     "desired_study": "코딩 테스트 대비반",
     "selection_stage": "서류 전형",
-    "interview_schedule": "-"
+    "interview_schedule": "-",
+    "email": "pch990824@naver.com"
   },
   {
     "id": 11,
@@ -96,7 +106,8 @@ export const dummyData = [
     "department": "소프트웨어 학과",
     "desired_study": "코딩 테스트 대비반",
     "selection_stage": "서류 합격",
-    "interview_schedule": "-"
+    "interview_schedule": "-",
+    "email": "pch990824@naver.com"
   },
   {
     "id": 12,
@@ -105,7 +116,8 @@ export const dummyData = [
     "department": "컴퓨터 공학과",
     "desired_study": "코딩 테스트 대비반",
     "selection_stage": "면접 전형",
-    "interview_schedule": "4월 5일 10:00"
+    "interview_schedule": "4월 5일 10:00",
+    "email": "pch990824@naver.com"
   },
   {
     "id": 13,
@@ -114,7 +126,8 @@ export const dummyData = [
     "department": "전기공학과",
     "desired_study": "코딩 테스트 대비반",
     "selection_stage": "최종 합격",
-    "interview_schedule": "-"
+    "interview_schedule": "-",
+    "email": "pch990824@naver.com"
   },
   {
     "id": 14,
@@ -123,7 +136,8 @@ export const dummyData = [
     "department": "정보기술학과",
     "desired_study": "코딩 테스트 대비반",
     "selection_stage": "서류 합격",
-    "interview_schedule": "-"
+    "interview_schedule": "-",
+    "email": "pch990824@naver.com"
   },
   {
     "id": 15,
@@ -132,7 +146,8 @@ export const dummyData = [
     "department": "컴퓨터 공학과",
     "desired_study": "코딩 테스트 대비반",
     "selection_stage": "면접 전형",
-    "interview_schedule": "4월 3일 11:00"
+    "interview_schedule": "4월 3일 11:00",
+    "email": "pch990824@naver.com"
   },
   {
     "id": 16,
@@ -141,7 +156,8 @@ export const dummyData = [
     "department": "소프트웨어 공학과",
     "desired_study": "코딩 테스트 대비반",
     "selection_stage": "서류 합격",
-    "interview_schedule": "-"
+    "interview_schedule": "-",
+    "email": "pch990824@naver.com"
   },
   {
     "id": 17,
@@ -150,7 +166,8 @@ export const dummyData = [
     "department": "컴퓨터 공학과",
     "desired_study": "코딩 테스트 대비반",
     "selection_stage": "면접 전형",
-    "interview_schedule": "4월 7일 09:30"
+    "interview_schedule": "4월 7일 09:30",
+    "email": "pch990824@naver.com"
   },
   {
     "id": 18,
@@ -159,7 +176,8 @@ export const dummyData = [
     "department": "전자공학과",
     "desired_study": "코딩 테스트 대비반",
     "selection_stage": "서류 전형",
-    "interview_schedule": "-"
+    "interview_schedule": "-",
+    "email": "pch990824@naver.com"
   },
   {
     "id": 19,
@@ -168,7 +186,8 @@ export const dummyData = [
     "department": "정보 시스템학과",
     "desired_study": "코딩 테스트 대비반",
     "selection_stage": "면접 전형",
-    "interview_schedule": "4월 20일 10:30"
+    "interview_schedule": "4월 20일 10:30",
+    "email": "pch990824@naver.com"
   },
   {
     "id": 20,
@@ -177,6 +196,7 @@ export const dummyData = [
     "department": "컴퓨터 공학과",
     "desired_study": "코딩 테스트 대비반",
     "selection_stage": "서류 전형",
-    "interview_schedule": "-"
+    "interview_schedule": "-",
+    "email": "pch990824@naver.com"
   }
 ];

@@ -14,6 +14,7 @@ import QuillPractice from "./APP/sharing-pages/QuillPractice"
 import MakingRegularStudyCurriculum from "./APP/admin-pages/MakingRegularStudy/MakingRegularStudy.makingregularstudy.curriculum"
 import MakingRegularStudyCurriculumCheck from "./APP/admin-pages/MakingRegularStudy/MakingRegularStudy.makingregularstudy.curriculum.check"
 import styled from "styled-components"
+import ScrollToTop from "./APP/Common/ScrollToTop"
 
 const Root = styled.div`
   position: absolute;
@@ -28,15 +29,16 @@ function App() {
   return (
     <Root>
       <BrowserRouter>
+        <ScrollToTop />
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/makedapplicationlist" element={<MakedApplicationList />} />
-          <Route path="/makedapplicationdetail/:id" element={<MakedApplicationDetail />} />
+          <Route path="/application" element={<MakedApplicationList />} />
+          <Route path="/newapplication/:id" element={<MakedApplicationDetail />} />
           {/* <Route path="/makingapplicationform" element={<MakingApplicationForm />} /> */}
-          <Route path="/viewapplicationlist" element={<ViewApplicationList />} />
-          <Route path="/viewapplicationlist/:id" element={<ViewApplicationDetail />} />
+          <Route path="/answer" element={<ViewApplicationList />} />
+          <Route path="/answer/:id" element={<ViewApplicationDetail />} />
           <Route path="/makedselfstudylist" element={<MakedSelfStudyList />} />
           <Route path="/regularstudy" element={<RegularStudy />} />
           <Route path="/quillpractice" element={<QuillPractice />} />

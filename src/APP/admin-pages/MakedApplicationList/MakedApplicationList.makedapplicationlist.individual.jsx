@@ -20,7 +20,7 @@ export default function MakedApplicationListIndividual({ application, setCntApp 
 	}
 
 	const moveToDetail = (id) => { // 보기 추가 함수
-		navigate(`/makedapplicationdetail/${id}`);
+		navigate(`/newapplication/${id}`);
 	}
 
 	// 스터디 제목 글자수 자르기

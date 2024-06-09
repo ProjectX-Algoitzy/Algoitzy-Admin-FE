@@ -8,11 +8,23 @@ export const Container = styled.div`
 `;
 
 export const Head = styled.div`
+  display: flex;
+  width: 1220px;
+  justify-content: space-between; 
+  align-items: flex-end;
   ${tokens.typography.T1_SB_32};
   margin-bottom: 24px;
-  width: 1220px;
 `;
 
+export const BtnMakeApp = styled.button`
+  width: 190px;
+  height: 47px;
+  background: #00A5FF; 
+  color: white;
+  border-radius: 5px; 
+  border: none; 
+  cursor: pointer; 
+`;
 export const InnerContainer = styled.div`
   display: flex;
   flex-direction: column;

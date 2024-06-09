@@ -32,6 +32,19 @@ export default function MakedApplicationListIndividual({ application, setCntApp 
 		return name;
 	}
 
+	// 날짜와 시간을 포맷팅하는 함수
+  const formatDateTime = (dateTimeString) => {
+    const date = new Date(dateTimeString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const seconds = String(date.getSeconds()).padStart(2, '0');
+
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+  };
+
   return (
     
 		<itemS.InnerContainer key={application.applicationId}>
@@ -39,7 +52,7 @@ export default function MakedApplicationListIndividual({ application, setCntApp 
 				<itemS.Top>
 					<itemS.TopInner>
 						<itemS.TopText>제작일</itemS.TopText>
-						<itemS.CreatedText>{application.createdTime}</itemS.CreatedText>
+						<itemS.CreatedText>{formatDateTime(application.createdTime)}</itemS.CreatedText>
 					</itemS.TopInner>
 					<itemS.TopInner>
 						<itemS.KeyIcon onClick={openModal}></itemS.KeyIcon>

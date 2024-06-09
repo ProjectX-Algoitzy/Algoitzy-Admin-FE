@@ -46,7 +46,11 @@ export default function MakingRegularStudyCurriculum() {
             { value: '1', label: '1주차' },
             { value: '2', label: '2주차' },
             { value: '3', label: '3주차' },
-            { value: '4', label: '4주차' }
+            { value: '4', label: '4주차' },
+            { value: '5', label: '5주차' },
+            { value: '6', label: '6주차' },
+            { value: '7', label: '7주차' },
+            { value: '8', label: '8주차' },
         ];
 
         return (

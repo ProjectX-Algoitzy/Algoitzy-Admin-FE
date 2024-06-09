@@ -4,7 +4,7 @@ import * as itemS from "../RegularStudy/Styled/RegularStudy.regularstudy.home.st
 export default function RegularStudyHome() {
   return (
     <itemS.Container>
-      <itemS.Title>스터디 홈</itemS.Title>
+      <itemS.Title>홈</itemS.Title>
 
       <itemS.ContentContainer>
         <itemS.BlueContainer>대상</itemS.BlueContainer>

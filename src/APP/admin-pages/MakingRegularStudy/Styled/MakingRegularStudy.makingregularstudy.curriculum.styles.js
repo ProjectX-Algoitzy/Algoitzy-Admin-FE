@@ -50,6 +50,7 @@ export const StyledTitle = styled.div`
 `;
 
 export const StyledInput = styled.input`
+  box-sizing: border-box;
   border-radius: 4px;
   border: none;
   border: 1px solid ${tokens.colors.Grey_4};
@@ -57,11 +58,10 @@ export const StyledInput = styled.input`
   height: 56px;
   color: ${tokens.colors.Grey_7};
   ${tokens.typography.B3_M_14};
-  padding: 0px;
+  padding-left: 16px;
 
   &::placeholder {
     color: ${tokens.colors.Grey_4};
-    padding-left: 16px;
   }
 
   &:focus {
@@ -86,7 +86,7 @@ export const WeeksSelectContainer = styled(Select).attrs({
     top: -10px;  
     left: -1px;
     width: 593px;
-    height: 224px; 
+    height: 280px; 
     border-radius: 4px;
     border: none;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);

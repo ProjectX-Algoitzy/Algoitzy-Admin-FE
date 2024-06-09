@@ -7,7 +7,7 @@ export default function RegularStudyAttendance() {
     const tableData = [
       ["주차별 출석", "1주차", "2주차", "3주차", "4주차", "5주차", "6주차", "7주차", "8주차"],
       ["문제 할당량", "", "", "", "", "", "", "", ""],
-      ["T-story 게시", "", "", "", "", "", "", "", ""],
+      ["블로그 포스팅", "", "", "", "", "", "", "", ""],
       ["주말 모의테스트", "", "", "", "", "", "", "", ""]
     ];
     return (
@@ -31,9 +31,9 @@ export default function RegularStudyAttendance() {
     <itemS.Container>
       <itemS.Title>출석부</itemS.Title>
       <Table />
-      <itemS.BtnContainer>
+      {/* <itemS.BtnContainer>
         <itemS.CertificationBtn>출석 인증하기</itemS.CertificationBtn>
-      </itemS.BtnContainer>
+      </itemS.BtnContainer> */}
     </itemS.Container>
   )
 }

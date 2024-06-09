@@ -561,6 +561,7 @@ export const AddOptionParagraphContainer = styled.div` /*객관식 문항의 보
 export const paragraph1 = styled.div` /*옵션추가 라는 회색글자*/
   display: inline;
   color: ${tokens.colors.B_Grey_6};
+  cursor: pointer;
 `;
 
 export const paragraph2 = styled.div` /* 또는 이라는 검은글자 */

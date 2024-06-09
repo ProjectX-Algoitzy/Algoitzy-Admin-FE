@@ -7,6 +7,8 @@ import Select, { components } from 'react-select';
 export default function MakedApplicationDetail() {
     const { id } = useParams();  //파라미터로 각 학생별로 부여된 id를 받아옵니다
     const [title, setTitle] = useState('');  // 해당 지원서의 제목을 저장
+    const [studyName, setStudyName] = useState(''); //해당 지원서의 스터디이름을 저장
+    const [regularStudyList, setRegularStudyList] = useState([]); //정규 스터디의 목록을 저장 
     const [questions, setQuestions] = useState([]); //각 문항들을 저장하는 배열
     const [innerContainerClicked, setInnerContainerClicked] = useState(Array(questions.length).fill(false));  // useState(false)하나의 문단 클릭시 색을 변화시키는 용도
     const navigate = useNavigate();
@@ -39,6 +41,19 @@ export default function MakedApplicationDetail() {
             });
             return transformedQuestions.sort((a, b) => a.sequence - b.sequence);
         };
+
+        const fetchStudyCurriculum = async() => {
+            try {
+                const responseCurriculum = await request.get('/study');
+                console.log("responseCurriculum", responseCurriculum);
+                if(responseCurriculum["isSuccess"]) {
+                    console.log("제작된 커리큘럼 조회 성공");
+                    setRegularStudyList(responseCurriculum.result.studyList);
+                }
+            } catch (error) {
+                console.error('스터디 커리큘럼 목록 조회 오류', error);
+            }
+        }
     
         const fetchMakedApplicationDetail = async() => {
             try {
@@ -49,6 +64,7 @@ export default function MakedApplicationDetail() {
                     console.log("제작된 지원서 조회 성공");
                     const transformedQuestions = transformReceivedQuestions(response.result.selectQuestionList.concat(response.result.textQuestionList));
                     setTitle(response.result.title);
+                    setStudyName(response.result.studyName);
                     setQuestions(transformedQuestions);
                 } else {
                     console.error("제작된 지원서 조회 실패:", response);
@@ -60,17 +76,13 @@ export default function MakedApplicationDetail() {
             }
         };
         fetchMakedApplicationDetail();
+        fetchStudyCurriculum();
     }, [id]);
-    
 
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error.message}</div>;
 
     const handleClick = (index) => {    //하나의 문단 클릭했음을 나타내는 함수
-        // const updatedClickedState = [...innerContainerClicked];
-        // updatedClickedState[index] = !updatedClickedState[index]; // 클릭된 문항의 상태를 반전시킴
-        // setInnerContainerClicked(updatedClickedState);
-        // 모든 문항을 false로 설정한 후 클릭된 문항만 true로 설정
         const updatedClickedState = Array(questions.length).fill(false);
         updatedClickedState[index] = true;
         setInnerContainerClicked(updatedClickedState);
@@ -85,18 +97,24 @@ export default function MakedApplicationDetail() {
             );
         };
         
-        const options = [
-            {value: "코딩테스트 대비반", label:"코딩테스트 대비반"},
-            {value: "코딩테스트 기초반", label:"코딩테스트 기초반"},
-            {value: "CS면접대비", label:"CS면접대비"}
-        ]
+        // const options = [
+        //     {value: "코딩테스트 대비반", label:"코딩테스트 대비반"},
+        //     {value: "코딩테스트 기초반", label:"코딩테스트 기초반"},
+        //     {value: "CS면접대비", label:"CS면접대비"}
+        // ]
+        const options = regularStudyList.map(study => ({
+            value: study.name,
+            label: study.name
+        }));
+        
         return(
             <div onClick={e => e.stopPropagation()}>
                 <items.StudySelectContainer
                     options={options}
                     value={options.find(option => option.value === value)}
                     onChange={selectedOption => onChange(selectedOption.value)}
-                    placeholder="스터디 선택"
+                    // placeholder="스터디 선택"
+                    defaultValue={options[0]}
                     isSearchable={false} // 직접 입력 비활성화
                     components={{DropdownIndicator: CustomDropdownIndicator, IndicatorSeparator: null}}
                 />  
@@ -266,8 +284,12 @@ export default function MakedApplicationDetail() {
 
     const onChangeSelectQuestion = (index, e) => { //객관식 전용 question 생성함수
         const updatedQuestions = [...questions];
-        updatedQuestions[index].selectQuestion = e.target.value;
-        setQuestions(updatedQuestions);
+        if(updatedQuestions[index].selectQuestion === "가능한 면접 일자를 선택해주세요.") {
+            alert("변경할 수 없습니다");
+        } else {
+            updatedQuestions[index].selectQuestion = e.target.value;
+            setQuestions(updatedQuestions);
+        }
     }
 
     const addStringField = (index) => { // 보기 추가 함수
@@ -287,6 +309,20 @@ export default function MakedApplicationDetail() {
         updatedQuestions[questionIndex].stringFields[fieldIndex] = e.target.value;
         setQuestions(updatedQuestions);
     }
+    
+    const onBlurStringField = (questionIndex, fieldIndex) => { //면접 일자 질문 한정으로 x월 x일이 되도록 조건걸기
+        const question = questions[questionIndex];
+        const fieldValue = question.stringFields[fieldIndex];
+    
+        if(question.selectQuestion === "가능한 면접 일자를 선택해주세요.") {
+            if (!/^\d{1,2}월 \d{1,2}일$/.test(fieldValue)) {
+                alert("입력 형식은 'x월 x일' 형태여야 합니다.");
+                const updatedQuestions = [...questions];
+                updatedQuestions[questionIndex].stringFields[fieldIndex] = "";
+                setQuestions(updatedQuestions);
+            }
+        }
+    };
 
     const onChangeIsRequired = (index, value) => { //주관식이든 객관식이든 모두 이 함수로 필수대답 여부를 결정한다
         const updatedQuestions = [...questions];
@@ -294,7 +330,7 @@ export default function MakedApplicationDetail() {
         setQuestions(updatedQuestions);
     };
 
-    const makeApplicationForm = async (confirm) => { // 지원서를 제작하는 api호출 함수
+    const makeApplicationForm = async (distribution) => { // 지원서를 제작하는 api호출 함수
         const createTextQuestionRequestList = [];
         const createSelectQuestionRequestList = [];
     
@@ -306,7 +342,9 @@ export default function MakedApplicationDetail() {
                     sequence: question.sequence
                 });
             } else if (question.type === '객관식-단일' || question.type === '객관식-복수') {
-                const createFieldRequestList = question.stringFields.map(value => ({ context: value }));
+                const createFieldRequestList = question.stringFields
+                                                            .filter(value => value.trim() !== '') // 공백인 보기 걸러내기
+                                                            .map(value => ({ context: value }));
                 createSelectQuestionRequestList.push({
                     question: question.selectQuestion,
                     isRequired: question.isRequired,
@@ -320,7 +358,7 @@ export default function MakedApplicationDetail() {
         const requestData = {
             studyId: 1,
             title: title,
-            confirmYN: confirm, // props로 받은 값에 따라 변화를 줘서 임시저장과 저장을 구분합니다
+            confirmYN: distribution, // props로 받은 값에 따라 변화를 줘서 임시저장과 저장을 구분합니다
             updateTextQuestionList: createTextQuestionRequestList,
             updateSelectQuestionList: createSelectQuestionRequestList
         };
@@ -329,22 +367,27 @@ export default function MakedApplicationDetail() {
             const response = await request.patch(`/application/${id}`, requestData);
             console.log("response", response);
             if (response["isSuccess"]) {
-                console.log("지원서 " + (confirm ? "저장" : "임시저장") + " 성공"); // 저장 또는 임시저장 메시지 출력
-                alert("지원서 " + (confirm ? "저장" : "임시저장") + "이 완료되었습니다"); // 저장 또는 임시저장 메시지 출력
+                console.log("지원서 " + (distribution ? "저장" : "임시저장") + " 성공"); // 저장 또는 임시저장 메시지 출력
+                // alert("지원서 " + (distribution ? "저장" : "임시저장") + "이 완료되었습니다"); // 저장 또는 임시저장 메시지 출력
                 navigate("/makedapplicationlist");
             } else {
-                console.error("지원서 " + (confirm ? "저장" : "임시저장") + " 실패:", response); // 저장 또는 임시저장 실패 메시지 출력
+                console.error("지원서 " + (distribution ? "저장" : "임시저장") + " 실패:", response); // 저장 또는 임시저장 실패 메시지 출력
             }
         } catch (error) {
-            console.error("지원서 " + (confirm ? "저장" : "임시저장") + " 오류", error); // 저장 또는 임시저장 오류 메시지 출력
+            console.error("지원서 " + (distribution ? "저장" : "임시저장") + " 오류", error); // 저장 또는 임시저장 오류 메시지 출력
         }
     };
 
     const handleSaveBtnClick = async () => { // 저장하기 버튼 클릭 시 사용하는 함수
-        await makeApplicationForm(true);
+        // await makeApplicationForm(true);
+        const confirmation = window.confirm("지원서를 저장하시겠습니까?");
+        if (confirmation) {
+            await makeApplicationForm(true);
+        }
     };
 
     const handleTempSaveBtnClick = async () => { // 임시저장 버튼 클릭 시
+        alert("지원서 임시저장이 완료되었습니다");
         await makeApplicationForm(false);
     };
 
@@ -368,14 +411,15 @@ export default function MakedApplicationDetail() {
             <items.InnerContainer>
                 <items.TitleContainer>제목</items.TitleContainer>
                 <items.ContentForTitleContainer>
-                    <items.ApplicationName>KOALA 1기 스터디 지원서</items.ApplicationName>
+                    <items.ApplicationName>{title}</items.ApplicationName>
+                    {/* <items.ApplicationName>KOALA 1기 스터디 지원서</items.ApplicationName> */}
                     <StudySelect value={title} onChange={setTitle} />
                 </items.ContentForTitleContainer>
             </items.InnerContainer>
 
             {questions.map((question, index) => (
-            <items.SecondInnerContainer onClick={(e) => { e.stopPropagation(); handleClick(index); }} innerContainerClicked={innerContainerClicked[index]} key={index} draggable="true" onDragStart={(e) => handleDragStart(e, index)} onDragOver={(e) => handleDragOver(e)} onDrop={(e) => handleDrop(e, index)} >
-                <items.QuestionNumberContainer innerContainerClicked={innerContainerClicked[index]}>
+            <items.SecondInnerContainer onClick={(e) => { e.stopPropagation(); handleClick(index); }} innerContainerClicked={innerContainerClicked[index]} key={index}>
+                <items.QuestionNumberContainer innerContainerClicked={innerContainerClicked[index]} draggable="true" onDragStart={(e) => handleDragStart(e, index)} onDragOver={(e) => handleDragOver(e)} onDrop={(e) => handleDrop(e, index)}>
                     <items.QuestionNumberImg innerContainerClicked={innerContainerClicked[index]} src="/img/touchblock.png" alt="터치블록" />
                     <items.QuestionNumberText>문항 {index + 1}</items.QuestionNumberText>
                 </items.QuestionNumberContainer>
@@ -432,7 +476,7 @@ export default function MakedApplicationDetail() {
                                         ) : question.type === '객관식-복수' ? (
                                             <img src="/img/iconsquare.png" alt="복수응답" style={{width:"20px", height:"20px"}} />
                                         ) : null}
-                                        <items.ChoiceForSelectQuestionContainer placeholder='옵션' type='text' value={value} onChange={(e) => onChangeStringField(index, fieldIndex, e)} />
+                                        <items.ChoiceForSelectQuestionContainer placeholder='옵션' type='text' value={value} onChange={(e) => onChangeStringField(index, fieldIndex, e)} onBlur={() => onBlurStringField(index, fieldIndex)} />
                                         <items.ximg innerContainerClicked={innerContainerClicked[index]} onClick={() => removeStringField(index, fieldIndex)} src="/img/iconx.png" alt="x표시" />
                                     </items.OptionsContainer>
                                 ))}
@@ -444,8 +488,8 @@ export default function MakedApplicationDetail() {
                                     ) : null}
                                     <items.AddOptionParagraphContainer onClick={() => addStringField(index)}>
                                         <items.paragraph1>옵션 추가</items.paragraph1>
-                                        <items.paragraph2>&nbsp;또는</items.paragraph2>
-                                        <items.paragraph3>&nbsp;‘기타’ 추가</items.paragraph3>
+                                        {/* <items.paragraph2>&nbsp;또는</items.paragraph2>
+                                        <items.paragraph3>&nbsp;‘기타’ 추가</items.paragraph3> */}
                                     </items.AddOptionParagraphContainer>
                                 </items.AddOptionContainer>
                             </items.SelectContainer>

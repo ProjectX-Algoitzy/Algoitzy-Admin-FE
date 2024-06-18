@@ -16,26 +16,47 @@ export default function ViewApplicationList() {
     
 
     useEffect(() => {
-        setApplications(dummyData);
+		setApplications(dummyData); // 더미 데이터를 설정
 
-        // 동적으로 탭 생성
-        const stages = [...new Set(dummyData.map(app => app.selection_stage))]; // 전형 단계
-        const newTabs = ['전체 지원자'];
-        if (stages.includes('서류 전형')) newTabs.push('서류 전형');
-        if (stages.includes('면접 전형')) newTabs.push('면접 전형');
-        setTabs(newTabs);
+		// 동적으로 탭 생성
+		const stages = [...new Set(dummyData.map(app => app.selection_stage))]; // 전형 단계 목록 생성
+		const newTabs = ['전체 지원자'];
+		if (
+			stages.includes('서류 전형') || 
+			stages.includes('서류 합격') || 
+			stages.includes('서류 불합격')
+		) {
+			newTabs.push('서류 전형'); // '서류 전형', '서류 합격', '서류 불합격' 단계가 포함된 경우 탭 추가
+		}
+		if (
+			stages.includes('면접 전형') || 
+			stages.includes('최종 합격')
+		) {
+			newTabs.push('면접 전형'); // '면접 전형' 또는 '최종 합격' 단계가 포함된 경우 탭 추가
+		}
+		setTabs(newTabs); // 생성된 탭 목록을 상태에 설정
 
-        setFilteredApplications(dummyData); 
-    }, []);
+		setFilteredApplications(dummyData); // 기본적으로 모든 지원자 데이터를 필터링된 상태로 설정
+	}, []);
 
-    const handleTabClick = (tab) => {
-        setSelectedTab(tab);
-        if (tab === '전체 지원자') {
-            setFilteredApplications(applications);
-        } else {
-            setFilteredApplications(applications.filter(app => app.selection_stage === tab));
-        }
-    };
+	// 탭 클릭 시 호출되는 함수
+	const handleTabClick = (tab) => {
+		setSelectedTab(tab); // 선택된 탭을 상태에 설정
+		if (tab === '전체 지원자') {
+			setFilteredApplications(applications); // '전체 지원자' 탭 클릭 시 모든 지원자 데이터 설정
+		} else if (tab === '서류 전형') {
+			setFilteredApplications(applications.filter(app => 
+				app.selection_stage === '서류 전형' ||
+				app.selection_stage === '서류 합격' ||
+				app.selection_stage === '서류 불합격'
+			)); // '서류 전형' 관련 데이터 필터링
+		} else if (tab === '면접 전형') {
+			setFilteredApplications(applications.filter(app => 
+				app.selection_stage === '면접 전형' ||
+				app.selection_stage === '최종 합격'
+			)); // '면접 전형' 관련 데이터 필터링
+		}
+	};
 
     const handleCheckChange = (id, isChecked, stage) => {
         if (isChecked) {

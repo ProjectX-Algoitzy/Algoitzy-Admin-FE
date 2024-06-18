@@ -2,6 +2,8 @@ import React, { useState, useEffect, useContext  } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import * as itemS from "../../admin-pages/Auth/Styled/Auth.login.styles"
 import request, { ACCESS_TOKEN } from '../../Api/request';
+import axios from 'axios';
+
 
 export default function Login() {
 
@@ -18,12 +20,12 @@ export default function Login() {
       password: password,
     };
     try {
-      const response = await request.post('/member/login', requestData);
-      console.log("response",response);
-      console.log("RES",response.result);
-    //   const { accessToken } = response.result;
-      localStorage.setItem(ACCESS_TOKEN, response.result.accessToken);
-      if (response["isSuccess"]) {
+      const response = await axios.post('https://admin-dev.kau-koala.com/member/login', requestData);
+      console.log("response",response.data);
+      console.log("RES",response.data.result);
+    //   const { accessToken } = response.data.result;
+      localStorage.setItem(ACCESS_TOKEN, response.data.result.accessToken);
+      if (response.data["isSuccess"]) {
         console.log("로그인 성공!");
         localStorage.setItem("isLoggedIn", "true");  //로그인 유무를 확인하고자 
         navigate("/");

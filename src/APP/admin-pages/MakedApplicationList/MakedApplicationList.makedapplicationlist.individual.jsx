@@ -25,7 +25,6 @@ export default function MakedApplicationListIndividual({ application, setCntApp 
 
 	// 스터디 제목 글자수 자르기
 	const truncateStudyName = (name) => {
-		console.log("길이",name.length);
 		if (name.length > 12) {
 			return name.slice(0, 11) + '...';
 		}

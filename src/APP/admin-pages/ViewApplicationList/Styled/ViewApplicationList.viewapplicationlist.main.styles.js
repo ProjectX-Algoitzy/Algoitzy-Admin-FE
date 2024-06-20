@@ -125,8 +125,8 @@ export const BtnContainer = styled.div`
 `;
 
 // 버튼들
-// 지원서 삭제
-export const BtnNonpass = styled.button`
+// 서류 불합격 메일 발송
+export const BtnDocNonpass = styled.button`
   width: 239px;
   height: 48px;
   background: ${tokens.colors.White};
@@ -137,7 +137,7 @@ export const BtnNonpass = styled.button`
   margin: 24px 8px;
 `;
 // 서류 합격 메일 발송
-export const BtnPass = styled.button`
+export const BtnDocPass = styled.button`
   width: 239px;
   height: 48px;
   background: ${tokens.colors.White};
@@ -159,13 +159,25 @@ export const BtnMail = styled.button`
   margin: 24px 8px;
 `;
 // 최종 합격 메일 발송
-export const BtnFinal = styled.button`
+export const BtnFinalPass = styled.button`
   width: 239px;
   height: 48px;
   background: ${tokens.colors.Blue_0_Main};
   color: ${tokens.colors.White};
   border-radius: 4px;
   border: 1px solid ${tokens.colors.Blue_0_Main};
+  cursor: pointer;
+  margin: 24px 8px;
+`;
+
+// 최종 불합격 메일 발송
+export const BtnFinalNonPass = styled.button`
+  width: 239px;
+  height: 48px;
+  background: ${tokens.colors.Red};
+  color: ${tokens.colors.White};
+  border-radius: 4px;
+  border: 1px solid ${tokens.colors.Red};
   cursor: pointer;
   margin: 24px 8px;
 `;

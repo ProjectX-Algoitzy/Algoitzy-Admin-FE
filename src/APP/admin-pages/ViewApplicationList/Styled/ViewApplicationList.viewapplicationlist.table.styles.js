@@ -65,13 +65,28 @@ export const CheckBox = styled.input`
 
 export const BlankBox = styled.div`
   width: 104px;
-`
+`;
+
+export const CategoryInterviewContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 180px;
+  position: relative;
+`;
 
 export const CategoryDrop = styled.div`
   ${tokens.typography.T5_SB_16};
   color: ${tokens.colors.Black};
   text-align: center;
-  width: 180px;
+`;
+
+export const SortIcon = styled.img`
+	width: 24px;
+	height: 24px;
+  self-items: center;
+  cursor: pointer;
 `;
 // 카테고리 파트 끝
 
@@ -81,14 +96,62 @@ export const TupleContainer = styled.div`
   flex-direction: column;
   height: 611px;
   overflow: auto;
-  
+
   &::-webkit-scrollbar {
     width: 0px; /* Chrome, Safari, Opera용 */
   }
   scrollbar-width: none; /* Firefox용 */
+`;
 
+// 면접 일정 정렬 드롭 박스
+export const SortDrop = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: ${tokens.colors.White};
+  width: 164px;
+  height: 146px;
+  border-radius: 4px;
+  position: absolute;
+  box-shadow: 0 4px 10px 4px rgba(58, 107, 135, 0.20);
+  z-index: 99;
+  top: 30px;
+`;
 
+export const SortText = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 164px;
+  height: 48px;
+  ${tokens.typography.B3_M_14};
+  // font-weight: 600;
+  color: ${tokens.colors.Grey_8};
+  &:hover {
+    background-color: rgba(102, 201, 255, 0.2); 
+  }
+  cursor: pointer;
   
 `;
+
+export const SortCenterText = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 164px;
+  height: 48px;
+  ${tokens.typography.B3_M_14};
+  // font-weight: 600;
+  color: ${tokens.colors.Grey_8};
+  &:hover {
+    background-color: rgba(102, 201, 255, 0.2); 
+  }
+  cursor: pointer;
+  border-top : 1px solid ${tokens.colors.B_Grey_2};
+  border-bottom : 1px solid ${tokens.colors.B_Grey_2};
+`;
+
+
 
 

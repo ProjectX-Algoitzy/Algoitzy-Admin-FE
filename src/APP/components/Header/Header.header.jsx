@@ -12,25 +12,38 @@ export default function Header() {
                                   location.pathname === '/makingapplicationform' ||
                                   /^\/newapplication\/[^\/]+$/.test(location.pathname);
   useEffect(() => {
+    // const checkLoginStatus = async () => {
+    //   if(window.localStorage.getItem("isLoggedIn") === "true") {
+    //     setIsLoggedIn(true);
+    //     console.log(window.localStorage.getItem("isLoggedIn"));
+
+    //     try {
+    //       const response = await request.get('/member/info');
+    //       console.log("로그인 멤버 정보 조회", response);
+    //       if(response["isSuccess"]) {
+    //         setUserName(response.result.name);
+    //       }
+    //     } catch (error) {
+    //       console.error("로그인 멤버 정보 조회 실패", error);
+    //     }
+
+    //   } else {
+    //     setIsLoggedIn(false);
+    //     localStorage.removeItem("isLoggedIn"); // 로그인 되어 있지 않다면 키를 삭제합니다.
+    //     console.log("로그인이 제대로 되지 않았다");
+    //   }
+    // };
+    // checkLoginStatus();
     const checkLoginStatus = async () => {
-      if(window.localStorage.getItem("isLoggedIn") === "true") {
-        setIsLoggedIn(true);
-        console.log(window.localStorage.getItem("isLoggedIn"));
-
-        try {
-          const response = await request.get('/member/info');
-          console.log("로그인 멤버 정보 조회", response);
-          if(response["isSuccess"]) {
-            setUserName(response.result.name);
-          }
-        } catch (error) {
-          console.error("로그인 멤버 정보 조회 실패", error);
+      try {
+        const response = await request.get('/member/info');
+        console.log("로그인 멤버 정보 조회", response);
+        if(response["isSuccess"]) {
+          setUserName(response.result.name);
+          setIsLoggedIn(true);
         }
-
-      } else {
-        setIsLoggedIn(false);
-        localStorage.removeItem("isLoggedIn"); // 로그인 되어 있지 않다면 키를 삭제합니다.
-        console.log("로그인이 제대로 되지 않았다");
+      } catch (error) {
+        console.error("로그인 멤버 정보 조회 실패", error);
       }
     };
     checkLoginStatus();

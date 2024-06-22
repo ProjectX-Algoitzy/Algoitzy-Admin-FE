@@ -15,6 +15,9 @@ import MakingRegularStudyCurriculum from "./APP/admin-pages/MakingRegularStudy/M
 import MakingRegularStudyCurriculumCheck from "./APP/admin-pages/MakingRegularStudy/MakingRegularStudy.makingregularstudy.curriculum.check"
 import styled from "styled-components"
 import ScrollToTop from "./APP/Common/ScrollToTop"
+import useInterval from "./APP/Common/UseInterval"
+import { refreshToken } from "./APP/Api/refreshToken"
+import { ACCESS_TOKEN } from "./APP/Api/request"
 
 const Root = styled.div`
   position: absolute;
@@ -26,6 +29,12 @@ const Root = styled.div`
 `;
 
 function App() {
+  useInterval(() => {
+    if (localStorage.getItem(ACCESS_TOKEN)) {
+      refreshToken();
+    }
+  }, 10000);
+
   return (
     <Root>
       <BrowserRouter>

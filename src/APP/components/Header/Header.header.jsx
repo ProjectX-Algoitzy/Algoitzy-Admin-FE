@@ -2,15 +2,18 @@ import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import * as itemS from "./Styled/Header.headr";
 import request from '../../Api/request';
+import ProfileModal from './Header.profile.modal'; // ProfileModal 임포트
 
 export default function Header() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);  // 로그인 유무를 확인하고자는 하는 useState
   const [userName, setUserName] = useState(''); // 사용자 이름 상태 추가
+  const [showProfileModal, setShowProfileModal] = useState(false); // ProfileModal 표시 여부 상태
   const location = useLocation();
 
   const isActiveForApplication = location.pathname === '/application' ||  //지원자 관리와 관련된 페이지의 경우, 해당 링크 글씨색을 바꾸기 위함
                                   location.pathname === '/makingapplicationform' ||
                                   /^\/newapplication\/[^\/]+$/.test(location.pathname);
+  
   useEffect(() => {
     // const checkLoginStatus = async () => {
     //   if(window.localStorage.getItem("isLoggedIn") === "true") {
@@ -48,6 +51,11 @@ export default function Header() {
     };
     checkLoginStatus();
   }, []);
+
+  const toggleProfileModal = () => {
+    setShowProfileModal(prev => !prev); // ProfileModal 표시 여부 토글
+  };
+
   return (
     <itemS.HeaderContainer>
         <itemS.HeaderWrap>
@@ -67,7 +75,10 @@ export default function Header() {
                   <itemS.PageLink>코딩테스트 분석</itemS.PageLink>
                 </itemS.StyledLink>
                 {isLoggedIn ? (
-                  <itemS.AdminName>안녕하세요, {userName} 님</itemS.AdminName>
+                  <div style={{ position: 'relative' }}>
+                    <itemS.AdminName onClick={toggleProfileModal}>안녕하세요, {userName} 님</itemS.AdminName>
+                    {showProfileModal && <ProfileModal userName={userName} setIsLoggedIn={setIsLoggedIn}/>}
+                  </div>
                 ) : (
                   <itemS.StyledLink to="/login">
                     <itemS.Btn>로그인/회원가입</itemS.Btn>
@@ -76,5 +87,5 @@ export default function Header() {
             </itemS.HeaderRightWrap>
         </itemS.HeaderWrap>
     </itemS.HeaderContainer>
-  )
+  );
 }

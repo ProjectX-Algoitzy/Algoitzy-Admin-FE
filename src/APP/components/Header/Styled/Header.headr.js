@@ -52,10 +52,12 @@ export const PageLink = styled.div` /*페이지 이동 버튼*/
 `;
 
 export const AdminName = styled.div` /* 로그인한 계정의 이름을 보여주는 스타일드 컴포넌트 */
+  position: relative;
   color: ${tokens.colors.Blue_0_Main};
   height: 21px;
   margin-top: 10px;
   ${tokens.typography.T5_SB_16};
+  cursor: pointer;
 `;
 
 export const Btn = styled.button`

@@ -74,11 +74,25 @@ export const TupleLong = styled.div`
   cursor: pointer;
 `;
 
-export const TupleDrop = styled.div`
+export const TupleInterviewContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 180px;
+`;
+
+export const TupleInterview = styled.div`
   ${tokens.typography.T5_SB_16};
   color: ${tokens.colors.Black};
   text-align: center;
-  width: 180px;
+  
+`;
+export const EditIcon = styled.img`
+	width: 20px;
+	height: 20px;
+  self-items: center;
+	margin-left: 5px;
 `;
 // 튜플 파트 끝
 

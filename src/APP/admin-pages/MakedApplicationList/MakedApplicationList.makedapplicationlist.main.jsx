@@ -26,17 +26,17 @@ export default function MakedApplicationList() {
         }
       } catch (error) {
         console.error('제작된 지원서 조회 오류', error);
-        if (error.response && error.response.status === 401 && !retry) {
-          try {
-            await refreshToken();
-            // Retry the request after refreshing the token
-            await fetchMakedApplicationDetail(true);
-          } catch (refreshError) {
-            console.error('토큰 갱신 및 재요청 실패:', refreshError);
-            // Optionally, navigate to a login page or show an error message
-            navigate('/login');
-          }
-        }
+        // if (error.response && error.response.status === 401 && !retry) {
+        //   try {
+        //     await refreshToken();
+        //     // Retry the request after refreshing the token
+        //     await fetchMakedApplicationDetail(true);
+        //   } catch (refreshError) {
+        //     console.error('토큰 갱신 및 재요청 실패:', refreshError);
+        //     // Optionally, navigate to a login page or show an error message
+        //     navigate('/login');
+        //   }
+        // }
       }
     };
 

@@ -56,10 +56,6 @@ export default function Header() {
     setShowProfileModal(prev => !prev); // ProfileModal 표시 여부 토글
   };
 
-  const closeProfileModal = () => {
-    setShowProfileModal(false); // ProfileModal 닫기
-  };
-
   return (
     <itemS.HeaderContainer>
         <itemS.HeaderWrap>
@@ -79,7 +75,10 @@ export default function Header() {
                   <itemS.PageLink>코딩테스트 분석</itemS.PageLink>
                 </itemS.StyledLink>
                 {isLoggedIn ? (
-                  <itemS.AdminName>안녕하세요, {userName} 님</itemS.AdminName>
+                  <div style={{ position: 'relative' }}>
+                    <itemS.AdminName onClick={toggleProfileModal}>안녕하세요, {userName} 님</itemS.AdminName>
+                    {showProfileModal && <ProfileModal userName={userName} setIsLoggedIn={setIsLoggedIn}/>}
+                  </div>
                 ) : (
                   <itemS.StyledLink to="/login">
                     <itemS.Btn>로그인/회원가입</itemS.Btn>

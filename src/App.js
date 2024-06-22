@@ -33,7 +33,7 @@ function App() {
     if (localStorage.getItem(ACCESS_TOKEN)) {
       refreshToken();
     }
-  }, 10000);
+  }, 30000);
 
   return (
     <Root>

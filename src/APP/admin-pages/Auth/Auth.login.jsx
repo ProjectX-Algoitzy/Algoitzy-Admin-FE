@@ -22,7 +22,6 @@ export default function Login() {
     try {
       const response = await axios.post('https://admin-dev.kau-koala.com/member/login', requestData);
       console.log("response",response.data);
-      console.log("RES",response.data.result);
     //   const { accessToken } = response.data.result;
       localStorage.setItem(ACCESS_TOKEN, response.data.result.accessToken);
       if (response.data["isSuccess"]) {

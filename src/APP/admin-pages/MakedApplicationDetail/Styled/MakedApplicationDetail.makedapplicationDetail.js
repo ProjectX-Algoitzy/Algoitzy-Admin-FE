@@ -74,6 +74,10 @@ export const ApplicationName = styled.div`
 export const StudySelectContainer = styled(Select).attrs({
     classNamePrefix: 'react-select',
 })`
+  ${({ disabled }) => disabled && `
+    pointer-events: none;
+  `}
+
   .react-select__control { /*선택 상자의 컨트롤 부분 스타일링*/
     margin-top: 32px;
     width: 210px;
@@ -105,7 +109,7 @@ export const StudySelectContainer = styled(Select).attrs({
     top: -10px;  
     left: -1px;
     width: 212px;
-    height: 144px; 
+    height: 96px; 
     border-radius: 4px;
     border: none;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -370,26 +374,8 @@ export const SelectionQuestionContainer = styled.div` /*객관식 문항을 위�
   position: relative;
 `;
 
-// 평균 너비를 미리 설정합니다.
-const AVERAGE_ENGLISH_CHAR_WIDTH = 14.1; // 영어 문자 평균 너비 (픽셀 단위)
-const AVERAGE_KOREAN_CHAR_WIDTH = 15.3; // 한글 문자 평균 너비 (픽셀 단위)
-
-const calculateWidth = (value) => {
-  let totalWidth = 0;
-  for (let char of value) {
-    if (char.match(/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/)) {
-      // 한글 문자일 경우
-      totalWidth += AVERAGE_KOREAN_CHAR_WIDTH;
-    } else {
-      // 영어 문자일 경우
-      totalWidth += AVERAGE_ENGLISH_CHAR_WIDTH;
-    }
-  }
-  return totalWidth;
-};
-
 export const QuestionContainer = styled.input`  /* 어떤 질문을 할지 적기위한 input을 감싸주는 컨테이너 */
-  ${({ innerContainerClicked, value  }) => 
+  ${({ innerContainerClicked }) => 
     innerContainerClicked ? css`
         padding-left: 12px;
         width: 460px;
@@ -409,7 +395,9 @@ export const QuestionContainer = styled.input`  /* 어떤 질문을 할지 적�
           border-bottom: 2px solid ${tokens.colors.Black};
         }
     `: css`
-        width: ${value ? `${calculateWidth(value)}px` : '460px'};
+        width: ${({ value }) => (value ? `${value.length * 14.2}px` : '460px')};
+        min-width: 36px; /* 최소 너비 설정 */
+        margin-right: 16px;
         height: auto;
         border: none;
         ${tokens.typography.T5_SB_16};
@@ -424,8 +412,9 @@ export const NecessaryImg = styled.img` /*필수질문일 때 넣을 별표이�
       width: 12px;
       height: 12px;
       position: absolute;
-      left: 100%;
-      margin-left: 8px;
+      right: 0; /* 컨테이너의 오른쪽 끝에 배치 */
+      top: 22%; /* 세로 중앙 정렬 */
+      transform: translateY(-50%); /* 세로 중앙 정렬을 위해 추가 */
     `
   }
 `;
@@ -561,6 +550,7 @@ export const AddOptionParagraphContainer = styled.div` /*객관식 문항의 보
 export const paragraph1 = styled.div` /*옵션추가 라는 회색글자*/
   display: inline;
   color: ${tokens.colors.B_Grey_6};
+  cursor: pointer;
 `;
 
 export const paragraph2 = styled.div` /* 또는 이라는 검은글자 */

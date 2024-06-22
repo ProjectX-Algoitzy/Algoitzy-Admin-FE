@@ -27,7 +27,7 @@ export default function Login() {
       localStorage.setItem(ACCESS_TOKEN, response.data.result.accessToken);
       if (response.data["isSuccess"]) {
         console.log("로그인 성공!");
-        localStorage.setItem("isLoggedIn", "true");  //로그인 유무를 확인하고자 
+        // localStorage.setItem("isLoggedIn", "true");  //로그인 유무를 확인하고자 
         navigate("/");
         window.location.reload(); // 페이지 새로고침 추가
       } else {

@@ -6,7 +6,9 @@ import Select, { components } from 'react-select';
 
 export default function MakedApplicationDetail() {
     const { id } = useParams();  //파라미터로 각 학생별로 부여된 id를 받아옵니다
+    const [isConfirm, setIsConfirm] = useState(false); // 초기값 false로 설정
     const [title, setTitle] = useState('');  // 해당 지원서의 제목을 저장
+    const [studyId, setStudyId] = useState(null); // 선택된 스터디의 ID를 관리하는 state
     const [studyName, setStudyName] = useState(''); //해당 지원서의 스터디이름을 저장
     const [regularStudyList, setRegularStudyList] = useState([]); //정규 스터디의 목록을 저장 
     const [questions, setQuestions] = useState([]); //각 문항들을 저장하는 배열
@@ -63,6 +65,7 @@ export default function MakedApplicationDetail() {
                 if (response["isSuccess"]) {
                     console.log("제작된 지원서 조회 성공");
                     const transformedQuestions = transformReceivedQuestions(response.result.selectQuestionList.concat(response.result.textQuestionList));
+                    setIsConfirm(response.result.confirmYN);
                     setTitle(response.result.title);
                     setStudyName(response.result.studyName);
                     setQuestions(transformedQuestions);
@@ -82,13 +85,30 @@ export default function MakedApplicationDetail() {
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error.message}</div>;
 
+    // const handleContainerClick = () => {  // 배포되었을 때, 못클릭하게 하려고
+    //     if (isConfirm) {
+    //       // isConfirm이 true인 경우 경고창 띄우기
+    //       alert('이 지원서는 이미 배포되었습니다. 수정할 수 없습니다.');
+    //       setInnerContainerClicked(false)
+    //     } else {
+    //       // isConfirm이 false인 경우 원하는 동작 수행
+    //       // 예시: 다른 페이지로 이동하거나 다른 작업 수행
+    //       console.log('items.Container를 클릭했습니다.');
+    //     }
+    // };
+
     const handleClick = (index) => {    //하나의 문단 클릭했음을 나타내는 함수
-        const updatedClickedState = Array(questions.length).fill(false);
-        updatedClickedState[index] = true;
-        setInnerContainerClicked(updatedClickedState);
+        if (isConfirm) {
+            alert('이 지원서는 이미 배포되었습니다. 수정할 수 없습니다.');
+            setInnerContainerClicked(false)
+        } else {
+            const updatedClickedState = Array(questions.length).fill(false);
+            updatedClickedState[index] = true;
+            setInnerContainerClicked(updatedClickedState);
+        }
     };
 
-    const StudySelect =  ({ value, onChange }) => {  //어떤 스터디인지 react-select를 통해 선택
+    const StudySelect =  ({ value, onChange, isConfirm  }) => {  //어떤 스터디인지 react-select를 통해 선택
         const CustomDropdownIndicator = props => {  //주관식인지 객관식인지 판별하는 과정에서 역삼각형을 꾸며주는 컴포넌트
             return (
               <components.DropdownIndicator {...props}>
@@ -103,35 +123,48 @@ export default function MakedApplicationDetail() {
         //     {value: "CS면접대비", label:"CS면접대비"}
         // ]
         const options = regularStudyList.map(study => ({
-            value: study.name,
+            value: study.studyId,
             label: study.name
         }));
+
+        const handleStudyChange = selectedOption => {
+            setStudyId(selectedOption.value); // 선택된 스터디의 ID를 state로 업데이트
+            onChange(selectedOption.label + " 지원서");
+        };
+
+        useEffect(() => {
+            //console.log("스터디아이디", studyId);
+        }, [studyId]);
         
         return(
             <div onClick={e => e.stopPropagation()}>
                 <items.StudySelectContainer
                     options={options}
-                    value={options.find(option => option.value === value)}
-                    onChange={selectedOption => onChange(selectedOption.value)}
-                    // placeholder="스터디 선택"
-                    defaultValue={options[0]}
+                    value={options.find(option => option.label+ " 지원서" === value)}
+                    onChange={handleStudyChange}
+                    placeholder="스터디 선택"
                     isSearchable={false} // 직접 입력 비활성화
                     components={{DropdownIndicator: CustomDropdownIndicator, IndicatorSeparator: null}}
+                    disabled={isConfirm} // isConfirm에 따라 비활성화
                 />  
             </div>
         )
     } 
     
     const addQuestion = () => { // 문항 추가
-        setQuestions([...questions, { 
-            type: '객관식-단일', // 새로운 문항의 타입을 '객관식-단일'로 설정
-            selectQuestion: '', // 초기값 설정 가능한 필드들은 모두 초기화
-            isRequired: false,
-            isMultiselect: false,
-            sequence: questions.length + 1, // 새로운 문항의 순서 설정
-            howManyFields: 0,
-            stringFields: ['']
-        }]);
+        if (isConfirm) {
+            alert('이 지원서는 이미 배포되었습니다. 수정할 수 없습니다.');
+        } else {
+            setQuestions([...questions, { 
+                type: '객관식-단일', // 새로운 문항의 타입을 '객관식-단일'로 설정
+                selectQuestion: '', // 초기값 설정 가능한 필드들은 모두 초기화
+                isRequired: false,
+                isMultiselect: false,
+                sequence: questions.length + 1, // 새로운 문항의 순서 설정
+                howManyFields: 0,
+                stringFields: ['']
+            }]);
+        }
     }
 
     const removeQuestion = (index) => { //문항 제거
@@ -141,7 +174,11 @@ export default function MakedApplicationDetail() {
     }
 
     const handleDragStart = (e, index) => { //드래그앤 드롭을 위한 함수1
-        e.dataTransfer.setData('index', index);
+        if (isConfirm) {
+            alert('이 지원서는 이미 배포되었습니다. 수정할 수 없습니다.');
+        } else {
+            e.dataTransfer.setData('index', index);
+        }
     }
 
     const handleDragOver = (e) => {  //드래그앤 드롭을 위한 함수2
@@ -167,39 +204,113 @@ export default function MakedApplicationDetail() {
         const handleTypeSelection = (selectedOption) => {
             const selectedType = selectedOption.value;
             const updatedQuestions = [...questions];
-            let newQuestion = {};
-            if (selectedType === "주관식") {
-                newQuestion = {
-                    type: selectedType,
-                    textQuestion: '',
-                    isRequired: false,
-                    sequence: sequenceByIndex
-                };
-            } else if (selectedType === "객관식-단일") {
-                newQuestion = {
-                    type: selectedType,
-                    selectQuestion: '',
-                    isRequired: false,
-                    isMultiselect: false,
-                    sequence: sequenceByIndex,
-                    howManyFields: 0,
-                    stringFields: [''] //기본적으로 하나는 있음
-                };
-            } else if (selectedType === '객관식-복수') {
-                newQuestion = {
-                    type: selectedType,
-                    selectQuestion: '',
-                    isRequired: false,
-                    isMultiselect: true,
-                    sequence: sequenceByIndex,
-                    howManyFields: 0,
-                    stringFields: [''] //기본적으로 하나는 있음
-                };
+            let currentQuestion = updatedQuestions[index] || {};
+    
+            if (Object.keys(currentQuestion).length === 0) {
+                // currentQuestion이 비어있는 경우 새로운 질문을 생성
+                if (selectedType === "주관식") {
+                    currentQuestion = {
+                        type: selectedType,
+                        textQuestion: '',
+                        isRequired: false,
+                        sequence: sequenceByIndex
+                    };
+                } else if (selectedType === "객관식-단일") {
+                    currentQuestion = {
+                        type: selectedType,
+                        selectQuestion: '',
+                        isRequired: false,
+                        isMultiselect: false,
+                        sequence: sequenceByIndex,
+                        howManyFields: 0,
+                        stringFields: [''] //기본적으로 하나는 있음
+                    };
+                } else if (selectedType === '객관식-복수') {
+                    currentQuestion = {
+                        type: selectedType,
+                        selectQuestion: '',
+                        isRequired: false,
+                        isMultiselect: true,
+                        sequence: sequenceByIndex,
+                        howManyFields: 0,
+                        stringFields: [''] //기본적으로 하나는 있음
+                    };
+                }
+            } else {
+                // currentQuestion이 비어있지 않은 경우 기존 값을 유지하면서 업데이트
+                if (selectedType === "주관식") {
+                    currentQuestion = {
+                        ...currentQuestion,
+                        type: selectedType,
+                        textQuestion: currentQuestion.selectQuestion || currentQuestion.textQuestion || '',
+                        isRequired: currentQuestion.isRequired || false,
+                        sequence: sequenceByIndex
+                    };
+                } else if (selectedType === "객관식-단일") {
+                    currentQuestion = {
+                        ...currentQuestion,
+                        type: selectedType,
+                        selectQuestion: currentQuestion.selectQuestion|| currentQuestion.textQuestion || '',
+                        isRequired: currentQuestion.isRequired || false,
+                        isMultiselect: false,
+                        sequence: sequenceByIndex,
+                        howManyFields: currentQuestion.howManyFields || 0,
+                        stringFields: currentQuestion.stringFields || [''] //기본적으로 하나는 있음
+                    };
+                } else if (selectedType === '객관식-복수') {
+                    currentQuestion = {
+                        ...currentQuestion,
+                        type: selectedType,
+                        selectQuestion: currentQuestion.selectQuestion || currentQuestion.textQuestion || '',
+                        isRequired: currentQuestion.isRequired || false,
+                        isMultiselect: true,
+                        sequence: sequenceByIndex,
+                        howManyFields: currentQuestion.howManyFields || 0,
+                        stringFields: currentQuestion.stringFields || [''] //기본적으로 하나는 있음
+                    };
+                }
             }
-            updatedQuestions[index] = newQuestion;
+    
+            updatedQuestions[index] = currentQuestion;
             setQuestions(updatedQuestions);
             console.log("Questions updated: ", updatedQuestions);  // 상태 업데이트 확인용 로그
         };
+        // const handleTypeSelection = (selectedOption) => {
+        //     const selectedType = selectedOption.value;
+        //     const updatedQuestions = [...questions];
+        //     let newQuestion = {};
+        //     if (selectedType === "주관식") {
+        //         newQuestion = {
+        //             type: selectedType,
+        //             textQuestion: '',
+        //             isRequired: false,
+        //             sequence: sequenceByIndex
+        //         };
+        //     } else if (selectedType === "객관식-단일") {
+        //         newQuestion = {
+        //             type: selectedType,
+        //             selectQuestion: '',
+        //             isRequired: false,
+        //             isMultiselect: false,
+        //             sequence: sequenceByIndex,
+        //             howManyFields: 0,
+        //             stringFields: [''] //기본적으로 하나는 있음
+        //         };
+        //     } else if (selectedType === '객관식-복수') {
+        //         newQuestion = {
+        //             type: selectedType,
+        //             selectQuestion: '',
+        //             isRequired: false,
+        //             isMultiselect: true,
+        //             sequence: sequenceByIndex,
+        //             howManyFields: 0,
+        //             stringFields: [''] //기본적으로 하나는 있음
+        //         };
+        //     }
+        //     updatedQuestions[index] = newQuestion;
+        //     setQuestions(updatedQuestions);
+        //     console.log("Questions updated: ", updatedQuestions);  // 상태 업데이트 확인용 로그
+        // };
     
         const options = [
             { value: '객관식-단일', label: '객관식 질문 (단일 응답)' },
@@ -356,7 +467,7 @@ export default function MakedApplicationDetail() {
         });
     
         const requestData = {
-            studyId: 1,
+            studyId: 1, //studyId,
             title: title,
             confirmYN: distribution, // props로 받은 값에 따라 변화를 줘서 임시저장과 저장을 구분합니다
             updateTextQuestionList: createTextQuestionRequestList,
@@ -369,7 +480,7 @@ export default function MakedApplicationDetail() {
             if (response["isSuccess"]) {
                 console.log("지원서 " + (distribution ? "저장" : "임시저장") + " 성공"); // 저장 또는 임시저장 메시지 출력
                 // alert("지원서 " + (distribution ? "저장" : "임시저장") + "이 완료되었습니다"); // 저장 또는 임시저장 메시지 출력
-                navigate("/makedapplicationlist");
+                navigate("/application");
             } else {
                 console.error("지원서 " + (distribution ? "저장" : "임시저장") + " 실패:", response); // 저장 또는 임시저장 실패 메시지 출력
             }
@@ -379,16 +490,23 @@ export default function MakedApplicationDetail() {
     };
 
     const handleSaveBtnClick = async () => { // 저장하기 버튼 클릭 시 사용하는 함수
-        // await makeApplicationForm(true);
-        const confirmation = window.confirm("지원서를 저장하시겠습니까?");
-        if (confirmation) {
-            await makeApplicationForm(true);
+        if (isConfirm) {
+            alert('이 지원서는 이미 배포되었습니다. 수정할 수 없습니다.');
+        } else {
+            const confirmation = window.confirm("지원서를 저장하시겠습니까?");
+            if (confirmation) {
+                await makeApplicationForm(true);
+            }
         }
     };
 
     const handleTempSaveBtnClick = async () => { // 임시저장 버튼 클릭 시
-        alert("지원서 임시저장이 완료되었습니다");
-        await makeApplicationForm(false);
+        if (isConfirm) {
+            alert('이 지원서는 이미 배포되었습니다. 수정할 수 없습니다.');
+        } else {
+            alert("지원서 임시저장이 완료되었습니다");
+            await makeApplicationForm(false);
+        }
     };
 
     const RoundedSwitch = ({ onChange, checked }) => { // 스위치 컴포넌트
@@ -413,7 +531,7 @@ export default function MakedApplicationDetail() {
                 <items.ContentForTitleContainer>
                     <items.ApplicationName>{title}</items.ApplicationName>
                     {/* <items.ApplicationName>KOALA 1기 스터디 지원서</items.ApplicationName> */}
-                    <StudySelect value={title} onChange={setTitle} />
+                    <StudySelect value={title} onChange={setTitle} isConfirm={isConfirm} />
                 </items.ContentForTitleContainer>
             </items.InnerContainer>
 
@@ -460,16 +578,6 @@ export default function MakedApplicationDetail() {
                         ):  question.type === '객관식-단일' || question.type === '객관식-복수' ? (
                             <items.SelectContainer>    
                                 {question.stringFields.map((value, fieldIndex) => (
-                                    // <items.OptionsContainer key={fieldIndex} onClick={() => setSelectedFieldIndex(fieldIndex)}>
-                                    //     <items.OptionImg src='/img/optionblock.png' alt='옵션블록' style={{ display: selectedFieldIndex === fieldIndex ? 'block' : 'none' }} />
-                                    //     {question.type === '객관식-단일' ? (
-                                    //         <img src="/img/iconcircle.png" alt="단일응답" style={{width:"20px", height:"20px", marginLeft: selectedFieldIndex === fieldIndex ? '0px' : '24px'}}  />
-                                    //     ) : question.type === '객관식-복수' ? (
-                                    //         <img src="/img/iconsquare.png" alt="복수응답" style={{width:"20px", height:"20px", marginLeft: selectedFieldIndex === fieldIndex ? '0px' : '24px'}} />
-                                    //     ) : null}
-                                    //     <items.ChoiceForSelectQuestionContainer placeholder='옵션' type='text' value={value} onChange={(e) => onChangeStringField(index, fieldIndex, e)} />
-                                    //     <items.ximg innerContainerClicked={innerContainerClicked[index]} onClick={() => removeStringField(index, fieldIndex)} src="/img/iconx.png" alt="x표시" />
-                                    // </items.OptionsContainer>
                                     <items.OptionsContainer key={fieldIndex}>
                                         {question.type === '객관식-단일' ? (
                                             <img src="/img/iconcircle.png" alt="단일응답" style={{width:"20px", height:"20px"}}  />
@@ -488,8 +596,6 @@ export default function MakedApplicationDetail() {
                                     ) : null}
                                     <items.AddOptionParagraphContainer onClick={() => addStringField(index)}>
                                         <items.paragraph1>옵션 추가</items.paragraph1>
-                                        {/* <items.paragraph2>&nbsp;또는</items.paragraph2>
-                                        <items.paragraph3>&nbsp;‘기타’ 추가</items.paragraph3> */}
                                     </items.AddOptionParagraphContainer>
                                 </items.AddOptionContainer>
                             </items.SelectContainer>

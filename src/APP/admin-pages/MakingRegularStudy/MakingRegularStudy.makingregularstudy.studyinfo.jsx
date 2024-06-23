@@ -60,7 +60,7 @@ export default function MakingRegularStudyStudyinfo() {
         );
     };
 
-    const handleSave = async () => {
+    const handleArbitarySave = async () => {
         const requestData = {
             profileUrl: imageUrl,
             name: name,
@@ -79,9 +79,9 @@ export default function MakingRegularStudyStudyinfo() {
         }
     };
 
-    const handleSaveAndNext = () => {
+    const handleSave = () => {
         handleSave();
-        navigate('/makingregularstudycurriculum');
+        // navigate('/makingregularstudycurriculum');
     }
   return (
     <itemS.BackGroundContainer>
@@ -107,8 +107,8 @@ export default function MakingRegularStudyStudyinfo() {
 
         <itemS.BtnContainer>
             <itemS.BtnContainer2>
-                <itemS.ArbitaryBtn onClick={handleSave}>임시저장</itemS.ArbitaryBtn>
-                <itemS.Btn onClick={handleSaveAndNext}>다음</itemS.Btn>
+                <itemS.ArbitaryBtn onClick={handleArbitarySave}>임시저장</itemS.ArbitaryBtn>
+                <itemS.Btn onClick={handleSave}>생성하기</itemS.Btn>
             </itemS.BtnContainer2>
         </itemS.BtnContainer>
     </itemS.BackGroundContainer>

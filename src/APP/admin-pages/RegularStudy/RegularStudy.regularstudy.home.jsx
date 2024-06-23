@@ -4,7 +4,9 @@ import * as itemS from "../RegularStudy/Styled/RegularStudy.regularstudy.home.st
 export default function RegularStudyHome() {
   return (
     <itemS.Container>
-      <itemS.Title>홈</itemS.Title>
+      <itemS.Title>홈
+        <img src="/img/btnedit.png" alt="편집버튼" style={{width:"60px", height:"41px"}}  />
+      </itemS.Title>
 
       <itemS.ContentContainer>
         <itemS.BlueContainer>대상</itemS.BlueContainer>

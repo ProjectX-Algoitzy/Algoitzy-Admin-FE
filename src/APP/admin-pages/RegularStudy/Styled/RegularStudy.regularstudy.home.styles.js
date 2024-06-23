@@ -10,6 +10,8 @@ export const Container = styled.div`
 
 export const Title = styled.div`
   display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   margin-top: 100px;
   margin-bottom: 36px;
   width: 793px;

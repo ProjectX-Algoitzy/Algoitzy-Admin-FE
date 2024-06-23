@@ -109,7 +109,7 @@ export const StudySelectContainer = styled(Select).attrs({
     top: -10px;  
     left: -1px;
     width: 212px;
-    height: 96px; 
+    height: 250px; 
     border-radius: 4px;
     border: none;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);

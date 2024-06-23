@@ -28,7 +28,7 @@ export default function RegularStudySideBar({setActiveComponent, activeComponent
           >
             홈 <itemS.ArrowImg src="/img/grayarrow.png" alt="화살표"/> 
           </itemS.styledLink>
-          <itemS.styledLink 
+          {/* <itemS.styledLink 
             onClick={() => setActiveComponent('curriculum')}
             isActive={activeComponent === 'curriculum'}
           >
@@ -39,7 +39,7 @@ export default function RegularStudySideBar({setActiveComponent, activeComponent
             isActive={activeComponent === 'attendance'}
           >
             출석부 <itemS.ArrowImg src="/img/grayarrow.png" alt="화살표"/> 
-          </itemS.ThirdstyledLink>
+          </itemS.ThirdstyledLink> */}
         </itemS.LinkContainer>
       </itemS.InnerContainer>
     </itemS.Container>

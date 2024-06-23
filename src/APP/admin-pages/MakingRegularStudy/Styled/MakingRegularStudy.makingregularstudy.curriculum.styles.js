@@ -173,7 +173,7 @@ export const ArbitaryBtn = styled.button` /* 임시 저장하기 버튼*/
   background-color: ${tokens.colors.B_Grey_7};
 `;
 
-export const Btn = styled.button` /*저장하기 버튼*/
+export const Btn = styled.button` /*개설하기 버튼*/
   margin-left: 16px;
   width: 388px;
   height: 48px;

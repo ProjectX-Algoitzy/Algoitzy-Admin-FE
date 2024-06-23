@@ -75,6 +75,7 @@ export const TupleLong = styled.div`
 `;
 
 export const TupleInterviewContainer = styled.div`
+  position: relative;
   display: flex;
   flex-direction: row;
   justify-content: center;

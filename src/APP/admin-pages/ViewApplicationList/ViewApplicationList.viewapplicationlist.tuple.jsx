@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import * as itemS from "../../admin-pages/ViewApplicationList/Styled/ViewApplicationList.viewapplicationlist.tuple.styles";
 import ViewApplicationDetail from '../ViewApplicationDetail/ViewApplicationDetail.viewapplicationdetail';
+import UpdateModal from './updateModal';
 
 export default function ViewApplicationListTuple({ application, isSelected, onOpen, onClose, onCheckChange, firstCheckedStage }) {
     const [isChecked, setIsChecked] = useState(false);
-
-    // useEffect(() => {
-    //     setIsChecked(selectAll);
-    // }, [selectAll]);
+    const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false); // State for UpdateModal
 
     const handleCheckChange = (event) => {
         const checked = event.target.checked;
@@ -20,6 +18,16 @@ export default function ViewApplicationListTuple({ application, isSelected, onOp
             setIsChecked(false);
         }
     }, [firstCheckedStage]);
+
+    const handleEditClick = () => {
+        setIsUpdateModalOpen(true);
+    };
+
+    const handleUpdateConfirm = (schedule) => {
+        setIsUpdateModalOpen(false);
+        // Here you would update the application data
+        application.interview_schedule = schedule;
+    };
 
     return (
         <itemS.TupleContainer>
@@ -36,7 +44,10 @@ export default function ViewApplicationListTuple({ application, isSelected, onOp
             <itemS.Tuple onClick={onOpen}>{application.selection_stage}</itemS.Tuple>
             <itemS.TupleInterviewContainer>
                 <itemS.TupleInterview>{application.interview_schedule}</itemS.TupleInterview>
-                <itemS.EditIcon src="/img/edit.svg" alt="Edit Icon"/>
+                <itemS.EditIcon src="/img/edit.svg" alt="Edit Icon" onClick={handleEditClick} />
+                {isUpdateModalOpen && (
+                <UpdateModal onClose={() => setIsUpdateModalOpen(false)} onConfirm={handleUpdateConfirm} />
+                )}
             </itemS.TupleInterviewContainer>
             {isSelected && (
                 <ViewApplicationDetail
@@ -45,6 +56,7 @@ export default function ViewApplicationListTuple({ application, isSelected, onOp
                     onClose={onClose}
                 />
             )}
+            
         </itemS.TupleContainer>
     );
 }

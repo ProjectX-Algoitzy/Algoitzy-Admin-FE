@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext  } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import * as itemS from "../../admin-pages/Auth/Styled/Auth.login.styles"
-import request, { ACCESS_TOKEN } from '../../Api/request';
+import { ACCESS_TOKEN } from '../../Api/request';
 import axios from 'axios';
 
 
@@ -22,7 +22,6 @@ export default function Login() {
     try {
       const response = await axios.post('https://admin-dev.kau-koala.com/member/login', requestData);
       console.log("response",response.data);
-    //   const { accessToken } = response.data.result;
       localStorage.setItem(ACCESS_TOKEN, response.data.result.accessToken);
       if (response.data["isSuccess"]) {
         console.log("로그인 성공!");
@@ -57,10 +56,10 @@ export default function Login() {
                 onChange={(e) => setPassword(e.target.value)}
                 // style={{ border: pwdborderColor }}
               />
-							<itemS.UtilBox>
+							{/* <itemS.UtilBox>
 								<itemS.CheckBox type="checkbox" />
 								<itemS.NormText>자동 로그인</itemS.NormText>
-							</itemS.UtilBox>
+							</itemS.UtilBox> */}
             </itemS.LIContainer>
 						
           <itemS.Btn onClick={handleSubmit}>

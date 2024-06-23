@@ -16,7 +16,7 @@ export const dummyData = [
     "department": "컴퓨터 공학과",
     "desired_study": "코딩 테스트 대비반",
     "selection_stage": "면접 전형",
-    "interview_schedule": "4월 5일 09:00",
+    "interview_schedule": "04월 05일 09:00",
     "email": "pch990824@naver.com"
   },
   {
@@ -46,7 +46,7 @@ export const dummyData = [
     "department": "컴퓨터 공학과",
     "desired_study": "코딩 테스트 대비반",
     "selection_stage": "면접 전형",
-    "interview_schedule": "4월 3일 11:00",
+    "interview_schedule": "04월 03일 11:00",
     "email": "pch990824@naver.com"
   },
   {
@@ -66,7 +66,7 @@ export const dummyData = [
     "department": "컴퓨터 공학과",
     "desired_study": "코딩 테스트 대비반",
     "selection_stage": "면접 전형",
-    "interview_schedule": "4월 7일 09:30",
+    "interview_schedule": "04월 07일 09:30",
     "email": "pch990824@naver.com"
   },
   {
@@ -86,7 +86,7 @@ export const dummyData = [
     "department": "정보 시스템학과",
     "desired_study": "코딩 테스트 대비반",
     "selection_stage": "면접 전형",
-    "interview_schedule": "4월 20일 10:30",
+    "interview_schedule": "04월 20일 10:30",
     "email": "pch990824@naver.com"
   },
   {
@@ -116,7 +116,7 @@ export const dummyData = [
     "department": "컴퓨터 공학과",
     "desired_study": "코딩 테스트 대비반",
     "selection_stage": "면접 전형",
-    "interview_schedule": "4월 5일 12:00",
+    "interview_schedule": "04월 05일 12:00",
     "email": "pch990824@naver.com"
   },
   {
@@ -146,7 +146,7 @@ export const dummyData = [
     "department": "컴퓨터 공학과",
     "desired_study": "코딩 테스트 대비반",
     "selection_stage": "면접 전형",
-    "interview_schedule": "4월 3일 14:00",
+    "interview_schedule": "04월 03일 14:00",
     "email": "pch990824@naver.com"
   },
   {
@@ -166,7 +166,7 @@ export const dummyData = [
     "department": "컴퓨터 공학과",
     "desired_study": "코딩 테스트 대비반",
     "selection_stage": "면접 전형",
-    "interview_schedule": "4월 7일 08:30",
+    "interview_schedule": "04월 07일 08:30",
     "email": "pch990824@naver.com"
   },
   {
@@ -186,7 +186,7 @@ export const dummyData = [
     "department": "정보 시스템학과",
     "desired_study": "코딩 테스트 대비반",
     "selection_stage": "면접 전형",
-    "interview_schedule": "4월 20일 10:30",
+    "interview_schedule": "04월 20일 10:30",
     "email": "pch990824@naver.com"
   },
   {

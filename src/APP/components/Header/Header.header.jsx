@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import * as itemS from "./Styled/Header.headr";
 import request from '../../Api/request';
-import ProfileModal from './Header.profile.modal'; // ProfileModal 임포트
+import ProfileModal from './Header.profile.modal'; 
 
 export default function Header() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);  // 로그인 유무를 확인하고자는 하는 useState

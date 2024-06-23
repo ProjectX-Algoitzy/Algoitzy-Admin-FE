@@ -16,14 +16,14 @@ export const InnerContainer = styled.div`
   border: 1px solid ${tokens.colors.Grey_4};
   border-radius: 20px;
   padding: 127px 407px;
-  margin-top: 60px;
+  margin-top: 120px;
 `;
 
 // 회원가입 head
 export const Head3 = styled.div`
 	${tokens.typography.H3_SB_40}
 	margin-top: 20px;
-    margin-bottom: 27px;
+  margin-bottom: 27px;
 `;
 
 // 이미지 자리

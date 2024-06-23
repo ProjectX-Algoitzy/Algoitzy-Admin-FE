@@ -60,27 +60,27 @@ export default function MakingRegularStudyStudyinfo() {
         );
     };
 
-    // const handleSave = async () => {
-    //     const requestData = {
-    //         studyId: 2,
-    //         title: title,
-    //         week: selectedWeek,
-    //         content: content
-    //     };
+    const handleSave = async () => {
+        const requestData = {
+            profileUrl: imageUrl,
+            name: name,
+            content: content
+        };
 
-    //     try {
-    //         const response = await request.post('/curriculum', requestData)
-    //         console.log(response);
+        try {
+            const response = await request.post('/study', requestData)
+            console.log(response);
 
-    //         if (response["isSuccess"]) {
-    //             alert("커리큘럼 제작됨")
-    //         } 
-    //     } catch (error) {
-    //         console.error('커리큘럼 저장과정에서 에러', error);
-    //     }
-    // };
+            if (response["isSuccess"]) {
+                alert("정규스터디 임시저장 완료")
+            } 
+        } catch (error) {
+            console.error('정규스터디 저장과정에서 에러', error);
+        }
+    };
 
     const handleSaveAndNext = () => {
+        handleSave();
         navigate('/makingregularstudycurriculum');
     }
   return (
@@ -107,7 +107,7 @@ export default function MakingRegularStudyStudyinfo() {
 
         <itemS.BtnContainer>
             <itemS.BtnContainer2>
-                <itemS.ArbitaryBtn>임시저장</itemS.ArbitaryBtn>
+                <itemS.ArbitaryBtn onClick={handleSave}>임시저장</itemS.ArbitaryBtn>
                 <itemS.Btn onClick={handleSaveAndNext}>다음</itemS.Btn>
             </itemS.BtnContainer2>
         </itemS.BtnContainer>

@@ -15,7 +15,7 @@ export default function MakingRegularStudyCurriculum() {
 
     const handleSave = async () => {
         const requestData = {
-            studyId: 2,
+            studyId: 1,  //studyID를 받아서 수정필요
             title: title,
             week: selectedWeek,
             content: content

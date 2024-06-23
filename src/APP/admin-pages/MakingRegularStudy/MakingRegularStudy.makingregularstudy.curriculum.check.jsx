@@ -9,7 +9,7 @@ export default function MakingRegularStudyCurriculumCheck() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await request.get(`/curriculum/8`);
+        const response = await request.get(`/curriculum/12`);
         console.log("response", response);
         if (response["isSuccess"]) {
           setData(response.result);

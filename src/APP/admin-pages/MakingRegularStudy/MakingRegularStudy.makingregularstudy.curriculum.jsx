@@ -89,6 +89,7 @@ export default function MakingRegularStudyCurriculum() {
         <itemS.BtnContainer>
             <itemS.BtnContainer2>
                 <itemS.ArbitaryBtn onClick={handleSave}>임시저장</itemS.ArbitaryBtn>
+                <itemS.Btn>개설하기</itemS.Btn>
             </itemS.BtnContainer2>
         </itemS.BtnContainer>
     </itemS.BackGroundContainer>

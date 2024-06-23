@@ -13,6 +13,7 @@ import RegularStudy from "./APP/admin-pages/RegularStudy/RegularStudy.regularstu
 import QuillPractice from "./APP/sharing-pages/QuillPractice"
 import MakingRegularStudyCurriculum from "./APP/admin-pages/MakingRegularStudy/MakingRegularStudy.makingregularstudy.curriculum"
 import MakingRegularStudyCurriculumCheck from "./APP/admin-pages/MakingRegularStudy/MakingRegularStudy.makingregularstudy.curriculum.check"
+import MakingRegularStudyStudyinfo from "./APP/admin-pages/MakingRegularStudy/MakingRegularStudy.makingregularstudy.studyinfo"
 import styled from "styled-components"
 import ScrollToTop from "./APP/Common/ScrollToTop"
 import useInterval from "./APP/Common/UseInterval"
@@ -51,6 +52,7 @@ function App() {
           <Route path="/makedselfstudylist" element={<MakedSelfStudyList />} />
           <Route path="/regularstudy" element={<RegularStudy />} />
           <Route path="/quillpractice" element={<QuillPractice />} />
+          <Route path="/makingregularstudyinfo" element={<MakingRegularStudyStudyinfo />} />
           <Route path="/makingregularstudycurriculum" element={<MakingRegularStudyCurriculum />} />
           <Route path="/makingregularstudycurriculumcheck" element={<MakingRegularStudyCurriculumCheck />} />
         </Routes>

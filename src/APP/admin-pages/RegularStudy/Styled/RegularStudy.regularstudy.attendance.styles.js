@@ -44,6 +44,11 @@ export const StyledTd = styled.td`
   width: ${({ colIndex }) => (colIndex === 0 ? '176px' : '55px')};
 `;
 
+export const ImgIcon = styled.img`
+  width: 47px;
+  height: 47px;
+`;
+
 export const BtnContainer = styled.div`
   display: flex;
   justify-content: flex-end;

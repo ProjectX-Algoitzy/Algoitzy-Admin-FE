@@ -48,19 +48,29 @@ export default function MakedApplicationList() {
   return (
     <itemS.Container>
       <itemS.InnerContainer>
-        <itemS.Head>
-          지원서 제작
-          {applicationList.length === 0 && (
-            <itemS.BtnMakeApp onClick={handleMakeApp}>
-              + 새 지원서 생성하기
-            </itemS.BtnMakeApp>
-          )}
-        </itemS.Head>
-        <MakedApplicationListGroup 
-          applicationList={applicationList} 
-          handleMakeApp={handleMakeApp} 
-          setCntApp={setCntApp}
-        />
+        {applicationList.length === 0 ? (
+          <>
+            <itemS.Head>
+              지원서 제작
+              <itemS.BtnMakeApp onClick={handleMakeApp}>
+                + 새 지원서 생성하기
+              </itemS.BtnMakeApp>
+            </itemS.Head>
+            <itemS.Hr></itemS.Hr>
+            <itemS.Blank>새 지원서를 생성해 주세요</itemS.Blank>
+          </>
+        ) : (
+          <>
+            <itemS.Head>
+              지원서 제작
+            </itemS.Head>
+            <MakedApplicationListGroup 
+              applicationList={applicationList} 
+              handleMakeApp={handleMakeApp} 
+              setCntApp={setCntApp}
+            />
+          </>
+        )}
       </itemS.InnerContainer>
     </itemS.Container>
   );

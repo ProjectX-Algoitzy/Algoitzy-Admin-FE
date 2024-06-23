@@ -5,7 +5,6 @@ import { useRecoilState } from "recoil";
 import { CntAppication } from '../Recoil/Recoil.state';
 import request, { ACCESS_TOKEN } from '../../Api/request';
 import { useNavigate } from 'react-router-dom';
-import { refreshToken } from '../../Api/refreshToken';
 
 export default function MakedApplicationList() {
   const navigate = useNavigate();
@@ -13,7 +12,7 @@ export default function MakedApplicationList() {
   const [cntApp, setCntApp] = useRecoilState(CntAppication);
 
   useEffect(() => {
-    const fetchMakedApplicationDetail = async (retry = false) => {
+    const fetchMakedApplicationDetail = async () => {
       try {
         const response = await request.get(`/application`);
         console.log("response", response);
@@ -26,17 +25,6 @@ export default function MakedApplicationList() {
         }
       } catch (error) {
         console.error('제작된 지원서 조회 오류', error);
-        // if (error.response && error.response.status === 401 && !retry) {
-        //   try {
-        //     await refreshToken();
-        //     // Retry the request after refreshing the token
-        //     await fetchMakedApplicationDetail(true);
-        //   } catch (refreshError) {
-        //     console.error('토큰 갱신 및 재요청 실패:', refreshError);
-        //     // Optionally, navigate to a login page or show an error message
-        //     navigate('/login');
-        //   }
-        // }
       }
     };
 

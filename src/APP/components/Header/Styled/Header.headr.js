@@ -41,6 +41,9 @@ export const HeaderRightWrap = styled.div`
 `;
 
 export const PageLink = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   color: ${(props) => (props.isActive ? tokens.colors.B_Grey_8 : tokens.colors.B_Grey_6)};
   width: 140px;
   height: 21px;
@@ -52,7 +55,7 @@ export const AdminName = styled.div`
   color: ${tokens.colors.Blue_0_Main};
   height: 21px;
   ${tokens.typography.T5_SB_16};
-  margin-left: 23px;
+  margin-left: 50px;
   cursor: pointer;
 `;
 
@@ -65,7 +68,7 @@ export const SubStudyMenu = styled.div`
   align-items: center;
   width: 100%;
   height: 60px;
-  padding-left: 934px;
+  padding-left: 949px;
   background-color: ${tokens.colors.B_Grey_1};
   position: fixed;
   top: 80px; 
@@ -77,7 +80,7 @@ export const SubApplicationMenu = styled.div`
   align-items: center;
   width: 100%;
   height: 60px;
-  padding-left: 1086px;
+  padding-left: 1100px;
   background-color: ${tokens.colors.B_Grey_1};
   position: fixed;
   top: 80px; 
@@ -89,7 +92,7 @@ export const SubCodingMenu = styled.div`
   align-items: center;
   width: 100%;
   height: 60px;
-  padding-left: 1409px;
+  padding-left: 1406px;
   background-color: ${tokens.colors.B_Grey_1};
   position: fixed;
   top: 80px; 

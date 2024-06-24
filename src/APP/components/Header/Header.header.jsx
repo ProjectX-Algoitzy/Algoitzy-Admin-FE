@@ -6,6 +6,7 @@ import ProfileModal from './Header.profile.modal';
 export default function Header() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userName, setUserName] = useState('');
+  const [profileUrl, setProfileUrl] = useState('');
   const [showProfileModal, setShowProfileModal] = useState(false);
   const [activeMenu, setActiveMenu] = useState(''); 
 
@@ -16,6 +17,7 @@ export default function Header() {
         console.log("로그인 멤버 정보 조회", response);
         if(response["isSuccess"]) {
           setUserName(response.result.name);
+          setProfileUrl(response.result.profileUrl);
           setIsLoggedIn(true);
         }
       } catch (error) {
@@ -53,7 +55,7 @@ export default function Header() {
             {isLoggedIn ? (
               <div style={{ position: 'relative' }}>
                 <itemS.AdminName onClick={toggleProfileModal}>안녕하세요, {userName} 님</itemS.AdminName>
-                {showProfileModal && <ProfileModal userName={userName} setIsLoggedIn={setIsLoggedIn}/>}
+                {showProfileModal && <ProfileModal userName={userName} profileUrl={profileUrl} setIsLoggedIn={setIsLoggedIn}/>}
               </div>
             ) : (
               <itemS.StyledLink to="/login">

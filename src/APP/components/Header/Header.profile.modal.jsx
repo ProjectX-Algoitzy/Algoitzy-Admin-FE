@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import * as itemS from "./Styled/Header.profile.modal.styles";
 import request from '../../Api/request';
 
-const ProfileModal = ({ userName, setIsLoggedIn }) => {
+const ProfileModal = ({ userName, profileUrl, setIsLoggedIn }) => {
 
   const navigate = useNavigate();
 
@@ -24,7 +24,7 @@ const ProfileModal = ({ userName, setIsLoggedIn }) => {
   return (
       <itemS.ArrowBubble onClick={e => e.stopPropagation()}>
         <itemS.TopContainer>
-          <itemS.Profile></itemS.Profile>
+          <itemS.Profile src={profileUrl} alt='기본프로필' ></itemS.Profile>
           <itemS.Name>{userName} 님</itemS.Name>
           <itemS.Logout onClick={handleLogout}>로그아웃</itemS.Logout>
         </itemS.TopContainer>

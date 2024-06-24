@@ -45,10 +45,9 @@ export const TopContainer = styled.div`
   align-items: center;
 `;
 
-export const Profile = styled.div`
+export const Profile = styled.img`
   width: 40px;
   height: 40px;
-  background-color: ${tokens.colors.B_Grey_4};
   border-radius: 20px;
   margin: 18px 3px 3px 10px;
 `;

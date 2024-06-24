@@ -65,7 +65,7 @@ export const SubStudyMenu = styled.div`
   align-items: center;
   width: 100%;
   height: 60px;
-  padding-left: 952px;
+  padding-left: 934px;
   background-color: ${tokens.colors.B_Grey_1};
   position: fixed;
   top: 80px; 
@@ -77,7 +77,7 @@ export const SubApplicationMenu = styled.div`
   align-items: center;
   width: 100%;
   height: 60px;
-  padding-left: 1102px;
+  padding-left: 1086px;
   background-color: ${tokens.colors.B_Grey_1};
   position: fixed;
   top: 80px; 
@@ -89,7 +89,7 @@ export const SubCodingMenu = styled.div`
   align-items: center;
   width: 100%;
   height: 60px;
-  padding-left: 1412px;
+  padding-left: 1409px;
   background-color: ${tokens.colors.B_Grey_1};
   position: fixed;
   top: 80px; 
@@ -97,6 +97,9 @@ export const SubCodingMenu = styled.div`
 `;
 
 export const SubMenuItem = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   ${tokens.typography.T5_SB_16};
   color: ${tokens.colors.B_Grey_5};
   width: 140px;

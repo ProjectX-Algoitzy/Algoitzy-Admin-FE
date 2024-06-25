@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import * as itemS from './Styled/MakingRegularStudy.makingregularstudy.quilleditor.styles';
+import * as itemS from './Styled/MakingCurriculum.makingcurriculum.quilleditor.styles'
 import ReactQuill, { Quill } from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { ImageActions } from '@xeger/quill-image-actions';

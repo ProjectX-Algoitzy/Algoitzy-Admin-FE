@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import * as itemS from "./Styled/MakingRegularStudy.makingregularstudy.studyinfo.styles";
-import QuillPractice from './MakingRegularStudy.makingregularstudy.quilleditor';
+import QuillPractice from '../MakingCurriculum/MakingCurriculum.makingcurriculum.quilleditor';
 import request from '../../Api/request';
 import { useDropzone } from 'react-dropzone';
 import { useNavigate } from 'react-router-dom';

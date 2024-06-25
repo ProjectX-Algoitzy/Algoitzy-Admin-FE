@@ -162,6 +162,7 @@ export const NonPassBtn = styled.button`
   &:hover {
     background-color: rgba(220, 74, 65, 0.1);
   }
+  cursor: pointer;
 `;
 
 // 합격 버튼 
@@ -176,6 +177,7 @@ export const PassBtn = styled.button`
   &:hover {
     background-color: rgba(0, 165, 255, 0.1);
   }
+  cursor: pointer;
 `;
 
 // 확정하기 버튼 
@@ -186,5 +188,6 @@ export const DecisionBtn = styled.button`
   color: ${tokens.colors.White};
   border-radius: 4px;
   margin: 80px 0 179px 0;
+  cursor: pointer;
 `;
 

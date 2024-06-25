@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import { components } from 'react-select';
+import request from '../../Api/request';
 import * as itemS from "../../admin-pages/ViewApplicationList/Styled/UpdateModal";
 
 
-const CustomDropdownIndicator = props => {
-  return (
-    <components.DropdownIndicator {...props}>
-      <img src="/img/triangle.png" alt="triangle-icon" style={{ width: "24px", height: "24px" }} />
-    </components.DropdownIndicator>
-  );
-};
+// const CustomDropdownIndicator = props => {
+//   return (
+//     <components.DropdownIndicator {...props}>
+//       <img src="/img/triangle.png" alt="triangle-icon" style={{ width: "24px", height: "24px" }} />
+//     </components.DropdownIndicator>
+//   );
+// };
 
 const generateOptions = (count, prefix = '') => {
   return [...Array(count)].map((_, i) => {
@@ -26,18 +26,32 @@ const minuteOptions = generateOptions(12, '').map((option, index) => ({
   label: String(index * 5).padStart(2, '0')
 }));
 
-export default function UpdateModal({ onClose, onConfirm }) {
+export default function UpdateModal({ interviewId, onConfirm }) {
   const [month, setMonth] = useState(monthOptions[0]);
   const [day, setDay] = useState(dayOptions[0]);
   const [hour, setHour] = useState(hourOptions[0]);
   const [minute, setMinute] = useState(minuteOptions[0]);
 
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
     const schedule = `${month.label}월 ${day.label}일 ${hour.label}:${minute.label}`;
-    console.log("schedule", schedule);
     const sumSchedule = month.value + day.value + hour.value + minute.value;
-    console.log("sumSchedule", sumSchedule);
-    onConfirm(schedule);
+
+    const requestData = {
+			interviewId: interviewId,
+			time: sumSchedule
+		};
+
+    try {
+      const response = await request.patch(`/interview`, requestData);
+      if (response.isSuccess) {
+        console.log("면접 날짜 업뎃 성공 response:", response);
+        onConfirm(schedule); 
+      } else {
+        console.error("면접 날짜 업뎃 실패:", response);
+      }
+    } catch (error) {
+      console.error("면접 날짜 업뎃 에러:", error);
+    }
   };
 
   return (

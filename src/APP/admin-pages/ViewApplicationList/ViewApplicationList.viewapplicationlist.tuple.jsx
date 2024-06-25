@@ -3,18 +3,18 @@ import * as itemS from "../../admin-pages/ViewApplicationList/Styled/ViewApplica
 import ViewApplicationDetail from '../ViewApplicationDetail/ViewApplicationDetail.viewapplicationdetail';
 import UpdateModal from './updateModal';
 
-export default function ViewApplicationListTuple({ application, isSelected, onOpen, onClose, onCheckChange, firstCheckedStage }) {
+export default function ViewApplicationListTuple({ application, isSelected, onOpen, onClose, onCheckChange, firstCheckedStage, fetchApplication }) {
     const [isChecked, setIsChecked] = useState(false);
     const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false); // State for UpdateModal
 
     const handleCheckChange = (event) => {
         const checked = event.target.checked;
         setIsChecked(checked);
-        onCheckChange(application.id, checked, application.selection_stage);
+        onCheckChange(application.answerId, checked, application.status);
     };
 
     useEffect(() => {
-        if (firstCheckedStage && application.selection_stage !== firstCheckedStage) {
+        if (firstCheckedStage && application.status !== firstCheckedStage) {
             setIsChecked(false);
         }
     }, [firstCheckedStage]);
@@ -25,8 +25,8 @@ export default function ViewApplicationListTuple({ application, isSelected, onOp
 
     const handleUpdateConfirm = (schedule) => {
         setIsUpdateModalOpen(false);
-        // Here you would update the application data
-        application.interview_schedule = schedule;
+        application.interviewTime = schedule;
+        fetchApplication();
     };
 
     return (
@@ -35,23 +35,23 @@ export default function ViewApplicationListTuple({ application, isSelected, onOp
                 type="checkbox"
                 checked={isChecked}
                 onChange={handleCheckChange}
-                disabled={firstCheckedStage && application.selection_stage !== firstCheckedStage}
+                disabled={firstCheckedStage && application.status !== firstCheckedStage}
             />
-            <itemS.TupleShort onClick={onOpen}>{application.name}</itemS.TupleShort>
+            <itemS.TupleShort onClick={onOpen}>{application.submitName}</itemS.TupleShort>
             <itemS.TupleShort onClick={onOpen}>{application.grade}</itemS.TupleShort>
-            <itemS.TupleLong onClick={onOpen}>{application.department}</itemS.TupleLong>
-            <itemS.Tuple onClick={onOpen}>{application.desired_study}</itemS.Tuple>
-            <itemS.Tuple onClick={onOpen}>{application.selection_stage}</itemS.Tuple>
+            <itemS.TupleLong onClick={onOpen}>{application.major}</itemS.TupleLong>
+            <itemS.Tuple onClick={onOpen}>{application.studyName}</itemS.Tuple>
+            <itemS.Tuple onClick={onOpen}>{application.status}</itemS.Tuple>
             <itemS.TupleInterviewContainer>
-                <itemS.TupleInterview>{application.interview_schedule}</itemS.TupleInterview>
+                <itemS.TupleInterview>{application.interviewTime}</itemS.TupleInterview>
                 <itemS.EditIcon src="/img/edit.svg" alt="Edit Icon" onClick={handleEditClick} />
                 {isUpdateModalOpen && (
-                <UpdateModal onClose={() => setIsUpdateModalOpen(false)} onConfirm={handleUpdateConfirm} />
+                <UpdateModal interviewId={application.interviewId} onConfirm={handleUpdateConfirm} fetchApplication={fetchApplication} />
                 )}
             </itemS.TupleInterviewContainer>
             {isSelected && (
                 <ViewApplicationDetail
-                    applicationId={application.id}
+                    applicationId={application.answerId}
                     isOpen={isSelected}
                     onClose={onClose}
                 />

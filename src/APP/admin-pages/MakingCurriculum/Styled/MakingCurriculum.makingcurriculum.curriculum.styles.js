@@ -162,17 +162,6 @@ export const BtnContainer2 = styled.div`
   flex-direction: row;
 `;
 
-export const ArbitaryBtn = styled.button` /* 임시 저장하기 버튼*/
-  width: 388px;
-  height: 48px;
-  border-radius: 4px;
-  border: none;
-  cursor: pointer;
-  color: ${tokens.colors.White};
-  ${tokens.typography.T5_SB_16}
-  background-color: ${tokens.colors.B_Grey_7};
-`;
-
 export const Btn = styled.button` /*개설하기 버튼*/
   margin-left: 16px;
   width: 388px;

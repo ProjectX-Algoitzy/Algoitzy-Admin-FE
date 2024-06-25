@@ -1,13 +1,31 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Select, { components } from 'react-select';
-import * as itemS from "./Styled/MakingRegularStudy.makingregularstudy.curriculum.styles"
-import QuillPractice from "./MakingRegularStudy.makingregularstudy.quilleditor"
+import * as itemS from "./Styled/MakingCurriculum.makingcurriculum.curriculum.styles"
+import QuillPractice from "./MakingCurriculum.makingcurriculum.quilleditor"
 import request from '../../Api/request';
+import { useNavigate } from 'react-router-dom';
 
-export default function MakingRegularStudyCurriculum() {
+export default function MakingCurriculum() {
+    const navigate = useNavigate();
     const [selectedWeek, setSelectedWeek] = useState(null);
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
+    const [studyId, setStudyId] = useState(null);
+    const [regularStudyList, setRegularStudyList] = useState([]);
+
+    useEffect(() => {
+        const fetchStudyCurriculum = async () => {
+            try {
+                const responseCurriculum = await request.get('/study');
+                if (responseCurriculum.isSuccess) {
+                    setRegularStudyList(responseCurriculum.result.studyList);
+                }
+            } catch (error) {
+                console.error('스터디 커리큘럼 목록 조회 오류', error);
+            }
+        };
+        fetchStudyCurriculum();
+    }, []);
 
     const onChangeTitle = (e) => {
         setTitle(e.target.value);
@@ -15,7 +33,7 @@ export default function MakingRegularStudyCurriculum() {
 
     const handleSave = async () => {
         const requestData = {
-            studyId: 2,
+            studyId: studyId,
             title: title,
             week: selectedWeek,
             content: content
@@ -27,10 +45,34 @@ export default function MakingRegularStudyCurriculum() {
 
             if (response["isSuccess"]) {
                 alert("커리큘럼 제작됨")
+                navigate('/makingcurriculumhome');
             } 
         } catch (error) {
             console.error('커리큘럼 저장과정에서 에러', error);
         }
+    };
+
+    const CustomDropdownIndicator = props => {
+        return (
+            <components.DropdownIndicator {...props}>
+                <img src="/img/triangle.png" alt="triangle-icon" style={{ width: "24px", height: "24px", paddingRight: "216px" }} />
+            </components.DropdownIndicator>
+        );
+    };
+
+    const formatOptionLabel = ({ value, label }) => (
+        <div>
+            {label.replace(" 지원서", "")}
+        </div>
+    );
+
+    const options = regularStudyList.map(study => ({
+        value: study.studyId,
+        label: `${study.name} 지원서`
+    }));
+
+    const handleStudyChange = selectedOption => {
+        setStudyId(selectedOption.value);
     };
 
     const WeeksSelect = ({ value, onChange }) => {
@@ -69,14 +111,27 @@ export default function MakingRegularStudyCurriculum() {
         <itemS.Container>
             <itemS.StyledPageName>커리큘럼</itemS.StyledPageName>
             <itemS.ContentContainer>
-                <itemS.LittleContainer>
-                    <itemS.StyledTitle>주차</itemS.StyledTitle>
-                    <WeeksSelect value={selectedWeek} onChange={setSelectedWeek}/>
-                </itemS.LittleContainer>
 
                 <itemS.LittleContainer>
                     <itemS.StyledTitle>제목</itemS.StyledTitle>
                     <itemS.StyledInput placeholder='이름을 입력해주세요' type='text' value={title} onChange={onChangeTitle} />
+                </itemS.LittleContainer>
+
+                <itemS.LittleContainer>
+                    <itemS.StyledTitle>스터디 선택</itemS.StyledTitle>
+                    <itemS.WeeksSelectContainer
+                        options={options}
+                        value={options.find(option => option.value === studyId)}
+                        onChange={handleStudyChange}
+                        placeholder="스터디 선택"
+                        components={{ DropdownIndicator: CustomDropdownIndicator, IndicatorSeparator: null }}
+                        formatOptionLabel={formatOptionLabel}
+                        isSearchable={false}
+                    />
+                </itemS.LittleContainer>
+                <itemS.LittleContainer>
+                    <itemS.StyledTitle>주차</itemS.StyledTitle>
+                    <WeeksSelect value={selectedWeek} onChange={setSelectedWeek}/>
                 </itemS.LittleContainer>
 
                 <itemS.LittleContainer>
@@ -88,8 +143,7 @@ export default function MakingRegularStudyCurriculum() {
 
         <itemS.BtnContainer>
             <itemS.BtnContainer2>
-                <itemS.ArbitaryBtn onClick={handleSave}>임시저장</itemS.ArbitaryBtn>
-                <itemS.Btn>개설하기</itemS.Btn>
+                <itemS.Btn onClick={handleSave}>생성하기</itemS.Btn>
             </itemS.BtnContainer2>
         </itemS.BtnContainer>
     </itemS.BackGroundContainer>

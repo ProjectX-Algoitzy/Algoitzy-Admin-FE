@@ -42,7 +42,8 @@ function App() {
         <ScrollToTop />
         <Header />
         <Routes>
-          <Route path="/" element={<Home />} />
+        <Route path="/" element={<Login />} /> 
+          <Route path="/home" element={<Home />} /> 
           <Route path="/login" element={<Login />} />
           <Route path="/application" element={<MakedApplicationList />} />
           <Route path="/newapplication/:id" element={<MakedApplicationDetail />} />

@@ -47,7 +47,7 @@ export default function MakedApplicationListIndividual({ application, setCntApp 
   return (
     
 		<itemS.InnerContainer key={application.applicationId}>
-			<itemS.TopContainer>
+			<itemS.TopContainer backgroundImage={application.studyProfileUrl}>
 				<itemS.Top>
 					<itemS.TopInner>
 						<itemS.TopText>제작일</itemS.TopText>
@@ -83,7 +83,7 @@ export default function MakedApplicationListIndividual({ application, setCntApp 
 						<itemS.UpdatedText>{application.updatedTime}</itemS.UpdatedText>
 					</itemS.BottomInner>
 					<itemS.BottomInner>
-						<itemS.Img src="https://kau-koala.s3.ap-northeast-2.amazonaws.com/basic-image/profile-image.png" alt="기본 프로필"></itemS.Img>
+						<itemS.Img src={application.updatedMemberProfileUrl} alt="기본 프로필"></itemS.Img>
 						<itemS.UpdatedText>{application.updatedName}</itemS.UpdatedText>
 					</itemS.BottomInner>
 				</itemS.Bottom>

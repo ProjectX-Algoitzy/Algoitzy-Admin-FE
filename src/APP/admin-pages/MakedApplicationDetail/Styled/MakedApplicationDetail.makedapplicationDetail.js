@@ -5,10 +5,10 @@ import Select, { components } from 'react-select';
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 161px;
   overflow: auto;
   /* align-items : center; */
-  /* background-image: url('/img/makingapplication.png'); */
+  background-image: url('/img/imgbackground.jpg');
+  min-height: 100%;
 `;
 
 export const InnerContainer = styled.div`

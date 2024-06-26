@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import * as itemS from './Styled/MakingCurriculum.makingcurriculum.curriculumcheck.styles'
 import request from '../../Api/request';
+import { useLocation } from 'react-router-dom';
 
-export default function MakingRegularStudyCurriculumCheck() {
+export default function CurriculumCheck() {
+  const location = useLocation();
+  const { curriculumId } = location.state;
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -9,7 +13,7 @@ export default function MakingRegularStudyCurriculumCheck() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await request.get(`/curriculum/12`);
+        const response = await request.get(`/curriculum/${curriculumId}`);
         console.log("response", response);
         if (response["isSuccess"]) {
           setData(response.result);
@@ -30,10 +34,13 @@ export default function MakingRegularStudyCurriculumCheck() {
   if (error) return <div>{error}</div>;
 
   return (
-    <div style={{display: "flex", flexDirection:"column", alignItems:"center", marginTop: "100px" }}>
-      <h1>{data.title}</h1>
-      <h2>Week: {data.week}</h2>
-      <div dangerouslySetInnerHTML={{ __html: data.content }} style={{backgroundColor:"skyblue"}} />
-    </div>
+    <itemS.Container>
+      <itemS.Title>{data.title}</itemS.Title>
+      <itemS.SecondContainer>
+        <itemS.WhiteBox>{data.studyName}</itemS.WhiteBox>
+        <itemS.WhiteBox>{data.week}주차</itemS.WhiteBox>
+      </itemS.SecondContainer>
+      <itemS.ContentsContainer dangerouslySetInnerHTML={{ __html: data.content }} />
+    </itemS.Container>
   );
 }

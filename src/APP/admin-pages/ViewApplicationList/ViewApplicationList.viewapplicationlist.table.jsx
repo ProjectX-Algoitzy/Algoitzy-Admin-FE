@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import * as itemS from "./Styled/ViewApplicationList.viewapplicationlist.table.styles";
 import ViewApplicationListTuple from './ViewApplicationList.viewapplicationlist.tuple';
 
-export default function ViewApplicationListTable({ applications, onCheckChange, firstCheckedStage, onSortClick  }) {
+export default function ViewApplicationListTable({ applications, onCheckChange, firstCheckedStage, onSortClick, fetchApplication  }) {
     const [selectedApplicationId, setSelectedApplicationId] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isSortDropVisible, setIsSortDropVisible] = useState(false);
@@ -60,13 +60,14 @@ export default function ViewApplicationListTable({ applications, onCheckChange, 
                 <itemS.TupleContainer>
                     {applications.map(application => (
                         <ViewApplicationListTuple
-                            key={application.id}
+                            key={application.answerId}
                             application={application}
-                            isSelected={selectedApplicationId === application.id && isModalOpen}
-                            onOpen={() => openModal(application.id)}
+                            isSelected={selectedApplicationId === application.answerId && isModalOpen}
+                            onOpen={() => openModal(application.answerId)}
                             onClose={closeModal}
                             onCheckChange={onCheckChange}
                             firstCheckedStage={firstCheckedStage}
+                            fetchApplication={fetchApplication}
                         />
                     ))}
                 </itemS.TupleContainer>

@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import * as itemS from "./Styled/MakingRegularStudy.makingregularstudy.studyinfo.styles";
-import QuillPractice from './MakingRegularStudy.makingregularstudy.quilleditor';
+import QuillPractice from '../MakingCurriculum/MakingCurriculum.makingcurriculum.quilleditor';
 import request from '../../Api/request';
 import { useDropzone } from 'react-dropzone';
 import { useNavigate } from 'react-router-dom';
@@ -72,17 +72,14 @@ export default function MakingRegularStudyStudyinfo() {
             console.log(response);
 
             if (response["isSuccess"]) {
-                alert("정규스터디 임시저장 완료")
+                alert("정규스터디 생성 완료")
+                navigate("/regularstudy")
             } 
         } catch (error) {
             console.error('정규스터디 저장과정에서 에러', error);
         }
     };
 
-    const handleSave = () => {
-        handleSave();
-        // navigate('/makingregularstudycurriculum');
-    }
   return (
     <itemS.BackGroundContainer>
         <itemS.Container>
@@ -108,7 +105,7 @@ export default function MakingRegularStudyStudyinfo() {
         <itemS.BtnContainer>
             <itemS.BtnContainer2>
                 <itemS.ArbitaryBtn onClick={handleArbitarySave}>임시저장</itemS.ArbitaryBtn>
-                <itemS.Btn onClick={handleSave}>생성하기</itemS.Btn>
+                <itemS.Btn onClick={handleArbitarySave}>생성하기</itemS.Btn>
             </itemS.BtnContainer2>
         </itemS.BtnContainer>
     </itemS.BackGroundContainer>

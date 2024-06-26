@@ -5,9 +5,10 @@ import Select, { components } from 'react-select';
 export const BackGroundContainer = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: skyblue;
-  align-items: center;
-  /* background-image: url('/img/makingapplication.png'); */
+  overflow: auto;
+  align-items : center;
+  background-image: url('/img/imgbackground.jpg');
+  min-height: 100%;
 `;
 
 export const Container = styled.div`
@@ -160,17 +161,6 @@ export const BtnContainer = styled.div`
 export const BtnContainer2 = styled.div`
   display: flex;
   flex-direction: row;
-`;
-
-export const ArbitaryBtn = styled.button` /* 임시 저장하기 버튼*/
-  width: 388px;
-  height: 48px;
-  border-radius: 4px;
-  border: none;
-  cursor: pointer;
-  color: ${tokens.colors.White};
-  ${tokens.typography.T5_SB_16}
-  background-color: ${tokens.colors.B_Grey_7};
 `;
 
 export const Btn = styled.button` /*개설하기 버튼*/

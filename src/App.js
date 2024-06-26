@@ -11,9 +11,10 @@ import MakedApplicationDetail from "./APP/admin-pages/MakedApplicationDetail/Mak
 import MakedSelfStudyList from "./APP/admin-pages/MakedSelfStudyList/MakedSelfStudyList.makedselfstudylist.main"
 import RegularStudy from "./APP/admin-pages/RegularStudy/RegularStudy.regularstudy.main"
 import QuillPractice from "./APP/sharing-pages/QuillPractice"
-import MakingRegularStudyCurriculum from "./APP/admin-pages/MakingRegularStudy/MakingRegularStudy.makingregularstudy.curriculum"
-import MakingRegularStudyCurriculumCheck from "./APP/admin-pages/MakingRegularStudy/MakingRegularStudy.makingregularstudy.curriculum.check"
 import MakingRegularStudyStudyinfo from "./APP/admin-pages/MakingRegularStudy/MakingRegularStudy.makingregularstudy.studyinfo"
+import MakingCurriculumHome from "./APP/admin-pages/MakingCurriculum/MakingCurriculum.makingcurriculum.home"
+import MakingCurriculum from "./APP/admin-pages/MakingCurriculum/MakingCurriculum.makingcurriculum.curriculum"
+import CurriculumCheck from "./APP/admin-pages/MakingCurriculum/MakingCurriculum.makingcurriculum.curriculumcheck"
 import styled from "styled-components"
 import ScrollToTop from "./APP/Common/ScrollToTop"
 import useInterval from "./APP/Common/UseInterval"
@@ -42,7 +43,8 @@ function App() {
         <ScrollToTop />
         <Header />
         <Routes>
-          <Route path="/" element={<Home />} />
+        <Route path="/" element={<Login />} /> 
+          <Route path="/home" element={<Home />} /> 
           <Route path="/login" element={<Login />} />
           <Route path="/application" element={<MakedApplicationList />} />
           <Route path="/newapplication/:id" element={<MakedApplicationDetail />} />
@@ -53,8 +55,9 @@ function App() {
           <Route path="/regularstudy" element={<RegularStudy />} />
           <Route path="/quillpractice" element={<QuillPractice />} />
           <Route path="/makingregularstudyinfo" element={<MakingRegularStudyStudyinfo />} />
-          <Route path="/makingregularstudycurriculum" element={<MakingRegularStudyCurriculum />} />
-          <Route path="/makingregularstudycurriculumcheck" element={<MakingRegularStudyCurriculumCheck />} />
+          <Route path="/curriculumcheck" element={<CurriculumCheck />} />
+          <Route path="/makingcurriculumhome" element={<MakingCurriculumHome />} />
+          <Route path="/makingcurriculum" element={<MakingCurriculum />} />
         </Routes>
         {/* <Footer /> */} {/* figma에 보니 admin은 푸터가 없었기에 일단 임시로 주석처리를 했다 */}
       </BrowserRouter>

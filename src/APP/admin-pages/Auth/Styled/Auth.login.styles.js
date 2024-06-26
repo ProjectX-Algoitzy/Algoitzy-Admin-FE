@@ -16,38 +16,54 @@ export const InnerContainer = styled.div`
   border: 1px solid ${tokens.colors.Grey_4};
   border-radius: 20px;
   padding: 127px 407px;
-  margin-top: 60px;
+  margin: 120px 0;
 `;
 
 // 회원가입 head
 export const Head3 = styled.div`
 	${tokens.typography.H3_SB_40}
 	margin-top: 20px;
-    margin-bottom: 27px;
+  margin-bottom: 27px;
 `;
 
 // 이미지 자리
-export const Img = styled.div`
-    width: 386px;
-    height: 204px;
-    background-color: #E3E3E3;
+export const Img = styled.img`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 386px;
+  height: 204px;
+    
 `;
 
 // 라벨+입력 컨테이너
-export const LIContainer = styled.div`
+export const LoginIContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 `;
 
+export const IIContainer = styled.div`
+	display: flex;
+	flex-direction: column;
+  position: relative;
+`;
+export const Icon = styled.img`
+	width: 24px;
+	height: 24px;
+	margin-right: 4px;
+  position: absolute;
+  left: 16px;
+  top: 32px;
+`;
 // 입력 박스
 export const InputBox = styled.input`
-	width: 366px;
+	width: 324px;
 	height: 56px;
 	border: 1px solid ${tokens.colors.Grey_4};
 	border-radius: 4px;
 	${tokens.typography.B2_M_16}
 	color: ${tokens.colors.Grey_8};
-	padding: 0 10px;
+	padding: 0 10px 0 52px;
 	margin-top: 16px;
 
 	&::placeholder {

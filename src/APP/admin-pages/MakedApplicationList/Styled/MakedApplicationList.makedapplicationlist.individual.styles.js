@@ -24,8 +24,9 @@ export const TopContainer = styled.div`
 	width: 285px;
   height: 210px;
 	border-radius: 8px 8px 0px 0px;
-	// background: ${tokens.colors.G_Blue_3};
-	background-color: #99B8C5;
+	background-image: url(${props => props.backgroundImage});
+	background-size: cover;
+  background-position: center;
 `;
 
 export const Top = styled.div`
@@ -52,8 +53,8 @@ export const createdContainer = styled.div`
   flex-direction: row;
 `;
 
-export const Img = styled.div`
-  background-image: url('/img/test.png');
+export const Img = styled.img`
+  // background-image: url('/img/test.png');
 	width: 18px;
 	height: 18px;
 	margin-right: 8px;
@@ -88,20 +89,21 @@ export const BottomInner = styled.div`
 // 텍스트 스타일들
 
 export const TopText = styled.div`
-	${tokens.typography.Sub_M_12}
-	color: white;
+	${tokens.typography.Sub_M_12};
+	color: ${tokens.colors.B_Grey_8};
+	margin-bottom: 4px;
 `;
 
 export const BottomText = styled.div`
-	${tokens.typography.Sub_M_12}
+	${tokens.typography.Sub_M_12};
 	align-self: center;
 	color: #828282;
 	margin-right: 8px;
 `;
 
 export const CreatedText = styled.div`
-	${tokens.typography.B3_M_14}
-	color: white;
+	${tokens.typography.B3_M_14};
+	color: ${tokens.colors.B_Grey_8};
 `;
 
 export const UpdatedText = styled.div`

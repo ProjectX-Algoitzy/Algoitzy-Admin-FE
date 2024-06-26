@@ -90,4 +90,10 @@ export const StudySelectContainer = styled(Select).attrs({
 .react-select__option:active {
   background-color: transparent;
 }
+.react-select__input input {
+  &::placeholder {
+    color: ${tokens.colors.Grey_8};
+    ${tokens.typography.B3_M_14};
+  }
+}
 `;

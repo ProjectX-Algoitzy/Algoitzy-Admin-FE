@@ -56,7 +56,7 @@ function App() {
           <Route path="/quillpractice" element={<QuillPractice />} />
           <Route path="/makingregularstudyinfo" element={<MakingRegularStudyStudyinfo />} />
           <Route path="/curriculumcheck" element={<CurriculumCheck />} />
-          <Route path="makingcurriculumhome" element={<MakingCurriculumHome />} />
+          <Route path="/makingcurriculumhome" element={<MakingCurriculumHome />} />
           <Route path="/makingcurriculum" element={<MakingCurriculum />} />
         </Routes>
         {/* <Footer /> */} {/* figma에 보니 admin은 푸터가 없었기에 일단 임시로 주석처리를 했다 */}

@@ -6,7 +6,8 @@ import StudySelect from './ViewApplicationList.viewapplicationlist.select';
 
 export default function ViewApplicationList() {
 	const [applications, setApplications] = useState([]);
-	const [generation, setGeneration] = useState(14);
+	const [generation, setGeneration] = useState(null);
+	const [generations, setGenerations] = useState([]);
 	const [page, setPage] = useState(1);
 	const [size, setSize] = useState(20);
 	const [filteredApplications, setFilteredApplications] = useState([]);
@@ -15,6 +16,30 @@ export default function ViewApplicationList() {
 	const [checkedItems, setCheckedItems] = useState([]);
 	const [firstCheckedStage, setFirstCheckedStage] = useState(null);
 	const [sortOrder, setSortOrder] = useState('desc');
+
+
+	useEffect(() => {
+		const fetchGeneration = async () => { // 최신 4기수 가져오기
+			try {
+				const response = await request.get(`/application`);
+	
+				if (response.isSuccess) {
+					console.log("제작된 지원서 조회 성공",response);
+					const generationsOptions = response.result.applicationList.map(app => app.generation);
+	
+						
+					setGenerations(generationsOptions);
+					console.log("generationsOptions", generationsOptions);
+					setGeneration(generationsOptions[0]);
+				} else {
+					console.error("제작된 지원서 조회 실패:", response);
+				}
+			} catch (error) {
+				console.error('제작된 지원서 조회 오류', error);
+			}
+		};
+		fetchGeneration();
+	}, []);
 
 	const fetchApplication = async () => {
 		try {
@@ -34,7 +59,7 @@ export default function ViewApplicationList() {
 
 	useEffect(() => {
 		fetchApplication();
-	}, [page, size]);
+	}, [page, size, generation]);
 
 	useEffect(() => {
 		const stages = [...new Set(applications.map(app => app.status))];
@@ -198,8 +223,11 @@ export default function ViewApplicationList() {
 			<itemS.Container>
 				<itemS.InnerContainer>
 					<itemS.HeadContainer>
-						<itemS.Head>4기 지원자 목록</itemS.Head>
-						<StudySelect />
+						<itemS.Head>{generation}기 지원자 목록</itemS.Head>
+						<StudySelect 
+							generationOptions={generations}
+							onChange={(option) => setGeneration(option.value)}
+						/>
 					</itemS.HeadContainer>
 					<itemS.TabContainer>
 						{tabs.map(tab => (

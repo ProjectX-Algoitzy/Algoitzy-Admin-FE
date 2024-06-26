@@ -41,26 +41,32 @@ export default function Login() {
       <itemS.Container>
         <itemS.InnerContainer>
           <itemS.Head3>로그인</itemS.Head3>
-						<itemS.Img></itemS.Img>
-            <itemS.LIContainer>
-              <itemS.InputBox
-                type="text"
-                placeholder="아이디(이메일)"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              <itemS.InputBox
-                type="password"
-                placeholder="비밀번호"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                // style={{ border: pwdborderColor }}
-              />
+            <itemS.Img src="/img/login.svg" alt="Icon"/>
+            <itemS.LoginIContainer>
+              <itemS.IIContainer>
+                <itemS.InputBox
+                  type="text"
+                  placeholder="아이디(이메일)"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+                <itemS.Icon src="/img/uil_user.svg" alt="Icon"/>
+              </itemS.IIContainer>
+              <itemS.IIContainer>
+                <itemS.InputBox
+                  type="password"
+                  placeholder="비밀번호"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  // style={{ border: pwdborderColor }}
+                />
+                <itemS.Icon src="/img/uil_lock.svg" alt="Icon"/>
+              </itemS.IIContainer>
 							{/* <itemS.UtilBox>
 								<itemS.CheckBox type="checkbox" />
 								<itemS.NormText>자동 로그인</itemS.NormText>
 							</itemS.UtilBox> */}
-            </itemS.LIContainer>
+            </itemS.LoginIContainer>
 						
           <itemS.Btn onClick={handleSubmit}>
             로그인

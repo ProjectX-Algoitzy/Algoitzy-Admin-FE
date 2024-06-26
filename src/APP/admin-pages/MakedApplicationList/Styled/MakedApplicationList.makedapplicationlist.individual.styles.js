@@ -52,8 +52,8 @@ export const createdContainer = styled.div`
   flex-direction: row;
 `;
 
-export const Img = styled.div`
-  background-image: url('/img/test.png');
+export const Img = styled.img`
+  // background-image: url('/img/test.png');
 	width: 18px;
 	height: 18px;
 	margin-right: 8px;

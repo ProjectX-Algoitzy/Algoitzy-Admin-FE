@@ -2,103 +2,111 @@ import React, { useState, useEffect } from 'react';
 import request from '../../Api/request';
 import * as itemS from "../../admin-pages/ViewApplicationList/Styled/ViewApplicationList.viewapplicationlist.main.styles";
 import ViewApplicationListTable from './ViewApplicationList.viewapplicationlist.table';
-import StudySelect from './ViewApplicationList.viewapplicationlist.select'; // 별도 파일로 StudySelect import
-import { dummyData } from './dummy';
+import StudySelect from './ViewApplicationList.viewapplicationlist.select';
 
 export default function ViewApplicationList() {
 	const [applications, setApplications] = useState([]);
+	const [generation, setGeneration] = useState(14);
+	const [page, setPage] = useState(1);
+	const [size, setSize] = useState(20);
 	const [filteredApplications, setFilteredApplications] = useState([]);
 	const [tabs, setTabs] = useState(['전체 지원자']);
 	const [selectedTab, setSelectedTab] = useState('전체 지원자');
 	const [checkedItems, setCheckedItems] = useState([]);
 	const [firstCheckedStage, setFirstCheckedStage] = useState(null);
-
 	const [sortOrder, setSortOrder] = useState('desc');
-	
-	useEffect(() => {
-		setApplications(dummyData); // 더미 데이터를 설정
 
-		// 동적으로 탭 생성
-		const stages = [...new Set(dummyData.map(app => app.selection_stage))]; // 전형 단계 목록 생성
+	const fetchApplication = async () => {
+		try {
+			const response = await request.get(`/answer?generation=${generation}&page=${page}&size=${size}`);
+			console.log("response", response);
+
+			if (response.isSuccess) {
+				console.log("지원서 조회 성공");
+				setApplications(response.result.answerList);
+			} else {
+				console.error("지원서 조회 실패:", response);
+			}
+		} catch (error) {
+			console.error('지원서 조회 오류', error);
+		}
+	};
+
+	useEffect(() => {
+		fetchApplication();
+	}, [page, size]);
+
+	useEffect(() => {
+		const stages = [...new Set(applications.map(app => app.status))];
 		const newTabs = ['전체 지원자'];
 		if (
 			stages.includes('서류 전형') || 
 			stages.includes('서류 합격') || 
 			stages.includes('서류 불합격')
 		) {
-			newTabs.push('서류 전형'); // '서류 전형', '서류 합격', '서류 불합격' 단계가 포함된 경우 탭 추가
+			newTabs.push('서류 전형');
 		}
 		if (
 			stages.includes('면접 전형') || 
 			stages.includes('최종 합격')
 		) {
-			newTabs.push('면접 전형'); // '면접 전형' 또는 '최종 합격' 단계가 포함된 경우 탭 추가
+			newTabs.push('면접 전형');
 		}
-		setTabs(newTabs); // 생성된 탭 목록을 상태에 설정
+		setTabs(newTabs);
 
-		setFilteredApplications(dummyData); // 기본적으로 모든 지원자 데이터를 필터링된 상태로 설정
-	}, []);
+		setFilteredApplications(applications);
+	}, [applications]);
 
 	useEffect(() => {
-		let sortedApplications = sortApplications(dummyData, sortOrder);
-		setApplications(sortedApplications);
+		let sortedApplications = sortApplications(applications, sortOrder);
 		setFilteredApplications(sortedApplications);
-	}, [selectedTab, sortOrder]);
+	}, [selectedTab, sortOrder, applications]);
 
-	// 지원서 정렬 함수
 	const sortApplications = (applications, order) => {
 		return [...applications].sort((a, b) => {
-				if (a.interview_schedule === '-') return 1;
-				if (b.interview_schedule === '-') return -1;
+			if (a.interviewTime === '-') return 1;
+			if (b.interviewTime === '-') return -1;
 
-				// if (a.interview_schedule === '-') return order === 'desc' ? -1 : 1;
-				// if (b.interview_schedule === '-') return order === 'desc' ? 1 : -1;
+			const [monthA, dayA, timeA] = a.interviewTime.split(' ');
+			const [monthB, dayB, timeB] = b.interviewTime.split(' ');
 
-				const [monthA, dayA, timeA] = a.interview_schedule.split(' ');
-				const [monthB, dayB, timeB] = b.interview_schedule.split(' ');
-				
-				const [hourA, minuteA] = timeA.split(':').map(Number);
-				const [hourB, minuteB] = timeB.split(':').map(Number);
+			const [hourA, minuteA] = timeA.split(':').map(Number);
+			const [hourB, minuteB] = timeB.split(':').map(Number);
 
-				const compareMonth = parseInt(monthA.replace("월", "")) - parseInt(monthB.replace("월", ""))
-				if (compareMonth !== 0) return order === 'asc' ? compareMonth : -compareMonth;
+			const compareMonth = parseInt(monthA.replace("월", "")) - parseInt(monthB.replace("월", ""))
+			if (compareMonth !== 0) return order === 'asc' ? compareMonth : -compareMonth;
 
-				const compareDay = parseInt(dayA.replace("일", "")) - parseInt(dayB.replace("일", ""));
-				if (compareDay !== 0) return order === 'asc' ? compareDay : -compareDay;
+			const compareDay = parseInt(dayA.replace("일", "")) - parseInt(dayB.replace("일", ""));
+			if (compareDay !== 0) return order === 'asc' ? compareDay : -compareDay;
 
-				const compareHour = hourA - hourB;
-				if (compareHour !== 0) return order === 'asc' ? compareHour : -compareHour;
+			const compareHour = hourA - hourB;
+			if (compareHour !== 0) return order === 'asc' ? compareHour : -compareHour;
 
-				const compareMinute = minuteA - minuteB;
-				return order === 'asc' ? compareMinute : -compareMinute;
+			const compareMinute = minuteA - minuteB;
+			return order === 'asc' ? compareMinute : -compareMinute;
 		});
 	};
 
-	// 정렬 버튼 클릭
 	const handleSortClick = (order) => {
 		setSortOrder(order);
-		const sortedApplications = sortApplications(applications, order);
-		setApplications(sortedApplications);
-		setFilteredApplications(sortedApplications);
 	};
 
-	// 탭 클릭 시 호출되는 함수
 	const handleTabClick = (tab) => {
-		setSelectedTab(tab); // 선택된 탭을 상태에 설정
+		setSelectedTab(tab);
 		if (tab === '전체 지원자') {
-			setFilteredApplications(applications); // '전체 지원자' 탭 클릭 시 모든 지원자 데이터 설정
+			setFilteredApplications(applications);
 		} else if (tab === '서류 전형') {
 			setFilteredApplications(applications.filter(app => 
-				app.selection_stage === '서류 전형' ||
-				app.selection_stage === '서류 합격' ||
-				app.selection_stage === '서류 불합격'
-			)); // '서류 전형' 관련 데이터 필터링
+				app.status === '서류 전형' ||
+				app.status === '서류 합격' ||
+				app.status === '서류 불합격'
+			));
 		} else if (tab === '면접 전형') {
 			setFilteredApplications(applications.filter(app => 
-				app.selection_stage === '면접 전형' ||
-				app.selection_stage === '최종 합격' ||
-				app.selection_stage === '최종 불합격'
-			)); // '면접 전형' 관련 데이터 필터링
+				app.status === '면접 전형' ||
+				app.status === '최종 합격' ||
+				app.status === '최종 불합격'
+			));
 		}
 	};
 
@@ -126,58 +134,63 @@ export default function ViewApplicationList() {
 
 	const handleEmailSend = async (type) => {
 		const emailList = filteredApplications
-			.filter(app => checkedItems.includes(app.id))
-			.map(app => app.email);
+			.filter(app => checkedItems.includes(app.answerId))
+			.map(app => app.submitEmail);
 
-		const requestBody = {
-			type,
-			emailList
+		const requestData = {
+			type: type,
+			emailList: emailList
 		};
 
 		try {
-			console.log("requestBody", requestBody);
-			const response = await request.post('/email', requestBody);
-			console.log('이메일 전송 응답:', response);
+			const response = await request.post('/email', requestData);
+			if (response.isSuccess) {
+        console.log("이메일 전송 성공 response:", response);
+        fetchApplication();
+				setCheckedItems([]); // 체크 항목 해제 <- 메일 전송 버튼 닫기 위함
+				setFirstCheckedStage(null); // 위와 같은 이유
+      } else {
+        console.error("이메일 전송 실패:", response);
+      }
 		} catch (error) {
 			console.error('이메일 전송 오류:', error);
 		}
 	};
 
 	const renderButton = () => {
-	switch (firstCheckedStage) {
-		case '서류 합격':
-		return (
-			<itemS.BtnDocPass onClick={() => handleEmailSend('DOCUMENT_PASS')}>
-			서류 합격 메일 발송
-			</itemS.BtnDocPass>
-		);
-		case '서류 불합격':
-		return (
-			<itemS.BtnDocNonpass onClick={() => handleEmailSend('DOCUMENT_FAIL')}>
-			서류 불합격 메일 발송
-			</itemS.BtnDocNonpass>
-		);
-		case '면접 전형':
-		return (
-			<itemS.BtnMail onClick={() => handleEmailSend('INTERVIEW')}>
-			면접 일정 메일 발송
-			</itemS.BtnMail>
-		);
-		case '최종 합격':
-		return (
-			<itemS.BtnFinalPass onClick={() => handleEmailSend('PASS')}>
-			최종 합격 메일 발송
-			</itemS.BtnFinalPass>
-		);
-		case '최종 불합격':
-		return (
-			<itemS.BtnFinalNonPass onClick={() => handleEmailSend('FAIL')}>
-			최종 불합격 메일 발송
-			</itemS.BtnFinalNonPass>
-		);
-		default:
-		return null;
-	}
+		if (firstCheckedStage === '서류 전형') {
+			return (
+				<>
+					<itemS.BtnDocNonpass onClick={() => handleEmailSend('DOCUMENT_FAIL')}>
+						서류 불합격 메일 발송
+					</itemS.BtnDocNonpass>
+					<itemS.BtnDocPass onClick={() => handleEmailSend('DOCUMENT_PASS')}>
+						서류 합격 메일 발송
+					</itemS.BtnDocPass>
+				</>
+			);
+		} else if (firstCheckedStage === '서류 합격') {
+			return (
+				<itemS.BtnMail onClick={() => handleEmailSend('INTERVIEW')}>
+					면접 일정 메일 발송
+				</itemS.BtnMail>
+			);
+		} else if (firstCheckedStage === '면접 전형') {
+			return (
+				<>
+					<itemS.BtnFinalNonPass onClick={() => handleEmailSend('FAIL')}>
+						최종 불합격 메일 발송
+					</itemS.BtnFinalNonPass>
+					<itemS.BtnFinalPass onClick={() => handleEmailSend('PASS')}>
+						최종 합격 메일 발송
+					</itemS.BtnFinalPass>
+				</>
+			);
+		} else if (firstCheckedStage === '서류 불합격' || firstCheckedStage === '최종 불합격') {
+			return null;
+		} else {
+			return null;
+		}
 	};
 
 	return (
@@ -204,21 +217,22 @@ export default function ViewApplicationList() {
 					<itemS.TextContainer>
 						<itemS.NormText>총</itemS.NormText>
 						<itemS.CntText>{filteredApplications.length}</itemS.CntText>
-						<itemS.NormText>개의 지원서</itemS.NormText>
-					</itemS.TextContainer>
-					<ViewApplicationListTable 
-						applications={filteredApplications} 
-						onCheckChange={handleCheckChange} 
-						firstCheckedStage={firstCheckedStage}
-						onSortClick={handleSortClick}
-					/>
-				</itemS.InnerContainer>
-			</itemS.Container>
-			{checkedItems.length > 0 && (
-				<itemS.BtnContainer>
-					{renderButton()}
-				</itemS.BtnContainer>
-			)}
+							<itemS.NormText>개의 지원서</itemS.NormText>
+						</itemS.TextContainer>
+						<ViewApplicationListTable 
+							applications={filteredApplications} 
+							onCheckChange={handleCheckChange} 
+							firstCheckedStage={firstCheckedStage}
+							onSortClick={handleSortClick}
+							fetchApplication={fetchApplication}
+						/>
+					</itemS.InnerContainer>
+				</itemS.Container>
+				{checkedItems.length > 0 && (
+					<itemS.BtnContainer>
+						{renderButton()}
+					</itemS.BtnContainer>
+				)}
 		</itemS.OuterContainer>
 	);
 }

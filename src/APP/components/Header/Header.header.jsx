@@ -35,21 +35,25 @@ export default function Header() {
     setActiveMenu((prev) => (prev === menu ? '' : menu));
   };
 
+  const handleNav = () => { // 하위 메뉴 이동 후 메뉴창 닫기
+    setActiveMenu('');
+  };
+
   return (
     <>
       <itemS.HeaderContainer>
         <itemS.HeaderWrap>
           <itemS.HeaderLeftWrap>
-            <itemS.StyledLink to="/" style={{textDecoration: 'none'}}><itemS.Rabel src='/img/koalalogo.png' alt='코알라로고'/></itemS.StyledLink>
+            <itemS.StyledLink to="/home" style={{textDecoration: 'none'}}><itemS.Rabel src='/img/koalalogo.png' alt='코알라로고'/></itemS.StyledLink>
           </itemS.HeaderLeftWrap>
           <itemS.HeaderRightWrap>
-            <itemS.StyledLink to={isLoggedIn ? "#" : "/login"} onClick={() => handleMenuClick('study')}>
+            <itemS.StyledLink onClick={() => handleMenuClick('study')}>
               <itemS.PageLink>스터디 관리</itemS.PageLink>
             </itemS.StyledLink>
             <itemS.StyledLink onClick={() => handleMenuClick('application')}>
               <itemS.PageLink>지원자 관리</itemS.PageLink>
             </itemS.StyledLink> 
-            <itemS.StyledLink to={isLoggedIn ? "#" : "/login"} onClick={() => handleMenuClick('coding')}>
+            <itemS.StyledLink onClick={() => handleMenuClick('coding')}>
               <itemS.PageLink>코딩테스트 분석</itemS.PageLink>
             </itemS.StyledLink>
             {isLoggedIn ? (
@@ -68,21 +72,38 @@ export default function Header() {
       
       {activeMenu === 'study' && (
         <itemS.SubStudyMenu>
-          <itemS.SubMenuItem>정규 스터디</itemS.SubMenuItem>
-          <itemS.SubMenuItem>커리큘럼</itemS.SubMenuItem>
-          <itemS.SubMenuItem>모의 테스트</itemS.SubMenuItem>
-          <itemS.SubMenuItem>출석부 확인</itemS.SubMenuItem>
+          <itemS.StyledLink to={isLoggedIn ? "#" : "/login"} onClick={handleNav}>
+            <itemS.SubMenuItem>정규 스터디</itemS.SubMenuItem>
+          </itemS.StyledLink>
+          <itemS.StyledLink to={isLoggedIn ? "/application" : "/login"} onClick={handleNav}>
+            <itemS.SubMenuItem>지원서 관리</itemS.SubMenuItem>
+          </itemS.StyledLink>
+          <itemS.StyledLink to={isLoggedIn ? "#" : "/login"} onClick={handleNav}>
+            <itemS.SubMenuItem>커리큘럼</itemS.SubMenuItem>
+          </itemS.StyledLink>
+          <itemS.StyledLink to={isLoggedIn ? "#" : "/login"} onClick={handleNav}>
+            <itemS.SubMenuItem>모의 테스트</itemS.SubMenuItem>
+          </itemS.StyledLink>
+          <itemS.StyledLink to={isLoggedIn ? "#" : "/login"} onClick={handleNav}>
+            <itemS.SubMenuItem>출석부 확인</itemS.SubMenuItem>
+          </itemS.StyledLink>
         </itemS.SubStudyMenu>
       )}
       {activeMenu === 'application' && (
         <itemS.SubApplicationMenu>
-          <itemS.SubMenuItem>권한 관리</itemS.SubMenuItem>
-          <itemS.SubMenuItem to={isLoggedIn ? "/application" : "/login"}>지원자 관리</itemS.SubMenuItem>
+          <itemS.StyledLink to={isLoggedIn ? "#" : "/login"} onClick={handleNav}>
+            <itemS.SubMenuItem>권한 관리</itemS.SubMenuItem>
+          </itemS.StyledLink>
+          <itemS.StyledLink to={isLoggedIn ? "/answer" : "/login"} onClick={handleNav}>
+            <itemS.SubMenuItem>지원자 관리</itemS.SubMenuItem>
+          </itemS.StyledLink>
         </itemS.SubApplicationMenu>
       )}
       {activeMenu === 'coding' && (
         <itemS.SubCodingMenu>
-          <itemS.SubMenuItem>기업/부트캠프</itemS.SubMenuItem>
+          <itemS.StyledLink to={isLoggedIn ? "#" : "/login"} onClick={handleNav}>
+            <itemS.SubMenuItem>기업/부트캠프</itemS.SubMenuItem>
+          </itemS.StyledLink>
         </itemS.SubCodingMenu>
       )}
     </>

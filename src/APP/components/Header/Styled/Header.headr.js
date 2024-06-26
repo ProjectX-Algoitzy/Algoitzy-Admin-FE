@@ -61,6 +61,7 @@ export const AdminName = styled.div`
 
 export const Btn = styled.button`
   ${tokens.Btns.Btn_ghost_default}
+  margin-left: 50px;
 `;
 
 export const SubStudyMenu = styled.div`
@@ -68,7 +69,7 @@ export const SubStudyMenu = styled.div`
   align-items: center;
   width: 100%;
   height: 60px;
-  padding-left: 949px;
+  padding-left: 782px;
   background-color: ${tokens.colors.B_Grey_1};
   position: fixed;
   top: 80px; 
@@ -80,7 +81,7 @@ export const SubApplicationMenu = styled.div`
   align-items: center;
   width: 100%;
   height: 60px;
-  padding-left: 1100px;
+  padding-left: 1086px;
   background-color: ${tokens.colors.B_Grey_1};
   position: fixed;
   top: 80px; 
@@ -92,7 +93,7 @@ export const SubCodingMenu = styled.div`
   align-items: center;
   width: 100%;
   height: 60px;
-  padding-left: 1406px;
+  padding-left: 1393px;
   background-color: ${tokens.colors.B_Grey_1};
   position: fixed;
   top: 80px; 

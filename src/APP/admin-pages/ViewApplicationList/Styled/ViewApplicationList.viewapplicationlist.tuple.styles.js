@@ -94,6 +94,7 @@ export const EditIcon = styled.img`
 	height: 20px;
   self-items: center;
 	margin-left: 5px;
+  cursor: pointer;
 `;
 // 튜플 파트 끝
 

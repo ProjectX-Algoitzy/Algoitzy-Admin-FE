@@ -1,38 +1,72 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
 import * as itemS from "./Styled/ViewApplicationDetail.viewapplicationdetail.styles";
 import request from '../../Api/request';
-import { dummyData } from './dummy';
 
-const ViewApplicationDetail = ({ applicationId, isOpen, onClose }) => {
-  // const { id } = useParams();  // Uncomment if you use params for fetching data
-  // const [detail, setDetail] = useState(null);
-  // const [loading, setLoading] = useState(true);
-  // const [error, setError] = useState(null);
-  const [applications, setApplications] = useState([]);
-  const [activeButton, setActiveButton] = useState(null); // State to track active button
+const ViewApplicationDetail = ({ applicationId, isOpen, onClose, fetchApplication }) => {
+  const [applications, setApplications] = useState({});
+  const [activeButton, setActiveButton] = useState(null);
 
   useEffect(() => {
-    setApplications(dummyData);
-    // Uncomment and adjust as necessary
-    // const fetchDetail = async () => {
-    //   try {
-    //     const response = await request.get(`/answer/${id}`);
-    //     setDetail(response.result);
-    //     setLoading(false);
-    //   } catch (error) {
-    //     console.error("상세페이지 조회 오류", error);
-    //     setError(error);
-    //     setLoading(false);
-    //   }
-    // };
-    // fetchDetail();
-  }, []);
+    const fetchDetail = async () => {
+      try {
+        const response = await request.get(`/answer/${applicationId}`);
+        console.log("response", response);
+        setApplications(response.result);
+      } catch (error) {
+        console.error("상세페이지 조회 오류", error);
+      }
+    };
+    fetchDetail();
+  }, [applicationId]);
 
   if (!isOpen) return null;
 
   const handleButtonClick = (buttonType) => {
     setActiveButton(activeButton === buttonType ? null : buttonType);
+  };
+
+  const handleDecisionClick = async () => {
+    if (!activeButton) {
+      alert("합격 또는 불합격을 선택해주세요.");
+      return;
+    }
+
+    const type = activeButton === 'pass' ? 'DOCUMENT_PASS' : 'DOCUMENT_FAIL';
+    const emailList = [applications.submitEmail];
+
+    const requestData = {
+      type: type,
+      emailList: emailList
+    };
+
+    try {
+      const response = await request.post('/email', requestData);
+      if (response.isSuccess) {
+        console.log("서류 합/불 메일 전송 성공 response:", response);
+        fetchApplication();
+        onClose();
+      } else {
+        console.error("서류 합/불 메일 전송 실패:", response);
+      }
+      // handle response if needed
+    } catch (error) {
+      console.error("서류 합/불 메일 전송 에러:", error);
+    }
+  };
+
+  const renderSelectAnswers = (selectAnswerList) => {
+    return selectAnswerList.map((answer, index) => {
+      const selectedAnswers = answer.multiSelect
+        ? answer.selectAnswerFieldList.filter(field => field.selected).map(field => field.context).join(', ')
+        : answer.selectAnswerFieldList.find(field => field.selected)?.context || '';
+
+      return (
+        <itemS.BaseQAContainer key={index}>
+          <itemS.BaseQuestion>{answer.question}</itemS.BaseQuestion>
+          <itemS.BaseAnswer>{selectedAnswers}</itemS.BaseAnswer>
+        </itemS.BaseQAContainer>
+      );
+    });
   };
 
   return (
@@ -46,7 +80,7 @@ const ViewApplicationDetail = ({ applicationId, isOpen, onClose }) => {
         <itemS.InnerContainer>
           <itemS.StudyNameContainer>
             <itemS.Title>지원분야</itemS.Title>
-            <itemS.StudyName>코딩테스트 대비반 {applications.studyName}</itemS.StudyName>
+            <itemS.StudyName>{applications.studyName}</itemS.StudyName>
           </itemS.StudyNameContainer>
 
           <itemS.InnerInnerContainer>
@@ -54,20 +88,29 @@ const ViewApplicationDetail = ({ applicationId, isOpen, onClose }) => {
 
             <itemS.BaseQAContainer>
               <itemS.BaseQuestion>지원자 이메일</itemS.BaseQuestion>
-              <itemS.BaseAnswer>pch990824@naver.com {applications.submitEmail}</itemS.BaseAnswer>
+              <itemS.BaseAnswer>{applications.submitEmail}</itemS.BaseAnswer>
             </itemS.BaseQAContainer>
             <itemS.BaseQAContainer>
               <itemS.BaseQuestion>지원자 이름</itemS.BaseQuestion>
-              <itemS.BaseAnswer>박창현 {applications.submitName}</itemS.BaseAnswer>
+              <itemS.BaseAnswer>{applications.submitName}</itemS.BaseAnswer>
             </itemS.BaseQAContainer>
             <itemS.BaseQAContainer>
               <itemS.BaseQuestion>핸드폰 번호</itemS.BaseQuestion>
-              <itemS.BaseAnswer>010-1111-1111 {applications.phoneNumber}</itemS.BaseAnswer>
+              <itemS.BaseAnswer>{applications.phoneNumber}</itemS.BaseAnswer>
             </itemS.BaseQAContainer>
-            <itemS.BaseQAContainer>
-              <itemS.BaseQuestion>현재 본인 어쩌구</itemS.BaseQuestion>
-              <itemS.BaseAnswer>샬라샬라라라라라라라라라라랄라 {applications.textAnswerList}</itemS.BaseAnswer>
-            </itemS.BaseQAContainer>
+            
+            {applications.textAnswerList && applications.textAnswerList.length > 0 && (
+              applications.textAnswerList.map((textAnswer, index) => (
+                <itemS.BaseQAContainer key={index}>
+                  <itemS.BaseQuestion>{textAnswer.question}</itemS.BaseQuestion>
+                  <itemS.BaseAnswer>{textAnswer.text}</itemS.BaseAnswer>
+                </itemS.BaseQAContainer>
+              ))
+            )}
+
+            {applications.selectAnswerList && applications.selectAnswerList.length > 0 && (
+              renderSelectAnswers(applications.selectAnswerList)
+            )}
           </itemS.InnerInnerContainer>
 
           <itemS.Time>{new Date(applications.submitTime).toLocaleString()}</itemS.Time>
@@ -91,47 +134,10 @@ const ViewApplicationDetail = ({ applicationId, isOpen, onClose }) => {
           </itemS.BottomContainer>
         </itemS.InnerContainer>
 
-        <itemS.DecisionBtn>확정하기</itemS.DecisionBtn>
+        <itemS.DecisionBtn onClick={handleDecisionClick}>확정하기</itemS.DecisionBtn>
       </itemS.ModalContainer>
     </itemS.Backdrop>
   );
 };
 
 export default ViewApplicationDetail;
-
-
-// {dummyData && (
-// 	<div>
-// 		<div>Answer ID: {dummyData.answerId}</div>
-// 		<div>Study Name: {dummyData.studyName}</div>
-// 		<div>Submitted By: {dummyData.submitName}</div>
-// 		<div>Submit Email: {dummyData.submitEmail}</div>
-// 		<div>Phone Number: {dummyData.phoneNumber}</div>
-
-// 		<h3>답변 항목</h3>
-// 		<ul>
-// 				{dummyData.selectAnswerList && dummyData.selectAnswerList.map((answer, index) => (
-// 						<li key={index}>
-// 								<div>{answer.question}</div>
-// 								<ul>
-// 										{answer.selectAnswerFieldList.map((field, index) => (
-// 												<li key={index}>{field.selected ? "Selected" : "Not selected"}</li>
-// 										))}
-// 								</ul>
-// 						</li>
-// 				))}
-// 		</ul>
-
-// 		<h3>텍스트 답변</h3>
-// 		<ul>
-// 				{dummyData.textAnswerList && dummyData.textAnswerList.map((answer, index) => (
-// 						<li key={index}>
-// 								<div>{answer.question}</div>
-// 								<div>{answer.text}</div>
-// 						</li>
-// 				))}
-// 		</ul>
-
-// 		<div>Submitted Time: {new Date(dummyData.submitTime).toLocaleString()}</div>
-// 	</div>
-// )}

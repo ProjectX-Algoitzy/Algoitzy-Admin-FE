@@ -35,6 +35,10 @@ export default function Header() {
     setActiveMenu((prev) => (prev === menu ? '' : menu));
   };
 
+  const handleNav = () => { // 하위 메뉴 이동 후 메뉴창 닫기
+    setActiveMenu('');
+  };
+
   return (
     <>
       <itemS.HeaderContainer>
@@ -68,36 +72,36 @@ export default function Header() {
       
       {activeMenu === 'study' && (
         <itemS.SubStudyMenu>
-          <itemS.StyledLink to={isLoggedIn ? "#" : "/login"}>
+          <itemS.StyledLink to={isLoggedIn ? "#" : "/login"} onClick={handleNav}>
             <itemS.SubMenuItem>정규 스터디</itemS.SubMenuItem>
           </itemS.StyledLink>
-          <itemS.StyledLink to={isLoggedIn ? "/application" : "/login"}>
+          <itemS.StyledLink to={isLoggedIn ? "/application" : "/login"} onClick={handleNav}>
             <itemS.SubMenuItem>지원서 관리</itemS.SubMenuItem>
           </itemS.StyledLink>
-          <itemS.StyledLink to={isLoggedIn ? "#" : "/login"}>
+          <itemS.StyledLink to={isLoggedIn ? "#" : "/login"} onClick={handleNav}>
             <itemS.SubMenuItem>커리큘럼</itemS.SubMenuItem>
           </itemS.StyledLink>
-          <itemS.StyledLink to={isLoggedIn ? "#" : "/login"}>
+          <itemS.StyledLink to={isLoggedIn ? "#" : "/login"} onClick={handleNav}>
             <itemS.SubMenuItem>모의 테스트</itemS.SubMenuItem>
           </itemS.StyledLink>
-          <itemS.StyledLink to={isLoggedIn ? "#" : "/login"}>
+          <itemS.StyledLink to={isLoggedIn ? "#" : "/login"} onClick={handleNav}>
             <itemS.SubMenuItem>출석부 확인</itemS.SubMenuItem>
           </itemS.StyledLink>
         </itemS.SubStudyMenu>
       )}
       {activeMenu === 'application' && (
         <itemS.SubApplicationMenu>
-          <itemS.StyledLink to={isLoggedIn ? "#" : "/login"}>
+          <itemS.StyledLink to={isLoggedIn ? "#" : "/login"} onClick={handleNav}>
             <itemS.SubMenuItem>권한 관리</itemS.SubMenuItem>
           </itemS.StyledLink>
-          <itemS.StyledLink to={isLoggedIn ? "/answer" : "/login"}>
+          <itemS.StyledLink to={isLoggedIn ? "/answer" : "/login"} onClick={handleNav}>
             <itemS.SubMenuItem>지원자 관리</itemS.SubMenuItem>
           </itemS.StyledLink>
         </itemS.SubApplicationMenu>
       )}
       {activeMenu === 'coding' && (
         <itemS.SubCodingMenu>
-          <itemS.StyledLink to={isLoggedIn ? "#" : "/login"}>
+          <itemS.StyledLink to={isLoggedIn ? "#" : "/login"} onClick={handleNav}>
             <itemS.SubMenuItem>기업/부트캠프</itemS.SubMenuItem>
           </itemS.StyledLink>
         </itemS.SubCodingMenu>

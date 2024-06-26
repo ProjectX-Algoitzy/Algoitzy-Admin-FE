@@ -147,6 +147,8 @@ export default function ViewApplicationList() {
 			if (response.isSuccess) {
         console.log("이메일 전송 성공 response:", response);
         fetchApplication();
+				setCheckedItems([]); // 체크 항목 해제 <- 메일 전송 버튼 닫기 위함
+				setFirstCheckedStage(null); // 위와 같은 이유
       } else {
         console.error("이메일 전송 실패:", response);
       }

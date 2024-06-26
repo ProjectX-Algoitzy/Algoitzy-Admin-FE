@@ -42,7 +42,7 @@ export const Hr = styled.hr`
 `;
 
 export const Img = styled.div`
-  background-image: url('/img/test2.png');
+  background-image: url('/img/uil_lock.svg');
 	width: 24px;
 	height: 24px;
   margin-right: 5px;

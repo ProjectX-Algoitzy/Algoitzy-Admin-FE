@@ -44,7 +44,7 @@ export default function Header() {
       <itemS.HeaderContainer>
         <itemS.HeaderWrap>
           <itemS.HeaderLeftWrap>
-            <itemS.StyledLink to="/home" style={{textDecoration: 'none'}}><itemS.Rabel src='/img/koalalogo.png' alt='코알라로고'/></itemS.StyledLink>
+            <itemS.StyledLink to="/regularstudylist" style={{textDecoration: 'none'}}><itemS.Rabel src='/img/koalalogo.png' alt='코알라로고'/></itemS.StyledLink>
           </itemS.HeaderLeftWrap>
           <itemS.HeaderRightWrap>
             <itemS.StyledLink onClick={() => handleMenuClick('study')}>
@@ -72,7 +72,7 @@ export default function Header() {
       
       {activeMenu === 'study' && (
         <itemS.SubStudyMenu>
-          <itemS.StyledLink to={isLoggedIn ? "#" : "/login"} onClick={handleNav}>
+          <itemS.StyledLink to={isLoggedIn ? "/regularstudylist" : "/login"} onClick={handleNav}>
             <itemS.SubMenuItem>정규 스터디</itemS.SubMenuItem>
           </itemS.StyledLink>
           <itemS.StyledLink to={isLoggedIn ? "/application" : "/login"} onClick={handleNav}>

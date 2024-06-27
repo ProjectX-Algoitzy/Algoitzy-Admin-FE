@@ -43,14 +43,14 @@ const MakeModal = ({ isOpen, onClose, applicationId, setCntApp }) => {
       <itemS.Backdrop onClick={onClose} /> {/* 모달 외부를 클릭했을 때 닫기 */}
       <itemS.ModalContainer>
         <itemS.BtnBox onClick={handleDelete}>
-          <itemS.Img></itemS.Img>
+          <itemS.TrashImg></itemS.TrashImg>
           <itemS.Text>
             삭제
           </itemS.Text>
         </itemS.BtnBox>
         <itemS.Hr></itemS.Hr>
         <itemS.BtnBox onClick={handleCopy}>
-          <itemS.Img></itemS.Img>
+          <itemS.CopyImg></itemS.CopyImg>
           <itemS.Text>
             복사
           </itemS.Text>

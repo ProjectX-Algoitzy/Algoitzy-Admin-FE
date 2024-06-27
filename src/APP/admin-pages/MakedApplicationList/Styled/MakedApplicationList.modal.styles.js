@@ -41,8 +41,26 @@ export const Hr = styled.hr`
   margin: 0;
 `;
 
-export const Img = styled.div`
-  background-image: url('/img/uil_lock.svg');
+export const TrashImg = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url('/img/trashcan.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+	width: 24px;
+	height: 24px;
+  margin-right: 5px;
+`;
+
+export const CopyImg = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url('/img/trashcan.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url('/img/copy.svg');
 	width: 24px;
 	height: 24px;
   margin-right: 5px;

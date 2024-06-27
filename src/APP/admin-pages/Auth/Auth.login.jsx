@@ -26,7 +26,7 @@ export default function Login() {
       if (response.data["isSuccess"]) {
         console.log("로그인 성공!");
         // localStorage.setItem("isLoggedIn", "true");  //로그인 유무를 확인하고자 
-        navigate("/home");
+        navigate("/regularstudylist");
         window.location.reload(); // 페이지 새로고침 추가
       } else {
         console.error("로그인 실패:", response.data);

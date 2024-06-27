@@ -20,6 +20,7 @@ import ScrollToTop from "./APP/Common/ScrollToTop"
 import useInterval from "./APP/Common/UseInterval"
 import { refreshToken } from "./APP/Api/refreshToken"
 import { ACCESS_TOKEN } from "./APP/Api/request"
+import RegularStudyList from "./APP/admin-pages/RegularStudyList/RegularStudyList.regularstudylist.main"
 
 const Root = styled.div`
   position: absolute;
@@ -58,6 +59,7 @@ function App() {
           <Route path="/curriculumcheck" element={<CurriculumCheck />} />
           <Route path="/makingcurriculumhome" element={<MakingCurriculumHome />} />
           <Route path="/makingcurriculum" element={<MakingCurriculum />} />
+          <Route path="/regularstudylist" element={<RegularStudyList />} /> {/* 정규 스터디 목록 */}
         </Routes>
         {/* <Footer /> */} {/* figma에 보니 admin은 푸터가 없었기에 일단 임시로 주석처리를 했다 */}
       </BrowserRouter>

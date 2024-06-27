@@ -17,7 +17,6 @@ export default function ViewApplicationList() {
 	const [firstCheckedStage, setFirstCheckedStage] = useState(null);
 	const [sortOrder, setSortOrder] = useState('desc');
 
-
 	useEffect(() => {
 		const fetchGeneration = async () => { // 최신 4기수 가져오기
 			try {
@@ -49,6 +48,7 @@ export default function ViewApplicationList() {
 			if (response.isSuccess) {
 				console.log("지원서 조회 성공");
 				setApplications(response.result.answerList);
+				setFilteredApplications(response.result.answerList);
 			} else {
 				console.error("지원서 조회 실패:", response);
 			}
@@ -79,26 +79,37 @@ export default function ViewApplicationList() {
 		}
 		setTabs(newTabs);
 
-		setFilteredApplications(applications);
+		setFilteredApplications(applications); // Initial setting to show all applications
+
 	}, [applications]);
 
 	useEffect(() => {
-		let sortedApplications = sortApplications(applications, sortOrder);
+		let sortedApplications = sortApplications(filteredApplications, sortOrder);
 		setFilteredApplications(sortedApplications);
 	}, [selectedTab, sortOrder, applications]);
 
 	const sortApplications = (applications, order) => {
 		return [...applications].sort((a, b) => {
-			if (a.interviewTime === '-') return 1;
-			if (b.interviewTime === '-') return -1;
+			// Interview time이 존재하지 않는 경우를 확인
+			if (!a.interviewTime || a.interviewTime === '-') return 1;
+			if (!b.interviewTime || b.interviewTime === '-') return -1;
 
-			const [monthA, dayA, timeA] = a.interviewTime.split(' ');
-			const [monthB, dayB, timeB] = b.interviewTime.split(' ');
+			// Split으로 나누기 전에 interviewTime의 형식 확인
+			const interviewTimeA = a.interviewTime.split(' ');
+			const interviewTimeB = b.interviewTime.split(' ');
+
+			if (interviewTimeA.length < 3 || interviewTimeB.length < 3) return 0;
+
+			const [monthA, dayA, timeA] = interviewTimeA;
+			const [monthB, dayB, timeB] = interviewTimeB;
+
+			// timeA 또는 timeB가 존재하지 않는 경우를 확인
+			if (!timeA || !timeB) return 0;
 
 			const [hourA, minuteA] = timeA.split(':').map(Number);
 			const [hourB, minuteB] = timeB.split(':').map(Number);
 
-			const compareMonth = parseInt(monthA.replace("월", "")) - parseInt(monthB.replace("월", ""))
+			const compareMonth = parseInt(monthA.replace("월", "")) - parseInt(monthB.replace("월", ""));
 			if (compareMonth !== 0) return order === 'asc' ? compareMonth : -compareMonth;
 
 			const compareDay = parseInt(dayA.replace("일", "")) - parseInt(dayB.replace("일", ""));
@@ -170,13 +181,13 @@ export default function ViewApplicationList() {
 		try {
 			const response = await request.post('/email', requestData);
 			if (response.isSuccess) {
-        console.log("이메일 전송 성공 response:", response);
-        fetchApplication();
+				console.log("이메일 전송 성공 response:", response);
+				fetchApplication();
 				setCheckedItems([]); // 체크 항목 해제 <- 메일 전송 버튼 닫기 위함
 				setFirstCheckedStage(null); // 위와 같은 이유
-      } else {
-        console.error("이메일 전송 실패:", response);
-      }
+			} else {
+				console.error("이메일 전송 실패:", response);
+			}
 		} catch (error) {
 			console.error('이메일 전송 오류:', error);
 		}
@@ -220,7 +231,7 @@ export default function ViewApplicationList() {
 
 	return (
 		<itemS.OuterContainer>
-			<itemS.Container>
+				<itemS.Container>
 				<itemS.InnerContainer>
 					<itemS.HeadContainer>
 						<itemS.Head>{generation}기 지원자 목록</itemS.Head>
@@ -245,22 +256,22 @@ export default function ViewApplicationList() {
 					<itemS.TextContainer>
 						<itemS.NormText>총</itemS.NormText>
 						<itemS.CntText>{filteredApplications.length}</itemS.CntText>
-							<itemS.NormText>개의 지원서</itemS.NormText>
-						</itemS.TextContainer>
-						<ViewApplicationListTable 
-							applications={filteredApplications} 
-							onCheckChange={handleCheckChange} 
-							firstCheckedStage={firstCheckedStage}
-							onSortClick={handleSortClick}
-							fetchApplication={fetchApplication}
-						/>
-					</itemS.InnerContainer>
-				</itemS.Container>
-				{checkedItems.length > 0 && (
-					<itemS.BtnContainer>
-						{renderButton()}
-					</itemS.BtnContainer>
-				)}
+						<itemS.NormText>개의 지원서</itemS.NormText>
+					</itemS.TextContainer>
+					<ViewApplicationListTable 
+						applications={filteredApplications} 
+						onCheckChange={handleCheckChange} 
+						firstCheckedStage={firstCheckedStage}
+						onSortClick={handleSortClick}
+						fetchApplication={fetchApplication}
+					/>
+				</itemS.InnerContainer>
+			</itemS.Container>
+			{checkedItems.length > 0 && (
+				<itemS.BtnContainer>
+					{renderButton()}
+				</itemS.BtnContainer>
+			)}
 		</itemS.OuterContainer>
 	);
 }

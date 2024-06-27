@@ -54,7 +54,7 @@ export default function MakedApplicationListIndividual({ application, setCntApp 
 						<itemS.CreatedText>{formatDateTime(application.createdTime)}</itemS.CreatedText>
 					</itemS.TopInner>
 					<itemS.TopInner>
-						<itemS.KeyIcon onClick={openModal}></itemS.KeyIcon>
+						<itemS.KeyIcon src='/img/dotmodal.svg'  onClick={openModal}></itemS.KeyIcon>
 					</itemS.TopInner>
 				</itemS.Top>
 				<itemS.Top>

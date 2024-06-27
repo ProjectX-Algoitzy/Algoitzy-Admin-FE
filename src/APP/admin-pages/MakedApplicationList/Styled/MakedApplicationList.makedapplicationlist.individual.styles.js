@@ -41,8 +41,7 @@ export const TopInner = styled.div`
 	
 `;
 
-export const KeyIcon = styled.div`
-  background-image: url('/img/Keylineicon.png');
+export const KeyIcon = styled.img`
 	width: 24px;
 	height: 24px;
 	cursor: pointer;

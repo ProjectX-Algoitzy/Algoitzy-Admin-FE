@@ -33,7 +33,8 @@ export default function MakingCurriculum() {
 
     const handleSave = async () => {
         const requestData = {
-            studyId: studyId,
+            studyId: 1,  //studyID를 받아서 수정필요
+            //studyId: studyId,
             title: title,
             week: selectedWeek,
             content: content

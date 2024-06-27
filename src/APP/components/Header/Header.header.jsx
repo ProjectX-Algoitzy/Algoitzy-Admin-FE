@@ -78,7 +78,7 @@ export default function Header() {
           <itemS.StyledLink to={isLoggedIn ? "/application" : "/login"} onClick={handleNav}>
             <itemS.SubMenuItem>지원서 관리</itemS.SubMenuItem>
           </itemS.StyledLink>
-          <itemS.StyledLink to={isLoggedIn ? "#" : "/login"} onClick={handleNav}>
+          <itemS.StyledLink to={isLoggedIn ? "/makingcurriculumhome" : "/login"} onClick={handleNav}>
             <itemS.SubMenuItem>커리큘럼</itemS.SubMenuItem>
           </itemS.StyledLink>
           <itemS.StyledLink to={isLoggedIn ? "#" : "/login"} onClick={handleNav}>

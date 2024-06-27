@@ -5,9 +5,10 @@ import Select, { components } from 'react-select';
 export const BackGroundContainer = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: skyblue;
-  align-items: center;
-  /* background-image: url('/img/makingapplication.png'); */
+  overflow: auto;
+  align-items : center;
+  background-image: url('/img/imgbackground.jpg');
+  min-height: 100%;
 `;
 
 export const Container = styled.div`

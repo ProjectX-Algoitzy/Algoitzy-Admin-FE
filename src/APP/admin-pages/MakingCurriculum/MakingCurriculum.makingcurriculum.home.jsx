@@ -71,6 +71,7 @@ export default function MakingCurriculumHome() {
 
     const handleCurriculumClick = (curriculumId) => {
         navigate(`/curriculumcheck`, { state: { curriculumId } });
+        console.log("내가선택한 커리큘럼 아이디", curriculumId);
     };
 
     useEffect(() => {

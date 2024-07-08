@@ -109,6 +109,16 @@ export default function MakedApplicationDetail() {
     };
 
     const StudySelect =  ({ value, onChange, isConfirm  }) => {  //어떤 스터디인지 react-select를 통해 선택
+        const CustomMenu = props => {  //동적으로 메뉴의 높이를 할당한다
+            const {  options } = props;
+            const menuHeight = options.length * 48;
+            return (
+                <components.Menu {...props} style={{ height: `${menuHeight}px` }} >
+                    {props.children}
+                </components.Menu>
+            );
+        };
+        
         const CustomDropdownIndicator = props => {  //주관식인지 객관식인지 판별하는 과정에서 역삼각형을 꾸며주는 컴포넌트
             return (
               <components.DropdownIndicator {...props}>
@@ -144,7 +154,7 @@ export default function MakedApplicationDetail() {
                     onChange={handleStudyChange}
                     placeholder="스터디 선택"
                     isSearchable={false} // 직접 입력 비활성화
-                    components={{DropdownIndicator: CustomDropdownIndicator, IndicatorSeparator: null}}
+                    components={{DropdownIndicator: CustomDropdownIndicator, IndicatorSeparator: null, Menu: CustomMenu}}
                     disabled={isConfirm} // isConfirm에 따라 비활성화
                 />  
             </div>

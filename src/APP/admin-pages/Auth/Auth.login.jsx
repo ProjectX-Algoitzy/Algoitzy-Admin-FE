@@ -62,22 +62,15 @@ export default function Login() {
                 />
                 <itemS.Icon src="/img/uil_lock.svg" alt="Icon"/>
               </itemS.IIContainer>
-							{/* <itemS.UtilBox>
-								<itemS.CheckBox type="checkbox" />
-								<itemS.NormText>자동 로그인</itemS.NormText>
-							</itemS.UtilBox> */}
             </itemS.LoginIContainer>
 						
           <itemS.Btn onClick={handleSubmit}>
             로그인
           </itemS.Btn>
           <itemS.UtilBox>
-            <itemS.RouteSignup onClick={() => navigate("/signup")}>
-              회원가입
-            </itemS.RouteSignup>
-            <itemS.UtilText>아이디</itemS.UtilText>
+            <itemS.UtilText onClick={() => navigate("/findemail")}>아이디</itemS.UtilText>
             <itemS.UtilText>/</itemS.UtilText>
-            <itemS.UtilText>
+            <itemS.UtilText onClick={() => navigate("/findpassword")}>
               비밀번호 찾기
             </itemS.UtilText>
           </itemS.UtilBox>

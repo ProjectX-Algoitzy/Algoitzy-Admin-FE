@@ -15,12 +15,15 @@ import MakingRegularStudyStudyinfo from "./APP/admin-pages/MakingRegularStudy/Ma
 import MakingCurriculumHome from "./APP/admin-pages/MakingCurriculum/MakingCurriculum.makingcurriculum.home"
 import MakingCurriculum from "./APP/admin-pages/MakingCurriculum/MakingCurriculum.makingcurriculum.curriculum"
 import CurriculumCheck from "./APP/admin-pages/MakingCurriculum/MakingCurriculum.makingcurriculum.curriculumcheck"
+import RegularStudyList from "./APP/admin-pages/RegularStudyList/RegularStudyList.regularstudylist.main"
+import FindEmail from "./APP/admin-pages/FindAuth/FindEmail/FindEmail.findemail"
+import FindEmailSuccess from "./APP/admin-pages/FindAuth/FindEmailSuccess/FindEmailSuccess.findemailsuccess"
+import FindPassword from "./APP/admin-pages/FindAuth/FindPassword/FindPassword.findpassword"
 import styled from "styled-components"
 import ScrollToTop from "./APP/Common/ScrollToTop"
 import useInterval from "./APP/Common/UseInterval"
 import { refreshToken } from "./APP/Api/refreshToken"
 import { ACCESS_TOKEN } from "./APP/Api/request"
-import RegularStudyList from "./APP/admin-pages/RegularStudyList/RegularStudyList.regularstudylist.main"
 
 const Root = styled.div`
   position: absolute;
@@ -47,6 +50,9 @@ function App() {
         <Route path="/" element={<Login />} /> 
           <Route path="/home" element={<Home />} /> 
           <Route path="/login" element={<Login />} />
+          <Route path="/findemail" element={<FindEmail />} />
+          <Route path="/findemailsuccess" element={<FindEmailSuccess />} />
+          <Route path="/findpassword" element={<FindPassword />} />
           <Route path="/application" element={<MakedApplicationList />} />
           <Route path="/newapplication/:id" element={<MakedApplicationDetail />} />
           {/* <Route path="/makingapplicationform" element={<MakingApplicationForm />} /> */}

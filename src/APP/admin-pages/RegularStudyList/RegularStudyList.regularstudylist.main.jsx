@@ -17,19 +17,19 @@ export default function RegularStudyList() {
         // console.log("studyList", response.result.studyList);
   
         if (response.isSuccess) {
-          console.log("제작된 지원서 조회 성공");
+          console.log("정규 스터디 조회 성공");
           setStudyList(response.result.studyList);
         } else {
-          console.error("제작된 지원서 조회 실패:", response);
+          console.error("정규 스터디 조회 실패:", response);
         }
       } catch (error) {
-        console.error('제작된 지원서 조회 오류', error);
+        console.error('정규 스터디 조회 오류', error);
       }
     };
     fetchMakedApplicationDetail();
   }, []);
 
-  const MakeRegularStudy = () => { // 보기 추가 함수
+  const MakeRegularStudy = () => { 
 		navigate(`/makingregularstudyinfo`);
 	}
     

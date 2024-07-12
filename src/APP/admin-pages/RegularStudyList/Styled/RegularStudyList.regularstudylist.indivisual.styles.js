@@ -113,12 +113,13 @@ export const HeadCount = styled.div`
 `;
 
 // 전체 인원수 글자
-export const Total = styled.div`
+export const CountText = styled.div`
 	font-family: "Pretendard";
 	font-weight: 600;
 	font-size: 16px;
 	line-height: 21px;
 	color: ${tokens.colors.Grey_4};
+	margin-left: 3px;
 `;
 
 // 제작일 글자

@@ -23,7 +23,7 @@ export default function ViewApplicationList() {
 				const response = await request.get(`/application`);
 	
 				if (response.isSuccess) {
-					console.log("제작된 지원서 조회 성공",response);
+					console.log("최신 4기수 조회 성공",response);
 					const generationsOptions = response.result.applicationList.map(app => app.generation);
 	
 						
@@ -31,10 +31,10 @@ export default function ViewApplicationList() {
 					console.log("generationsOptions", generationsOptions);
 					setGeneration(generationsOptions[0]);
 				} else {
-					console.error("제작된 지원서 조회 실패:", response);
+					console.error("최신 4기수 조회 실패:", response);
 				}
 			} catch (error) {
-				console.error('제작된 지원서 조회 오류', error);
+				console.error('최신 4기수 조회 오류', error);
 			}
 		};
 		fetchGeneration();
@@ -73,7 +73,8 @@ export default function ViewApplicationList() {
 		}
 		if (
 			stages.includes('면접 전형') || 
-			stages.includes('최종 합격')
+			stages.includes('최종 합격') ||
+			stages.includes('최종 불합격')
 		) {
 			newTabs.push('면접 전형');
 		}
@@ -183,7 +184,18 @@ export default function ViewApplicationList() {
 			if (response.isSuccess) {
 				console.log("이메일 전송 성공 response:", response);
 				fetchApplication();
-				setCheckedItems([]); // 체크 항목 해제 <- 메일 전송 버튼 닫기 위함
+				
+				 // 체크 항목 해제 <- 메일 전송 버튼 닫기 위함
+				setFilteredApplications(prevApps => {
+					return prevApps.map(app => {
+						if (checkedItems.includes(app.answerId)) {
+								return { ...app, isChecked: false };
+						}
+						return app;
+					});
+				});
+				setCheckedItems([]);
+
 				setFirstCheckedStage(null); // 위와 같은 이유
 			} else {
 				console.error("이메일 전송 실패:", response);

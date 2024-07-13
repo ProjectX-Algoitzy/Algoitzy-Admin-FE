@@ -21,19 +21,19 @@ export default function ViewApplicationListTable({ applications, onCheckChange, 
         setIsSortDropVisible(prevState => !prevState);
     };
 
-		const onSortDesc = () => {
-			onSortClick('desc');
-			setIsSortDropVisible(prevState => !prevState);
-		};
+    const onSortDesc = () => {
+        onSortClick('desc');
+        setIsSortDropVisible(prevState => !prevState);
+    };
 
-		const onSortAsc = () => {
-			onSortClick('asc');
-			setIsSortDropVisible(prevState => !prevState);
-		};
+    const onSortAsc = () => {
+        onSortClick('asc');
+        setIsSortDropVisible(prevState => !prevState);
+    };
 
-		const onSortNothing = () => {
-			setIsSortDropVisible(prevState => !prevState);
-		};
+    const onSortNothing = () => {
+        setIsSortDropVisible(prevState => !prevState);
+    };
 
     return (
         <itemS.Container>

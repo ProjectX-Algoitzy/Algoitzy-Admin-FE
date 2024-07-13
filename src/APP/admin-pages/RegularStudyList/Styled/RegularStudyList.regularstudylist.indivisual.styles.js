@@ -24,10 +24,9 @@ export const TopContainer = styled.div`
 	border-radius: 8px 8px 0px 0px;
 `;
 
-export const TopImg = styled.div`
+export const TopImg = styled.img`
 	width: 253px;
 	height: 182px;
-	background-image: url('/img/temp.svg');
 	border-radius: 8px;
 	margin: 16px 16px 10px 16px;
 `;

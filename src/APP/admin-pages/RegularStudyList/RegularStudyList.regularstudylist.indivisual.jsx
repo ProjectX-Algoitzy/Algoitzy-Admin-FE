@@ -25,7 +25,7 @@ export default function RegularStudyListIndividual({ application }){
 		<itemS.InnerContainer key={application.studyId}>
 			<itemS.TopContainer>
 				
-				<itemS.TopImg>
+				<itemS.TopImg src={application.profileUrl} alt='프로필'>
 					
 				</itemS.TopImg>
 				

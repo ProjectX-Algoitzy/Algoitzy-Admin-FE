@@ -59,7 +59,7 @@ function App() {
           <Route path="/answer" element={<ViewApplicationList />} />
           <Route path="/answer/:id" element={<ViewApplicationDetail />} />
           <Route path="/makedselfstudylist" element={<MakedSelfStudyList />} />
-          <Route path="/regularstudy" element={<RegularStudy />} />
+          <Route path="/regularstudy/:id" element={<RegularStudy />} />
           <Route path="/quillpractice" element={<QuillPractice />} />
           <Route path="/makingregularstudyinfo" element={<MakingRegularStudyStudyinfo />} />
           <Route path="/curriculumcheck" element={<CurriculumCheck />} />

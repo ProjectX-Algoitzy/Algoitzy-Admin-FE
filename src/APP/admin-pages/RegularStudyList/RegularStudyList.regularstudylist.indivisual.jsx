@@ -5,12 +5,12 @@ import * as itemS from "../../admin-pages/RegularStudyList/Styled/RegularStudyLi
 
 export default function RegularStudyListIndividual({ application }){
 
-	// const navigate = useNavigate();
+	const navigate = useNavigate();
 
 	
-	// const moveToDetail = (id) => { // 보기 추가 함수
-	// 	navigate(`/makedapplicationdetail/${id}`);
-	// }
+	const moveToDetail = (id) => { // 보기 추가 함수
+		navigate(`/regularstudy/${id}`);
+	}
 
 	// 스터디 제목 글자수 자르기
 	const truncateStudyName = (name) => {
@@ -33,7 +33,8 @@ export default function RegularStudyListIndividual({ application }){
 
 			<itemS.BottomContainer>
 				<itemS.Bottom>
-          <itemS.Title>{truncateStudyName(application.name)}</itemS.Title>
+          {/* <itemS.Title>{truncateStudyName(application.name)}</itemS.Title> */}
+		  <itemS.Title onClick={() => moveToDetail(application.studyId)}>{truncateStudyName(application.name)}</itemS.Title>
 					<itemS.BottomHeadCount>
 						<itemS.PeopleIcon></itemS.PeopleIcon>		
 						<itemS.BottomInner>

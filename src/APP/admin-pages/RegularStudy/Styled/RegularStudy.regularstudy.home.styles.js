@@ -10,7 +10,6 @@ export const Container = styled.div`
 
 export const Title = styled.div`
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
   margin-top: 100px;
   margin-bottom: 36px;
@@ -23,7 +22,7 @@ export const Title = styled.div`
 
 export const ContentContainer = styled.div`
   width: 100%;
-  height: 95px;
+  height: 100%;
   margin-bottom: 101px;
 `;
 
@@ -38,7 +37,7 @@ export const BlueContainer = styled.div`
   padding-left: 16px;
 `; 
 
-export const InputContainer = styled.input`
+export const InputContainer = styled.div`
   display: flex;
   align-items: center;
   width: 100%;

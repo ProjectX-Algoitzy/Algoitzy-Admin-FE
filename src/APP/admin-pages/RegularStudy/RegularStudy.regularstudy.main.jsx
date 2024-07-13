@@ -22,7 +22,7 @@ export default function RegularStudyMain() {
   return (
     <itemS.Container>
       <RegularStudySideBar setActiveComponent={setActiveComponent} activeComponent={activeComponent} />
-      {renderComponent()}
+      <itemS.Content>{renderComponent()}</itemS.Content>
     </itemS.Container>
   )
 }

@@ -1,19 +1,23 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import * as items from './Styled/MakedApplicationDetail.makedapplicationDetail'
 import { useNavigate, useParams } from 'react-router-dom';
 import request from '../../Api/request';
 import Select, { components } from 'react-select';
+import { AlertContext } from '../../Common/Alert/AlertContext';
+import { ConfirmContext } from '../../Common/Confirm/ConfirmContext';
 
 export default function MakedApplicationDetail() {
     const { id } = useParams();  //파라미터로 각 학생별로 부여된 id를 받아옵니다
     const [isConfirm, setIsConfirm] = useState(false); // 초기값 false로 설정
     const [title, setTitle] = useState('');  // 해당 지원서의 제목을 저장
-    const [studyId, setStudyId] = useState(null); // 선택된 스터디의 ID를 관리하는 state
+    const [studyId, setStudyId] = useState(null); // api로 받아온 스터디의 ID를 관리하는 state
     const [studyName, setStudyName] = useState(''); //해당 지원서의 스터디이름을 저장
-    const [regularStudyList, setRegularStudyList] = useState([]); //정규 스터디의 목록을 저장 
+    // const [regularStudyList, setRegularStudyList] = useState([]); //정규 스터디의 목록을 저장 
     const [questions, setQuestions] = useState([]); //각 문항들을 저장하는 배열
     const [innerContainerClicked, setInnerContainerClicked] = useState(Array(questions.length).fill(false));  // useState(false)하나의 문단 클릭시 색을 변화시키는 용도
     const navigate = useNavigate();
+    const { alert } = useContext(AlertContext);
+    const { confirm } = useContext(ConfirmContext);
 
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -44,18 +48,18 @@ export default function MakedApplicationDetail() {
             return transformedQuestions.sort((a, b) => a.sequence - b.sequence);
         };
 
-        const fetchStudyCurriculum = async() => {
-            try {
-                const responseCurriculum = await request.get('/study');
-                console.log("responseCurriculum", responseCurriculum);
-                if(responseCurriculum["isSuccess"]) {
-                    console.log("제작된 커리큘럼 조회 성공");
-                    setRegularStudyList(responseCurriculum.result.studyList);
-                }
-            } catch (error) {
-                console.error('스터디 커리큘럼 목록 조회 오류', error);
-            }
-        }
+        // const fetchStudyCurriculum = async() => {
+        //     try {
+        //         const responseCurriculum = await request.get('/study');
+        //         console.log("responseCurriculum", responseCurriculum);
+        //         if(responseCurriculum["isSuccess"]) {
+        //             console.log("제작된 커리큘럼 조회 성공");
+        //             setRegularStudyList(responseCurriculum.result.studyList);
+        //         }
+        //     } catch (error) {
+        //         console.error('스터디 커리큘럼 목록 조회 오류', error);
+        //     }
+        // }
     
         const fetchMakedApplicationDetail = async() => {
             try {
@@ -67,6 +71,7 @@ export default function MakedApplicationDetail() {
                     const transformedQuestions = transformReceivedQuestions(response.result.selectQuestionList.concat(response.result.textQuestionList));
                     setIsConfirm(response.result.confirmYN);
                     setTitle(response.result.title);
+                    setStudyId(response.result.studyId);
                     setStudyName(response.result.studyName);
                     setQuestions(transformedQuestions);
                 } else {
@@ -79,7 +84,7 @@ export default function MakedApplicationDetail() {
             }
         };
         fetchMakedApplicationDetail();
-        fetchStudyCurriculum();
+        // fetchStudyCurriculum();
     }, [id]);
 
     if (loading) return <div>Loading...</div>;
@@ -99,7 +104,7 @@ export default function MakedApplicationDetail() {
 
     const handleClick = (index) => {    //하나의 문단 클릭했음을 나타내는 함수
         if (isConfirm) {
-            alert('이 지원서는 이미 배포되었습니다. 수정할 수 없습니다.');
+            alert('알림', '이 지원서는 이미 배포되었습니다. 수정할 수 없습니다.');
             setInnerContainerClicked(false)
         } else {
             const updatedClickedState = Array(questions.length).fill(false);
@@ -108,62 +113,62 @@ export default function MakedApplicationDetail() {
         }
     };
 
-    const StudySelect =  ({ value, onChange, isConfirm  }) => {  //어떤 스터디인지 react-select를 통해 선택
-        const CustomMenu = props => {  //동적으로 메뉴의 높이를 할당한다
-            const {  options } = props;
-            const menuHeight = options.length * 48;
-            return (
-                <components.Menu {...props} style={{ height: `${menuHeight}px` }} >
-                    {props.children}
-                </components.Menu>
-            );
-        };
+    // const StudySelect =  ({ value, onChange, isConfirm  }) => {  //어떤 스터디인지 react-select를 통해 선택
+    //     const CustomMenu = props => {  //동적으로 메뉴의 높이를 할당한다
+    //         const {  options } = props;
+    //         const menuHeight = options.length * 48;
+    //         return (
+    //             <components.Menu {...props} style={{ height: `${menuHeight}px` }} >
+    //                 {props.children}
+    //             </components.Menu>
+    //         );
+    //     };
         
-        const CustomDropdownIndicator = props => {  //주관식인지 객관식인지 판별하는 과정에서 역삼각형을 꾸며주는 컴포넌트
-            return (
-              <components.DropdownIndicator {...props}>
-                <img src="/img/icontriangle.png" alt="triangle-icon" style={{width: "20px", height: "20px", marginRight:"10px"}} />
-              </components.DropdownIndicator>
-            );
-        };
+    //     const CustomDropdownIndicator = props => {  //주관식인지 객관식인지 판별하는 과정에서 역삼각형을 꾸며주는 컴포넌트
+    //         return (
+    //           <components.DropdownIndicator {...props}>
+    //             <img src="/img/icontriangle.png" alt="triangle-icon" style={{width: "20px", height: "20px", marginRight:"10px"}} />
+    //           </components.DropdownIndicator>
+    //         );
+    //     };
         
-        // const options = [
-        //     {value: "코딩테스트 대비반", label:"코딩테스트 대비반"},
-        //     {value: "코딩테스트 기초반", label:"코딩테스트 기초반"},
-        //     {value: "CS면접대비", label:"CS면접대비"}
-        // ]
-        const options = regularStudyList.map(study => ({
-            value: study.studyId,
-            label: study.name
-        }));
+    //     // const options = [
+    //     //     {value: "코딩테스트 대비반", label:"코딩테스트 대비반"},
+    //     //     {value: "코딩테스트 기초반", label:"코딩테스트 기초반"},
+    //     //     {value: "CS면접대비", label:"CS면접대비"}
+    //     // ]
+    //     const options = regularStudyList.map(study => ({
+    //         value: study.studyId,
+    //         label: study.name
+    //     }));
 
-        const handleStudyChange = selectedOption => {
-            setStudyId(selectedOption.value); // 선택된 스터디의 ID를 state로 업데이트
-            onChange(selectedOption.label + " 지원서");
-        };
+    //     const handleStudyChange = selectedOption => {
+    //         setStudyId(selectedOption.value); // 선택된 스터디의 ID를 state로 업데이트
+    //         onChange(selectedOption.label + " 지원서");
+    //     };
 
-        useEffect(() => {
-            //console.log("스터디아이디", studyId);
-        }, [studyId]);
+    //     useEffect(() => {
+    //         //console.log("스터디아이디", studyId);
+    //     }, [studyId]);
         
-        return(
-            <div onClick={e => e.stopPropagation()}>
-                <items.StudySelectContainer
-                    options={options}
-                    value={options.find(option => option.label+ " 지원서" === value)}
-                    onChange={handleStudyChange}
-                    placeholder="스터디 선택"
-                    isSearchable={false} // 직접 입력 비활성화
-                    components={{DropdownIndicator: CustomDropdownIndicator, IndicatorSeparator: null, Menu: CustomMenu}}
-                    disabled={isConfirm} // isConfirm에 따라 비활성화
-                />  
-            </div>
-        )
-    } 
+    //     return(
+    //         <div onClick={e => e.stopPropagation()}>
+    //             <items.StudySelectContainer
+    //                 options={options}
+    //                 value={options.find(option => option.label+ " 지원서" === value)}
+    //                 onChange={handleStudyChange}
+    //                 placeholder="스터디 선택"
+    //                 isSearchable={false} // 직접 입력 비활성화
+    //                 components={{DropdownIndicator: CustomDropdownIndicator, IndicatorSeparator: null, Menu: CustomMenu}}
+    //                 disabled={isConfirm} // isConfirm에 따라 비활성화
+    //             />  
+    //         </div>
+    //     )
+    // } 
     
     const addQuestion = () => { // 문항 추가
         if (isConfirm) {
-            alert('이 지원서는 이미 배포되었습니다. 수정할 수 없습니다.');
+            alert('알림', '이 지원서는 이미 배포되었습니다. 수정할 수 없습니다.');
         } else {
             setQuestions([...questions, { 
                 type: '객관식-단일', // 새로운 문항의 타입을 '객관식-단일'로 설정
@@ -185,7 +190,7 @@ export default function MakedApplicationDetail() {
 
     const handleDragStart = (e, index) => { //드래그앤 드롭을 위한 함수1
         if (isConfirm) {
-            alert('이 지원서는 이미 배포되었습니다. 수정할 수 없습니다.');
+            alert('알림', '이 지원서는 이미 배포되었습니다. 수정할 수 없습니다.');
         } else {
             e.dataTransfer.setData('index', index);
         }
@@ -406,7 +411,7 @@ export default function MakedApplicationDetail() {
     const onChangeSelectQuestion = (index, e) => { //객관식 전용 question 생성함수
         const updatedQuestions = [...questions];
         if(updatedQuestions[index].selectQuestion === "가능한 면접 일자를 선택해주세요.") {
-            alert("변경할 수 없습니다");
+            alert('알림', '변경할 수 없습니다');
         } else {
             updatedQuestions[index].selectQuestion = e.target.value;
             setQuestions(updatedQuestions);
@@ -437,7 +442,7 @@ export default function MakedApplicationDetail() {
     
         if(question.selectQuestion === "가능한 면접 일자를 선택해주세요.") {
             if (!/^\d{1,2}월 \d{1,2}일$/.test(fieldValue)) {
-                alert("입력 형식은 'x월 x일' 형태여야 합니다.");
+                alert('알림', "입력 형식은 'x월 x일' 형태여야 합니다.");
                 const updatedQuestions = [...questions];
                 updatedQuestions[questionIndex].stringFields[fieldIndex] = "";
                 setQuestions(updatedQuestions);
@@ -477,7 +482,7 @@ export default function MakedApplicationDetail() {
         });
     
         const requestData = {
-            studyId: 1, //studyId,
+            studyId: studyId, 
             title: title,
             confirmYN: distribution, // props로 받은 값에 따라 변화를 줘서 임시저장과 저장을 구분합니다
             updateTextQuestionList: createTextQuestionRequestList,
@@ -489,21 +494,22 @@ export default function MakedApplicationDetail() {
             console.log("response", response);
             if (response["isSuccess"]) {
                 console.log("지원서 " + (distribution ? "저장" : "임시저장") + " 성공"); // 저장 또는 임시저장 메시지 출력
-                // alert("지원서 " + (distribution ? "저장" : "임시저장") + "이 완료되었습니다"); // 저장 또는 임시저장 메시지 출력
                 navigate("/application");
             } else {
                 console.error("지원서 " + (distribution ? "저장" : "임시저장") + " 실패:", response); // 저장 또는 임시저장 실패 메시지 출력
+                alert('에러', "지원서 " + (distribution ? "저장" : "임시저장") + " 실패하였습니다");
             }
         } catch (error) {
             console.error("지원서 " + (distribution ? "저장" : "임시저장") + " 오류", error); // 저장 또는 임시저장 오류 메시지 출력
+            alert('에러', "지원서 " + (distribution ? "저장" : "임시저장") + " 실패하였습니다");
         }
     };
 
     const handleSaveBtnClick = async () => { // 저장하기 버튼 클릭 시 사용하는 함수
         if (isConfirm) {
-            alert('이 지원서는 이미 배포되었습니다. 수정할 수 없습니다.');
+            alert('알림', '이 지원서는 이미 배포되었습니다. 수정할 수 없습니다.');
         } else {
-            const confirmation = window.confirm("지원서를 저장하시겠습니까?");
+            const confirmation = await confirm("지원서 배포", "지원서를 배포하시겠습니까?"); //window.confirm("지원서를 저장하시겠습니까?");
             if (confirmation) {
                 await makeApplicationForm(true);
             }
@@ -512,10 +518,12 @@ export default function MakedApplicationDetail() {
 
     const handleTempSaveBtnClick = async () => { // 임시저장 버튼 클릭 시
         if (isConfirm) {
-            alert('이 지원서는 이미 배포되었습니다. 수정할 수 없습니다.');
+            alert('알림', '이 지원서는 이미 배포되었습니다. 수정할 수 없습니다.');
         } else {
-            alert("지원서 임시저장이 완료되었습니다");
-            await makeApplicationForm(false);
+            const message = await alert('알림', '지원서 임시저장이 완료되었습니다.');
+            if(message) {
+                await makeApplicationForm(false);
+            }
         }
     };
 
@@ -540,8 +548,8 @@ export default function MakedApplicationDetail() {
                 <items.TitleContainer>제목</items.TitleContainer>
                 <items.ContentForTitleContainer>
                     <items.ApplicationName>{title}</items.ApplicationName>
-                    {/* <items.ApplicationName>KOALA 1기 스터디 지원서</items.ApplicationName> */}
-                    <StudySelect value={title} onChange={setTitle} isConfirm={isConfirm} />
+                    <items.StudySelectContainer>{studyName}</items.StudySelectContainer>
+                    {/* <StudySelect value={title} onChange={setTitle} isConfirm={isConfirm} /> */}
                 </items.ContentForTitleContainer>
             </items.InnerContainer>
 

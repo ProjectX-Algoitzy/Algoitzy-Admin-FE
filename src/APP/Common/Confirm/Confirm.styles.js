@@ -3,7 +3,7 @@ import * as tokens from "../../../tokens"
 
 export const Container = styled.div`
   position: fixed;
-  top: 0;
+  top: 60px;
   left: 0;
   width: 100%;
   height: 100%;
@@ -29,7 +29,8 @@ export const TitleBox = styled.div`
   justify-content: flex-start;
   width: 500px;
   height: 56px;
-  border-bottom: 1px solid ${tokens.colors.B_Grey_2};
+  // border-bottom: 1px solid ${tokens.colors.B_Grey_2};
+  margin-bottom: 48px;
 `;
 
 export const Title = styled.div`
@@ -38,24 +39,37 @@ export const Title = styled.div`
   margin: 24px 0 11px 32px;
 `;
 
-export const TextBox = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  width: 500px;
-`;
+// export const TextBox = styled.div`
+//   display: flex;
+//   justify-content: flex-start;
+//   width: 500px;
+// `;
 
-export const Text = styled.div`
-  ${tokens.typography.B3_M_14};
-  color: ${tokens.colors.Grey_8};
-  margin: 12px 0 0 32px;
-`;
+// export const Text = styled.div`
+//   ${tokens.typography.B3_M_14};
+//   color: ${tokens.colors.Grey_8};
+//   margin: 12px 0 0 32px;
+// `;
 
 export const ButtonContatiner = styled.div`
   display: flex;
-  justify-content: space-between;
+  flex-direction: row;
+  justify-content: flex-end;
 `;
 
-export const Button = styled.button`
+export const CancelButton = styled.button`
+  ${tokens.typography.T5_SB_16};
+  background: ${tokens.colors.B_Grey_3};
+  width: 70px;
+  height: 40px;
+  border: none;
+  border-radius: 4px;
+  color: ${tokens.colors.White};
+  margin-right: 4px;
+  cursor: pointer;
+`;
+
+export const ConfirmButton = styled.button`
   ${tokens.typography.T5_SB_16};
   background: ${tokens.colors.Blue_0_Main};
   width: 70px;
@@ -63,6 +77,7 @@ export const Button = styled.button`
   border: none;
   border-radius: 4px;
   color: ${tokens.colors.White};
-  margin: 17px 32px;
+  margin: 0 16px 16px 0;
+  cursor: pointer;
 `;
 

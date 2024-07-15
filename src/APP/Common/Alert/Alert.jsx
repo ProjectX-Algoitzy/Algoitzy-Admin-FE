@@ -8,9 +8,9 @@ const Alert = ({ title, message, onClickOK }) => {
         <itemS.TitleBox>
           <itemS.Title>{title}</itemS.Title>
         </itemS.TitleBox>
-        <itemS.TextBox>
+        {/* <itemS.TextBox>
           <itemS.Text>{message}</itemS.Text>
-        </itemS.TextBox>
+        </itemS.TextBox> */}
         <itemS.ButtonContatiner>
           
           <itemS.Button onClick={onClickOK}>확인</itemS.Button>

@@ -3,7 +3,7 @@ import * as tokens from "../../../tokens"
 
 export const Container = styled.div`
   position: fixed;
-  top: 0;
+  top: 60px;
   left: 0;
   width: 100%;
   height: 100%;
@@ -17,7 +17,7 @@ export const Container = styled.div`
 export const Dialog = styled.div`
   background: ${tokens.colors.White};
   
-  border-radius: 5px;
+  border-radius: 4px;
   text-align: center;
   width: 500px;
   height: 160px;
@@ -29,7 +29,8 @@ export const TitleBox = styled.div`
   justify-content: flex-start;
   width: 500px;
   height: 56px;
-  border-bottom: 1px solid ${tokens.colors.B_Grey_2};
+  // border-bottom: 1px solid ${tokens.colors.B_Grey_2};
+  margin-bottom: 32px;
 `;
 
 export const Title = styled.div`
@@ -38,17 +39,17 @@ export const Title = styled.div`
   margin: 24px 0 11px 32px;
 `;
 
-export const TextBox = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  width: 500px;
-`;
+// export const TextBox = styled.div`
+//   display: flex;
+//   justify-content: flex-start;
+//   width: 500px;
+// `;
 
-export const Text = styled.div`
-  ${tokens.typography.B3_M_14};
-  color: ${tokens.colors.Grey_8};
-  margin: 12px 0 0 32px;
-`;
+// export const Text = styled.div`
+//   ${tokens.typography.B3_M_14};
+//   color: ${tokens.colors.Grey_8};
+//   margin: 12px 0 0 32px;
+// `;
 
 export const ButtonContatiner = styled.div`
   display: flex;
@@ -63,6 +64,7 @@ export const Button = styled.button`
   border: none;
   border-radius: 4px;
   color: ${tokens.colors.White};
-  margin: 17px 32px;
+  margin: 16px;
+  cursor: pointer;
 `;
 

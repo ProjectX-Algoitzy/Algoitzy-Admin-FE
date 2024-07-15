@@ -2,11 +2,14 @@ import React, { useState, useEffect, useContext  } from 'react';
 import axios from 'axios';
 import { useNavigate, useLocation } from 'react-router-dom';
 import * as itemS from "../../../admin-pages/FindAuth/FindEmail/Styled/FindEmail.findemail.styles"
+import { AlertContext } from '../../../Common/Alert/AlertContext';
 
 
 export default function FindPassword() {
 
   const navigate = useNavigate();
+
+  const { alert } = useContext(AlertContext);
 
 	const [email, setEmail] = useState('');
   const [emailCode, setEmailCode] = useState('');
@@ -60,6 +63,7 @@ export default function FindPassword() {
       const response = await axios.post('https://admin-dev.kau-koala.com/sign-up/email', requestData);
       console.log("response",response.data);
       if (response.data["isSuccess"]) {
+        alert("임시 비밀번호를 회원님의 이메일로 발송 하였습니다.");
         console.log("이메일 인증 성공!");
         setIsEmailCodeValid(true);
         setEmailBorderColor('#3083F7'); // Blue_3

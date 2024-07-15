@@ -8,12 +8,12 @@ const Confirm = ({ title, message, onClickOK, onClickCancel }) => {
         <itemS.TitleBox>
           <itemS.Title>{title}</itemS.Title>
         </itemS.TitleBox>
-        <itemS.TextBox>
+        {/* <itemS.TextBox>
           <itemS.Text>{message}</itemS.Text>
-        </itemS.TextBox>
+        </itemS.TextBox> */}
         <itemS.ButtonContatiner>
-          <itemS.Button onClick={onClickCancel}>취소</itemS.Button>
-          <itemS.Button onClick={onClickOK}>확인</itemS.Button>
+          <itemS.CancelButton onClick={onClickCancel}>취소</itemS.CancelButton>
+          <itemS.ConfirmButton onClick={onClickOK}>확인</itemS.ConfirmButton>
         </itemS.ButtonContatiner>
       </itemS.Dialog>
     </itemS.Container>

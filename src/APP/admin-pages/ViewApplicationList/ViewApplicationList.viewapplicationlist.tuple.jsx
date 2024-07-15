@@ -2,15 +2,20 @@ import React, { useState, useEffect, useContext  } from 'react';
 import * as itemS from "../../admin-pages/ViewApplicationList/Styled/ViewApplicationList.viewapplicationlist.tuple.styles";
 import ViewApplicationDetail from '../ViewApplicationDetail/ViewApplicationDetail.viewapplicationdetail';
 import UpdateModal from './updateModal';
+import { useRecoilValue } from 'recoil';
+import { IsSendMail } from '../Recoil/Recoil.state';
 import { AlertContext } from '../../Common/Alert/AlertContext';
 
-export default function ViewApplicationListTuple({ application, isSelected, onOpen, onClose, onCheckChange, firstCheckedStage, fetchApplication }) {
+export default function ViewApplicationListTuple({ application, isSelected, onOpen, onClose, onCheckChange, firstCheckedStage, fetchApplication, sendMailItems }) {
+  const { alert } = useContext(AlertContext);  
+  
+  const [isChecked, setIsChecked] = useState(false);
+  const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false); // State for UpdateModal
+  const [isAbled, setIsAbled] = useState(true); 
 
-	const { alert } = useContext(AlertContext);
-	
-	const [isChecked, setIsChecked] = useState(false);
-	const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false); // State for UpdateModal
-	const [isAbled, setIsAbled] = useState(true); 
+  const isSendMail = useRecoilValue(IsSendMail);
+
+  
 
 	const handleCheckChange = (event) => {
 		const checked = event.target.checked;
@@ -33,11 +38,31 @@ export default function ViewApplicationListTuple({ application, isSelected, onOp
 			
 	};
 
+
 	useEffect(() => {
 		if (firstCheckedStage && application.status !== firstCheckedStage) {
 			setIsChecked(false);
 		}
 	}, [firstCheckedStage]);
+
+
+		// 메일 발송 후 체크 해제
+		useEffect(() => {
+			console.log('튜플isSendMail',isSendMail);
+			console.log('튜플sendMailItems',sendMailItems);
+			if (isSendMail) {
+				if (sendMailItems.includes(application.answerId)) {
+					setIsChecked(false);
+				}
+			}
+		}, [isSendMail]);
+
+    const handleEditClick = () => {
+			if (isAbled) {
+				setIsUpdateModalOpen(true);
+			} 
+    };
+
 
 	const handleEditClick = () => {
 		if (isAbled) {

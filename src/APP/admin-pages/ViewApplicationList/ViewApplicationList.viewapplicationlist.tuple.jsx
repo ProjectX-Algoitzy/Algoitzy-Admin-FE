@@ -46,23 +46,16 @@ export default function ViewApplicationListTuple({ application, isSelected, onOp
 	}, [firstCheckedStage]);
 
 
-		// 메일 발송 후 체크 해제
-		useEffect(() => {
-			console.log('튜플isSendMail',isSendMail);
-			console.log('튜플sendMailItems',sendMailItems);
-			if (isSendMail) {
-				if (sendMailItems.includes(application.answerId)) {
-					setIsChecked(false);
-				}
+	// 메일 발송 후 체크 해제
+	useEffect(() => {
+		console.log('튜플isSendMail',isSendMail);
+		console.log('튜플sendMailItems',sendMailItems);
+		if (isSendMail) {
+			if (sendMailItems.includes(application.answerId)) {
+				setIsChecked(false);
 			}
-		}, [isSendMail]);
-
-    const handleEditClick = () => {
-			if (isAbled) {
-				setIsUpdateModalOpen(true);
-			} 
-    };
-
+		}
+	}, [isSendMail]);
 
 	const handleEditClick = () => {
 		if (isAbled) {

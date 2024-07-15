@@ -3,6 +3,8 @@ import request from '../../Api/request';
 import * as itemS from "../../admin-pages/ViewApplicationList/Styled/ViewApplicationList.viewapplicationlist.main.styles";
 import ViewApplicationListTable from './ViewApplicationList.viewapplicationlist.table';
 import StudySelect from './ViewApplicationList.viewapplicationlist.select';
+import { useRecoilState } from "recoil";
+import { IsSendMail } from '../Recoil/Recoil.state';
 
 export default function ViewApplicationList() {
 	const [applications, setApplications] = useState([]);
@@ -14,8 +16,10 @@ export default function ViewApplicationList() {
 	const [tabs, setTabs] = useState(['전체 지원자']);
 	const [selectedTab, setSelectedTab] = useState('전체 지원자');
 	const [checkedItems, setCheckedItems] = useState([]);
+	const [sendMailItems, setSendMailItems] = useState([]); // 메일 발송한 id 들 -> 발송 후 체크 해제 위한 변수
 	const [firstCheckedStage, setFirstCheckedStage] = useState(null);
 	const [sortOrder, setSortOrder] = useState('desc');
+	const [isSendMail, setIsSendMail] = useRecoilState(IsSendMail);
 
 	useEffect(() => {
 		const fetchGeneration = async () => { // 최신 4기수 가져오기
@@ -186,14 +190,16 @@ export default function ViewApplicationList() {
 				fetchApplication();
 				
 				 // 체크 항목 해제 <- 메일 전송 버튼 닫기 위함
-				setFilteredApplications(prevApps => {
-					return prevApps.map(app => {
-						if (checkedItems.includes(app.answerId)) {
-								return { ...app, isChecked: false };
-						}
-						return app;
-					});
-				});
+				setIsSendMail(true);
+				// setFilteredApplications(prevApps => {
+				// 	return prevApps.map(app => {
+				// 		if (checkedItems.includes(app.answerId)) {
+				// 				return { ...app, isChecked: false };
+				// 		}
+				// 		return app;
+				// 	});
+				// });
+				setSendMailItems(checkedItems);
 				setCheckedItems([]);
 
 				setFirstCheckedStage(null); // 위와 같은 이유
@@ -276,6 +282,8 @@ export default function ViewApplicationList() {
 						firstCheckedStage={firstCheckedStage}
 						onSortClick={handleSortClick}
 						fetchApplication={fetchApplication}
+
+						sendMailItems={sendMailItems}
 					/>
 				</itemS.InnerContainer>
 			</itemS.Container>

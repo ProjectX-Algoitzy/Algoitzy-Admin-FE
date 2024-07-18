@@ -101,7 +101,7 @@ export default function Header() {
       )}
       {activeMenu === 'coding' && (
         <itemS.SubCodingMenu>
-          <itemS.StyledLink to={isLoggedIn ? "#" : "/login"} onClick={handleNav}>
+          <itemS.StyledLink to={isLoggedIn ? "/enterbootlist" : "/login"} onClick={handleNav}>
             <itemS.SubMenuItem>기업/부트캠프</itemS.SubMenuItem>
           </itemS.StyledLink>
         </itemS.SubCodingMenu>

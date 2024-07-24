@@ -20,6 +20,7 @@ import FindEmail from "./APP/admin-pages/FindAuth/FindEmail/FindEmail.findemail"
 import FindEmailSuccess from "./APP/admin-pages/FindAuth/FindEmailSuccess/FindEmailSuccess.findemailsuccess"
 import FindPassword from "./APP/admin-pages/FindAuth/FindPassword/FindPassword.findpassword"
 import EnterBootList from "./APP/admin-pages/EnterpriseBootcampList/EnterpriseBootcampList.enterprisebootcamplist.main"
+import UpdateGeneration from "./APP/admin-pages/UpdateGeneration/UpdateGeneration.updategeneration.main"
 import styled from "styled-components"
 import ScrollToTop from "./APP/Common/ScrollToTop"
 import useInterval from "./APP/Common/UseInterval"
@@ -68,6 +69,7 @@ function App() {
           <Route path="/makingcurriculum" element={<MakingCurriculum />} />
           <Route path="/regularstudylist" element={<RegularStudyList />} /> {/* 정규 스터디 목록 */}
           <Route path="/enterbootlist" element={<EnterBootList />} /> {/* 기업/부트캠프*/}
+          <Route path="/generation" element={<UpdateGeneration />} /> {/* 기업/부트캠프*/}
         </Routes>
         {/* <Footer /> */} {/* figma에 보니 admin은 푸터가 없었기에 일단 임시로 주석처리를 했다 */}
       </BrowserRouter>

@@ -66,7 +66,7 @@ export default function ViewApplicationListTuple({ application, isSelected, onOp
 	const handleUpdateConfirm = (schedule) => {
 		setIsUpdateModalOpen(false);
 		application.interviewTime = schedule;
-		fetchApplication();
+		// fetchApplication();
 	};
 
 	return (

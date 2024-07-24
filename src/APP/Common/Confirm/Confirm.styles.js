@@ -36,6 +36,7 @@ export const TitleBox = styled.div`
 export const Title = styled.div`
   ${tokens.typography.T5_SB_16};
   color: ${tokens.colors.Grey_8};
+  text-align: left;
   margin: 24px 0 11px 32px;
 `;
 

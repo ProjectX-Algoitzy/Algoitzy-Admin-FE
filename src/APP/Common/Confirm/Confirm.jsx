@@ -6,7 +6,14 @@ const Confirm = ({ title, message, onClickOK, onClickCancel }) => {
     <itemS.Container>
       <itemS.Dialog>
         <itemS.TitleBox>
-          <itemS.Title>{title}</itemS.Title>
+        <itemS.Title>
+            {title.split('\n').map((line, index) => (
+              <React.Fragment key={index}>
+                {line}
+                <br />
+              </React.Fragment>
+            ))}
+          </itemS.Title>
         </itemS.TitleBox>
         {/* <itemS.TextBox>
           <itemS.Text>{message}</itemS.Text>

@@ -12,6 +12,7 @@ import MakedSelfStudyList from "./APP/admin-pages/MakedSelfStudyList/MakedSelfSt
 import RegularStudy from "./APP/admin-pages/RegularStudy/RegularStudy.regularstudy.main"
 import QuillPractice from "./APP/sharing-pages/QuillPractice"
 import MakingRegularStudyStudyinfo from "./APP/admin-pages/MakingRegularStudy/MakingRegularStudy.makingregularstudy.studyinfo"
+import MakingRegularStudyEditStudyInfo from "./APP/admin-pages/MakingRegularStudy/MakingRegularStudy.makingregularstudy.editstudyinfo"
 import MakingCurriculumHome from "./APP/admin-pages/MakingCurriculum/MakingCurriculum.makingcurriculum.home"
 import MakingCurriculum from "./APP/admin-pages/MakingCurriculum/MakingCurriculum.makingcurriculum.curriculum"
 import CurriculumCheck from "./APP/admin-pages/MakingCurriculum/MakingCurriculum.makingcurriculum.curriculumcheck"
@@ -64,9 +65,10 @@ function App() {
           <Route path="/regularstudy/:id" element={<RegularStudy />} />
           <Route path="/quillpractice" element={<QuillPractice />} />
           <Route path="/makingregularstudyinfo" element={<MakingRegularStudyStudyinfo />} />
-          <Route path="/curriculumcheck" element={<CurriculumCheck />} />
+          <Route path="/editingregularstudyinfo/:id" element={<MakingRegularStudyEditStudyInfo />} />
+          <Route path="/curriculumcheck/:curriculumId" element={<CurriculumCheck />} />
           <Route path="/makingcurriculumhome" element={<MakingCurriculumHome />} />
-          <Route path="/makingcurriculum" element={<MakingCurriculum />} />
+          <Route path="/makingcurriculum/:id" element={<MakingCurriculum />} />
           <Route path="/regularstudylist" element={<RegularStudyList />} /> {/* 정규 스터디 목록 */}
           <Route path="/enterbootlist" element={<EnterBootList />} /> {/* 기업/부트캠프*/}
           <Route path="/generation" element={<UpdateGeneration />} /> {/* 기업/부트캠프*/}

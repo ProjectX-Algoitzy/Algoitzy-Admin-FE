@@ -3,9 +3,10 @@ import Select, { components } from 'react-select';
 import * as itemS from "./Styled/MakingCurriculum.makingcurriculum.curriculum.styles"
 import QuillPractice from "./MakingCurriculum.makingcurriculum.quilleditor"
 import request from '../../Api/request';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 export default function MakingCurriculum() {
+    const { id } = useParams();
     const navigate = useNavigate();
     const [selectedWeek, setSelectedWeek] = useState(null);
     const [title, setTitle] = useState('');
@@ -33,8 +34,7 @@ export default function MakingCurriculum() {
 
     const handleSave = async () => {
         const requestData = {
-            studyId: 1,  //studyID를 받아서 수정필요
-            //studyId: studyId,
+            studyId: id,  
             title: title,
             week: selectedWeek,
             content: content
@@ -53,28 +53,28 @@ export default function MakingCurriculum() {
         }
     };
 
-    const CustomDropdownIndicator = props => {
-        return (
-            <components.DropdownIndicator {...props}>
-                <img src="/img/triangle.png" alt="triangle-icon" style={{ width: "24px", height: "24px", paddingRight: "216px" }} />
-            </components.DropdownIndicator>
-        );
-    };
+    // const CustomDropdownIndicator = props => {
+    //     return (
+    //         <components.DropdownIndicator {...props}>
+    //             <img src="/img/triangle.png" alt="triangle-icon" style={{ width: "24px", height: "24px", paddingRight: "216px" }} />
+    //         </components.DropdownIndicator>
+    //     );
+    // };
 
-    const formatOptionLabel = ({ value, label }) => (
-        <div>
-            {label.replace(" 지원서", "")}
-        </div>
-    );
+    // const formatOptionLabel = ({ value, label }) => (
+    //     <div>
+    //         {label.replace(" 지원서", "")}
+    //     </div>
+    // );
 
-    const options = regularStudyList.map(study => ({
-        value: study.studyId,
-        label: `${study.name} 지원서`
-    }));
+    // const options = regularStudyList.map(study => ({
+    //     value: study.studyId,
+    //     label: `${study.name} 지원서`
+    // }));
 
-    const handleStudyChange = selectedOption => {
-        setStudyId(selectedOption.value);
-    };
+    // const handleStudyChange = selectedOption => {
+    //     setStudyId(selectedOption.value);
+    // };
 
     const WeeksSelect = ({ value, onChange }) => {
         const CustomDropdownIndicator = props => {
@@ -118,7 +118,7 @@ export default function MakingCurriculum() {
                     <itemS.StyledInput placeholder='이름을 입력해주세요' type='text' value={title} onChange={onChangeTitle} />
                 </itemS.LittleContainer>
 
-                <itemS.LittleContainer>
+                {/* <itemS.LittleContainer>
                     <itemS.StyledTitle>스터디 선택</itemS.StyledTitle>
                     <itemS.WeeksSelectContainer
                         options={options}
@@ -129,7 +129,7 @@ export default function MakingCurriculum() {
                         formatOptionLabel={formatOptionLabel}
                         isSearchable={false}
                     />
-                </itemS.LittleContainer>
+                </itemS.LittleContainer> */}
                 <itemS.LittleContainer>
                     <itemS.StyledTitle>주차</itemS.StyledTitle>
                     <WeeksSelect value={selectedWeek} onChange={setSelectedWeek}/>

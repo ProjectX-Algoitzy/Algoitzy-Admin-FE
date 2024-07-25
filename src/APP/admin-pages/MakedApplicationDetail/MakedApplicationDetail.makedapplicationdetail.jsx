@@ -104,7 +104,7 @@ export default function MakedApplicationDetail() {
 
     const handleClick = (index) => {    //하나의 문단 클릭했음을 나타내는 함수
         if (isConfirm) {
-            alert('알림', '이 지원서는 이미 배포되었습니다. 수정할 수 없습니다.');
+            alert('이 지원서는 이미 배포되었습니다. 수정할 수 없습니다.');
             setInnerContainerClicked(false)
         } else {
             const updatedClickedState = Array(questions.length).fill(false);
@@ -168,7 +168,7 @@ export default function MakedApplicationDetail() {
     
     const addQuestion = () => { // 문항 추가
         if (isConfirm) {
-            alert('알림', '이 지원서는 이미 배포되었습니다. 수정할 수 없습니다.');
+            alert('이 지원서는 이미 배포되었습니다. 수정할 수 없습니다.');
         } else {
             setQuestions([...questions, { 
                 type: '객관식-단일', // 새로운 문항의 타입을 '객관식-단일'로 설정
@@ -190,7 +190,7 @@ export default function MakedApplicationDetail() {
 
     const handleDragStart = (e, index) => { //드래그앤 드롭을 위한 함수1
         if (isConfirm) {
-            alert('알림', '이 지원서는 이미 배포되었습니다. 수정할 수 없습니다.');
+            alert('이 지원서는 이미 배포되었습니다. 수정할 수 없습니다.');
         } else {
             e.dataTransfer.setData('index', index);
         }
@@ -411,7 +411,7 @@ export default function MakedApplicationDetail() {
     const onChangeSelectQuestion = (index, e) => { //객관식 전용 question 생성함수
         const updatedQuestions = [...questions];
         if(updatedQuestions[index].selectQuestion === "가능한 면접 일자를 선택해주세요.") {
-            alert('알림', '변경할 수 없습니다');
+            alert('변경할 수 없습니다');
         } else {
             updatedQuestions[index].selectQuestion = e.target.value;
             setQuestions(updatedQuestions);
@@ -442,7 +442,7 @@ export default function MakedApplicationDetail() {
     
         if(question.selectQuestion === "가능한 면접 일자를 선택해주세요.") {
             if (!/^\d{1,2}월 \d{1,2}일$/.test(fieldValue)) {
-                alert('알림', "입력 형식은 'x월 x일' 형태여야 합니다.");
+                alert("입력 형식은 'x월 x일' 형태여야 합니다.");
                 const updatedQuestions = [...questions];
                 updatedQuestions[questionIndex].stringFields[fieldIndex] = "";
                 setQuestions(updatedQuestions);
@@ -494,22 +494,23 @@ export default function MakedApplicationDetail() {
             console.log("response", response);
             if (response["isSuccess"]) {
                 console.log("지원서 " + (distribution ? "저장" : "임시저장") + " 성공"); // 저장 또는 임시저장 메시지 출력
-                navigate("/application");
+                // navigate("/application");
+                navigate(`/regularstudy/${studyId}`);
             } else {
                 console.error("지원서 " + (distribution ? "저장" : "임시저장") + " 실패:", response); // 저장 또는 임시저장 실패 메시지 출력
-                alert('에러', "지원서 " + (distribution ? "저장" : "임시저장") + " 실패하였습니다");
+                alert("지원서 " + (distribution ? "저장" : "임시저장") + " 실패하였습니다");
             }
         } catch (error) {
             console.error("지원서 " + (distribution ? "저장" : "임시저장") + " 오류", error); // 저장 또는 임시저장 오류 메시지 출력
-            alert('에러', "지원서 " + (distribution ? "저장" : "임시저장") + " 실패하였습니다");
+            alert("지원서 " + (distribution ? "저장" : "임시저장") + " 실패하였습니다");
         }
     };
 
     const handleSaveBtnClick = async () => { // 저장하기 버튼 클릭 시 사용하는 함수
         if (isConfirm) {
-            alert('알림', '이 지원서는 이미 배포되었습니다. 수정할 수 없습니다.');
+            alert('이 지원서는 이미 배포되었습니다. 수정할 수 없습니다.');
         } else {
-            const confirmation = await confirm("지원서 배포", "지원서를 배포하시겠습니까?"); //window.confirm("지원서를 저장하시겠습니까?");
+            const confirmation = await confirm("지원서를 배포하시겠습니까?"); //window.confirm("지원서를 저장하시겠습니까?");
             if (confirmation) {
                 await makeApplicationForm(true);
             }
@@ -518,9 +519,9 @@ export default function MakedApplicationDetail() {
 
     const handleTempSaveBtnClick = async () => { // 임시저장 버튼 클릭 시
         if (isConfirm) {
-            alert('알림', '이 지원서는 이미 배포되었습니다. 수정할 수 없습니다.');
+            alert('이 지원서는 이미 배포되었습니다. 수정할 수 없습니다.');
         } else {
-            const message = await alert('알림', '지원서 임시저장이 완료되었습니다.');
+            const message = await alert('지원서 임시저장이 완료되었습니다.');
             if(message) {
                 await makeApplicationForm(false);
             }

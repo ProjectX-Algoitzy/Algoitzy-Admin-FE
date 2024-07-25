@@ -1,22 +1,32 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import * as itemS from './Styled/MakingCurriculum.makingcurriculum.curriculumcheck.styles'
 import request from '../../Api/request';
-import { useLocation } from 'react-router-dom';
+import Select, { components } from 'react-select';
+import QuillPractice from './MakingCurriculum.makingcurriculum.quilleditor';
+import { useParams } from 'react-router-dom';
+import { AlertContext } from '../../Common/Alert/AlertContext';
 
 export default function CurriculumCheck() {
-  const location = useLocation();
-  const { curriculumId } = location.state;
+  const { curriculumId } = useParams();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isEditing, setIsEditing] = useState(false);
+  const [title, setTitle] = useState('');
+  const [week, setWeek] = useState(0);
+  const [content, setContent] = useState('');
+  const { alert } = useContext(AlertContext);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await request.get(`/curriculum/${curriculumId}`);
-        console.log("response", response);
+        console.log("커리큘럼 내용: ", response);
         if (response["isSuccess"]) {
           setData(response.result);
+          setTitle(response.result.title);
+          setWeek(response.result.week);
+          setContent(response.result.content);
         } else {
           setError('Failed to fetch data');
         }
@@ -26,21 +36,103 @@ export default function CurriculumCheck() {
         setLoading(false);
       }
     };
-
     fetchData();
-  }, []);
+  }, [curriculumId]);
+
+  const handleEditCurriculum = () => {
+    setIsEditing(true);
+  };
+
+  const WeeksSelect = ({ value, onChange }) => {
+    const CustomDropdownIndicator = props => {
+      return (
+        <components.DropdownIndicator {...props}>
+          <img src="/img/triangle.png" alt="triangle-icon" style={{ width: "24px", height: "24px" }} />
+        </components.DropdownIndicator>
+      );
+    };
+  
+    const options = [
+      { value: '1', label: '1주차' },
+      { value: '2', label: '2주차' },
+      { value: '3', label: '3주차' },
+      { value: '4', label: '4주차' },
+      { value: '5', label: '5주차' },
+      { value: '6', label: '6주차' },
+      { value: '7', label: '7주차' },
+      { value: '8', label: '8주차' },
+    ];
+  
+    return (
+      <itemS.WeeksSelectContainer
+        options={options}
+        value={options.find(option => option.value === value.toString())} // week 값과 일치하는 옵션 찾기
+        onChange={selectedOption => onChange(selectedOption.value)}
+        placeholder="주차 선택"
+        components={{ DropdownIndicator: CustomDropdownIndicator, IndicatorSeparator: null }}
+        isSearchable={false}
+      />
+    );
+  };
+
+  const handleSaveCurriculum = async () => {
+    try {
+      const response = await request.patch(`/curriculum/${curriculumId}`, {
+        studyId: data.studyId,
+        title,
+        week,
+        content,
+      });
+      if (response["isSuccess"]) {
+        setData({
+          ...data,
+          title,
+          week,
+          content,
+        });
+        alert("커리큘럼 수정이 완료되었습니다!");
+        setIsEditing(false);
+      }
+    } catch (error) {
+      setError('An error occurred while saving data');
+      console.error('커리큘럼 저장과정에서 에러', error);
+    }
+  };
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
 
   return (
     <itemS.Container>
-      <itemS.Title>{data.title}</itemS.Title>
+      <itemS.Title>
+        {isEditing ? (
+            <itemS.TitleInput type="text" value={title} onChange={(e) => setTitle(e.target.value)}/>
+          ) : (title)
+        }
+        <img
+          src={isEditing ? "/img/btnsave.png" : "/img/btnedit.png"}
+          alt={isEditing ? "저장 버튼" : "편집 버튼"}
+          onClick={isEditing ? handleSaveCurriculum : handleEditCurriculum}
+          style={{ width: "60px", height: "41px", cursor: "pointer" }}
+        />
+      </itemS.Title>
       <itemS.SecondContainer>
         <itemS.WhiteBox>{data.studyName}</itemS.WhiteBox>
-        <itemS.WhiteBox>{data.week}주차</itemS.WhiteBox>
+          {isEditing ? (
+            <WeeksSelect value={week} onChange={setWeek} />
+          ) : (
+            <itemS.WhiteBox>{week}주차</itemS.WhiteBox>
+          )}
       </itemS.SecondContainer>
-      <itemS.ContentsContainer dangerouslySetInnerHTML={{ __html: data.content }} />
+      <>
+        {isEditing ? (
+          <QuillPractice setContent={setContent} content={content} />
+        ) : (
+          <itemS.ContentsContainer>
+            <div dangerouslySetInnerHTML={{ __html: content }} />
+          </itemS.ContentsContainer>
+        )}
+      </>
     </itemS.Container>
   );
 }

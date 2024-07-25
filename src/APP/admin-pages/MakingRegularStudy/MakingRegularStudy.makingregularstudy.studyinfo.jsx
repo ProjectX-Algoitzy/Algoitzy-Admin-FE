@@ -1,15 +1,18 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
 import * as itemS from "./Styled/MakingRegularStudy.makingregularstudy.studyinfo.styles";
 import QuillPractice from '../MakingCurriculum/MakingCurriculum.makingcurriculum.quilleditor';
 import request from '../../Api/request';
 import { useDropzone } from 'react-dropzone';
 import { useNavigate } from 'react-router-dom';
+import { AlertContext } from '../../Common/Alert/AlertContext';
+import { ConfirmContext } from '../../Common/Confirm/ConfirmContext';
 
 export default function MakingRegularStudyStudyinfo() {
     const navigate = useNavigate();
     const [name, setName] = useState('');
     const [content, setContent] = useState('');
     const [imageUrl, setImageUrl] = useState(null);
+    const { alert } = useContext(AlertContext);
 
     const onChangeName = (e) => {
         setName(e.target.value);
@@ -60,7 +63,7 @@ export default function MakingRegularStudyStudyinfo() {
         );
     };
 
-    const handleArbitarySave = async () => {
+    const handleSave = async () => {
         const requestData = {
             profileUrl: imageUrl,
             name: name,
@@ -72,8 +75,8 @@ export default function MakingRegularStudyStudyinfo() {
             console.log(response);
 
             if (response["isSuccess"]) {
-                alert("정규스터디 생성 완료")
-                navigate("/regularstudy")
+                alert("정규스터디 생성 완료");
+                navigate("/regularstudylist");
             } 
         } catch (error) {
             console.error('정규스터디 저장과정에서 에러', error);
@@ -104,8 +107,8 @@ export default function MakingRegularStudyStudyinfo() {
 
         <itemS.BtnContainer>
             <itemS.BtnContainer2>
-                <itemS.ArbitaryBtn onClick={handleArbitarySave}>임시저장</itemS.ArbitaryBtn>
-                <itemS.Btn onClick={handleArbitarySave}>생성하기</itemS.Btn>
+                {/* <itemS.ArbitaryBtn>임시저장</itemS.ArbitaryBtn> */}
+                <itemS.Btn onClick={handleSave}>생성하기</itemS.Btn>
             </itemS.BtnContainer2>
         </itemS.BtnContainer>
     </itemS.BackGroundContainer>

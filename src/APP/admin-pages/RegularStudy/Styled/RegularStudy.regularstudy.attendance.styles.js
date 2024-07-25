@@ -20,7 +20,7 @@ export const Title = styled.div`
 `;
 
 export const StyledTable = styled.table`
-  width: 100%;
+  width: 793px;
   height: 277px;
   border-collapse: collapse;
 `;

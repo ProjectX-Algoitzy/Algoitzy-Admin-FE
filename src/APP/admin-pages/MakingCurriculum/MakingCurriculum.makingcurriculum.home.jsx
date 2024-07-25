@@ -30,7 +30,7 @@ export default function MakingCurriculumHome() {
         const fetchCurriculumList = async () => {
             if (studyId !== null) {
                 try {
-                    const responseCurriculum = await request.get(`/curriculum?studyId=${studyId}`);
+                    const responseCurriculum = await request.get(`/study/${studyId}/curriculum`);
                     console.log("responseCurriculum", responseCurriculum);
                     if (responseCurriculum.isSuccess) {
                         setCurriculumList(responseCurriculum.result.curriculumList);

@@ -4,6 +4,7 @@ import RegularStudySideBar from "./RegularStudy.regularstudy.sidebar";
 import RegularStudyHome from "./RegularStudy.regularstudy.home"
 import RegularStudyAttendance from "./RegularStudy.regularstudy.attendance"
 import RegularStudyCurriculum from "./RegularStudy.regularstudy.curriculum"
+import RegularStudyMocktest from './RegularStudy.regularstudy.mocktest';
 
 export default function RegularStudyMain() {
   const [activeComponent, setActiveComponent] = useState('home');
@@ -15,6 +16,8 @@ export default function RegularStudyMain() {
         return <RegularStudyAttendance />;
       case 'curriculum':
         return <RegularStudyCurriculum />;
+      case 'mocktest':
+        return <RegularStudyMocktest />;
       default:
         return <RegularStudyHome />;
     }

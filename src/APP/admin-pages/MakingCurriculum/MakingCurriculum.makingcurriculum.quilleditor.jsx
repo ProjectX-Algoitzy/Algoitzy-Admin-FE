@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import * as itemS from './Styled/MakingCurriculum.makingcurriculum.quilleditor.styles'
+import * as itemS from './Styled/MakingCurriculum.makingcurriculum.quilleditor.styles';
 import ReactQuill, { Quill } from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { ImageActions } from '@xeger/quill-image-actions';
@@ -30,9 +30,7 @@ const formats = [
     'video',
 ];
 
-export default function QuillPractice({ setContent }) {
-  //const [content, setContent] = useState("");
-  //console.log(content);
+export default function QuillPractice({ setContent, content }) {
   const quillRef = useRef(null);
   let isHandlingTextChange = false;
 
@@ -57,7 +55,6 @@ export default function QuillPractice({ setContent }) {
       isHandlingTextChange = false;
     };
 
-    //quill.on('text-change', handleTextChange);
     quill.on('text-change', () => {
       handleTextChange();
       setContent(quill.root.innerHTML);
@@ -71,7 +68,7 @@ export default function QuillPractice({ setContent }) {
       quill.off('text-change', handleTextChange);
       quill.container.removeEventListener('click', handleClick);
     };
-  }, []);
+  }, [setContent]);
 
   const handleClick = (event) => {
     const quill = quillRef.current.getEditor();
@@ -87,7 +84,7 @@ export default function QuillPractice({ setContent }) {
       formData.append('multipartFileList', file);
 
       const response = await request.post('/s3', formData);
-      if (response["isSuccess"]) {
+      if (response.isSuccess) {
         return response.result[0]; // 반환된 이미지 URL
       } else {
         throw new Error('이미지 업로드 실패');
@@ -143,130 +140,11 @@ export default function QuillPractice({ setContent }) {
             <ReactQuill 
               ref={quillRef}
               modules={modules}
-              //value={content}
-              //onChange={setContent}
+              {...(content && { value: content })} // content가 있을 때만 value 설정
+              onChange={setContent} // 에디터 내용이 변경될 때 setContent 호출
               formats={formats}
             />
         </itemS.EditorWrapper>
     </itemS.Container>
   )
 }
-
-
-
-
-
-
-// import React, { useState, useEffect, useRef } from 'react';
-// import * as itemS from './Styled/MakingRegularStudy.makingregularstudy.quilleditor.styles'
-// import ReactQuill, { Quill } from 'react-quill';
-// import 'react-quill/dist/quill.snow.css';
-// import { ImageActions } from '@xeger/quill-image-actions';
-// import { ImageFormats } from '@xeger/quill-image-formats';
-
-// Quill.register('modules/imageActions', ImageActions);
-// Quill.register('modules/imageFormats', ImageFormats);
-
-// const formats = [
-//     'header',
-//     'bold',
-//     'italic',
-//     'underline',
-//     'strike',
-//     'blockquote',
-//     'list',
-//     'bullet',
-//     'indent',
-//     'link',
-//     'image',
-//     'align',
-//     'color',
-//     'background',
-//     'float',
-//     'height',
-//     'width',
-//     'video',
-// ];
-
-// export default function QuillPractice() {
-//   const [content, setContent] = useState("");
-//   console.log(content);
-//   const quillRef = useRef(null);
-//   let isHandlingTextChange = false;
-
-//   useEffect(() => {
-//     const quill = quillRef.current.getEditor();
-
-//     const handleTextChange = () => {
-//       if (isHandlingTextChange) return;
-//       isHandlingTextChange = true;
-
-//       const urlRegex = /(https?:\/\/[^\s]+)/g;
-//       const text = quill.getText();
-//       const matches = text.match(urlRegex);
-      
-//       if (matches && matches.length > 0) {
-//         matches.forEach(url => {
-//           const index = text.indexOf(url);
-//           quill.formatText(index, url.length, 'link', url);
-//         });
-//       }
-
-//       isHandlingTextChange = false;
-//     };
-
-//     quill.on('text-change', handleTextChange);
-
-//     // Add click event listener to the editor
-//     quill.container.addEventListener('click', handleClick);
-
-//     return () => {
-//       quill.off('text-change', handleTextChange);
-//       quill.container.removeEventListener('click', handleClick);
-//     };
-//   }, []);
-
-//   const handleClick = (event) => {
-//     const quill = quillRef.current.getEditor();
-//     if (event.target.tagName === 'VIDEO') {
-//       const videoURL = event.target.src;
-//       window.open(videoURL, '_blank');
-//     }
-//   };
-
-//   const modules = React.useMemo(
-//     () => ({
-//       imageActions: {},
-//       imageFormats: {},
-//       toolbar: {
-//         container: [
-//           [{ header: [1, 2, 3, 4, 5, false] }],
-//           ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-//           [{ list: 'ordered' }, { list: 'bullet' }, { indent: '-1' }, { indent: '+1' }],
-//           ['link', 'image', 'video'],
-//           [{ align: [] }, { color: [] }, { background: [] }],
-//           ['clean']
-//         ],
-//         ImageResize: {
-//           modules: ['Resize']
-//         },
-//         customLinkHandler: true
-//       }
-//     }),
-//     []
-//   );
-
-//   return (
-//     <itemS.Container>
-//         <itemS.EditorWrapper>
-//             <ReactQuill 
-//               ref={quillRef}
-//               modules={modules}
-//               value={content}
-//               onChange={setContent}
-//               formats={formats}
-//             />
-//         </itemS.EditorWrapper>
-//     </itemS.Container>
-//   )
-// }

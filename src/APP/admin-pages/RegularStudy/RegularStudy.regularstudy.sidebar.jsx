@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import * as itemS from "../RegularStudy/Styled/RegularStudy.regularstudy.sidebar.styles"
 import request from '../../Api/request';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 export default function RegularStudySideBar({setActiveComponent, activeComponent  }) {
-  const { id } = useParams(); //파라미터로 각 학생별로 부여된 id를 받아옵니다
+  const { id } = useParams(); //파라미터로 각 스터디별로 부여된 id를 받아옵니다
   const [regularStudyInfo, SetRegularStudyInfo] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchRegularStudyInfo = async () => {
       try {
         const response = await request.get(`study/${id}/info`);
-        console.log("response", response);
+        console.log("정규스터디 사이드바 정보: ", response);
         SetRegularStudyInfo(response.result);
         if (response["isSuccess"]) {
           console.log("정규 스터디 조회 성공");
@@ -23,7 +24,21 @@ export default function RegularStudySideBar({setActiveComponent, activeComponent
       }
     }
     fetchRegularStudyInfo();
-  }, []);
+  }, [id]);
+
+  const handleMakeApp = async () => {
+    try {
+      const responseApplication = await request.post(`/application`, { studyId: id });
+      if (responseApplication["isSuccess"]) {
+        console.log("지원서 제작 페이지로 이동");
+        navigate(`/newapplication/${responseApplication.result.applicationId}`);
+      } else {
+        console.error("지원서 제작 페이지로 이동 실패", responseApplication);
+      }
+    } catch (error) {
+      console.error("지원서 생성 오류", error);
+    }
+  };
 
   return (
     <itemS.Container>
@@ -41,10 +56,10 @@ export default function RegularStudySideBar({setActiveComponent, activeComponent
                 <img src="/img/iconpeople.png" alt="사람아이콘" style={{width:"24px", height:"24px", marginRight:"8px"}} />
                  {regularStudyInfo.memberCount}명
               </itemS.CountContainer>
-              <itemS.OnlineContainer>
+              {/* <itemS.OnlineContainer>
                 <img src="/img/icononline.png" alt="사람아이콘" style={{width:"24px", height:"24px", marginRight:"8px"}} />
                 온라인
-              </itemS.OnlineContainer>
+              </itemS.OnlineContainer> */}
             </itemS.CountAndOnlineContainer>
             {/* <itemS.ManagerNameContainer>
               <img src={regularStudyInfo.leaderProfileUrl} alt="회색동그라미" style={{width:"18px", height:"18px", marginRight:"8px"}} />
@@ -60,11 +75,29 @@ export default function RegularStudySideBar({setActiveComponent, activeComponent
           >
             홈 <itemS.ArrowImg src="/img/grayarrow.png" alt="화살표"/> 
           </itemS.styledLink>
+          <itemS.styledLink
+            onClick={() => {
+              if (regularStudyInfo.applicationId === 0) {
+                handleMakeApp();
+              } else {
+                navigate(`/newapplication/${regularStudyInfo.applicationId}`);
+              }
+            }}
+          >
+            지원서 제작 <itemS.ArrowImg src="/img/grayarrow.png" alt="화살표" />
+          </itemS.styledLink>
           <itemS.styledLink 
-            onClick={() => setActiveComponent('curriculum')}
+            onClick={() => setActiveComponent('curriculum')} 
+            // onClick={() => navigate('/makingcurriculumhome')}
             isActive={activeComponent === 'curriculum'}
           >
             커리큘럼 <itemS.ArrowImg src="/img/grayarrow.png" alt="화살표"/> 
+          </itemS.styledLink>
+          <itemS.styledLink 
+            onClick={() => setActiveComponent('mocktest')}
+            isActive={activeComponent === 'mocktest'}
+          >
+            모의테스트 <itemS.ArrowImg src="/img/grayarrow.png" alt="화살표"/> 
           </itemS.styledLink>
           <itemS.ThirdstyledLink 
             onClick={() => setActiveComponent('attendance')}

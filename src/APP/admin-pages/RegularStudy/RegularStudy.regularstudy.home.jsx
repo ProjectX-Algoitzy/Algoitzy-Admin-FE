@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import * as itemS from "../RegularStudy/Styled/RegularStudy.regularstudy.home.styles"
 import request from '../../Api/request'
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 export default function RegularStudyHome() {
-  const { id } = useParams(); //파라미터로 각 학생별로 부여된 id를 받아옵니다
+  const { id } = useParams(); //파라미터로 각 스터디별로 부여된 id를 받아옵니다
+  const navigate = useNavigate();
   const [regularStudyHome, SetRegularStudyHome] = useState(null);
 
   useEffect(() => {
@@ -23,11 +24,16 @@ export default function RegularStudyHome() {
       }
     }
     fetchRegularStudyHome();
-  }, []);
+  }, []);  
+
+  const handleEditStduyInfo = () => {
+    navigate(`/editingregularstudyinfo/${id}`);
+  };
+
   return (
     <itemS.Container>
       <itemS.Title>홈
-        <img src="/img/btnedit.png" alt="편집버튼" style={{width:"60px", height:"41px"}}  />
+        <img src="/img/btnedit.png" alt="편집버튼" onClick={handleEditStduyInfo} style={{width:"60px", height:"41px", cursor:"pointer"}}  />
       </itemS.Title>
       <itemS.ContentContainer dangerouslySetInnerHTML={{ __html: regularStudyHome }} />
     </itemS.Container>

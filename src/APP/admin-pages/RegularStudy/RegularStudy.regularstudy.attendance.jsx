@@ -11,6 +11,15 @@ const transformData = (attendanceList) => {
     '주말 모의테스트': [['주말 모의테스트', '1주차', '2주차', '3주차', '4주차', '5주차', '6주차', '7주차', '8주차']]
   };
 
+  if (attendanceList.length === 0) {
+    Object.keys(data).forEach(key => {
+      const emptyRow = Array(data[key][0].length).fill("");
+      emptyRow[0] = "학생이 없습니다";
+      data[key].push(emptyRow);
+    });
+    return data;
+  }
+
   const students = {};
 
   attendanceList.forEach(({ name, problemYN, blogYN, workbookYN, week }) => {
@@ -25,9 +34,21 @@ const transformData = (attendanceList) => {
       students[name]['주말 모의테스트'][0] = name;
     }
 
-    if (problemYN) students[name]['문제 인증'][week] = <itemS.ImgIcon src='/img/attendanceIcon.png' alt="출석" />;
-    if (blogYN) students[name]['블로그 포스팅'][week] = <itemS.ImgIcon src='/img/attendanceIcon.png' alt="출석" />;
-    if (workbookYN) students[name]['주말 모의테스트'][week] = <itemS.ImgIcon src='/img/attendanceIcon.png' alt="출석" />;
+    if (problemYN){
+      students[name]['문제 인증'][week] = <itemS.ImgIcon src='/img/attendanceIcon.png' alt="출석" />;
+    }  else {
+      students[name]['문제 인증'][week] = <itemS.ImgIcon src='/img/noattendanceicon.png' alt="결석" />;
+    }
+    if (blogYN) {
+      students[name]['블로그 포스팅'][week] = <itemS.ImgIcon src='/img/attendanceIcon.png' alt="출석" />;
+    } else {
+      students[name]['블로그 포스팅'][week] = <itemS.ImgIcon src='/img/noattendanceicon.png' alt="출석" />;
+    }
+    if (workbookYN) {
+      students[name]['주말 모의테스트'][week] = <itemS.ImgIcon src='/img/attendanceIcon.png' alt="출석" />;
+    } else {
+      students[name]['주말 모의테스트'][week] = <itemS.ImgIcon src='/img/noattendanceicon.png' alt="출석" />;
+    }
   });
 
   Object.keys(students).forEach(name => {
@@ -47,10 +68,25 @@ const Table = ({ currentTab, onArrowClick, data }) => (
           {row.map((cell, colIndex) => (
             <itemS.StyledTd key={colIndex} rowIndex={rowIndex} colIndex={colIndex}>
               {rowIndex === 0 && colIndex === 0 ? (
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <button onClick={() => onArrowClick('prev')}>&lt;</button>
-                  <span style={{ margin: '0 8px' }}>{currentTab}</span>
-                  <button onClick={() => onArrowClick('next')}>&gt;</button>
+                // <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                //   <img src="/img/tablearrow.png" style={{cursor:"pointer", marginLeft:"22px"}} alt="왼쪽" onClick={() => onArrowClick('prev')} />
+                //   <span style={{ margin: '0 8px' }}>{currentTab}</span>
+                //   <img src="/img/tablearrow.png" style={{rotate:"180deg", cursor:"pointer", marginRight:"22px"}} alt="오른쪽" onClick={() => onArrowClick('next')} />
+                // </div>
+                <div style={{ position: 'relative', width: '100%', textAlign: 'center' }}>
+                  <img 
+                    src="/img/tablearrow.png" 
+                    style={{ cursor: "pointer", position: 'absolute', left: 0 }} 
+                    alt="왼쪽" 
+                    onClick={() => onArrowClick('prev')} 
+                  />
+                  <span>{currentTab}</span>
+                  <img 
+                    src="/img/tablearrow.png" 
+                    style={{ rotate: "180deg", cursor: "pointer", position: 'absolute', right: 0 }} 
+                    alt="오른쪽" 
+                    onClick={() => onArrowClick('next')} 
+                  />
                 </div>
               ) : (
                 cell

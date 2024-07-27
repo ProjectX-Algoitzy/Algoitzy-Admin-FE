@@ -68,7 +68,7 @@ function App() {
           <Route path="/editingregularstudyinfo/:id" element={<MakingRegularStudyEditStudyInfo />} />
           <Route path="/curriculumcheck/:curriculumId" element={<CurriculumCheck />} />
           <Route path="/makingcurriculumhome" element={<MakingCurriculumHome />} />
-          <Route path="/makingcurriculum/:id" element={<MakingCurriculum />} />
+          <Route path="/makingcurriculum/:studyId" element={<MakingCurriculum />} />
           <Route path="/regularstudylist" element={<RegularStudyList />} /> {/* 정규 스터디 목록 */}
           <Route path="/enterbootlist" element={<EnterBootList />} /> {/* 기업/부트캠프*/}
           <Route path="/generation" element={<UpdateGeneration />} /> {/* 기업/부트캠프*/}

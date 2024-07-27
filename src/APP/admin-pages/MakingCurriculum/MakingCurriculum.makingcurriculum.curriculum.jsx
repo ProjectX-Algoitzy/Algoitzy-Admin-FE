@@ -1,18 +1,19 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Select, { components } from 'react-select';
 import * as itemS from "./Styled/MakingCurriculum.makingcurriculum.curriculum.styles"
 import QuillPractice from "./MakingCurriculum.makingcurriculum.quilleditor"
 import request from '../../Api/request';
 import { useNavigate, useParams } from 'react-router-dom';
+import { AlertContext } from '../../Common/Alert/AlertContext';
 
 export default function MakingCurriculum() {
-    const { id } = useParams();
+    const { studyId } = useParams();  //스터디 아이디
     const navigate = useNavigate();
     const [selectedWeek, setSelectedWeek] = useState(null);
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
-    const [studyId, setStudyId] = useState(null);
     const [regularStudyList, setRegularStudyList] = useState([]);
+    const { alert } = useContext(AlertContext);
 
     useEffect(() => {
         const fetchStudyCurriculum = async () => {
@@ -34,7 +35,7 @@ export default function MakingCurriculum() {
 
     const handleSave = async () => {
         const requestData = {
-            studyId: id,  
+            studyId: studyId,  
             title: title,
             week: selectedWeek,
             content: content
@@ -45,8 +46,8 @@ export default function MakingCurriculum() {
             console.log(response);
 
             if (response["isSuccess"]) {
-                alert("커리큘럼 제작됨")
-                navigate('/makingcurriculumhome');
+                alert("커리큘럼 제작이 완료되었습니다!");
+                navigate(`/regularstudy/${studyId}`);
             } 
         } catch (error) {
             console.error('커리큘럼 저장과정에서 에러', error);

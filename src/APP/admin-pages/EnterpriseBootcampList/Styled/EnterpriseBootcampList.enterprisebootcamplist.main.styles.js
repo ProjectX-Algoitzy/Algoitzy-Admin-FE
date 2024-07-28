@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import * as tokens from "../../../../tokens"
 
 
@@ -312,3 +312,71 @@ export const BtnFinalNonPass = styled.button`
   margin: 24px 8px;
 `;
 
+
+// 페이지
+// export const PaginationContainer = styled.div`
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   margin: 20px 0;
+// `;
+
+// export const PageButton = styled.button`
+//   ${tokens.typography.B2_M_16};
+//   color: ${tokens.colors.Blue_0_Main};
+//   background-color: ${tokens.colors.White};
+//   border: 1px solid ${tokens.colors.Blue_0_Main};
+//   border-radius: 4px;
+//   width: 36px;
+//   height: 36px;
+//   margin: 0 5px;
+//   cursor: pointer;
+//   &:disabled {
+//     color: ${tokens.colors.Grey_4};
+//     border-color: ${tokens.colors.Grey_4};
+//     cursor: not-allowed;
+//   }
+// `;
+
+// export const PageNumber = styled.button`
+//   ${tokens.typography.B2_M_16};
+//   color: ${props => props.isSelected ? tokens.colors.White : tokens.colors.Blue_0_Main};
+//   background-color: ${props => props.isSelected ? tokens.colors.Blue_0_Main : tokens.colors.White};
+//   border: 1px solid ${tokens.colors.Blue_0_Main};
+//   border-radius: 4px;
+//   width: 36px;
+//   height: 36px;
+//   margin: 0 5px;
+//   cursor: pointer;
+// `;
+
+
+export const Pagination = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;  // 추가
+  padding: 20px;
+  list-style: none;
+`;
+
+export const PaginationArrow = styled.div`
+  width: 24px;
+  height: 24px;
+  background-image: url('/img/grayarrow.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  transform: ${(props) => (props.left ? 'rotate(180deg)' : 'none')};
+  cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
+  opacity: ${(props) => (props.disabled ? 0.5 : 1)};
+`;
+
+export const PaginationNumber = styled.div`
+  margin: 0 5px;
+  width: 8px;
+  height: 21px;
+  padding: 10px;
+  cursor: pointer;
+  color: ${(props) => (props.active ? tokens.colors.Blue_3 : tokens.colors.B_Grey_7)};
+  font-weight: ${(props) => (props.active ? 'bold' : 'normal')};
+  ${tokens.typography.B3_M_14};
+`;

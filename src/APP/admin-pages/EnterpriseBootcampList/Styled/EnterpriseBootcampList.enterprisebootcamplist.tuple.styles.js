@@ -16,6 +16,7 @@ export const TupleContainer = styled.div`
   &:hover {
     background-color: ${tokens.colors.B_Grey_1};
   }
+  cursor: pointer;
 `;
 
 export const TupleNumber = styled.div`
@@ -27,7 +28,6 @@ export const TupleNumber = styled.div`
   color: ${tokens.colors.Black};
   width: 72px;
   height: 56px;
-  cursor: pointer;
 `;
 
 export const TupleName = styled.div`
@@ -37,9 +37,8 @@ export const TupleName = styled.div`
   align-items: center;
   ${tokens.typography.T5_SB_16};
   color: ${tokens.colors.Black};
-  width: 928px;
+  width: 1056px;
   height: 56px;
-  cursor: pointer;
 `;
 
 export const TupleView = styled.div`
@@ -49,15 +48,8 @@ export const TupleView = styled.div`
   align-items: center;
   ${tokens.typography.T5_SB_16};
   color: ${tokens.colors.Black};
-  width: 200px;
+  width: 72px;
   height: 56px;
-  cursor: pointer;
-`;
-
-export const Blank = styled.div`
-  width: 80px;
-  height: 56px;
-  cursor: pointer;
 `;
 
 

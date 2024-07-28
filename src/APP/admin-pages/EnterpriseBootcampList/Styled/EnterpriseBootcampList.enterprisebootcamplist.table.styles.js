@@ -43,7 +43,7 @@ export const CategoryName = styled.div`
   ${tokens.typography.T5_SB_16};
   color: ${tokens.colors.Black};
   text-align: center;
-  width: 928px;
+  width: 1056px;
 `;
 
 export const CategoryView = styled.div`
@@ -54,7 +54,7 @@ export const CategoryView = styled.div`
   ${tokens.typography.T5_SB_16};
   color: ${tokens.colors.Black};
   text-align: center;
-  width: 200px;
+  width: 72px;
 `;
 
 // 카테고리 파트 끝

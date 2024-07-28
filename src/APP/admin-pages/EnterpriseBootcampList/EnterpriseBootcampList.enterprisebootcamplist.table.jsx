@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import * as itemS from "./Styled/EnterpriseBootcampList.enterprisebootcamplist.table.styles";
 import EnterBootListTuple from './EnterpriseBootcampList.enterprisebootcamplist.tuple';
 
-export default function EnterBootListTable({ filteredLists }) {
+export default function EnterBootListTable({ institutionList }) {
    
     
   return (
@@ -16,7 +16,7 @@ export default function EnterBootListTable({ filteredLists }) {
           
         </itemS.CategoryContainer>
         <itemS.TupleContainer>
-          {filteredLists.map(item => (
+          {institutionList.map(item => (
             <EnterBootListTuple
               key={item.answerId}
               item={item}

@@ -3,24 +3,17 @@ import request from '../../Api/request';
 import * as itemS from "./Styled/ManageAuth.manageauth.main";
 import ManageAuthManagerTable from './ManageAuth.manageauth.managertable';
 import ManageAuthUserTable from './ManageAuth.manageauth.usertable';
-import { dummydata } from './dummy';
 // import { ConfirmContext } from '../../Common/Confirm/ConfirmContext';
 
 export default function ManageAuth() {
 
 	// const { confirm } = useContext(ConfirmContext);
-
-  const [dataList, setDataList] = useState([]); // 더미
 	const [adminList, setAdminList] = useState([]); // 관리자
 	const [userList, setUserList] = useState([]); // 스터디원
 	const [searchKeyword, setSearchKeyword] = useState(''); 
 	const [page, setPage] = useState(1);  
 	const [size, setSize] = useState(50); 
   
-  useEffect(() => {
-    setDataList(dummydata);
-  },[])
-
 	const fetchAdminList = async () => { // 관리자 목록 조회
 		try {
 			const response = await request.get(`/member/admin`);

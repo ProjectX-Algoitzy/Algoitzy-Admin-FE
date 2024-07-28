@@ -33,7 +33,7 @@ export const TopContainer = styled.div`
 export const HeadContainer = styled.div`
   display: flex;
   justify-content: flex-start;
-  width: 360px;
+  width: 350px;
   margin-bottom: 20px;
 `;
 
@@ -44,25 +44,25 @@ export const Head = styled.div`
 
 export const AddBtn = styled.button`
   ${tokens.typography.B2_M_16};
-  color: ${tokens.colors.Blue_0_Main};
-  background-color: ${tokens.colors.White};
+  color: ${tokens.colors.White};
+  background-color: ${tokens.colors.Blue_0_Main};
   border: 1px solid ${tokens.colors.Blue_0_Main};
-  width: 72px;
-  height: 32px;
+  width: 120px;
+  height: 40px;
   border-radius: 4px;
-  margin-left: 14px;
+  margin-left: 21px;
 `;
 
-export const DeleteBtn = styled.button`
-  ${tokens.typography.B2_M_16};
-  color: ${tokens.colors.Red};
-  background-color: ${tokens.colors.White};
-  border: 1px solid ${tokens.colors.Red};
-  width: 72px;
-  height: 32px;
-  border-radius: 4px;
-  margin-left: 8px;
-`;
+// export const DeleteBtn = styled.button`
+//   ${tokens.typography.B2_M_16};
+//   color: ${tokens.colors.Red};
+//   background-color: ${tokens.colors.White};
+//   border: 1px solid ${tokens.colors.Red};
+//   width: 72px;
+//   height: 32px;
+//   border-radius: 4px;
+//   margin-left: 8px;
+// `;
 
 // 검색 컨테이너
 export const SearchContainer = styled.div`
@@ -98,19 +98,6 @@ export const SearchIcon = styled.img`
   margin-right: 6px;
   cursor: pointer;
 `;
-
-
-// export const DropBox = styled.div`
-  
-//   ${tokens.typography.B3_M_14};
-//   color: ${tokens.colors.Grey_8};
-//   // border: 1px solid ${tokens.colors.B_Grey_3};
-//   border-radius: 4px;
-//   width: 142px;
-//   height: 36px;
-//   margin-bottom: 16px;
-//   margin-right: 16px;
-// `;
 
 export const TabSortContainer = styled.div`
   display: flex;
@@ -216,26 +203,6 @@ export const SortText = styled.div`
 `;
 
 
-//
-export const TextContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  width: 1200px;
-`;
-
-// 일반 텍스트
-export const NormText = styled.div`
-  ${tokens.typography.T5_SB_16};
-  color: ${tokens.colors.Grey_8};
-`;
-
-// 지원서 개수 텍스트
-export const CntText = styled.div`
-  ${tokens.typography.T5_SB_16};
-  color: ${tokens.colors.Blue_0_Main};
-  margin-left: 4px;
-`;
-
 // 아래 버튼 컨테이너
 export const BtnContainer = styled.div`
   display: flex;
@@ -254,107 +221,11 @@ export const BtnContainer = styled.div`
   background-color: ${tokens.colors.White};
 `;
 
-// 버튼들
-// 서류 불합격 메일 발송
-export const BtnDocNonpass = styled.button`
-  width: 239px;
-  height: 48px;
-  background: ${tokens.colors.White};
-  color: ${tokens.colors.Red};
-  border-radius: 4px;
-  border: 1px solid ${tokens.colors.Red};
-  cursor: pointer;
-  margin: 24px 8px;
-`;
-// 서류 합격 메일 발송
-export const BtnDocPass = styled.button`
-  width: 239px;
-  height: 48px;
-  background: ${tokens.colors.White};
-  color: ${tokens.colors.Blue_0_Main};
-  border-radius: 4px;
-  border: 1px solid ${tokens.colors.Blue_0_Main};
-  cursor: pointer;
-  margin: 24px 8px;
-`;
-// 면접 일정 메일 발송
-export const BtnMail = styled.button`
-  width: 239px;
-  height: 48px;
-  background: ${tokens.colors.B_Grey_7};
-  color: ${tokens.colors.White};
-  border-radius: 4px;
-  border: 1px solid ${tokens.colors.B_Grey_7};
-  cursor: pointer;
-  margin: 24px 8px;
-`;
-// 최종 합격 메일 발송
-export const BtnFinalPass = styled.button`
-  width: 239px;
-  height: 48px;
-  background: ${tokens.colors.Blue_0_Main};
-  color: ${tokens.colors.White};
-  border-radius: 4px;
-  border: 1px solid ${tokens.colors.Blue_0_Main};
-  cursor: pointer;
-  margin: 24px 8px;
-`;
-
-// 최종 불합격 메일 발송
-export const BtnFinalNonPass = styled.button`
-  width: 239px;
-  height: 48px;
-  background: ${tokens.colors.Red};
-  color: ${tokens.colors.White};
-  border-radius: 4px;
-  border: 1px solid ${tokens.colors.Red};
-  cursor: pointer;
-  margin: 24px 8px;
-`;
-
-
 // 페이지
-// export const PaginationContainer = styled.div`
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   margin: 20px 0;
-// `;
-
-// export const PageButton = styled.button`
-//   ${tokens.typography.B2_M_16};
-//   color: ${tokens.colors.Blue_0_Main};
-//   background-color: ${tokens.colors.White};
-//   border: 1px solid ${tokens.colors.Blue_0_Main};
-//   border-radius: 4px;
-//   width: 36px;
-//   height: 36px;
-//   margin: 0 5px;
-//   cursor: pointer;
-//   &:disabled {
-//     color: ${tokens.colors.Grey_4};
-//     border-color: ${tokens.colors.Grey_4};
-//     cursor: not-allowed;
-//   }
-// `;
-
-// export const PageNumber = styled.button`
-//   ${tokens.typography.B2_M_16};
-//   color: ${props => props.isSelected ? tokens.colors.White : tokens.colors.Blue_0_Main};
-//   background-color: ${props => props.isSelected ? tokens.colors.Blue_0_Main : tokens.colors.White};
-//   border: 1px solid ${tokens.colors.Blue_0_Main};
-//   border-radius: 4px;
-//   width: 36px;
-//   height: 36px;
-//   margin: 0 5px;
-//   cursor: pointer;
-// `;
-
-
 export const Pagination = styled.div`
   display: flex;
   justify-content: center;
-  align-items: center;  // 추가
+  align-items: center;  
   padding: 20px;
   list-style: none;
 `;

@@ -5,37 +5,49 @@ import EnterBootListTable from './EnterpriseBootcampList.enterprisebootcamplist.
 import { dummyCompanyList, dummyBootList } from './dummy';
 
 export default function EnterBootList() {
-  const [companyLists, setCompanyLists] = useState([]);
-  const [bootLists, setBootLists] = useState([]);
-  const [filteredLists, setFilteredLists] = useState([]);
+  const [institutionList, setInstitutionList] = useState([]);
   const [selectedTab, setSelectedTab] = useState('기업');
+  const [sortText, setSortText] = useState('조회수');
+
+  // api 요청 파라미터
+  const [searchKeyword, setSearchKeyword] = useState('');
+  const [type, setType] = useState('COMPANY');
+  const [sortType, setSortType] = useState('VIEW_COUNT');
+  const [size, setSize] = useState(10);
+
   const [isSortDropVisible, setIsSortDropVisible] = useState(false); // 정렬 드롭박스 열기/닫기
 
   // 페이지
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-  const itemsPerPage = 10; // 페이지당 목록 개수
+  const [totalPages, setTotalPages] = useState(10); //TODO - 임시 ) 전체 페이지 수 -> response 값으로 전체 개수 받아와야함
   const maxPageNumbers = 5; // 페이지 수
 
   const tabs = ['기업', '부트캠프'];
 
+  const fetchInstitutionList = async () => { // 기관 목록 조회
+		try {
+			const response = await request.get(`/institution?searchKeyword=${searchKeyword}&type=${type}&sort=${sortType}&page=${currentPage}&size=${size}`);
+			if (response.isSuccess) {
+				console.log("기관 목록 조회 성공",response);
+				setInstitutionList(response.result.institutionList);
+			} else {
+				console.error("기관 목록 조회 실패:", response);
+			}
+		} catch (error) {
+			console.error('기관 목록 조회 오류', error);
+		}
+	};
+
   useEffect(() => {
-    setCompanyLists(dummyCompanyList);
-    setBootLists(dummyBootList);
-    setFilteredLists(dummyCompanyList);
-
-    setTotalPages(Math.ceil(dummyCompanyList.length / itemsPerPage)); // 페이지
-
-  },[])
+    fetchInstitutionList();
+  },[searchKeyword, type, sortType, currentPage])
 
   const handleTabClick = (tab) => {
     setSelectedTab(tab);
     if (tab === '기업') {
-      setFilteredLists(companyLists);
-      setTotalPages(Math.ceil(companyLists.length / itemsPerPage)); // 페이지
+      setType('COMPANY');
     } else if (tab === '부트캠프') {
-      setFilteredLists(bootLists);
-      setTotalPages(Math.ceil(bootLists.length / itemsPerPage)); // 페이지
+      setType('CAMP');
     }
     setCurrentPage(1); // 페이지
   };
@@ -44,8 +56,14 @@ export default function EnterBootList() {
     setIsSortDropVisible(prevState => !prevState);
   };
 
-  const onSortNothing = () => {
+  const onSortType = (type) => {
     setIsSortDropVisible(false);
+    setSortType(type);
+    if (type === 'VIEW_COUNT') {
+      setSortText('조회수');
+    } else if (type === 'NAME') {
+      setSortText('이름순');
+    }
   };
 
   const handlePageChange = (page) => {
@@ -64,9 +82,6 @@ export default function EnterBootList() {
     return pages;
   };
 
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const currentPageItems = filteredLists.slice(startIndex, startIndex + itemsPerPage);
-
   return (
     <itemS.OuterContainer>
       <itemS.Container>
@@ -74,8 +89,9 @@ export default function EnterBootList() {
           <itemS.TopContainer>
             <itemS.HeadContainer>
               <itemS.Head>문제 추천 서비스</itemS.Head>
-              <itemS.AddBtn>추가</itemS.AddBtn>
-              <itemS.DeleteBtn>삭제</itemS.DeleteBtn>
+              <itemS.AddBtn>+ 생성하기</itemS.AddBtn>
+              {/* <itemS.AddBtn>추가</itemS.AddBtn>
+              <itemS.DeleteBtn>삭제</itemS.DeleteBtn> */}
             </itemS.HeadContainer>
             <itemS.SearchContainer>
               <itemS.Search />
@@ -97,17 +113,17 @@ export default function EnterBootList() {
               ))}
             </itemS.TabContainer>
             <itemS.CategoryInterviewContainer>
-              <itemS.CategoryDrop>조회수</itemS.CategoryDrop>
+              <itemS.CategoryDrop>{sortText}</itemS.CategoryDrop>
               <itemS.SortIcon src="/img/sorticon.svg" alt="Sort Icon" onClick={toggleSortDrop} />
               {isSortDropVisible && (
                 <itemS.SortDrop>
-                  <itemS.SortText onClick={onSortNothing}>조회수</itemS.SortText>
-                  <itemS.SortText onClick={onSortNothing}>이름순</itemS.SortText>
+                  <itemS.SortText onClick={() => onSortType('VIEW_COUNT')}>조회수</itemS.SortText>
+                  <itemS.SortText onClick={() => onSortType('NAME')}>이름순</itemS.SortText>
                 </itemS.SortDrop>
               )}
             </itemS.CategoryInterviewContainer>
           </itemS.TabSortContainer>
-          <EnterBootListTable filteredLists={currentPageItems} />
+          <EnterBootListTable institutionList={institutionList} />
           <itemS.Pagination>
             <itemS.PaginationArrow
               left

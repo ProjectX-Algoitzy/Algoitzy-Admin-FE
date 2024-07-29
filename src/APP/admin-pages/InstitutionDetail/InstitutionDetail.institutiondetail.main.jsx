@@ -40,7 +40,7 @@ export default function InstitutionDetailMain() {
           </itemS.PartBox>
           <InstitutionDetailExplanation />
           <itemS.PartBox>
-            <itemS.SecondPart>코딩테스트 분석</itemS.SecondPart>
+            <itemS.SecondPart>추천 문제집</itemS.SecondPart>
             <itemS.AddButtonBox>
               <itemS.AddIcon src='/img/add.svg' alt='추가' />
             </itemS.AddButtonBox>

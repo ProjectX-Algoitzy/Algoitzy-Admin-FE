@@ -18,7 +18,7 @@ export default function EnterBootListTable({ institutionList }) {
         <itemS.TupleContainer>
           {institutionList.map(item => (
             <EnterBootListTuple
-              key={item.answerId}
+              key={item.institutionId}
               item={item}
                 
             />

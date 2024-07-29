@@ -40,7 +40,11 @@ export default function EnterBootList() {
 
   useEffect(() => {
     fetchInstitutionList();
-  },[searchKeyword, type, sortType, currentPage])
+  },[ type, sortType, currentPage])
+
+  const handleSearchChange = (e) => {
+    setSearchKeyword(e.target.value);
+  };
 
   const handleTabClick = (tab) => {
     setSelectedTab(tab);
@@ -94,9 +98,13 @@ export default function EnterBootList() {
               <itemS.DeleteBtn>삭제</itemS.DeleteBtn> */}
             </itemS.HeadContainer>
             <itemS.SearchContainer>
-              <itemS.Search />
-              <itemS.SearchIcon src='/img/search.svg' alt='돋보기' />
-            </itemS.SearchContainer>
+							<itemS.Search 
+                type="text"
+                value={searchKeyword}
+                onChange={handleSearchChange}
+              />
+							<itemS.SearchIcon onClick={() => fetchInstitutionList()} src='/img/search.svg' alt='돋보기' />
+						</itemS.SearchContainer>
           </itemS.TopContainer>
           <itemS.TabSortContainer>
             <itemS.TabContainer>

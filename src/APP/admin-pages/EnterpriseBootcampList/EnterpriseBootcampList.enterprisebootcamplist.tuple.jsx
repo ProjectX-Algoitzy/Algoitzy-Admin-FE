@@ -12,9 +12,9 @@ export default function EnterBootListTuple({ item }) {
   
 	return (
 		<itemS.TupleContainer>
-			<itemS.TupleNumber onClick={onOpen}>{item.number}</itemS.TupleNumber>
+			<itemS.TupleNumber onClick={onOpen}>{item.institutionId}</itemS.TupleNumber>
 			<itemS.TupleName onClick={onOpen}>{item.name}</itemS.TupleName>
-			<itemS.TupleView onClick={onOpen}>{item.views}</itemS.TupleView>
+			<itemS.TupleView onClick={onOpen}>{item.viewCount}</itemS.TupleView>
 		</itemS.TupleContainer>
 	);
 }

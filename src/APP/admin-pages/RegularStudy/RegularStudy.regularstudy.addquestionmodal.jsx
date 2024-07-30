@@ -148,128 +148,140 @@ import { useParams } from 'react-router-dom';
 // }));
 
 export default function RegularStudyAddQuestionModal({ week, onClose, onAddQuestion }) {
-    const { id } = useParams();
+  const { id } = useParams();
     const [searchTerm, setSearchTerm] = useState('');
     const [currentPage, setCurrentPage] = useState(0);
     const itemsPerPage = 10;
     const [questions, setQuestions] = useState([]);
+    const [totalCount, setTotalCount] = useState(0); // 전체 문제 수를 저장할 상태
 
     useEffect(() => {
-      const fetchQuestions = async () => {
-        try {
-            const response = await request.get(`/study/${id}/workbook`);
-            console.log("정규스터디 모의 테스트 조회: ", response);
-            if (response.isSuccess) {
-                const { workbookList } = response.result;
-                const newQuestions = workbookList
-                  .filter(weekData => weekData.week === week) // 주차가 일치하는 데이터만 필터링
-                  .flatMap(weekData =>
-                      weekData.problemList.map(problem => ({
-                          id: problem.number.toString(),
-                          title: problem.name,
-                          levelImg: problem.levelUrl, //'/img/level.png'
-                          plusImg: '/img/PlusBtn.png'
-                      }))
-                );
-                setQuestions(newQuestions);
-            } else {
-                console.error('API call failed:', response.message);
+        const fetchQuestions = async () => {
+            try {
+                const searchKeyword = encodeURIComponent(searchTerm);
+                const response = await request.get(`/problem`, {
+                    params: {
+                        searchKeyword,
+                        page: currentPage + 1,
+                        size: itemsPerPage
+                    }
+                });
+                console.log("문제 목록 조회: ", response);
+                if (response.isSuccess) {
+                    const { problemList, totalCount } = response.result;
+                    setQuestions(problemList);
+                    setTotalCount(totalCount);
+                } else {
+                    console.error('API call failed:', response.message);
+                }
+            } catch (error) {
+                console.error('API error:', error);
             }
-        } catch (error) {
-            console.error('API error:', error);
-        }
-      };
-      fetchQuestions();
-    }, [id, week]);
+        };
+        fetchQuestions();
+    }, [searchTerm, currentPage]);
 
     const filteredQuestions = questions.filter(question =>
-        question.title.toLowerCase().includes(searchTerm.toLowerCase())
+        question.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     const indexOfLastQuestion = (currentPage + 1) * itemsPerPage;
     const indexOfFirstQuestion = indexOfLastQuestion - itemsPerPage;
     const currentQuestions = filteredQuestions.slice(indexOfFirstQuestion, indexOfLastQuestion);
 
-    const totalPages = Math.ceil(filteredQuestions.length / itemsPerPage);
+    const totalPages = Math.ceil(totalCount / itemsPerPage);
 
     const handlePageChange = (newPage) => {
-      if (newPage >= 0 && newPage < totalPages) {
-        setCurrentPage(newPage);
-      }
+        if (newPage >= 0 && newPage < totalPages) {
+            setCurrentPage(newPage);
+        }
     };
 
     const handleAddQuestion = (question) => {
-      onAddQuestion(question.id, question.title, question.levelImg);
+        // handleAddQuestion 함수는 보류된 상태
     };
 
-  return (
-    <itemS.ModalOverlay>
-      <itemS.ModalContent>
-        <itemS.ModalHeader>
-          <itemS.ModalTitle>{week}주차 모의테스트 문제 추가</itemS.ModalTitle>
-          <img src="/img/close.png" onClick={onClose} style={{marginTop:"16px", marginRight:"24px", cursor:"pointer"}} alt="x" />
-        </itemS.ModalHeader>
-        <itemS.SearchContainer>
-          <itemS.Search 
-            type="text"
-            placeholder="문제 제목 검색"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-          <itemS.SearchIcon src='/img/search.svg' alt='돋보기' />
-        </itemS.SearchContainer>
-        <itemS.TableContainer>
-            <itemS.Table>
-                <itemS.TableHead>백준번호</itemS.TableHead>
-                <itemS.TableHead>제목</itemS.TableHead>
-                <itemS.TableHead>레벨</itemS.TableHead>
-                <itemS.TableHead></itemS.TableHead>
-                {currentQuestions.length > 0 ? (
-                  currentQuestions.map((question, index) => (
-                      <itemS.TableRow key={index}>
-                          <itemS.TableCell>{question.id}</itemS.TableCell>
-                          <itemS.TableCell>{question.title}</itemS.TableCell>
-                          <itemS.TableCell><img src={question.levelImg} alt="level" /></itemS.TableCell>
-                          <itemS.TableCell>
-                              <img
-                                  src={question.plusImg}
-                                  alt="plus"
-                                  style={{ cursor: "pointer" }}
-                                  onClick={() => handleAddQuestion(question)}
-                              />
-                          </itemS.TableCell>
-                      </itemS.TableRow>
-                  ))
-                  ) : (
-                    <itemS.TableRow>
-                        <itemS.TableCell colSpan="4" style={{ textAlign: 'center' }}>준비 중입니다.</itemS.TableCell>
-                    </itemS.TableRow>
-                  )
-                }
-            </itemS.Table>
-        </itemS.TableContainer>
-        <itemS.Pagination>
-          <itemS.PaginationArrow
-            left
-            onClick={() => handlePageChange(currentPage - 1)}
-            disabled={currentPage === 0}
-          />
-          {Array.from({ length: totalPages }, (_, i) => (
-            <itemS.PaginationNumber
-              key={i}
-              onClick={() => handlePageChange(i)}
-              active={i === currentPage}
-            >
-              {i + 1}
-            </itemS.PaginationNumber>
-          ))}
-          <itemS.PaginationArrow
-            onClick={() => handlePageChange(currentPage + 1)}
-            disabled={currentPage === totalPages - 1}
-          />
-        </itemS.Pagination>
-
-      </itemS.ModalContent>
-    </itemS.ModalOverlay>
-  )
+    return (
+        <itemS.ModalOverlay>
+            <itemS.ModalContent>
+                <itemS.ModalHeader>
+                    <itemS.ModalTitle>{week}주차 모의테스트 문제 추가</itemS.ModalTitle>
+                    <img
+                        src="/img/close.png"
+                        onClick={onClose}
+                        style={{ marginTop: "16px", marginRight: "24px", cursor: "pointer" }}
+                        alt="x"
+                    />
+                </itemS.ModalHeader>
+                <itemS.SearchContainer>
+                    <itemS.Search
+                        type="text"
+                        placeholder="문제 제목 검색"
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                    />
+                    <itemS.SearchIcon src='/img/search.svg' alt='돋보기' />
+                </itemS.SearchContainer>
+                <itemS.TableContainer>
+                    <itemS.Table>
+                        <itemS.TableHead>백준번호</itemS.TableHead>
+                        <itemS.TableHead>제목</itemS.TableHead>
+                        <itemS.TableHead>레벨</itemS.TableHead>
+                        <itemS.TableHead></itemS.TableHead>
+                        {currentQuestions.length > 0 ? (
+                            currentQuestions.map((question, index) => (
+                                <itemS.TableRow key={index}>
+                                    <itemS.TableCell>{question.number}</itemS.TableCell>
+                                    <itemS.TableCell>
+                                        <a href={question.baekjoonUrl} target="_blank" rel="noopener noreferrer">
+                                            {question.name}
+                                        </a>
+                                    </itemS.TableCell>
+                                    <itemS.TableCell>
+                                        <img
+                                            src={question.levelUrl}
+                                            alt="level"
+                                            style={{ width: "16px", height: "20px" }}
+                                        />
+                                    </itemS.TableCell>
+                                    <itemS.TableCell>
+                                        <img
+                                            src='/img/PlusBtn.png'
+                                            alt="plus"
+                                            style={{ cursor: "pointer", width: "16px", height: "20px" }}
+                                            onClick={() => handleAddQuestion(question)}
+                                        />
+                                    </itemS.TableCell>
+                                </itemS.TableRow>
+                            ))
+                        ) : (
+                            <itemS.TableRow>
+                                <itemS.TableCell colSpan="4" style={{ textAlign: 'center' }}>준비 중입니다.</itemS.TableCell>
+                            </itemS.TableRow>
+                        )}
+                    </itemS.Table>
+                </itemS.TableContainer>
+                <itemS.Pagination>
+                    <itemS.PaginationArrow
+                        left
+                        onClick={() => handlePageChange(currentPage - 1)}
+                        disabled={currentPage === 0}
+                    />
+                    {Array.from({ length: totalPages }, (_, i) => (
+                        <itemS.PaginationNumber
+                            key={i}
+                            onClick={() => handlePageChange(i)}
+                            active={i === currentPage}
+                        >
+                            {i + 1}
+                        </itemS.PaginationNumber>
+                    ))}
+                    <itemS.PaginationArrow
+                        onClick={() => handlePageChange(currentPage + 1)}
+                        disabled={currentPage === totalPages - 1}
+                    />
+                </itemS.Pagination>
+            </itemS.ModalContent>
+        </itemS.ModalOverlay>
+    );
 }

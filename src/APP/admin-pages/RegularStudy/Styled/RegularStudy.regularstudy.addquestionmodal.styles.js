@@ -110,7 +110,8 @@ export const TableHead = styled.th`
 export const TableRow = styled.tr``;
 
 export const TableCell = styled.td`
-  padding: 16px 15px 15px 22px;
+  /* padding: 16px 15px 15px 22px; */
+  padding: 17px;
   border-bottom: 1px solid ${tokens.colors.B_Grey_3};
   vertical-align: middle;
   ${tokens.typography.B2_M_16};

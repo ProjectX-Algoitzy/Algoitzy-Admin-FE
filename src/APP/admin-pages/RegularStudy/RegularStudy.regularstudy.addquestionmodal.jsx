@@ -1,204 +1,89 @@
-// import React, { useState } from 'react'
-// import * as itemS from "./Styled/RegularStudy.regularstudy.addquestionmodal.styles"
-// import request from '../../Api/request';
-// import { useParams } from 'react-router-dom';
-
-// const newQuestions = Array.from({ length: 25 }, (_, i) => ({
-//   id: `1212${i + 1}`,
-//   title: `문제 제목 ${i + 1}`,
-//   levelImg: '/img/level.png',
-//   plusImg: '/img/PlusBtn.png',
-// }));
-
-// export default function RegularStudyAddQuestionModal({ week, onClose, onAddQuestion }) {
-//     const { id } = useParams();
-//     const [searchTerm, setSearchTerm] = useState('');
-//     const [currentPage, setCurrentPage] = useState(0);
-//     const itemsPerPage = 10;
-
-//     const filteredQuestions = newQuestions.filter(question =>
-//         question.title.toLowerCase().includes(searchTerm.toLowerCase())
-//     );
-
-//     const indexOfLastQuestion = (currentPage + 1) * itemsPerPage;
-//     const indexOfFirstQuestion = indexOfLastQuestion - itemsPerPage;
-//     const currentQuestions = filteredQuestions.slice(indexOfFirstQuestion, indexOfLastQuestion);
-
-//     const totalPages = Math.ceil(filteredQuestions.length / itemsPerPage);
-
-//     const handlePageChange = (newPage) => {
-//       if (newPage >= 0 && newPage < totalPages) {
-//         setCurrentPage(newPage);
-//       }
-//     };
-
-//     const handleAddQuestion = (question) => {
-//         onAddQuestion(question.id);
-//     };
-
-//   return (
-//     <itemS.ModalOverlay>
-//       <itemS.ModalContent>
-//         <itemS.ModalHeader>
-//           <itemS.ModalTitle>{week}주차 모의테스트 문제 추가</itemS.ModalTitle>
-//           <img src="/img/close.png" onClick={onClose} style={{marginTop:"16px", marginRight:"24px", cursor:"pointer"}} alt="x" />
-//         </itemS.ModalHeader>
-//         {/* <itemS.SearchInput
-//           type="text"
-//           placeholder="문제 제목 검색"
-//           value={searchTerm}
-//           onChange={(e) => setSearchTerm(e.target.value)}
-//         /> */}
-//         <itemS.SearchContainer>
-//           <itemS.Search 
-//             type="text"
-//             placeholder="문제 제목 검색"
-//             value={searchTerm}
-//             onChange={(e) => setSearchTerm(e.target.value)}
-//           />
-//           <itemS.SearchIcon src='/img/search.svg' alt='돋보기' />
-//         </itemS.SearchContainer>
-//         <itemS.TableContainer>
-//             <itemS.Table>
-//                 <itemS.TableHead>백준번호</itemS.TableHead>
-//                 <itemS.TableHead>제목</itemS.TableHead>
-//                 <itemS.TableHead>레벨</itemS.TableHead>
-//                 <itemS.TableHead></itemS.TableHead>
-//                 {currentQuestions.map((question, index) => (
-//                 <itemS.TableRow key={index}>
-//                     <itemS.TableCell>{question.id}</itemS.TableCell>
-//                     <itemS.TableCell>{question.title}</itemS.TableCell>
-//                     <itemS.TableCell>
-//                     <img src={question.levelImg} alt="level" style={{width:"19.5px", height:"25px", marginLeft:"7px"}} />
-//                     </itemS.TableCell>
-//                     <itemS.TableCell>
-//                     <img src={question.plusImg} alt="plus" style={{cursor:"pointer", width:"30px", height:"30px"}} onClick={() => handleAddQuestion(question)} />
-//                     </itemS.TableCell>
-//                 </itemS.TableRow>
-//                 ))}
-//             </itemS.Table>
-//         </itemS.TableContainer>
-//         {/* <itemS.Pagination>
-//           <itemS.PaginationButton
-//             onClick={() => handlePageChange(currentPage - 1)}
-//             disabled={currentPage === 0}
-//             >
-//             <img src="/img/grayarrow.png" alt="왼쪽" style={{width:"17.43px", height:"9.85px", transform: "rotate(180deg)"}} />
-//           </itemS.PaginationButton>
-//           {Array.from({ length: totalPages }, (_, i) => (
-//             <itemS.PaginationButton
-//               key={i}
-//               onClick={() => handlePageChange(i)}
-//               active={i === currentPage}
-//             >
-//               {i + 1}
-//             </itemS.PaginationButton>
-//           ))}
-//           <itemS.PaginationButton
-//             onClick={() => handlePageChange(currentPage + 1)}
-//             disabled={currentPage === totalPages - 1}
-//           >
-//             <img src="/img/grayarrow.png" alt="오른쪽" style={{width:"17.43px", height:"9.85px"}} />
-//           </itemS.PaginationButton>
-//         </itemS.Pagination> */}
-//         <itemS.Pagination>
-//           <itemS.PaginationArrow
-//             left
-//             onClick={() => handlePageChange(currentPage - 1)}
-//             disabled={currentPage === 0}
-//           />
-//           {Array.from({ length: totalPages }, (_, i) => (
-//             <itemS.PaginationNumber
-//               key={i}
-//               onClick={() => handlePageChange(i)}
-//               active={i === currentPage}
-//             >
-//               {i + 1}
-//             </itemS.PaginationNumber>
-//           ))}
-//           <itemS.PaginationArrow
-//             onClick={() => handlePageChange(currentPage + 1)}
-//             disabled={currentPage === totalPages - 1}
-//           />
-//         </itemS.Pagination>
-
-//       </itemS.ModalContent>
-//     </itemS.ModalOverlay>
-//   )
-// }
-
-
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import * as itemS from "./Styled/RegularStudy.regularstudy.addquestionmodal.styles"
 import request from '../../Api/request';
 import { useParams } from 'react-router-dom';
+import { ConfirmContext } from '../../Common/Confirm/ConfirmContext';
 
-// const newQuestions = [
-//     { id: '12121', title: '새로운 문제 제목 11-2-0', levelImg: '/img/level.png', plusImg: '/img/PlusBtn.png' },
-//     { id: '12122', title: '새로운 문제 제목 11-2-1', levelImg: '/img/level.png', plusImg: '/img/PlusBtn.png' },
-//     { id: '12123', title: '새로운 문제 제목 11-2-2', levelImg: '/img/level.png', plusImg: '/img/PlusBtn.png' },
-//     { id: '12124', title: '새로운 문제 제목 11-2-3', levelImg: '/img/level.png', plusImg: '/img/PlusBtn.png' },
-// ];
-// 25개의 임의의 문제 생성
-// const newQuestions = Array.from({ length: 25 }, (_, i) => ({
-//   id: `1212${i + 1}`,
-//   title: `문제 제목 ${i + 1}`,
-//   levelImg: '/img/level.png',
-//   plusImg: '/img/PlusBtn.png',
-// }));
-
-export default function RegularStudyAddQuestionModal({ week, onClose, onAddQuestion }) {
-  const { id } = useParams();
+export default function RegularStudyAddQuestionModal({ week, onClose, onAddQuestion, workbookId  }) {
+    const { id } = useParams();
     const [searchTerm, setSearchTerm] = useState('');
     const [currentPage, setCurrentPage] = useState(0);
     const itemsPerPage = 10;
     const [questions, setQuestions] = useState([]);
-    const [totalCount, setTotalCount] = useState(0); // 전체 문제 수를 저장할 상태
+    const [totalPages, setTotalPages] = useState(0);
+    const [currentPageGroup, setCurrentPageGroup] = useState(0);
+    const { confirm } = useContext(ConfirmContext);
+
+    const fetchQuestions = async (page, searchTerm) => {
+        try {
+            const response = await request.get(`/problem?page=${page + 1}&size=${itemsPerPage}&searchKeyword=${encodeURIComponent(searchTerm)}`);
+            console.log("백준 문제 목록 조회: ", response);
+            if (response.isSuccess) {
+                const { problemList, totalCount } = response.result;
+                const newQuestions = problemList.map(problem => ({
+                    id: problem.number.toString(),
+                    title: problem.name,
+                    levelImg: problem.levelUrl,
+                    plusImg: '/img/PlusBtn.png',
+                    baekjoonUrl: problem.baekjoonUrl
+                }));
+                setQuestions(newQuestions);
+                setTotalPages(Math.ceil(totalCount / itemsPerPage));
+            } else {
+                console.error('API call failed:', response.message);
+            }
+        } catch (error) {
+            console.error('API error:', error);
+        }
+    };
 
     useEffect(() => {
-        const fetchQuestions = async () => {
-            try {
-                const searchKeyword = encodeURIComponent(searchTerm);
-                const response = await request.get(`/problem`, {
-                    params: {
-                        searchKeyword,
-                        page: currentPage + 1,
-                        size: itemsPerPage
-                    }
-                });
-                console.log("문제 목록 조회: ", response);
-                if (response.isSuccess) {
-                    const { problemList, totalCount } = response.result;
-                    setQuestions(problemList);
-                    setTotalCount(totalCount);
-                } else {
-                    console.error('API call failed:', response.message);
-                }
-            } catch (error) {
-                console.error('API error:', error);
-            }
-        };
-        fetchQuestions();
-    }, [searchTerm, currentPage]);
-
-    const filteredQuestions = questions.filter(question =>
-        question.name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-
-    const indexOfLastQuestion = (currentPage + 1) * itemsPerPage;
-    const indexOfFirstQuestion = indexOfLastQuestion - itemsPerPage;
-    const currentQuestions = filteredQuestions.slice(indexOfFirstQuestion, indexOfLastQuestion);
-
-    const totalPages = Math.ceil(totalCount / itemsPerPage);
+        fetchQuestions(currentPage, searchTerm);
+    }, [currentPage, searchTerm]);
 
     const handlePageChange = (newPage) => {
         if (newPage >= 0 && newPage < totalPages) {
             setCurrentPage(newPage);
+            setCurrentPageGroup(Math.floor(newPage / 5)); // 페이지 그룹을 업데이트
         }
     };
 
-    const handleAddQuestion = (question) => {
-        // handleAddQuestion 함수는 보류된 상태
+    const handlePageGroupChange = (direction) => {
+        if (direction === 'next' && (currentPageGroup + 1) * 5 < totalPages) {
+            setCurrentPageGroup(currentPageGroup + 1);
+            setCurrentPage((currentPageGroup + 1) * 5); // 새로운 그룹의 첫 번째 페이지로 이동
+        } else if (direction === 'prev' && currentPageGroup > 0) {
+            setCurrentPageGroup(currentPageGroup - 1);
+            setCurrentPage((currentPageGroup - 1) * 5); // 새로운 그룹의 첫 번째 페이지로 이동
+        }
+    };
+
+    const handleSearchChange = (e) => {
+        setSearchTerm(e.target.value);
+        setCurrentPage(0);
+        setCurrentPageGroup(0);
+    };
+
+    const pageNumbers = Array.from(
+        { length: Math.min(5, totalPages - currentPageGroup * 5) },
+        (_, i) => currentPageGroup * 5 + i
+    );
+
+    const handleAddQuestion = async (question) => {
+        const confirmation = await confirm("해당 문제를 추가하시겠습니까?");
+        if(confirmation){
+            try {
+                const response = await request.post(`/workbook/${workbookId}/problem`, {
+                    number: question.id
+                });
+                if(response.isSuccess){
+                    onAddQuestion(question.id, question.title, question.levelImg);
+                    console.log("문제 추가 성공: ", response);
+                }
+            } catch (error) {
+                console.error('문제 추가 실패: ', error);
+            }
+        }
     };
 
     return (
@@ -206,19 +91,14 @@ export default function RegularStudyAddQuestionModal({ week, onClose, onAddQuest
             <itemS.ModalContent>
                 <itemS.ModalHeader>
                     <itemS.ModalTitle>{week}주차 모의테스트 문제 추가</itemS.ModalTitle>
-                    <img
-                        src="/img/close.png"
-                        onClick={onClose}
-                        style={{ marginTop: "16px", marginRight: "24px", cursor: "pointer" }}
-                        alt="x"
-                    />
+                    <img src="/img/close.png" onClick={onClose} style={{ marginTop: "16px", marginRight: "24px", cursor: "pointer" }} alt="x" />
                 </itemS.ModalHeader>
                 <itemS.SearchContainer>
                     <itemS.Search
                         type="text"
                         placeholder="문제 제목 검색"
                         value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
+                        onChange={handleSearchChange}
                     />
                     <itemS.SearchIcon src='/img/search.svg' alt='돋보기' />
                 </itemS.SearchContainer>
@@ -228,27 +108,21 @@ export default function RegularStudyAddQuestionModal({ week, onClose, onAddQuest
                         <itemS.TableHead>제목</itemS.TableHead>
                         <itemS.TableHead>레벨</itemS.TableHead>
                         <itemS.TableHead></itemS.TableHead>
-                        {currentQuestions.length > 0 ? (
-                            currentQuestions.map((question, index) => (
+                        {questions.length > 0 ? (
+                            questions.map((question, index) => (
                                 <itemS.TableRow key={index}>
-                                    <itemS.TableCell>{question.number}</itemS.TableCell>
+                                    <itemS.TableCell>{question.id}</itemS.TableCell>
                                     <itemS.TableCell>
                                         <a href={question.baekjoonUrl} target="_blank" rel="noopener noreferrer">
-                                            {question.name}
+                                            {question.title}
                                         </a>
                                     </itemS.TableCell>
+                                    <itemS.TableCell><img src={question.levelImg} alt="level" style={{ width: "19.5px", height: "25px", marginLeft: "7px" }} /></itemS.TableCell>
                                     <itemS.TableCell>
                                         <img
-                                            src={question.levelUrl}
-                                            alt="level"
-                                            style={{ width: "16px", height: "20px" }}
-                                        />
-                                    </itemS.TableCell>
-                                    <itemS.TableCell>
-                                        <img
-                                            src='/img/PlusBtn.png'
+                                            src={question.plusImg}
                                             alt="plus"
-                                            style={{ cursor: "pointer", width: "16px", height: "20px" }}
+                                            style={{ cursor: "pointer", width: "19.5px", height: "25px" }}
                                             onClick={() => handleAddQuestion(question)}
                                         />
                                     </itemS.TableCell>
@@ -264,24 +138,24 @@ export default function RegularStudyAddQuestionModal({ week, onClose, onAddQuest
                 <itemS.Pagination>
                     <itemS.PaginationArrow
                         left
-                        onClick={() => handlePageChange(currentPage - 1)}
-                        disabled={currentPage === 0}
+                        onClick={() => handlePageGroupChange('prev')}
+                        disabled={currentPageGroup === 0}
                     />
-                    {Array.from({ length: totalPages }, (_, i) => (
+                    {pageNumbers.map((pageNumber) => (
                         <itemS.PaginationNumber
-                            key={i}
-                            onClick={() => handlePageChange(i)}
-                            active={i === currentPage}
+                            key={pageNumber}
+                            onClick={() => handlePageChange(pageNumber)}
+                            active={pageNumber === currentPage}
                         >
-                            {i + 1}
+                            {pageNumber + 1}
                         </itemS.PaginationNumber>
                     ))}
                     <itemS.PaginationArrow
-                        onClick={() => handlePageChange(currentPage + 1)}
-                        disabled={currentPage === totalPages - 1}
+                        onClick={() => handlePageGroupChange('next')}
+                        disabled={(currentPageGroup + 1) * 5 >= totalPages}
                     />
                 </itemS.Pagination>
             </itemS.ModalContent>
         </itemS.ModalOverlay>
-    );
+    )
 }

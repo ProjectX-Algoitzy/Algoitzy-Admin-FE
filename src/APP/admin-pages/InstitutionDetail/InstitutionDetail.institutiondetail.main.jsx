@@ -6,7 +6,7 @@ import InstitutionDetailExplanation from './InstitutionDetail.institutiondetail.
 import { ConfirmContext } from '../../Common/Confirm/ConfirmContext';
 import { dummydata } from './dummy';
 
-export default function InstitutionDetailMain() {
+export default function InstitutionDetail() {
   const { confirm } = useContext(ConfirmContext);
   
   const [itemList, setItemList] = useState([]); // 스터디원

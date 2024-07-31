@@ -23,7 +23,7 @@ import FindPassword from "./APP/admin-pages/FindAuth/FindPassword/FindPassword.f
 import EnterBootList from "./APP/admin-pages/EnterpriseBootcampList/EnterpriseBootcampList.enterprisebootcamplist.main"
 import UpdateGeneration from "./APP/admin-pages/UpdateGeneration/UpdateGeneration.updategeneration.main"
 import ManageAuth from "./APP/admin-pages/ManageAuth/ManageAuth.manageauth.main"
-import InstitutionDetailMain from "./APP/admin-pages/InstitutionDetail/InstitutionDetail.institutiondetail.main"
+import InstitutionDetail from "./APP/admin-pages/InstitutionDetail/InstitutionDetail.institutiondetail.main"
 import styled from "styled-components"
 import ScrollToTop from "./APP/Common/ScrollToTop"
 import useInterval from "./APP/Common/UseInterval"
@@ -75,7 +75,7 @@ function App() {
           <Route path="/enterbootlist" element={<EnterBootList />} /> {/* 기업/부트캠프 */}
           <Route path="/generation" element={<UpdateGeneration />} /> {/* 기수 갱신 */}
           <Route path="/manageauth" element={<ManageAuth />} /> {/* 권한 관리 */}
-          <Route path="/institutiondetail" element={<InstitutionDetailMain />} /> {/* 기업/부트캠프 상세조회 */}
+          <Route path="/institutiondetail" element={<InstitutionDetail />} /> {/* 기업/부트캠프 상세조회 */}
         </Routes>
         {/* <Footer /> */} {/* figma에 보니 admin은 푸터가 없었기에 일단 임시로 주석처리를 했다 */}
       </BrowserRouter>

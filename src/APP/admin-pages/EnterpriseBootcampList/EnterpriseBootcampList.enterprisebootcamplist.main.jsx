@@ -132,7 +132,7 @@ export default function EnterBootList() {
             </itemS.CategoryInterviewContainer>
           </itemS.TabSortContainer>
           <EnterBootListTable institutionList={institutionList} />
-          <itemS.Pagination>
+          <itemS.Pagination> 
             <itemS.PaginationArrow
               left
               onClick={() => handlePageChange(currentPage - 1)}

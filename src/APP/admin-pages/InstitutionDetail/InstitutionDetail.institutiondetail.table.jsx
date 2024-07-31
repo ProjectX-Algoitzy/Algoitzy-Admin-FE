@@ -3,8 +3,21 @@ import * as itemS from "./Styled/InstitutionDetail.institutiondetail.table.style
 import InstitutionDetailTuple from './InstitutionDetail.institutiondetail.tuple';
 
 export default function InstitutionDetailTable({ itemList }) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    // setSelectedApplicationId(null); //TODO -  - api 연결 후 사용할 것 -> 변수명은 바꾸고
+  };
+
+  // const openModal = (applicationId) => { //TODO -  - api 연결 후 사용할 것 -> 변수명은 바꾸고
+  //   setIsModalOpen(true);
+  //   setSelectedApplicationId(applicationId);
+  // };
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
    
-    
   return (
     <itemS.Container>
       <itemS.Table>
@@ -17,6 +30,11 @@ export default function InstitutionDetailTable({ itemList }) {
             <InstitutionDetailTuple
               key={item.id}
               item={item}
+              // isSelected={selectedApplicationId === application.answerId && isModalOpen}  //TODO -  - api 연결 후 사용할 것 -> 변수명은 바꾸고
+              isSelected={isModalOpen}
+              // onOpen={() => openModal(application.answerId)} //TODO -  - api 연결 후 사용할 것 -> 변수명은 바꾸고
+              onClose={closeModal}
+              onOpen={openModal}
             />
           ))}
         </itemS.TupleContainer>

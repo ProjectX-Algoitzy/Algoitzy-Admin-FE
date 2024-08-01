@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import * as itemS from "./Styled/WorkbookDetail.workbookdetail.toptable.styles";
 import TopTuple from './WorkbookDetail.workbookdetail.toptuple';
 
-export default function TopTable({ items }) {
+export default function TopTable({ items, fetchItemList, workbookId }) {
    
     
   return (
@@ -18,8 +18,8 @@ export default function TopTable({ items }) {
             <TopTuple
               key={item.id}
               item={item}
-              // fetchAdminList={fetchAdminList}
-              // fetchUserList={fetchUserList}
+              fetchItemList={fetchItemList}
+              workbookId={workbookId}
             />
           ))}
         </itemS.TupleContainer>

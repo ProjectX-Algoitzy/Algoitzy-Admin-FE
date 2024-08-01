@@ -1,5 +1,5 @@
 export const dummydata = [
-  { number: 1, title: '2023년도 상반기유형'},
-  { number: 2, title: '2023년도 상반기유형'},
+  { workbookId: 1, name: '2023년도 상반기유형'},
+  { workbookId: 2, name: '2023년도 상반기유형'},
   
 ];

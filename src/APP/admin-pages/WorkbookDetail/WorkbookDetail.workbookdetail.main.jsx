@@ -3,30 +3,62 @@ import * as itemS from "./Styled/WorkbookDetail.workbookdetail.main.styles";
 import request from '../../Api/request';
 import TopTable from './WorkbookDetail.workbookdetail.toptable';
 import BottomTable from './WorkbookDetail.workbookdetail.bottomtable';
-import { dummydata } from './dummy';
 
-const WorkbookDetail = ({ isOpen, onClose }) => {
-  const [ itemList, setItemList ] = useState([]);
-  const [ title, setTitle ] = useState('2023년도 상반기 유형');
+const WorkbookDetail = ({ workbookId, workbookName, isOpen, onClose }) => {
+  const [ itemList, setItemList ] = useState([]); // 설정한 문제 목록
+  const [ allItemList, setAllItemList ] = useState([]);  // 백준 전체 문제 목록
   const [searchKeyword, setSearchKeyword] = useState('');
+  const [size, setSize] = useState(5);
 
   // 페이지
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(10); //TODO - 임시 ) 전체 페이지 수 -> response 값으로 전체 개수 받아와야함
   const maxPageNumbers = 5; // 페이지 수
+  const itemsPerPage = 5; // 페이지당 항목 수
 
-  const fetchitemList = async () => { // 관리자 목록 조회
-		setItemList(dummydata);
+  const fetchItemList = async () => { // 설정한 문제 목록 조회
+		try {
+			const response = await request.get(`/workbook/${workbookId}`);
+			if (response.isSuccess) {
+				console.log("설정한 문제 목록 조회 성공",response);
+				setItemList(response.result.problemList);
+			} else {
+				console.error("설정한 문제 목록 조회 실패:", response);
+			}
+		} catch (error) {
+			console.error('설정한 문제 목록 조회 오류', error);
+		}
 	};
 
-  useEffect(() => {
-		fetchitemList();
+	useEffect(() => {
+		fetchItemList();
 	}, []);
+
+	const fetchAllItemList = async () => { // 백준 전체 문제 목록 조회
+		try {
+			const response = await request.get(`/problem/?searchKeyword=${searchKeyword}&page=${currentPage}&size=${size}`);
+			if (response.isSuccess) {
+				console.log("백준 전체 목록 조회 성공",response);
+				setAllItemList(response.result.problemList);
+        setTotalPages(Math.ceil(response.result.totalCount / itemsPerPage));
+			} else {
+				console.error("백준 전체 목록 조회 실패:", response);
+			}
+		} catch (error) {
+			console.error('백준 전체 목록 조회 오류', error);
+		}
+	};
+
+	useEffect(() => {
+		fetchAllItemList();
+	}, [currentPage]);
+
 
   const handleSearchChange = (e) => {
     setSearchKeyword(e.target.value);
   };
 
+  // 페이지
   const handlePageChange = (page) => {
     if (page >= 1 && page <= totalPages) {
       setCurrentPage(page);
@@ -49,14 +81,14 @@ const WorkbookDetail = ({ isOpen, onClose }) => {
     <itemS.Backdrop>
       <itemS.ModalContainer>
         <itemS.TopBox>
-          <itemS.Title>{title}</itemS.Title>
+          <itemS.Title>{workbookName}</itemS.Title>
           <itemS.Close onClick={onClose}></itemS.Close>
         </itemS.TopBox>
         <itemS.InnerContainer>
           <TopTable 
             items={itemList} 
-            // fetchAdminList={fetchAdminList}
-            // fetchUserList={fetchUserList}
+            fetchItemList={fetchItemList}
+            workbookId={workbookId}
           />
   
           <itemS.SearchContainer>
@@ -66,13 +98,13 @@ const WorkbookDetail = ({ isOpen, onClose }) => {
                 value={searchKeyword}
                 onChange={handleSearchChange}
               />
-              <itemS.SearchIcon onClick={() => fetchitemList()} src='/img/search.svg' alt='돋보기' />
+              <itemS.SearchIcon onClick={() => fetchAllItemList()} src='/img/search.svg' alt='돋보기' />
             </itemS.SearchBox>
           </itemS.SearchContainer>
 					<BottomTable 
-						items={itemList}
-						// fetchAdminList={fetchAdminList}
-						// fetchUserList={fetchUserList} 
+						allItemList={allItemList}
+            fetchItemList={fetchItemList}
+            workbookId={workbookId}
 					/>
           <itemS.Pagination> 
             <itemS.PaginationArrow

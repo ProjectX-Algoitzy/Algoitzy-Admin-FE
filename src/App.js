@@ -75,7 +75,7 @@ function App() {
           <Route path="/enterbootlist" element={<EnterBootList />} /> {/* 기업/부트캠프 */}
           <Route path="/generation" element={<UpdateGeneration />} /> {/* 기수 갱신 */}
           <Route path="/manageauth" element={<ManageAuth />} /> {/* 권한 관리 */}
-          <Route path="/institutiondetail" element={<InstitutionDetail />} /> {/* 기업/부트캠프 상세조회 */}
+          <Route path="/institutiondetail/:institutionId" element={<InstitutionDetail />} /> {/* 기업/부트캠프 상세조회 */}
         </Routes>
         {/* <Footer /> */} {/* figma에 보니 admin은 푸터가 없었기에 일단 임시로 주석처리를 했다 */}
       </BrowserRouter>

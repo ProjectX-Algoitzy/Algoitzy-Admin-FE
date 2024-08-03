@@ -4,7 +4,7 @@ import * as itemS from "../../admin-pages/EnterpriseBootcampList/Styled/Enterpri
 
 export default function EnterBootListTuple({ item }) {
 
-  const navigate = useNavigate;
+  const navigate = useNavigate();
 
   const onOpen = (institutionId) => {
 		navigate(`/institutiondetail/${institutionId}`);

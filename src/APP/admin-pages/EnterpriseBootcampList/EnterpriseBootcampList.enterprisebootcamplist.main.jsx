@@ -13,7 +13,7 @@ export default function EnterBootList() {
   const [searchKeyword, setSearchKeyword] = useState('');
   const [type, setType] = useState('COMPANY');
   const [sortType, setSortType] = useState('VIEW_COUNT');
-  const [size, setSize] = useState(10);
+  const [size, setSize] = useState(8);
 
   const [isSortDropVisible, setIsSortDropVisible] = useState(false); // 정렬 드롭박스 열기/닫기
 
@@ -21,6 +21,7 @@ export default function EnterBootList() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(10); //TODO - 임시 ) 전체 페이지 수 -> response 값으로 전체 개수 받아와야함
   const maxPageNumbers = 5; // 페이지 수
+  const itemsPerPage = 8; // 페이지당 항목 수
 
   const tabs = ['기업', '부트캠프'];
 
@@ -30,6 +31,7 @@ export default function EnterBootList() {
 			if (response.isSuccess) {
 				console.log("기관 목록 조회 성공",response);
 				setInstitutionList(response.result.institutionList);
+        setTotalPages(Math.ceil(response.result.totalCount / itemsPerPage));
 			} else {
 				console.error("기관 목록 조회 실패:", response);
 			}

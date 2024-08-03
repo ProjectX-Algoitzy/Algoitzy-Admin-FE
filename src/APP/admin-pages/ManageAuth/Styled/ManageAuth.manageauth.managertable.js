@@ -69,7 +69,7 @@ export const Blank = styled.div`
 export const TupleContainer = styled.div`
   display: flex;
   flex-direction: column;
-  height: 170px;
+  // height: 170px;
   overflow: auto;
   &::-webkit-scrollbar {
     width: 0px; /* Chrome, Safari, Opera용 */

@@ -40,11 +40,11 @@ const Root = styled.div`
 `;
 
 function App() {
-  // useInterval(() => {
-  //   if (localStorage.getItem(ACCESS_TOKEN)) {
-  //     refreshToken();
-  //   }
-  // }, 30000);
+  useInterval(() => {
+    if (localStorage.getItem(ACCESS_TOKEN)) {
+      refreshToken();
+    }
+  }, 30000);
 
   return (
     <Root>

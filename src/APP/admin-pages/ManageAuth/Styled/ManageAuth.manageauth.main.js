@@ -93,3 +93,34 @@ export const SearchIcon = styled.img`
   margin-right: 6px;
   cursor: pointer;
 `;
+
+// 페이지
+export const Pagination = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;  
+  padding: 20px;
+  list-style: none;
+`;
+
+export const PaginationArrow = styled.div`
+  width: 24px;
+  height: 24px;
+  background-image: url('/img/grayarrow.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  transform: ${(props) => (props.left ? 'rotate(180deg)' : 'none')};
+  cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
+  opacity: ${(props) => (props.disabled ? 0.5 : 1)};
+`;
+
+export const PaginationNumber = styled.div`
+  margin: 0 5px;
+  width: 8px;
+  height: 21px;
+  padding: 10px;
+  cursor: pointer;
+  color: ${(props) => (props.active ? tokens.colors.Blue_3 : tokens.colors.B_Grey_7)};
+  font-weight: ${(props) => (props.active ? 'bold' : 'normal')};
+  ${tokens.typography.B3_M_14};
+`;

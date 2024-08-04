@@ -45,6 +45,7 @@ export const DeleteButton = styled.button`
   width: 160px;
   height: 48px;
   border-radius: 4px;
+  cursor: pointer;
 `;
 
 

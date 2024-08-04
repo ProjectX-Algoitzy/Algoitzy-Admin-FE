@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import request from '../../Api/request';
 import * as itemS from "./Styled/InstitutionDetail.institutiondetail.main.styles";
 import InstitutionDetailTable from './InstitutionDetail.institutiondetail.table';
@@ -8,25 +8,26 @@ import { ConfirmContext } from '../../Common/Confirm/ConfirmContext';
 
 export default function InstitutionDetail() {
   const { institutionId } = useParams();
+  const { state } = useLocation();
   const { confirm } = useContext(ConfirmContext);
   const navigate = useNavigate();
   
   const [itemList, setItemList] = useState([]); // 스터디원
-        
+
   useEffect(() => {
     const fetchWorkbook = async () => {
       try {
-				const response = await request.get(`/institution/${institutionId}/workbook`);
-	
-				if (response.isSuccess) {
-					console.log("추천 문제집 목록 조회 성공",response);
-					setItemList(response.result.workbookList);
-				} else {
-					console.error("추천 문제집 목록 조회 실패:", response);
-				}
-			} catch (error) {
-				console.error('추천 문제집 목록 조회 오류', error);
-			}
+        const response = await request.get(`/institution/${institutionId}/workbook`);
+  
+        if (response.isSuccess) {
+          console.log("추천 문제집 목록 조회 성공", response);
+          setItemList(response.result.workbookList);
+        } else {
+          console.error("추천 문제집 목록 조회 실패:", response);
+        }
+      } catch (error) {
+        console.error('추천 문제집 목록 조회 오류', error);
+      }
     };
 
     fetchWorkbook();
@@ -54,7 +55,7 @@ export default function InstitutionDetail() {
       <itemS.Container>
         <itemS.InnerContainer>
           <itemS.TitleBox>
-            <itemS.Title>삼성전자</itemS.Title>
+            <itemS.Title>{state?.name || '기관 이름 없음'}</itemS.Title>
             <itemS.DeleteButton onClick={handleDeleteClick}>삭제</itemS.DeleteButton>
           </itemS.TitleBox>
           <itemS.PartBox>
@@ -64,8 +65,7 @@ export default function InstitutionDetail() {
               <itemS.EditText>수정하기</itemS.EditText>
             </itemS.EditButtonBox>
           </itemS.PartBox>
-          <InstitutionDetailExplanation
-           />
+          <InstitutionDetailExplanation />
           <itemS.PartBox>
             <itemS.SecondPart>추천 문제집</itemS.SecondPart>
             <itemS.AddButtonBox>

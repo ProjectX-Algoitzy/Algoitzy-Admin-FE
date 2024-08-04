@@ -7,30 +7,15 @@ export const StudySelectContainer = styled(Select).attrs({
   classNamePrefix: 'react-select',
 })`
 .react-select__control { /*선택 상자의 컨트롤 부분을 스타일링*/
-  // margin-top: 32px;
-  /* margin-left: 32px; */
   width: 142px;
   height: 34px;
   color: ${tokens.colors.Grey_8};
   ${tokens.typography.B3_M_14};
   border: 1px solid ${tokens.colors.B_Grey_3};
   border-radius: 4px;
-  // background-color: rgba(102, 201, 255, 0.2); /* 색상 코드를 rgba 형식으로 변경하고, 투명도를 20%로 설정 */
-  // backdrop-filter: blur(8px); /* 필터를 원하는 것으로 설정 */
   text-align: center;
   justify-content: center;
-  // margin-bottom: 16px;
-  // margin-right: 16px;
 }
-// .react-select__single-value { /*선택된 값의 텍스트를 스타일링*/
-//   color: ${tokens.colors.Grey_8};
-//   ${tokens.typography.B3_M_14};
-//   border: none;
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   padding: 10px;
-// }
 .react-select__menu {  /*클릭 시 나오는 드롭다운 메뉴의 스타일을 지정*/
   position: absolute;
   top: -10px;  
@@ -83,7 +68,6 @@ export const StudySelectContainer = styled(Select).attrs({
 }
 .react-select__option--is-focused { /*현재 포커스된 옵션의 스타일을 지정*/
   background-color: transparent;
-  // background-color: rgba(102, 201, 255, 0.2);
   cursor: pointer;
 }
 

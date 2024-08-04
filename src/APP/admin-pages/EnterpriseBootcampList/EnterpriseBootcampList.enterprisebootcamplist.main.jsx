@@ -2,18 +2,20 @@ import React, { useState, useEffect } from 'react';
 import request from '../../Api/request';
 import * as itemS from "../../admin-pages/EnterpriseBootcampList/Styled/EnterpriseBootcampList.enterprisebootcamplist.main.styles";
 import EnterBootListTable from './EnterpriseBootcampList.enterprisebootcamplist.table';
-import { dummyCompanyList, dummyBootList } from './dummy';
+// import { dummyCompanyList, dummyBootList } from './dummy';
+import MakingInstitutionModal from './MakingInstitutionModal';
 
 export default function EnterBootList() {
   const [institutionList, setInstitutionList] = useState([]);
   const [selectedTab, setSelectedTab] = useState('기업');
   const [sortText, setSortText] = useState('조회수');
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // api 요청 파라미터
   const [searchKeyword, setSearchKeyword] = useState('');
   const [type, setType] = useState('COMPANY');
   const [sortType, setSortType] = useState('VIEW_COUNT');
-  const [size, setSize] = useState(8);
+  const [size, setSize] = useState(10);
 
   const [isSortDropVisible, setIsSortDropVisible] = useState(false); // 정렬 드롭박스 열기/닫기
 
@@ -21,7 +23,7 @@ export default function EnterBootList() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(10); //TODO - 임시 ) 전체 페이지 수 -> response 값으로 전체 개수 받아와야함
   const maxPageNumbers = 5; // 페이지 수
-  const itemsPerPage = 8; // 페이지당 항목 수
+  const itemsPerPage = 10; // 페이지당 항목 수
 
   const tabs = ['기업', '부트캠프'];
 
@@ -88,6 +90,16 @@ export default function EnterBootList() {
     return pages;
   };
 
+  const closeModal = () => {
+    setIsModalOpen(false);
+    // setSelectedWorkbookId(null); 
+  };
+
+  const openModal = () => { 
+    setIsModalOpen(true);
+    // setSelectedWorkbookId(workbookId);
+  };
+
   return (
     <itemS.OuterContainer>
       <itemS.Container>
@@ -95,7 +107,14 @@ export default function EnterBootList() {
           <itemS.TopContainer>
             <itemS.HeadContainer>
               <itemS.Head>문제 추천 서비스</itemS.Head>
-              <itemS.AddBtn>+ 생성하기</itemS.AddBtn>
+              <itemS.AddBtn onClick={openModal}>+ 생성하기</itemS.AddBtn>
+              {/* {isModalOpen && ( */}
+              <MakingInstitutionModal
+                isModalOpen={isModalOpen}
+                onClose={closeModal}
+                fetchInstitutionList={fetchInstitutionList}
+              />
+              {/* )} */}
               {/* <itemS.AddBtn>추가</itemS.AddBtn>
               <itemS.DeleteBtn>삭제</itemS.DeleteBtn> */}
             </itemS.HeadContainer>

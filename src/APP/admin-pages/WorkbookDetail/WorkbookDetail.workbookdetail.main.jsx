@@ -36,7 +36,7 @@ const WorkbookDetail = ({ workbookId, workbookName, isOpen, onClose }) => {
 
 	const fetchAllItemList = async () => { // 백준 전체 문제 목록 조회
 		try {
-			const response = await request.get(`/problem/?searchKeyword=${searchKeyword}&page=${currentPage}&size=${size}`);
+			const response = await request.get(`/problem?searchKeyword=${searchKeyword}&page=${currentPage}&size=${size}`);
 			if (response.isSuccess) {
 				console.log("백준 전체 목록 조회 성공",response);
 				setAllItemList(response.result.problemList);
@@ -86,7 +86,7 @@ const WorkbookDetail = ({ workbookId, workbookName, isOpen, onClose }) => {
         </itemS.TopBox>
         <itemS.InnerContainer>
           <TopTable 
-            items={itemList} 
+            itemList={itemList} 
             fetchItemList={fetchItemList}
             workbookId={workbookId}
           />

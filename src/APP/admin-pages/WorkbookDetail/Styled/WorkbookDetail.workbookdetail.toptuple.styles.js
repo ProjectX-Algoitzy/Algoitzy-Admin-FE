@@ -38,10 +38,12 @@ export const TupleLevel = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  ${tokens.typography.T5_SB_16};
-  color: ${tokens.colors.Black};
-  text-align: center;
   width: 98px;
+`;
+
+export const Level = styled.img`
+  width: 20px;
+  height: 25px;
 `;
 
 export const DeleteButton = styled.img`

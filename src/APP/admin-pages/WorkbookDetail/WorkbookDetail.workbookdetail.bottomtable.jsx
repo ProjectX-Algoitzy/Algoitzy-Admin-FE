@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import * as itemS from "./Styled/WorkbookDetail.workbookdetail.bottomtable.styles";
 import BottomTuple from './WorkbookDetail.workbookdetail.bottomtuple';
 
-export default function BottomTable({ items, fetchItemList, workbookId }) {
+export default function BottomTable({ allItemList, fetchItemList, workbookId }) {
    
     
   return (
@@ -14,9 +14,9 @@ export default function BottomTable({ items, fetchItemList, workbookId }) {
           <itemS.CategoryLevel>레벨</itemS.CategoryLevel>
         </itemS.CategoryContainer>
         <itemS.TupleContainer>
-          {items.map(item => (
+          {allItemList.map(item => (
             <BottomTuple
-              key={item.id}
+              key={item.number}
               item={item}
               fetchItemList={fetchItemList}
               workbookId={workbookId}

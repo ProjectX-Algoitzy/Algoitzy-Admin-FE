@@ -103,12 +103,12 @@ export const SearchBox = styled.div`
   border: 1px solid ${tokens.colors.Grey_3};
   border-radius: 4px;
   margin-bottom: 26px;
-  
+  margin-top: 60px;
 `;
 
 export const Search = styled.input`
   background-color: ${tokens.colors.Grey_1};
-  width: 350px;
+  width: 418px;
   height: 30px;
   ${tokens.typography.T5_SB_16};
   color: ${tokens.colors.B_Grey_6};

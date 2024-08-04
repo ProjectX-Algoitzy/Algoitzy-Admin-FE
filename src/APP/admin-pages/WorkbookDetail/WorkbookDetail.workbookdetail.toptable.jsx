@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import * as itemS from "./Styled/WorkbookDetail.workbookdetail.toptable.styles";
 import TopTuple from './WorkbookDetail.workbookdetail.toptuple';
 
-export default function TopTable({ items, fetchItemList, workbookId }) {
+export default function TopTable({ itemList, fetchItemList, workbookId }) {
    
     
   return (
@@ -14,9 +14,9 @@ export default function TopTable({ items, fetchItemList, workbookId }) {
           <itemS.CategoryLevel>레벨</itemS.CategoryLevel>
         </itemS.CategoryContainer>
         <itemS.TupleContainer>
-          {items.map(item => (
+          {itemList.map(item => (
             <TopTuple
-              key={item.id}
+              key={item.number}
               item={item}
               fetchItemList={fetchItemList}
               workbookId={workbookId}

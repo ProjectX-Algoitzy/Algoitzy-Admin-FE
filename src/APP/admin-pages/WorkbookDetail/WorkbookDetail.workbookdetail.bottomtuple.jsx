@@ -32,7 +32,9 @@ export default function BottomTuple({ item, fetchItemList, workbookId }) {
       <itemS.Tuple>
         <itemS.TupleNumber onClick={handleRedirect}>{item.number}</itemS.TupleNumber>
         <itemS.TupleTitle onClick={handleRedirect}>{item.name}</itemS.TupleTitle>
-        <itemS.TupleLevel onClick={handleRedirect}>{item.levelUrl}</itemS.TupleLevel>
+        <itemS.TupleLevel>
+          <itemS.Level src={item.levelUrl} alt='레벨' onClick={handleRedirect}/>
+        </itemS.TupleLevel>
         <itemS.AddButton src='/img/addbox.svg' alt='추가' onClick={handleAdd} />
       </itemS.Tuple>
     </itemS.Container>

@@ -26,7 +26,10 @@ export default function TopTuple({ item, fetchItemList, workbookId }) {
       <itemS.Tuple>
         <itemS.TupleNumber>{item.number}</itemS.TupleNumber>
         <itemS.TupleTitle>{item.name}</itemS.TupleTitle>
-        <itemS.TupleLevel>{item.levelUrl}</itemS.TupleLevel>
+        <itemS.TupleLevel>
+          <itemS.Level src={item.levelUrl} alt='레벨'/>
+        </itemS.TupleLevel>
+        
         <itemS.DeleteButton src='/img/deleteX.svg' alt='삭제' onClick={handleDelete} />
       </itemS.Tuple>
     </itemS.Container>

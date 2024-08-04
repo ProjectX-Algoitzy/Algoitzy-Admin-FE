@@ -51,6 +51,7 @@ export const AddBtn = styled.button`
   height: 40px;
   border-radius: 4px;
   margin-left: 21px;
+  cursor: pointer;
 `;
 
 // export const DeleteBtn = styled.button`

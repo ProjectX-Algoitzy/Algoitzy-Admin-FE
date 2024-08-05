@@ -1,5 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import * as itemS from "./Styled/WorkbookDetail.workbookdetail.main.styles";
+import { useRecoilState } from 'recoil';
+import { IsOpenModal } from '../Recoil/Recoil.state';
 import request from '../../Api/request';
 import TopTable from './WorkbookDetail.workbookdetail.toptable';
 import BottomTable from './WorkbookDetail.workbookdetail.bottomtable';
@@ -10,6 +12,7 @@ const WorkbookDetail = ({ workbookId, workbookName, fetchWorkbook }) => {
   const { alert } = useContext(AlertContext);
   const { confirm } = useContext(ConfirmContext);
 
+  const [isModalOpen, setIsModalOpen] = useRecoilState(IsOpenModal);
   const [isOpen, setIsOpen] = useState(true);
 
   const [ itemList, setItemList ] = useState([]); // 설정한 문제 목록
@@ -40,6 +43,10 @@ const WorkbookDetail = ({ workbookId, workbookName, fetchWorkbook }) => {
 	useEffect(() => {
 		fetchItemList();
 	}, []);
+
+  useEffect(() => {
+		console.log("IsOpenModal",IsOpenModal);
+	}, [isModalOpen]);
 
 	const fetchAllItemList = async () => { // 백준 전체 문제 목록 조회
 		try {
@@ -84,6 +91,7 @@ const WorkbookDetail = ({ workbookId, workbookName, fetchWorkbook }) => {
   };
 
   const onClose = () => {
+    setIsModalOpen(false);
     setIsOpen(false);
   };
 

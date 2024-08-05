@@ -71,6 +71,20 @@ export default function InstitutionDetail() {
       }
     }
   };
+  
+  const handleAddWokbook = async () => {
+    try {
+      const response = await request.post(`/institution/${institutionId}/workbook`);
+      if (response.isSuccess) {
+        console.log("새 문제집 생성 성공 response:", response);
+        fetchWorkbook();
+      } else {
+        console.error("새 문제집 생성 실패:", response);
+      }
+    } catch (error) {
+      console.error("새 문제집 생성 에러:", error);
+    }
+  };
 
   const closeModal = () => {
     setIsModalOpen(false);
@@ -112,7 +126,7 @@ export default function InstitutionDetail() {
           <itemS.PartBox>
             <itemS.SecondPart>추천 문제집</itemS.SecondPart>
             <itemS.AddButtonBox>
-              <itemS.AddIcon src='/img/add.svg' alt='추가' />
+              <itemS.AddIcon src='/img/add.svg' alt='추가' onClick={handleAddWokbook}/>
             </itemS.AddButtonBox>
           </itemS.PartBox>
           <InstitutionDetailTable 

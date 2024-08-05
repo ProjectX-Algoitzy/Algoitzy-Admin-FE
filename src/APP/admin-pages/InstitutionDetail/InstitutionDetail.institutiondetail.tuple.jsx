@@ -5,10 +5,6 @@ import WorkbookDetail from '../WorkbookDetail/WorkbookDetail.workbookdetail.main
 
 
 export default function InstitutionDetailTuple({ item, isSelected, onOpen, fetchWorkbook }) {
-  useEffect(() => {
-		console.log('isSelected',isSelected);
-	}, [isSelected]);
-
 
   return (
     <itemS.TupleContainer onClick={onOpen}>

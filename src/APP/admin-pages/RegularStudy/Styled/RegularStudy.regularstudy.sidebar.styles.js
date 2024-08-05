@@ -6,7 +6,7 @@ export const Container = styled.div`
   flex-direction: column;
   padding-right: 32px;
   border-right: 1px solid ${tokens.colors.Grey_4};
-  height: 100%;
+  /* height: 100%; */
 `;
 
 export const InnerContainer = styled.div`

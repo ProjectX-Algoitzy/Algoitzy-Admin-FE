@@ -76,14 +76,14 @@ const Table = ({ currentTab, onArrowClick, data }) => (
                 <div style={{ position: 'relative', width: '100%', textAlign: 'center' }}>
                   <img 
                     src="/img/tablearrow.png" 
-                    style={{ cursor: "pointer", position: 'absolute', left: 0 }} 
+                    style={{ cursor: "pointer", position: 'absolute', left: 0, marginTop:"5px", marginLeft:"11px" }} 
                     alt="왼쪽" 
                     onClick={() => onArrowClick('prev')} 
                   />
                   <span>{currentTab}</span>
                   <img 
                     src="/img/tablearrow.png" 
-                    style={{ rotate: "180deg", cursor: "pointer", position: 'absolute', right: 0 }} 
+                    style={{ rotate: "180deg", cursor: "pointer", position: 'absolute', right: 0, marginTop:"5px", marginRight:"11px" }} 
                     alt="오른쪽" 
                     onClick={() => onArrowClick('next')} 
                   />

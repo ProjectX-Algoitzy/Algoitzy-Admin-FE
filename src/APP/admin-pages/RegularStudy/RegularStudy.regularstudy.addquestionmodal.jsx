@@ -106,8 +106,8 @@ export default function RegularStudyAddQuestionModal({ week, onClose, onAddQuest
                     <itemS.Table>
                         <itemS.TableHead>백준번호</itemS.TableHead>
                         <itemS.TableHead>제목</itemS.TableHead>
-                        <itemS.TableHead>레벨</itemS.TableHead>
                         <itemS.TableHead></itemS.TableHead>
+                        <itemS.TableHead>레벨</itemS.TableHead>
                         {questions.length > 0 ? (
                             questions.map((question, index) => (
                                 <itemS.TableRow key={index}>
@@ -117,12 +117,12 @@ export default function RegularStudyAddQuestionModal({ week, onClose, onAddQuest
                                             {question.title}
                                         </a>
                                     </itemS.TableCell>
-                                    <itemS.TableCell><img src={question.levelImg} alt="level" style={{ width: "19.5px", height: "25px", marginLeft: "7px" }} /></itemS.TableCell>
+                                    <itemS.TableCell><img src={question.levelImg} alt="level" style={{ width: "19.5px", height: "25px"}} /></itemS.TableCell>
                                     <itemS.TableCell>
                                         <img
                                             src={question.plusImg}
                                             alt="plus"
-                                            style={{ cursor: "pointer", width: "19.5px", height: "25px" }}
+                                            style={{ cursor: "pointer", width: "25px", height: "25px" }}
                                             onClick={() => handleAddQuestion(question)}
                                         />
                                     </itemS.TableCell>

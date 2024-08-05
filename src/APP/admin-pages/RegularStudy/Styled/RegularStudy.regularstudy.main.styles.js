@@ -3,11 +3,8 @@ import * as tokens from "../../../../tokens";
 
 export const Container = styled.div`
   display: flex;
-  flex-direction: row;
   margin-left: 360px;
-  /* justify-content: center; */
   margin-top: 80px;
-  height: 100%;
 `;
 
 export const Content = styled.div`

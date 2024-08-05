@@ -35,19 +35,19 @@ const transformData = (attendanceList) => {
     }
 
     if (problemYN){
-      students[name]['문제 인증'][week] = <itemS.ImgIcon src='/img/attendanceIcon.png' alt="출석" />;
+      students[name]['문제 인증'][week] = <itemS.ImgIcon src='/img/attendanceicon.png' alt="출석" />;
     }  else {
       students[name]['문제 인증'][week] = <itemS.ImgIcon src='/img/noattendanceicon.png' alt="결석" />;
     }
     if (blogYN) {
-      students[name]['블로그 포스팅'][week] = <itemS.ImgIcon src='/img/attendanceIcon.png' alt="출석" />;
+      students[name]['블로그 포스팅'][week] = <itemS.ImgIcon src='/img/attendanceicon.png' alt="출석" />;
     } else {
-      students[name]['블로그 포스팅'][week] = <itemS.ImgIcon src='/img/noattendanceicon.png' alt="출석" />;
+      students[name]['블로그 포스팅'][week] = <itemS.ImgIcon src='/img/noattendanceicon.png' alt="결석" />;
     }
     if (workbookYN) {
-      students[name]['주말 모의테스트'][week] = <itemS.ImgIcon src='/img/attendanceIcon.png' alt="출석" />;
+      students[name]['주말 모의테스트'][week] = <itemS.ImgIcon src='/img/attendanceicon.png' alt="출석" />;
     } else {
-      students[name]['주말 모의테스트'][week] = <itemS.ImgIcon src='/img/noattendanceicon.png' alt="출석" />;
+      students[name]['주말 모의테스트'][week] = <itemS.ImgIcon src='/img/noattendanceicon.png' alt="결석" />;
     }
   });
 

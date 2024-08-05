@@ -1,10 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import * as itemS from "./Styled/WorkbookDetail.workbookdetail.main.styles";
+import { useRecoilState } from 'recoil';
+import { IsOpenModal } from '../Recoil/Recoil.state';
 import request from '../../Api/request';
 import TopTable from './WorkbookDetail.workbookdetail.toptable';
 import BottomTable from './WorkbookDetail.workbookdetail.bottomtable';
+import { AlertContext } from '../../Common/Alert/AlertContext';
+import { ConfirmContext } from '../../Common/Confirm/ConfirmContext';
 
-const WorkbookDetail = ({ workbookId, workbookName, isOpen, onClose }) => {
+const WorkbookDetail = ({ workbookId, workbookName, fetchWorkbook }) => {
+  const { alert } = useContext(AlertContext);
+  const { confirm } = useContext(ConfirmContext);
+
+  const [isModalOpen, setIsModalOpen] = useRecoilState(IsOpenModal);
+  const [isOpen, setIsOpen] = useState(true);
+
   const [ itemList, setItemList ] = useState([]); // 설정한 문제 목록
   const [ allItemList, setAllItemList ] = useState([]);  // 백준 전체 문제 목록
   const [searchKeyword, setSearchKeyword] = useState('');
@@ -34,6 +44,10 @@ const WorkbookDetail = ({ workbookId, workbookName, isOpen, onClose }) => {
 		fetchItemList();
 	}, []);
 
+  useEffect(() => {
+		console.log("IsOpenModal",IsOpenModal);
+	}, [isModalOpen]);
+
 	const fetchAllItemList = async () => { // 백준 전체 문제 목록 조회
 		try {
 			const response = await request.get(`/problem?searchKeyword=${searchKeyword}&page=${currentPage}&size=${size}`);
@@ -53,9 +67,39 @@ const WorkbookDetail = ({ workbookId, workbookName, isOpen, onClose }) => {
 		fetchAllItemList();
 	}, [currentPage]);
 
+  const handleDelete = async () => {
+    
+    const confirmed = await confirm('삭제된 정보는 복구할 수 없습니다.\n정말로 삭제하시겠습니까?');
+    if (confirmed) {
+      try {
+        const response = await request.delete(`/workbook/${workbookId}`);
+        if (response.isSuccess) {
+          console.log("문제집 삭제 성공", response);
+          fetchWorkbook();
+          onClose();
+        } else {
+          console.error("문제집 삭제 실패:", response);
+        }
+      } catch (error) {
+        console.error('문제집 삭제 오류', error);
+      }
+    }
+  };
 
   const handleSearchChange = (e) => {
     setSearchKeyword(e.target.value);
+  };
+
+  const onClose = () => {
+    setIsModalOpen(false);
+    setIsOpen(false);
+  };
+
+  const handleConfirm = () => {
+    alert("수정사항이 저장되었습니다.")
+      .then(() => {
+        onClose();
+      });
   };
 
   // 페이지
@@ -127,8 +171,8 @@ const WorkbookDetail = ({ workbookId, workbookName, isOpen, onClose }) => {
             />
           </itemS.Pagination>
           <itemS.ButtonContainer>
-            <itemS.EditButton>수정</itemS.EditButton>
-            <itemS.DeleteButton>삭제</itemS.DeleteButton>
+            <itemS.EditButton onClick={handleConfirm}>수정</itemS.EditButton>
+            <itemS.DeleteButton onClick={handleDelete}>삭제</itemS.DeleteButton>
           </itemS.ButtonContainer>
 				
 				</itemS.InnerContainer>

@@ -59,7 +59,7 @@ export const CategoryLevel = styled.div`
 export const TupleContainer = styled.div`
   display: flex;
   flex-direction: column;
-  // height: 280px;
+  min-height: 140px;
   overflow: auto;
   &::-webkit-scrollbar {
     width: 0px; /* Chrome, Safari, Opera용 */

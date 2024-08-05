@@ -1,24 +1,18 @@
 import React, { useState } from 'react';
+import { useRecoilState } from 'recoil';
+import { IsOpenModal } from '../Recoil/Recoil.state';
 import * as itemS from "./Styled/InstitutionDetail.institutiondetail.table.styles";
 import InstitutionDetailTuple from './InstitutionDetail.institutiondetail.tuple';
 
-export default function InstitutionDetailTable({ itemList }) {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+export default function InstitutionDetailTable({ itemList, fetchWorkbook }) {
+  const [isModalOpen, setIsModalOpen] = useRecoilState(IsOpenModal);
   const [selectedWorkbookId, setSelectedWorkbookId] = useState(null);
 
-  const closeModal = () => {
-    setIsModalOpen(false);
-    setSelectedWorkbookId(null); //TODO -  - api 연결 후 사용할 것 -> 변수명은 바꾸고
-  };
-
-  const openModal = (workbookId) => { //TODO -  - api 연결 후 사용할 것 -> 변수명은 바꾸고
+  const openModal = (workbookId) => {
     setIsModalOpen(true);
     setSelectedWorkbookId(workbookId);
   };
-  // const openModal = () => {
-  //   setIsModalOpen(true);
-  // };
-   
+
   return (
     <itemS.Container>
       <itemS.Table>
@@ -31,11 +25,9 @@ export default function InstitutionDetailTable({ itemList }) {
             <InstitutionDetailTuple
               key={item.workbookId}
               item={item}
-              isSelected={selectedWorkbookId === item.workbookId && isModalOpen}  //TODO -  - api 연결 후 사용할 것 -> 변수명은 바꾸고
-              // isSelected={isModalOpen}
-              onOpen={() => openModal(item.workbookId)} //TODO -  - api 연결 후 사용할 것 -> 변수명은 바꾸고
-              onClose={closeModal}
-              // onOpen={openModal}
+              isSelected={selectedWorkbookId === item.workbookId && isModalOpen}
+              onOpen={() => openModal(item.workbookId)}
+              fetchWorkbook={fetchWorkbook}
             />
           ))}
         </itemS.TupleContainer>

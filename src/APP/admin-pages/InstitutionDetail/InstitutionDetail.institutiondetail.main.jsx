@@ -4,32 +4,54 @@ import request from '../../Api/request';
 import * as itemS from "./Styled/InstitutionDetail.institutiondetail.main.styles";
 import InstitutionDetailTable from './InstitutionDetail.institutiondetail.table';
 import InstitutionDetailExplanation from './InstitutionDetail.institutiondetail.explanation';
+import EditInstitutionModal from './EditInstitutionModal';
 import { ConfirmContext } from '../../Common/Confirm/ConfirmContext';
 
 export default function InstitutionDetail() {
   const { institutionId } = useParams();
-  const { state } = useLocation();
+  // const { state } = useLocation();
   const { confirm } = useContext(ConfirmContext);
   const navigate = useNavigate();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [name, setName] = useState(''); 
+  const [type, setType] = useState(''); 
+  const [content, setContent] = useState(''); 
   
-  const [itemList, setItemList] = useState([]); // 스터디원
+  const [itemList, setItemList] = useState([]); // 문제집
 
-  useEffect(() => {
-    const fetchWorkbook = async () => {
-      try {
-        const response = await request.get(`/institution/${institutionId}/workbook`);
-  
-        if (response.isSuccess) {
-          console.log("추천 문제집 목록 조회 성공", response);
-          setItemList(response.result.workbookList);
-        } else {
-          console.error("추천 문제집 목록 조회 실패:", response);
-        }
-      } catch (error) {
-        console.error('추천 문제집 목록 조회 오류', error);
+  const fetchWorkbookExplain = async () => {
+    try {
+      const response = await request.get(`/institution/${institutionId}`);
+
+      if (response.isSuccess) {
+        console.log("추천 문제집 분석 조회 성공", response);
+        setName(response.result.name);
+        setType(response.result.type);
+        setContent(response.result.content);
+      } else {
+        console.error("추천 문제집 분석 조회 실패:", response);
       }
-    };
+    } catch (error) {
+      console.error('추천 문제집 분석 조회 오류', error);
+    }
+  };
 
+  const fetchWorkbook = async () => {
+    try {
+      const response = await request.get(`/institution/${institutionId}/workbook`);
+
+      if (response.isSuccess) {
+        console.log("추천 문제집 목록 조회 성공", response);
+        setItemList(response.result.workbookList);
+      } else {
+        console.error("추천 문제집 목록 조회 실패:", response);
+      }
+    } catch (error) {
+      console.error('추천 문제집 목록 조회 오류', error);
+    }
+  };
+  useEffect(() => {
+    fetchWorkbookExplain();
     fetchWorkbook();
   }, [institutionId]);
 
@@ -49,30 +71,68 @@ export default function InstitutionDetail() {
       }
     }
   };
+  
+  const handleAddWokbook = async () => {
+    try {
+      const response = await request.post(`/institution/${institutionId}/workbook`);
+      if (response.isSuccess) {
+        console.log("새 문제집 생성 성공 response:", response);
+        fetchWorkbook();
+      } else {
+        console.error("새 문제집 생성 실패:", response);
+      }
+    } catch (error) {
+      console.error("새 문제집 생성 에러:", error);
+    }
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    // setSelectedWorkbookId(null); 
+  };
+
+  const openModal = () => { 
+    setIsModalOpen(true);
+    // setSelectedWorkbookId(workbookId);
+  };
 
   return (
     <itemS.OuterContainer>
       <itemS.Container>
         <itemS.InnerContainer>
           <itemS.TitleBox>
-            <itemS.Title>{state?.name || '기관 이름 없음'}</itemS.Title>
+            <itemS.Title>{name}</itemS.Title>
             <itemS.DeleteButton onClick={handleDeleteClick}>삭제</itemS.DeleteButton>
           </itemS.TitleBox>
           <itemS.PartBox>
             <itemS.FirstPart>코딩테스트 분석</itemS.FirstPart>
             <itemS.EditButtonBox>
               <itemS.EditIcon src='/img/edit.svg' alt='수정' />
-              <itemS.EditText>수정하기</itemS.EditText>
+              <itemS.EditText onClick={openModal}>수정하기</itemS.EditText>
+              <EditInstitutionModal
+                isModalOpen={isModalOpen}
+                onClose={closeModal}
+                oiginName={name}
+                originType={type}
+                originContent={content}
+                institutionId={institutionId}
+                fetchWorkbook={fetchWorkbook}
+              />
             </itemS.EditButtonBox>
           </itemS.PartBox>
-          <InstitutionDetailExplanation />
+          <InstitutionDetailExplanation
+            content={content}
+          />
           <itemS.PartBox>
             <itemS.SecondPart>추천 문제집</itemS.SecondPart>
             <itemS.AddButtonBox>
-              <itemS.AddIcon src='/img/add.svg' alt='추가' />
+              <itemS.AddIcon src='/img/add.svg' alt='추가' onClick={handleAddWokbook}/>
             </itemS.AddButtonBox>
           </itemS.PartBox>
-          <InstitutionDetailTable itemList={itemList} />
+          <InstitutionDetailTable 
+            itemList={itemList} 
+            fetchWorkbook={fetchWorkbook}
+          />
         </itemS.InnerContainer>
       </itemS.Container>
     </itemS.OuterContainer>

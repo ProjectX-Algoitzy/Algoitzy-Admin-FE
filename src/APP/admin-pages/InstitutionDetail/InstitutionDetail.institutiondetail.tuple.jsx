@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import * as itemS from "./Styled/InstitutionDetail.institutiondetail.tuple.styles";
 import request from "../../Api/request";
 import WorkbookDetail from '../WorkbookDetail/WorkbookDetail.workbookdetail.main';
 
 
-export default function InstitutionDetailTuple({ item, isSelected, onOpen, onClose }) {
+export default function InstitutionDetailTuple({ item, isSelected, onOpen, fetchWorkbook }) {
+  useEffect(() => {
+		console.log('isSelected',isSelected);
+	}, [isSelected]);
 
 
   return (
@@ -15,9 +18,9 @@ export default function InstitutionDetailTuple({ item, isSelected, onOpen, onClo
 				<WorkbookDetail
           workbookId={item.workbookId}
           workbookName={item.name}
-					isOpen={isSelected}
-					onClose={onClose}
-
+					// isOpen={isSelected}
+					// onClose={onClose}
+          fetchWorkbook={fetchWorkbook}
 				/>
 			)}
     </itemS.TupleContainer>

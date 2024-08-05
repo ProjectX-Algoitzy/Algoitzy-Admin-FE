@@ -1,41 +1,54 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react';
 import Select, { components } from 'react-select';
-import * as itemS from "./Styled/MakingInstitutionModal.styles"
+import * as itemS from "./Styled/EditInstitutionModal.styles";
 import QuillAnalyze from './Quilleditor';
 import request from '../../Api/request';
 import { AlertContext } from '../../Common/Alert/AlertContext';
 
-export default function MakingInstitutionModal({ onClose, isModalOpen, fetchInstitutionList }) {
+export default function EditInstitutionModal({ isModalOpen, onClose, originName, originType, originContent, institutionId, fetchWorkbook }) {
   const [name, setName] = useState('');
-  const [selecttype, setSelectType] = useState('');
+  const [selectType, setSelectType] = useState('');
   const [type, setType] = useState('');
   const [content, setContent] = useState('');
   const { alert } = useContext(AlertContext);
+
+  useEffect(() => {
+    if (isModalOpen) {
+      setName(originName);
+      setSelectType(originType);
+      setContent(originContent);
+      if (originType === '기업') {
+        setType('COMPANY');
+      } else if (originType === '부트캠프') {
+        setType('CAMP');
+      }
+    }
+  }, [isModalOpen, originName, originType, originContent]);
 
   const onChangeName = (e) => {
     setName(e.target.value);
   }
 
-  const handleAdd = async () => {
+  const handleEdit = async () => {
     const requestData = {
-      name: name,  
+      name: name,
       type: type,
       content: content,
     };
 
     try {
-      const response = await request.post('/institution', requestData)
+      const response = await request.post(`/institution/${institutionId}`, requestData);
       console.log(response);
 
       if (response.isSuccess) {
-        alert("기업/부트캠프 생성이 완료되었습니다!")
-        .then(() => {
-          onClose();
-          fetchInstitutionList();
-        });
-      } 
+        alert("기업/부트캠프 수정이 완료되었습니다!")
+          .then(() => {
+            onClose();
+            fetchWorkbook();
+          });
+      }
     } catch (error) {
-      console.error('기업/부트캠프 생성에서 에러', error);
+      console.error('기업/부트캠프 수정에서 에러', error);
     }
   };
 
@@ -43,7 +56,7 @@ export default function MakingInstitutionModal({ onClose, isModalOpen, fetchInst
     const CustomDropdownIndicator = props => {
       return (
         <components.DropdownIndicator {...props}>
-          <img src="/img/triangle.png" alt="triangle-icon" style={{ width: "24px", height: "24px", paddingRight:"216px" }} />
+          <img src="/img/triangle.png" alt="triangle-icon" style={{ width: "24px", height: "24px", paddingRight: "216px" }} />
         </components.DropdownIndicator>
       );
     };
@@ -69,10 +82,9 @@ export default function MakingInstitutionModal({ onClose, isModalOpen, fetchInst
     setSelectType(value);
     if (value === '기업') {
       setType('COMPANY');
-    } else if (value === '부트캠프'){
+    } else if (value === '부트캠프') {
       setType('CAMP');
     }
-    
   };
 
   if (!isModalOpen) return null;
@@ -81,7 +93,7 @@ export default function MakingInstitutionModal({ onClose, isModalOpen, fetchInst
     <itemS.Backdrop>
       <itemS.ModalContainer>
         <itemS.TopBox>
-          <itemS.Title>기업/부트캠프 추가</itemS.Title>
+          <itemS.Title>기업/부트캠프 수정</itemS.Title>
           <itemS.Close onClick={onClose}></itemS.Close>
         </itemS.TopBox>
         <itemS.InnerContainer>
@@ -93,16 +105,16 @@ export default function MakingInstitutionModal({ onClose, isModalOpen, fetchInst
 
           <itemS.LittleContainer>
             <itemS.StyledTitle>기관 유형 선택</itemS.StyledTitle>
-            <TypeSelect value={selecttype} onChange={handleTypeChange} />
+            <TypeSelect value={selectType} onChange={handleTypeChange} />
           </itemS.LittleContainer>
 
           <itemS.LittleContainer>
             <itemS.StyledTitle>분석 내용</itemS.StyledTitle>
-            <QuillAnalyze setContent={setContent} />
+            <QuillAnalyze setContent={setContent} initialContent={content} />
           </itemS.LittleContainer>
-        
-          <itemS.Btn onClick={handleAdd}>추가하기</itemS.Btn>
-          
+
+          <itemS.Btn onClick={handleEdit}>수정하기</itemS.Btn>
+
         </itemS.InnerContainer>
 
       </itemS.ModalContainer>

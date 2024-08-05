@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import * as itemS from "./Styled/InstitutionDetail.institutiondetail.table.styles";
 import InstitutionDetailTuple from './InstitutionDetail.institutiondetail.tuple';
 
-export default function InstitutionDetailTable({ itemList }) {
+export default function InstitutionDetailTable({ itemList, fetchWorkbook }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedWorkbookId, setSelectedWorkbookId] = useState(null);
 
-  const closeModal = () => {
-    setIsModalOpen(false);
-    setSelectedWorkbookId(null); //TODO -  - api 연결 후 사용할 것 -> 변수명은 바꾸고
-  };
+  // const closeModal = () => {
+  //   setIsModalOpen(false);
+  //   setSelectedWorkbookId(null); //TODO -  - api 연결 후 사용할 것 -> 변수명은 바꾸고
+  // };
 
   const openModal = (workbookId) => { //TODO -  - api 연결 후 사용할 것 -> 변수명은 바꾸고
     setIsModalOpen(true);
@@ -34,8 +34,9 @@ export default function InstitutionDetailTable({ itemList }) {
               isSelected={selectedWorkbookId === item.workbookId && isModalOpen}  //TODO -  - api 연결 후 사용할 것 -> 변수명은 바꾸고
               // isSelected={isModalOpen}
               onOpen={() => openModal(item.workbookId)} //TODO -  - api 연결 후 사용할 것 -> 변수명은 바꾸고
-              onClose={closeModal}
+              // onClose={closeModal}
               // onOpen={openModal}
+              fetchWorkbook={fetchWorkbook}
             />
           ))}
         </itemS.TupleContainer>

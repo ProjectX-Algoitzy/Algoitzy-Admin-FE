@@ -23,8 +23,8 @@ export default function UpdateModal({ interviewId, onConfirm }) {
 
   const handleConfirm = async () => {
     const schedule = `${year.label}년 ${month.label}월 ${day.label}일`;
-    const requestSchedule= `${year.value}-${month.value}-${day.value}`;
-    onConfirm(schedule);
+    const requestSchedule = `${year.value}-${month.value}-${day.value}`;
+    onConfirm(schedule, requestSchedule);
   };
 
   return (
@@ -57,3 +57,4 @@ export default function UpdateModal({ interviewId, onConfirm }) {
     </itemS.ModalContainer>
   );
 }
+

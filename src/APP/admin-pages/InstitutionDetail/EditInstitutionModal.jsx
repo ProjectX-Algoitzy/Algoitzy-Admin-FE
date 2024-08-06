@@ -5,7 +5,7 @@ import QuillAnalyze from './Quilleditor';
 import request from '../../Api/request';
 import { AlertContext } from '../../Common/Alert/AlertContext';
 
-export default function EditInstitutionModal({ isModalOpen, onClose, originName, originType, originContent, institutionId, fetchWorkbook }) {
+export default function EditInstitutionModal({ isModalOpen, onClose, originName, originType, originContent, institutionId, fetchWorkbook, fetchWorkbookExplain }) {
   const [name, setName] = useState('');
   const [selectType, setSelectType] = useState('');
   const [type, setType] = useState('');
@@ -13,15 +13,20 @@ export default function EditInstitutionModal({ isModalOpen, onClose, originName,
   const { alert } = useContext(AlertContext);
 
   useEffect(() => {
+    console.log(originName,originType,originContent);
     if (isModalOpen) {
       setName(originName);
-      setSelectType(originType);
+      // if (originType === 'COMPANY') {
+      //   setSelectType('기업');
+      // } else if (originType === 'CAMP') {
+      //   setSelectType('부트캠프');
+      // }
       setContent(originContent);
-      if (originType === '기업') {
-        setType('COMPANY');
-      } else if (originType === '부트캠프') {
-        setType('CAMP');
-      }
+      // if (originType === '기업') {
+      //   setType('COMPANY');
+      // } else if (originType === '부트캠프') {
+      //   setType('CAMP');
+      // }
     }
   }, [isModalOpen, originName, originType, originContent]);
 
@@ -37,7 +42,7 @@ export default function EditInstitutionModal({ isModalOpen, onClose, originName,
     };
 
     try {
-      const response = await request.post(`/institution/${institutionId}`, requestData);
+      const response = await request.patch(`/institution/${institutionId}`, requestData);
       console.log(response);
 
       if (response.isSuccess) {
@@ -45,6 +50,7 @@ export default function EditInstitutionModal({ isModalOpen, onClose, originName,
           .then(() => {
             onClose();
             fetchWorkbook();
+            fetchWorkbookExplain();
           });
       }
     } catch (error) {
@@ -100,7 +106,7 @@ export default function EditInstitutionModal({ isModalOpen, onClose, originName,
 
           <itemS.LittleContainer>
             <itemS.StyledTitle>기업/부트캠프 이름</itemS.StyledTitle>
-            <itemS.StyledInput placeholder='이름을 입력해주세요' type='text' value={name} onChange={onChangeName} />
+            <itemS.StyledInput type='text' value={name} onChange={onChangeName} />
           </itemS.LittleContainer>
 
           <itemS.LittleContainer>
@@ -110,7 +116,7 @@ export default function EditInstitutionModal({ isModalOpen, onClose, originName,
 
           <itemS.LittleContainer>
             <itemS.StyledTitle>분석 내용</itemS.StyledTitle>
-            <QuillAnalyze setContent={setContent} initialContent={content} />
+            <QuillAnalyze setContent={setContent} content={content} />
           </itemS.LittleContainer>
 
           <itemS.Btn onClick={handleEdit}>수정하기</itemS.Btn>

@@ -106,17 +106,18 @@ export default function InstitutionDetail() {
           </itemS.TitleBox>
           <itemS.PartBox>
             <itemS.FirstPart>코딩테스트 분석</itemS.FirstPart>
-            <itemS.EditButtonBox>
+            <itemS.EditButtonBox onClick={openModal}>
               <itemS.EditIcon src='/img/edit.svg' alt='수정' />
-              <itemS.EditText onClick={openModal}>수정하기</itemS.EditText>
+              <itemS.EditText>수정하기</itemS.EditText>
               <EditInstitutionModal
                 isModalOpen={isModalOpen}
                 onClose={closeModal}
-                oiginName={name}
+                originName={name}
                 originType={type}
                 originContent={content}
                 institutionId={institutionId}
                 fetchWorkbook={fetchWorkbook}
+                fetchWorkbookExplain={fetchWorkbookExplain}
               />
             </itemS.EditButtonBox>
           </itemS.PartBox>

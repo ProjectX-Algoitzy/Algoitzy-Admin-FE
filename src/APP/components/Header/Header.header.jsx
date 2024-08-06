@@ -87,6 +87,9 @@ export default function Header() {
           <itemS.StyledLink to={isLoggedIn ? "#" : "/login"} onClick={handleNav}>
             <itemS.SubMenuItem>출석부 확인</itemS.SubMenuItem>
           </itemS.StyledLink>
+          <itemS.StyledLink to={isLoggedIn ? "/generation" : "/login"} onClick={handleNav}>
+            <itemS.SubMenuItem>기수 갱신</itemS.SubMenuItem>
+          </itemS.StyledLink>
         </itemS.SubStudyMenu>
       )}
       {activeMenu === 'application' && (

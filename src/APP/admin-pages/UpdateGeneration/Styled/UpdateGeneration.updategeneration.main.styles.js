@@ -69,5 +69,6 @@ export const UdateButton = styled.button`
   border: none;
   border-radius: 4px;
   margin-top: 56px;
+  cursor: pointer;
 `;
 

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import * as itemS from "./Styled/UpdateGeneration.updategeneration.table.styles";
 import UpdateGenerationTuple from './UpdateGeneration.updategeneration.tuple';
 
-export default function UpdateGenerationTable({ dateList }) {
+export default function UpdateGenerationTable({ generationList, onUpdateTuple }) {
    
     
   return (
@@ -16,11 +16,11 @@ export default function UpdateGenerationTable({ dateList }) {
           
         </itemS.CategoryContainer>
         <itemS.TupleContainer>
-          {dateList.map(item => (
+          {generationList.map(item => (
             <UpdateGenerationTuple
               key={item.week}
               item={item}
-                
+              onUpdateTuple={onUpdateTuple}
             />
           ))}
         </itemS.TupleContainer>

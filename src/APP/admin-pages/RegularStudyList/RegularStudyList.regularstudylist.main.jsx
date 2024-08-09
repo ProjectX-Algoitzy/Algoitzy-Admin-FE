@@ -13,11 +13,8 @@ export default function RegularStudyList() {
     const fetchMakedApplicationDetail = async () => {
       try {
         const response = await request.get(`/study`);
-        console.log("response", response);
-        // console.log("studyList", response.result.studyList);
-  
         if (response.isSuccess) {
-          console.log("정규 스터디 조회 성공");
+          console.log("정규 스터디 조회 성공", response);
           setStudyList(response.result.studyList);
         } else {
           console.error("정규 스터디 조회 실패:", response);

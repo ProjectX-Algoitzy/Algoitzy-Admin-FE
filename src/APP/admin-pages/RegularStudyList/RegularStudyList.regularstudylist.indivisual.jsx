@@ -38,7 +38,7 @@ export default function RegularStudyListIndividual({ application }){
 					<itemS.BottomHeadCount>
 						<itemS.PeopleIcon></itemS.PeopleIcon>		
 						<itemS.BottomInner>
-							<itemS.HeadCount>1</itemS.HeadCount>
+							<itemS.HeadCount>{application.memberCount}</itemS.HeadCount>
 							<itemS.CountText>명</itemS.CountText>
 						</itemS.BottomInner>
 					</itemS.BottomHeadCount>

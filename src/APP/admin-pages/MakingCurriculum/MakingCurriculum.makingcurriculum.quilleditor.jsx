@@ -5,6 +5,8 @@ import 'react-quill/dist/quill.snow.css';
 import { ImageActions } from '@xeger/quill-image-actions';
 import { ImageFormats } from '@xeger/quill-image-formats';
 import request from '../../Api/request';
+import hljs from 'highlight.js';
+import 'highlight.js/styles/atom-one-dark.css';
 
 Quill.register('modules/imageActions', ImageActions);
 Quill.register('modules/imageFormats', ImageFormats);
@@ -16,6 +18,7 @@ const formats = [
     'underline',
     'strike',
     'blockquote',
+    'code-block',
     'list',
     'bullet',
     'indent',
@@ -102,7 +105,7 @@ export default function QuillPractice({ setContent, content }) {
       toolbar: {
         container: [
           [{ header: [1, 2, 3, 4, 5, false] }],
-          ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+          ['bold', 'italic', 'underline', 'strike', 'blockquote', 'code-block'],
           [{ list: 'ordered' }, { list: 'bullet' }, { indent: '-1' }, { indent: '+1' }],
           ['link', 'image', 'video'],
           [{ align: [] }, { color: [] }, { background: [] }],
@@ -129,7 +132,10 @@ export default function QuillPractice({ setContent, content }) {
           modules: ['Resize']
         },
         customLinkHandler: true
-      }
+      },
+      syntax: {
+        highlight: (text) => hljs.highlightAuto(text).value,
+     },
     }),
     []
   );

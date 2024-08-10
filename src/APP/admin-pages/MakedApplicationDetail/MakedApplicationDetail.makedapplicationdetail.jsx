@@ -67,7 +67,7 @@ export default function MakedApplicationDetail() {
                 console.log("response", response);
                 setLoading(false);
                 if (response["isSuccess"]) {
-                    console.log("제작된 지원서 조회 성공");
+                    console.log("제작된 지원서 조회 성공: ", response);
                     const transformedQuestions = transformReceivedQuestions(response.result.selectQuestionList.concat(response.result.textQuestionList));
                     setIsConfirm(response.result.confirmYN);
                     setTitle(response.result.title);
@@ -216,6 +216,8 @@ export default function MakedApplicationDetail() {
     };
 
     const TypeSelection = ({ index, sequenceByIndex }) => {
+        const isDisabled = questions[index]?.selectQuestion === "가능한 면접 일자를 선택해주세요.";
+
         const handleTypeSelection = (selectedOption) => {
             const selectedType = selectedOption.value;
             const updatedQuestions = [...questions];
@@ -393,10 +395,12 @@ export default function MakedApplicationDetail() {
                 <items.TypeSelectContainer
                     options={options}
                     value={options.find(option => option.value === questions[index]?.type)}
-                    onChange={handleTypeSelection}
+                    // onChange={handleTypeSelection}
+                    onChange={isDisabled ? null : handleTypeSelection} // 비활성화된 경우 변경 함수 비활성화
                     components={{ Option: CustomOption, ValueContainer: CustomValueContainer, DropdownIndicator: CustomDropdownIndicator, IndicatorSeparator: null }}
                     innerContainerClicked={innerContainerClicked[index]} 
                     isSearchable={false} // 직접 입력 비활성화
+                    isDisabled={isDisabled} // 조건에 따라 비활성화
                 />
             </items.ContainerForTypeSelectContainer>
         );
@@ -488,14 +492,25 @@ export default function MakedApplicationDetail() {
             updateTextQuestionList: createTextQuestionRequestList,
             updateSelectQuestionList: createSelectQuestionRequestList
         };
+
+        // createSelectQuestionRequestList에서 updateFieldRequestList가 비어 있는지 확인
+        if (distribution) {
+            for (let item of createSelectQuestionRequestList) {
+                if (item.updateFieldRequestList.length === 0) {
+                    alert(`모든 객관식 질문의 보기를 입력해 주세요.`);
+                    return; 
+                }
+            }
+        }
     
         try {
             const response = await request.patch(`/application/${id}`, requestData);
             console.log("response", response);
             if (response["isSuccess"]) {
-                console.log("지원서 " + (distribution ? "저장" : "임시저장") + " 성공"); // 저장 또는 임시저장 메시지 출력
-                // navigate("/application");
-                navigate(`/regularstudy/${studyId}`);
+                const message = await alert("지원서를 " + (distribution ? "저장" : "임시저장") + " 하였습니다");
+                if(message) {
+                    navigate(`/regularstudy/${studyId}`);
+                }
             } else {
                 console.error("지원서 " + (distribution ? "저장" : "임시저장") + " 실패:", response); // 저장 또는 임시저장 실패 메시지 출력
                 alert("지원서 " + (distribution ? "저장" : "임시저장") + " 실패하였습니다");
@@ -521,10 +536,7 @@ export default function MakedApplicationDetail() {
         if (isConfirm) {
             alert('이 지원서는 이미 배포되었습니다. 수정할 수 없습니다.');
         } else {
-            const message = await alert('지원서 임시저장이 완료되었습니다.');
-            if(message) {
-                await makeApplicationForm(false);
-            }
+            await makeApplicationForm(false);
         }
     };
 
@@ -628,7 +640,7 @@ export default function MakedApplicationDetail() {
                             <items.RequiredText>필수&nbsp;설정</items.RequiredText>
                             <RoundedSwitch onChange={(value) => onChangeIsRequired(index, value)} checked={question.isRequired} />
                         </items.RequiredContainer>
-                        <img onClick={() => removeQuestion(index)} src="/img/trashcan.png" alt="쓰레기통" style={{width:"24px", height:"24px"}} />
+                        <img onClick={() => removeQuestion(index)} src="/img/trashcan.png" alt="쓰레기통" style={{width:"24px", height:"24px", cursor:"pointer"}} />
                     </items.RequiredAndDeleteContainer> 
                 </items.ContentContainer>
             </items.SecondInnerContainer>

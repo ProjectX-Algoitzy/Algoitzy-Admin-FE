@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom" 
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom" 
 import Home from "./APP/sharing-pages/Home"
 import Login from "./APP/admin-pages/Auth/Auth.login"
 import Header from "./APP/components/Header/Header.header"
@@ -46,6 +46,10 @@ function App() {
     }
   }, 30000);
 
+  const isLoggedIn = () => {  //로그인 확인 유무를 토큰으로 확인하고자 했습니다. 
+    return !!localStorage.getItem(ACCESS_TOKEN);
+  };
+
   return (
     <Root>
       <BrowserRouter>
@@ -53,29 +57,30 @@ function App() {
         <Header />
         <Routes>
         <Route path="/" element={<Login />} /> 
-          <Route path="/home" element={<Home />} /> 
+          <Route path="*" element={<Navigate to="/" />} /> {/* 모든 다른 경로는 홈으로 리다이렉트 */}
+          {/* <Route path="/home" element={<Home />} />  */}
           <Route path="/login" element={<Login />} />
-          <Route path="/findemail" element={<FindEmail />} />
-          <Route path="/findemailsuccess" element={<FindEmailSuccess />} />
-          <Route path="/findpassword" element={<FindPassword />} />
-          <Route path="/application" element={<MakedApplicationList />} />
-          <Route path="/newapplication/:id" element={<MakedApplicationDetail />} />
+          <Route path="/findemail" element={isLoggedIn() ? <FindEmail /> : <Navigate to="/login" />} />
+          <Route path="/findemailsuccess" element={isLoggedIn() ? <FindEmailSuccess />: <Navigate to="/login" />} />
+          <Route path="/findpassword" element={isLoggedIn() ? <FindPassword /> : <Navigate to="/login" />} />
+          <Route path="/application" element={isLoggedIn() ? <MakedApplicationList /> : <Navigate to="/login" />} />
+          <Route path="/newapplication/:id" element={isLoggedIn() ? <MakedApplicationDetail />: <Navigate to="/login" />} />
           {/* <Route path="/makingapplicationform" element={<MakingApplicationForm />} /> */}
-          <Route path="/answer" element={<ViewApplicationList />} />
-          <Route path="/answer/:id" element={<ViewApplicationDetail />} />
-          <Route path="/makedselfstudylist" element={<MakedSelfStudyList />} />
-          <Route path="/regularstudy/:id" element={<RegularStudy />} />
-          <Route path="/quillpractice" element={<QuillPractice />} />
-          <Route path="/makingregularstudyinfo" element={<MakingRegularStudyStudyinfo />} />
-          <Route path="/editingregularstudyinfo/:id" element={<MakingRegularStudyEditStudyInfo />} />
-          <Route path="/curriculumcheck/:curriculumId" element={<CurriculumCheck />} />
-          <Route path="/makingcurriculumhome" element={<MakingCurriculumHome />} />
-          <Route path="/makingcurriculum/:studyId" element={<MakingCurriculum />} />
-          <Route path="/regularstudylist" element={<RegularStudyList />} /> {/* 정규 스터디 목록 */}
-          <Route path="/enterbootlist" element={<EnterBootList />} /> {/* 기업/부트캠프 */}
-          <Route path="/generation" element={<UpdateGeneration />} /> {/* 기수 갱신 */}
-          <Route path="/manageauth" element={<ManageAuth />} /> {/* 권한 관리 */}
-          <Route path="/institutiondetail/:institutionId" element={<InstitutionDetail />} /> {/* 기업/부트캠프 상세조회 */}
+          <Route path="/answer" element={isLoggedIn() ? <ViewApplicationList /> : <Navigate to="/login" />} />
+          <Route path="/answer/:id" element={isLoggedIn() ? <ViewApplicationDetail /> : <Navigate to="/login" />} />
+          <Route path="/makedselfstudylist" element={isLoggedIn() ? <MakedSelfStudyList /> : <Navigate to="/login" />} />
+          <Route path="/regularstudy/:id" element={isLoggedIn() ? <RegularStudy /> : <Navigate to="/login" />} />
+          {/* <Route path="/quillpractice" element={<QuillPractice />} /> */}
+          <Route path="/makingregularstudyinfo" element={isLoggedIn() ? <MakingRegularStudyStudyinfo /> : <Navigate to="/login" />} />
+          <Route path="/editingregularstudyinfo/:id" element={isLoggedIn() ? <MakingRegularStudyEditStudyInfo /> : <Navigate to="/login" />} />
+          <Route path="/curriculumcheck/:curriculumId" element={isLoggedIn() ?  <CurriculumCheck /> : <Navigate to="/login" />} />
+          <Route path="/makingcurriculumhome" element={isLoggedIn() ? <MakingCurriculumHome /> : <Navigate to="/login" />} />
+          <Route path="/makingcurriculum/:studyId" element={isLoggedIn() ? <MakingCurriculum /> : <Navigate to="/login" />} />
+          <Route path="/regularstudylist" element={isLoggedIn() ?  <RegularStudyList /> : <Navigate to="/login" />} /> {/* 정규 스터디 목록 */}
+          <Route path="/enterbootlist" element={isLoggedIn() ? <EnterBootList /> : <Navigate to="/login" />} /> {/* 기업/부트캠프 */}
+          <Route path="/generation" element={isLoggedIn() ? <UpdateGeneration /> : <Navigate to="/login" />} /> {/* 기수 갱신 */}
+          <Route path="/manageauth" element={isLoggedIn() ? <ManageAuth /> : <Navigate to="/login" />} /> {/* 권한 관리 */}
+          <Route path="/institutiondetail/:institutionId" element={isLoggedIn() ? <InstitutionDetail /> : <Navigate to="/login" />} /> {/* 기업/부트캠프 상세조회 */}
         </Routes>
         {/* <Footer /> */} {/* figma에 보니 admin은 푸터가 없었기에 일단 임시로 주석처리를 했다 */}
       </BrowserRouter>

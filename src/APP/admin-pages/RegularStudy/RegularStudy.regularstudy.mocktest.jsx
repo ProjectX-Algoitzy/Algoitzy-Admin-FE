@@ -109,21 +109,47 @@ export default function RegularStudyMocktest() {
   };
   const handleCloseModal = () => setIsModalOpen(false);
 
-  const handleAddQuestion = (id, title, levelImg) => {
-    setWeekData(prevData => {
-      const updatedWeekData = { ...prevData };
-      const newQuestion = {
-        id,
-        title,
-        levelImg,
-        cancelImg: '/img/GrayX.png',
-        baekjoonUrl: `https://www.acmicpc.net/problem/${id}`,
-        workbookId: workbookId // 현재 선택된 workbookId를 추가합니다
-      };
-      updatedWeekData[week] = [...(updatedWeekData[week] || []), newQuestion];
-      return updatedWeekData;
-    });
+  // const handleAddQuestion = (id, title, levelImg) => {
+  //   setWeekData(prevData => {
+  //     const updatedWeekData = { ...prevData };
+  //     const newQuestion = {
+  //       id,
+  //       title,
+  //       levelImg,
+  //       cancelImg: '/img/GrayX.png',
+  //       baekjoonUrl: `https://www.acmicpc.net/problem/${id}`,
+  //       workbookId: workbookId // 현재 선택된 workbookId를 추가합니다
+  //     };
+  //     updatedWeekData[week] = [...(updatedWeekData[week] || []), newQuestion];
+  //     return updatedWeekData;
+  //   });
+  // };
+
+  const handleAddQuestion = async (id, title, levelImg) => {
+    try {
+      // 문제 추가 후
+      setWeekData(prevData => {
+        const updatedWeekData = { ...prevData };
+        const newQuestion = {
+          id,
+          title,
+          levelImg,
+          cancelImg: '/img/GrayX.png',
+          baekjoonUrl: `https://www.acmicpc.net/problem/${id}`,
+          workbookId: workbookId // 현재 선택된 workbookId를 추가합니다
+        };
+        updatedWeekData[week] = [...(updatedWeekData[week] || []), newQuestion];
+        return updatedWeekData;
+      });
+  
+      // 데이터를 다시 fetch 하여 갱신
+      await fetchQuestions();
+  
+    } catch (error) {
+      console.error('문제 추가 후 데이터 갱신 실패: ', error);
+    }
   };
+  
 
   const hasWeekData = weekData[week] && weekData[week].length > 0;
 
@@ -146,7 +172,7 @@ export default function RegularStudyMocktest() {
                 <itemS.TableRow key={index}>
                   <itemS.TableCell>{row.id}</itemS.TableCell>
                   <itemS.TableCell>
-                    <a href={row.baekjoonUrl} target="_blank" rel="noopener noreferrer">{row.title}</a>
+                    <a href={row.baekjoonUrl} style={{ textDecoration: 'none'}} target="_blank" rel="noopener noreferrer">{row.title}</a>
                   </itemS.TableCell>
                   <itemS.TableCell>
                     <img src={row.levelImg} alt="level" style={{ width: "19.5px", height: "25px"}} />

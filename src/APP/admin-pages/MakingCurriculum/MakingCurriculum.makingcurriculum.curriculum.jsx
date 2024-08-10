@@ -46,8 +46,8 @@ export default function MakingCurriculum() {
             console.log(response);
 
             if (response["isSuccess"]) {
-                alert("커리큘럼 제작이 완료되었습니다!");
-                navigate(`/regularstudy/${studyId}`);
+                navigate(`/regularstudy/${studyId}?activeComponent=curriculum`);
+                window.history.replaceState({}, '', `/regularstudy/${studyId}`);  //이 코드를 통해 ?activeComponent=curriculum에 해당하는 부분을 주소창에서 숨긴다
             } 
         } catch (error) {
             console.error('커리큘럼 저장과정에서 에러', error);

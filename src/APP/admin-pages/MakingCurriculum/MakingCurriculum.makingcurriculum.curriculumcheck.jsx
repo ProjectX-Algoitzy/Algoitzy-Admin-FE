@@ -90,7 +90,6 @@ export default function CurriculumCheck() {
           week,
           content,
         });
-        alert("커리큘럼 수정이 완료되었습니다!");
         setIsEditing(false);
       }
     } catch (error) {

@@ -4,13 +4,16 @@ import QuillPractice from '../MakingCurriculum/MakingCurriculum.makingcurriculum
 import request from '../../Api/request';
 import { useDropzone } from 'react-dropzone';
 import { useNavigate, useParams } from 'react-router-dom';
+import { AlertContext } from '../../Common/Alert/AlertContext';
+import { useContext } from 'react';
 
 export default function MakingRegularStudyEditStudyInfo() {
-    const { id } = useParams();
+    const { id } = useParams();  //해당 스터디의 id를 파라미터로 가져온다
     const [name, setName] = useState('');
     const [content, setContent] = useState('');
     const [imageUrl, setImageUrl] = useState(null);
     const [loading, setLoading] = useState(true);
+    const { alert } = useContext(AlertContext);
     const navigate = useNavigate();
 
     const fetchData = async () => {
@@ -20,6 +23,9 @@ export default function MakingRegularStudyEditStudyInfo() {
                 request.get(`study/${id}/info`),
                 request.get(`study/${id}/home`)
             ]);
+
+            console.log("infoResponse: ", infoResponse);
+            console.log("homeResponse: ", homeResponse);
 
             // 받은 데이터로 상태 업데이트
             setName(infoResponse.result.studyName);
@@ -37,6 +43,10 @@ export default function MakingRegularStudyEditStudyInfo() {
     }, [id]);
 
     const onChangeName = (e) => {
+        if(name === "코딩테스트 기초반" || name === "코딩테스트 대비반") {
+            alert("해당 정규스터디의 이름은 변경할 수 없습니다");
+            return;
+        }
         setName(e.target.value);
     };
 
@@ -94,8 +104,7 @@ export default function MakingRegularStudyEditStudyInfo() {
         try {
             const response = await request.patch(`/study/${id}`, requestData);
             if (response.isSuccess) {
-                alert('정규스터디 수정 완료');
-                navigate('/regularstudylist');
+                navigate(`/regularstudy/${id}`);
             }
         } catch (error) {
             console.error('정규스터디 수정 중 오류:', error);

@@ -5,7 +5,6 @@ import request from '../../Api/request';
 import { useDropzone } from 'react-dropzone';
 import { useNavigate } from 'react-router-dom';
 import { AlertContext } from '../../Common/Alert/AlertContext';
-import { ConfirmContext } from '../../Common/Confirm/ConfirmContext';
 
 export default function MakingRegularStudyStudyinfo() {
     const navigate = useNavigate();
@@ -75,11 +74,14 @@ export default function MakingRegularStudyStudyinfo() {
             console.log(response);
 
             if (response["isSuccess"]) {
-                alert("정규스터디 생성 완료");
                 navigate("/regularstudylist");
             } 
         } catch (error) {
             console.error('정규스터디 저장과정에서 에러', error);
+            if(error.response.data.code === "NOTICE") {
+                alert(error.response.data.message);
+                return;
+            }
         }
     };
 

@@ -538,6 +538,7 @@ export const ximg = styled.img` /*객관식에서 보기문항 하나하나를 �
         right: 0;
         top: 50%;
         transform: translateY(-50%);
+        cursor: pointer;
     `: css`
         display: none;
   `} 

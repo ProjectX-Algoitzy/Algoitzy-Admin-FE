@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import * as itemS from "../../admin-pages/RegularStudy/Styled/RegularStudy.regularstudy.main.styles";
+import { useSearchParams } from 'react-router-dom';
 import RegularStudySideBar from "./RegularStudy.regularstudy.sidebar";
 import RegularStudyHome from "./RegularStudy.regularstudy.home"
 import RegularStudyAttendance from "./RegularStudy.regularstudy.attendance"
@@ -8,6 +9,15 @@ import RegularStudyMocktest from './RegularStudy.regularstudy.mocktest';
 
 export default function RegularStudyMain() {
   const [activeComponent, setActiveComponent] = useState('home');
+  const [searchParams] = useSearchParams();
+
+  useEffect(() => {
+    const activeComponentParam = searchParams.get('activeComponent');
+    if (activeComponentParam) {
+      setActiveComponent(activeComponentParam);
+    }
+  }, [searchParams]);
+
   const renderComponent = () => {
     switch (activeComponent) {
       case 'home': 

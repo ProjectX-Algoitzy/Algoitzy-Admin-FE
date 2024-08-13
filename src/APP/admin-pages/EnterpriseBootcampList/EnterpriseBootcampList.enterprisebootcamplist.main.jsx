@@ -50,7 +50,7 @@ export default function EnterBootList() {
 
   useEffect(() => {
     fetchInstitutionList();
-  },[ type, sortType, currentPage, searchKeyword])
+  },[ selectedTab, type, sortType, currentPage, searchKeyword])
 
   const handleSearchChange = (e) => {
     setSearchKeyword(e.target.value);

@@ -60,7 +60,7 @@ export default function FindPassword() {
       code: emailCode
     };
     try {
-      const response = await axios.post('https://admin-dev.kau-koala.com/sign-up/email', requestData);
+      const response = await axios.post('https://user-dev.kau-koala.com/sign-up/email', requestData);
       console.log("response",response.data);
       if (response.data["isSuccess"]) {
         alert("임시 비밀번호를 회원님의 이메일로 발송 하였습니다.");
@@ -93,7 +93,7 @@ export default function FindPassword() {
       emailList: [email],
     };
     try {
-      const response = await axios.post('https://admin-dev.kau-koala.com/email', requestData);
+      const response = await axios.post('https://user-dev.kau-koala.com/email', requestData);
       console.log("response",response.data);
       if (response.data["isSuccess"]) {
         console.log("이메일 인증 코드 전송 성공!");
@@ -124,7 +124,7 @@ export default function FindPassword() {
     // };
     // console.log("requestData",requestData);
     // try {
-    //   const response = await axios.get('https://admin-dev.kau-koala.com/member/find-email', {
+    //   const response = await axios.get('https://user-dev.kau-koala.com/member/find-email', {
     //     params: requestData,
     //   });
     //   console.log("response",response.data);

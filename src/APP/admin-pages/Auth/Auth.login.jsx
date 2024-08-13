@@ -55,7 +55,7 @@ export default function Login() {
     } catch (error) {
       console.error("로그인 오류:", error);
       setIsAlertOpen(true);
-      const errorMessage = error.response?.data?.result?.message || error.response?.data?.result?.email || error.response?.data?.result || error.response?.data?.message || "로그인 오류 발생"; // 객체를 문자열로 변환하거나 기본 메시지 사용
+      const errorMessage = error.response?.data?.result?.message || error.response?.data?.result?.email || error.response?.data?.result?.password || error.response?.data?.result || error.response?.data?.message || "로그인 오류 발생"; // 객체를 문자열로 변환하거나 기본 메시지 사용
       alert(String(errorMessage))  // 문자열로 변환 보장
       .then(() => {
         setIsAlertOpen(false);

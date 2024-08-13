@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import * as itemS from "./Styled/WorkbookDetail.workbookdetail.bottomtuple.styles";
 import request from '../../Api/request';
+import { AlertContext } from '../../Common/Alert/AlertContext';
 
 export default function BottomTuple({ item, fetchItemList, workbookId }) {
+
+  const { alert } = useContext(AlertContext);
 
   const handleRedirect = () => {
     window.location.href = item.baekjoonUrl;
@@ -23,7 +26,7 @@ export default function BottomTuple({ item, fetchItemList, workbookId }) {
       }
       
     } catch (error) {
-      console.error('문제집 문제 추가 에러:', error);
+      alert(error.response.data.message || "문제집 문제 추가 에러");
     }
   };
 

@@ -54,13 +54,12 @@ export const TupleContainer = styled.div`
   display: flex;
   flex-direction: column;
   height: 235px;
-  margin-top: 20px;
-  // overflow: auto;
+  overflow: auto;
 
-  // &::-webkit-scrollbar {
-  //   width: 0px; /* Chrome, Safari, Opera용 */
-  // }
-  // scrollbar-width: none; /* Firefox용 */
+  &::-webkit-scrollbar {
+    width: 0px; /* Chrome, Safari, Opera용 */
+  }
+  scrollbar-width: none; /* Firefox용 */
 `;
 
 

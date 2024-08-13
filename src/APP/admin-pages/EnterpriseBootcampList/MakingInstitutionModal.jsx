@@ -32,10 +32,14 @@ export default function MakingInstitutionModal({ onClose, isModalOpen, fetchInst
         .then(() => {
           onClose();
           fetchInstitutionList();
+          setName('');
+          setSelectType('');
+          setType('');
         });
       } 
     } catch (error) {
       console.error('기업/부트캠프 생성에서 에러', error);
+      alert(error.response.data.message || "이름/유형 입력칸을 채워주세요.");
     }
   };
 

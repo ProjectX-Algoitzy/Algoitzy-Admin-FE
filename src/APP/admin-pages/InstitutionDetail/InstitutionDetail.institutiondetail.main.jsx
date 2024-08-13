@@ -24,15 +24,15 @@ export default function InstitutionDetail() {
       const response = await request.get(`/institution/${institutionId}`);
 
       if (response.isSuccess) {
-        console.log("추천 문제집 분석 조회 성공", response);
+        console.log("기관 분석 조회 성공", response);
         setName(response.result.name);
         setType(response.result.type);
         setContent(response.result.content);
       } else {
-        console.error("추천 문제집 분석 조회 실패:", response);
+        console.error("기관 분석 조회 실패:", response);
       }
     } catch (error) {
-      console.error('추천 문제집 분석 조회 오류', error);
+      console.error('기관 분석 조회 오류', error);
     }
   };
 

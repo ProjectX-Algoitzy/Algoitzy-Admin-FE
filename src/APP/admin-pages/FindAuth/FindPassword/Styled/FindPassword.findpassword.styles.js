@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import * as tokens from "../../../../../tokens"
 
 
+
 export const Container = styled.div`
   display: flex;
   justify-content: center; 
@@ -123,6 +124,7 @@ export const CodeMessage = styled.div`
 
 // 에러 메시지
 export const ErrorMessage = styled.div`
+	width: 592px;
 	color: ${tokens.colors.Red};
 	${tokens.typography.B3_M_14}
 	margin-bottom: 14px;
@@ -130,5 +132,6 @@ export const ErrorMessage = styled.div`
 
 // 백준 계정 인증 확인 메시지
 export const Message = styled.div`
+	width: 592px;
 	${tokens.typography.B3_M_14}
 `;

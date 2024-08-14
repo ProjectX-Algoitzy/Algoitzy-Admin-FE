@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Select, { components } from 'react-select';
 import * as itemS from "./Styled/EditInstitutionModal.styles";
-import QuillAnalyze from './Quilleditor';
+import QuillPractice from '../MakingCurriculum/MakingCurriculum.makingcurriculum.quilleditor';
 import request from '../../Api/request';
 import { AlertContext } from '../../Common/Alert/AlertContext';
 
@@ -116,7 +116,7 @@ export default function EditInstitutionModal({ isModalOpen, onClose, originName,
 
           <itemS.LittleContainer>
             <itemS.StyledTitle>분석 내용</itemS.StyledTitle>
-            <QuillAnalyze setContent={setContent} content={content} />
+            <QuillPractice setContent={setContent} content={content} />
           </itemS.LittleContainer>
 
           <itemS.Btn onClick={handleEdit}>수정하기</itemS.Btn>

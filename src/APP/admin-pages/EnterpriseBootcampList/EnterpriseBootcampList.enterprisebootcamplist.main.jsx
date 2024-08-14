@@ -14,7 +14,7 @@ export default function EnterBootList() {
   // api 요청 파라미터
   const [searchKeyword, setSearchKeyword] = useState('');
   const [type, setType] = useState('COMPANY');
-  const [sortType, setSortType] = useState('VIEW_COUNT');
+  const [sortType, setSortType] = useState('');
 
   const [isSortDropVisible, setIsSortDropVisible] = useState(false); // 정렬 드롭박스 열기/닫기
 
@@ -82,7 +82,7 @@ export default function EnterBootList() {
     } else if (tab === '부트캠프') {
       setType('CAMP');
     }
-    setCurrentPage(1); // 페이지
+    setCurrentPage(0); // 페이지
   };
 
   const toggleSortDrop = () => {

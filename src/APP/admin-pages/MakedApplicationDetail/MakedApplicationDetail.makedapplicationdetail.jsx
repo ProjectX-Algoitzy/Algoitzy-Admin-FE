@@ -353,7 +353,7 @@ export default function MakedApplicationDetail() {
             }
             return (
                 <components.ValueContainer {...props} className="custom-option">
-                    {iconSrc && <img src={iconSrc} alt={selectedOption.value} className="custom-option-icon" style={{width:"20px", height:"20px"}} />}
+                    {iconSrc && <img src={iconSrc} alt={selectedOption.value} className="custom-option-icon" style={{width:"0.833rem", height:"0.833rem"}} />}
                     {children}
                 </components.ValueContainer>
             );
@@ -376,7 +376,7 @@ export default function MakedApplicationDetail() {
             }
             return (
                 <components.Option {...props} className="custom-option">
-                    {iconSrc && <img src={iconSrc} alt={props.value} className="custom-option-icon" style={{width:"20px", height:"20px"}} />}
+                    {iconSrc && <img src={iconSrc} alt={props.value} className="custom-option-icon" style={{width:"0.833rem", height:"0.833rem"}} />}
                     <span className="custom-option-label">{props.label}</span>
                 </components.Option>
             );
@@ -385,7 +385,7 @@ export default function MakedApplicationDetail() {
         const CustomDropdownIndicator = props => {
             return (
                 <components.DropdownIndicator {...props}>
-                    <img src="/img/icontriangle.png" alt="triangle-icon" style={{width: "24px", height: "24px"}} />
+                    <img src="/img/icontriangle.png" alt="triangle-icon" style={{width: "1rem", height: "1rem"}} />
                 </components.DropdownIndicator>
             );
         };
@@ -611,9 +611,9 @@ export default function MakedApplicationDetail() {
                                 {question.stringFields.map((value, fieldIndex) => (
                                     <items.OptionsContainer key={fieldIndex}>
                                         {question.type === '객관식-단일' ? (
-                                            <img src="/img/iconcircle.png" alt="단일응답" style={{width:"20px", height:"20px"}}  />
+                                            <img src="/img/iconcircle.png" alt="단일응답" style={{width:"0.833rem", height:"0.833rem"}}  />
                                         ) : question.type === '객관식-복수' ? (
-                                            <img src="/img/iconsquare.png" alt="복수응답" style={{width:"20px", height:"20px"}} />
+                                            <img src="/img/iconsquare.png" alt="복수응답" style={{width:"0.833rem", height:"0.833rem"}} />
                                         ) : null}
                                         <items.ChoiceForSelectQuestionContainer placeholder='옵션' type='text' value={value} onChange={(e) => onChangeStringField(index, fieldIndex, e)} onBlur={() => onBlurStringField(index, fieldIndex)} />
                                         <items.ximg innerContainerClicked={innerContainerClicked[index]} onClick={() => removeStringField(index, fieldIndex)} src="/img/iconx.png" alt="x표시" />
@@ -621,9 +621,9 @@ export default function MakedApplicationDetail() {
                                 ))}
                                 <items.AddOptionContainer innerContainerClicked={innerContainerClicked[index]}>
                                     {question.type === '객관식-단일' ? (
-                                        <img src="/img/iconcircle.png" alt="단일응답" style={{ width: "20px", height: "20px"}} />
+                                        <img src="/img/iconcircle.png" alt="단일응답" style={{ width: "0.833rem", height: "0.833rem"}} />
                                     ) : question.type === '객관식-복수' ? (
-                                        <img src="/img/iconsquare.png" alt="복수응답" style={{ width: "20px", height: "20px"}} />
+                                        <img src="/img/iconsquare.png" alt="복수응답" style={{ width: "0.833rem", height: "0.833rem"}} />
                                     ) : null}
                                     <items.AddOptionParagraphContainer onClick={() => addStringField(index)}>
                                         <items.paragraph1>옵션 추가</items.paragraph1>
@@ -640,12 +640,12 @@ export default function MakedApplicationDetail() {
                             <items.RequiredText>필수&nbsp;설정</items.RequiredText>
                             <RoundedSwitch onChange={(value) => onChangeIsRequired(index, value)} checked={question.isRequired} />
                         </items.RequiredContainer>
-                        <img onClick={() => removeQuestion(index)} src="/img/trashcan.png" alt="쓰레기통" style={{width:"24px", height:"24px", cursor:"pointer"}} />
+                        <img onClick={() => removeQuestion(index)} src="/img/trashcan.png" alt="쓰레기통" style={{width:"1rem", height:"1rem", cursor:"pointer"}} />
                     </items.RequiredAndDeleteContainer> 
                 </items.ContentContainer>
             </items.SecondInnerContainer>
             ))}
-            <img src="/img/makingapplicationbtn.png" alt="문항추가하기" onClick={addQuestion} style={{ marginTop:"40px", width: "189px", height:"63px", marginBottom:"100px", marginLeft:"866px"}} />
+            <img src="/img/makingapplicationbtn.png" alt="문항추가하기" onClick={addQuestion} style={{ marginTop:"1.667rem", width: "7.875rem", height:"2.625rem", marginBottom:"4.167rem", marginLeft:"36.083rem"}} />
             
             <items.BtnContainer>
                 <items.BtnContainer2>

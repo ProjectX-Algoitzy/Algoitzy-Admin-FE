@@ -102,6 +102,7 @@ export default function EnterBootList() {
   const closeModal = () => {
     setIsModalOpen(false);
     // setSelectedWorkbookId(null); 
+    console.log('isModalOpen',isModalOpen);
   };
 
   const openModal = () => { 

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import request from '../../Api/request';
 import * as itemS from "./Styled/UpdateGeneration.updategeneration.main.styles";
 import UpdateGenerationTable from './UpdateGeneration.updategeneration.table';
-import { dummydata } from './dummy';
+// import { dummydata } from './dummy';
 import { ConfirmContext } from '../../Common/Confirm/ConfirmContext';
 
 export default function UpdateGeneration() {
@@ -13,7 +13,7 @@ export default function UpdateGeneration() {
 
 	const fetchInstitutionList = async () => { // 기관 목록 조회
 		try {
-			const response = await request.get('/generation');
+			const response = await request.get('/generation/current');
 			if (response.isSuccess) {
 				console.log("기수 조회 성공",response);
 				setGenerationList(response.result.weekList);

@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
-import { useRecoilState } from 'recoil';
-import { IsOpenModal } from '../Recoil/Recoil.state';
+// import { useRecoilState } from 'recoil';
+// import { IsOpenModal } from '../Recoil/Recoil.state';
 import * as itemS from "./Styled/InstitutionDetail.institutiondetail.table.styles";
 import InstitutionDetailTuple from './InstitutionDetail.institutiondetail.tuple';
 
 export default function InstitutionDetailTable({ itemList, fetchWorkbook }) {
-  const [isModalOpen, setIsModalOpen] = useRecoilState(IsOpenModal);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedWorkbookId, setSelectedWorkbookId] = useState(null);
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedWorkbookId(null);
+  };
 
   const openModal = (workbookId) => {
     setIsModalOpen(true);
@@ -27,6 +32,7 @@ export default function InstitutionDetailTable({ itemList, fetchWorkbook }) {
               item={item}
               isSelected={selectedWorkbookId === item.workbookId && isModalOpen}
               onOpen={() => openModal(item.workbookId)}
+              onClose={closeModal}
               fetchWorkbook={fetchWorkbook}
             />
           ))}

@@ -91,7 +91,7 @@ export default function RegularStudyAddQuestionModal({ week, onClose, onAddQuest
             <itemS.ModalContent>
                 <itemS.ModalHeader>
                     <itemS.ModalTitle>{week}주차 모의테스트 문제 추가</itemS.ModalTitle>
-                    <img src="/img/close.png" onClick={onClose} style={{ marginTop: "16px", marginRight: "24px", cursor: "pointer" }} alt="x" />
+                    <img src="/img/close.png" onClick={onClose} style={{ marginTop: "0.667rem", marginRight: "1rem", cursor: "pointer" }} alt="x" />
                 </itemS.ModalHeader>
                 <itemS.SearchContainer>
                     <itemS.Search
@@ -117,12 +117,12 @@ export default function RegularStudyAddQuestionModal({ week, onClose, onAddQuest
                                             {question.title}
                                         </a>
                                     </itemS.TableCell>
-                                    <itemS.TableCell><img src={question.levelImg} alt="level" style={{ width: "19.5px", height: "25px"}} /></itemS.TableCell>
+                                    <itemS.TableCell><img src={question.levelImg} alt="level" style={{ width: "0.813rem", height: "1.042rem"}} /></itemS.TableCell>
                                     <itemS.TableCell>
                                         <img
                                             src={question.plusImg}
                                             alt="plus"
-                                            style={{ cursor: "pointer", width: "25px", height: "25px" }}
+                                            style={{ cursor: "pointer", width: "1.042rem", height: "1.042rem" }}
                                             onClick={() => handleAddQuestion(question)}
                                         />
                                     </itemS.TableCell>

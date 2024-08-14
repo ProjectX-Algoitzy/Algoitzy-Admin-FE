@@ -62,7 +62,7 @@ export default function EditInstitutionModal({ isModalOpen, onClose, originName,
     const CustomDropdownIndicator = props => {
       return (
         <components.DropdownIndicator {...props}>
-          <img src="/img/triangle.png" alt="triangle-icon" style={{ width: "24px", height: "24px", paddingRight: "216px" }} />
+          <img src="/img/triangle.png" alt="triangle-icon" style={{ width: "1rem", height: "1rem"}} />
         </components.DropdownIndicator>
       );
     };

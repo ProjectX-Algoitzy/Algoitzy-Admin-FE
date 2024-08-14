@@ -11,8 +11,8 @@ export const InnerContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center; 
-  border-radius: 20px;
-  padding: 158px 360px;
+  border-radius: 0.833rem;
+  padding: 6.583rem 15rem;
 `;
 
 export const TitleContainer = styled.div`
@@ -20,23 +20,24 @@ export const TitleContainer = styled.div`
   flex-direction: row;
   justify-content: space-between; 
   align-items: flex-end;
-  width: 1200px;
-  border-bottom: 1px solid ${tokens.colors.Grey_4};
-  padding-bottom:12px;
+  width: 50rem;
+  border-bottom: 0.042rem solid ${tokens.colors.Grey_4};
+  padding-bottom: 0.5rem;
 `;
 
 export const ApplicationText = styled.div`
   ${tokens.typography.T3_B_24};
-  `;
+`;
 
 export const BtnMakeApp = styled.button`
-  width: 190px;
-  height: 47px;
+  width: 7.917rem;
+  height: 1.958rem;
   background: #00A5FF; 
   color: white;
-  border-radius: 5px; 
+  border-radius: 0.208rem; 
   border: none; 
-  cursor: pointer; 
+  cursor: pointer;
+  ${tokens.typography.T6_SB_14};
 `;
 
 export const Group = styled.div`
@@ -45,8 +46,7 @@ export const Group = styled.div`
   // justify-content: space-between;
   align-items: flex-start; 
   background-color: ${tokens.colors.White};
-  width: 1220px;
-  
-  padding-top: 44px;
-  
+  width: 50.836rem;
+  padding-top: 1.833rem;
 `;
+

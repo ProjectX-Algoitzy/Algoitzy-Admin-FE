@@ -18,36 +18,36 @@ export const CategoryContainer = styled.div`
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 165, 255, 0.05);
-  width: 1200px;
-  height: 55px;
+  width: 50rem;
+  height: 2.292rem;
   border-bottom: 1px solid ${tokens.colors.B_Grey_4};
-  margin-top: 40px;
-  margin-bottom: 20px;
+  margin-top: 1.667rem;
+  margin-bottom: 0.833rem;
 `;
 
 export const Category = styled.div`
   ${tokens.typography.T5_SB_16};
   color: ${tokens.colors.Black};
   text-align: center;
-  width: 180px;
+  width: 7.5rem;
 `;
 export const CategoryShort = styled.div`
   ${tokens.typography.T5_SB_16};
   color: ${tokens.colors.Black};
   text-align: center;
-  width: 165px;
+  width: 6.875rem;
 `;
 export const CategoryLong = styled.div`
   ${tokens.typography.T5_SB_16};
   color: ${tokens.colors.Black};
   text-align: center;
-  width: 210px;
+  width: 8.75rem;
 `;
 
 export const CheckBox = styled.input`
   appearance: none;
   border: none;
-  width: 104px;
+  width: 4.333rem;
   // width: 20px;
   // height: 20px;
   // margin-right: 60px;
@@ -64,7 +64,7 @@ export const CheckBox = styled.input`
 `;
 
 export const BlankBox = styled.div`
-  width: 104px;
+  width: 4.333rem;
 `;
 
 export const CategoryInterviewContainer = styled.div`
@@ -72,7 +72,7 @@ export const CategoryInterviewContainer = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  width: 180px;
+  width: 7.5rem;
   position: relative;
 `;
 
@@ -83,8 +83,8 @@ export const CategoryDrop = styled.div`
 `;
 
 export const SortIcon = styled.img`
-	width: 24px;
-	height: 24px;
+	width: 1rem;
+	height: 1rem;
   self-items: center;
   cursor: pointer;
 `;
@@ -94,7 +94,7 @@ export const SortIcon = styled.img`
 export const TupleContainer = styled.div`
   display: flex;
   flex-direction: column;
-  height: 611px;
+  height: 25.458rem;
   overflow: auto;
 
   &::-webkit-scrollbar {
@@ -110,21 +110,21 @@ export const SortDrop = styled.div`
   justify-content: center;
   align-items: center;
   background-color: ${tokens.colors.White};
-  width: 164px;
-  height: 146px;
-  border-radius: 4px;
+  width: 6.833rem;
+  height: 6.083rem;
+  border-radius: 0.167rem;
   position: absolute;
-  box-shadow: 0 4px 10px 4px rgba(58, 107, 135, 0.20);
+  box-shadow: 0 0.167rem 0.417rem 0.167rem rgba(58, 107, 135, 0.20);
   z-index: 99;
-  top: 30px;
+  top: 1.25rem;
 `;
 
 export const SortText = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 164px;
-  height: 48px;
+  width: 6.833rem;
+  height: 2rem;
   ${tokens.typography.B3_M_14};
   // font-weight: 600;
   color: ${tokens.colors.Grey_8};
@@ -139,8 +139,8 @@ export const SortCenterText = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 164px;
-  height: 48px;
+  width: 6.833rem;
+  height: 2rem;
   ${tokens.typography.B3_M_14};
   // font-weight: 600;
   color: ${tokens.colors.Grey_8};
@@ -151,7 +151,4 @@ export const SortCenterText = styled.div`
   border-top : 1px solid ${tokens.colors.B_Grey_2};
   border-bottom : 1px solid ${tokens.colors.B_Grey_2};
 `;
-
-
-
 

@@ -12,7 +12,7 @@ export const HeaderContainer = styled.div`
 export const HeaderWrap = styled.div`
   background-color: rgba(255, 255, 255, 0.05); 
   backdrop-filter: blur(200px);
-  height: 80px;
+  height: 3.333rem;
   margin: 0 auto;
   display: flex;
   flex-direction: row;
@@ -26,13 +26,13 @@ export const StyledLink = styled(Link)`
 
 export const HeaderLeftWrap = styled.div`
   display: flex;
-  margin-right: 382px;
+  margin-right: 15.917rem;
 `;
 
 export const Rabel = styled.img`
-  margin-top: 10px;
-  width: 179px;
-  height: 40px;
+  margin-top: 0.417rem;
+  width: 7.458rem;
+  height: 1.667rem;
 `;
 
 export const HeaderRightWrap = styled.div`
@@ -45,34 +45,34 @@ export const PageLink = styled.div`
   justify-content: center;
   align-items: center;
   color: ${(props) => (props.isActive ? tokens.colors.B_Grey_8 : tokens.colors.B_Grey_6)};
-  width: 140px;
-  height: 21px;
-  margin: 0 6px;
+  width: 5.833rem;
+  height: 0.875rem;
+  margin: 0 0.25rem;
   ${tokens.typography.T5_SB_16};
 `;
 
 export const AdminName = styled.div`
   color: ${tokens.colors.Blue_0_Main};
-  height: 21px;
+  height: 0.875rem;
   ${tokens.typography.T5_SB_16};
-  margin-left: 50px;
+  margin-left: 2.083rem;
   cursor: pointer;
 `;
 
 export const Btn = styled.button`
   ${tokens.Btns.Btn_ghost_default}
-  margin-left: 50px;
+  margin-left: 2.083rem;
 `;
 
 export const SubStudyMenu = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
-  height: 60px;
-  padding-left: 782px;
+  height: 2.5rem;
+  padding-left: 32.583rem;
   background-color: ${tokens.colors.B_Grey_1};
   position: fixed;
-  top: 80px; 
+  top: 3.333rem; 
   z-index: 999;
 `;
 
@@ -80,11 +80,11 @@ export const SubApplicationMenu = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
-  height: 60px;
-  padding-left: 1086px;
+  height: 2.5rem;
+  padding-left: 45.25rem;
   background-color: ${tokens.colors.B_Grey_1};
   position: fixed;
-  top: 80px; 
+  top: 3.333rem; 
   z-index: 999;
 `;
 
@@ -92,11 +92,11 @@ export const SubCodingMenu = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
-  height: 60px;
-  padding-left: 1393px;
+  height: 2.5rem;
+  padding-left: 58.042rem;
   background-color: ${tokens.colors.B_Grey_1};
   position: fixed;
-  top: 80px; 
+  top: 3.333rem; 
   z-index: 999;
 `;
 
@@ -106,10 +106,10 @@ export const SubMenuItem = styled.div`
   align-items: center;
   ${tokens.typography.T5_SB_16};
   color: ${tokens.colors.B_Grey_5};
-  width: 140px;
-  margin: 0 20px;
+  width: 5.833rem;
+  margin: 0 0.833rem;
   cursor: pointer;
-  margin: 0 6px;
+  margin: 0 0.25rem;
 
   &:hover {
     color: ${tokens.colors.B_Grey_8};

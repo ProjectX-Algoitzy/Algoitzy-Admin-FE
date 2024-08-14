@@ -1,9 +1,7 @@
 import styled from 'styled-components';
 import * as tokens from "../../../../tokens"
 
-
 export const Container = styled.div`
-  
 `;
 
 export const Table = styled.div`
@@ -18,10 +16,10 @@ export const CategoryContainer = styled.div`
   justify-content: flex-start;
   align-items: center;
   background-color: rgba(0, 165, 255, 0.05);
-  width: 1200px;
-  height: 55px;
-  border-bottom: 1px solid ${tokens.colors.B_Grey_4};
-  margin-bottom: 20px;
+  width: 50rem;
+  height: 2.292rem;
+  border-bottom: 0.042rem solid ${tokens.colors.B_Grey_4};
+  margin-bottom: 0.833rem;
 `;
 
 export const CategoryNumber = styled.div`
@@ -32,7 +30,7 @@ export const CategoryNumber = styled.div`
   ${tokens.typography.T5_SB_16};
   color: ${tokens.colors.Black};
   text-align: center;
-  width: 72px;
+  width: 3rem;
 `;
 
 export const CategoryTitle = styled.div`
@@ -43,8 +41,8 @@ export const CategoryTitle = styled.div`
   ${tokens.typography.T5_SB_16};
   color: ${tokens.colors.Black};
   text-align: center;
-  width: 200px;
-  margin-left: 161px;
+  width: 8.333rem;
+  margin-left: 6.708rem;
 `;
 
 // 카테고리 파트 끝
@@ -53,7 +51,7 @@ export const CategoryTitle = styled.div`
 export const TupleContainer = styled.div`
   display: flex;
   flex-direction: column;
-  height: 235px;
+  height: 9.792rem;
   overflow: auto;
 
   &::-webkit-scrollbar {
@@ -61,7 +59,3 @@ export const TupleContainer = styled.div`
   }
   scrollbar-width: none; /* Firefox용 */
 `;
-
-
-
-

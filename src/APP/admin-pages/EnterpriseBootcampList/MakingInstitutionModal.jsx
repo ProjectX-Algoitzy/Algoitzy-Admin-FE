@@ -47,7 +47,7 @@ export default function MakingInstitutionModal({ onClose, isModalOpen, fetchInst
     const CustomDropdownIndicator = props => {
       return (
         <components.DropdownIndicator {...props}>
-          <img src="/img/triangle.png" alt="triangle-icon" style={{ width: "24px", height: "24px", paddingRight:"216px" }} />
+          <img src="/img/triangle.png" alt="triangle-icon" style={{ width: "1rem", height: "1rem"}} />
         </components.DropdownIndicator>
       );
     };
@@ -63,6 +63,7 @@ export default function MakingInstitutionModal({ onClose, isModalOpen, fetchInst
         value={options.find(option => option.value === value)}
         onChange={selectedOption => onChange(selectedOption.value)}
         placeholder="유형 선택"
+
         components={{ DropdownIndicator: CustomDropdownIndicator, IndicatorSeparator: null }}
         isSearchable={false}
       />

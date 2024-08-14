@@ -4,30 +4,48 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 40px;
+  margin-bottom: 1.667rem;
 `;
 
 export const EditorWrapper = styled.div`
-  width: 590px;
+  width: 24.583rem;
 
   .ql-editor {
-      height: 259px;
+      height: 10.792rem;
       overflow-y: auto;
-    }
+  }
 
-    .ql-toolbar.ql-snow {
-      border: 1px solid #ccc;
-    }
+  .ql-toolbar.ql-snow {
+      border: 0.042rem solid #ccc;
+      font-size: 0.667rem; 
+  }
 
-    .ql-container.ql-snow {
-      border: 1px solid #ccc;
+  .ql-container.ql-snow {
+      border: 0.042rem solid #ccc;
       border-top: none;
-      height: auto; /* Ensure height is auto to allow the editor to fill the wrapper */
+      height: auto;
+  }
+
+  .ql-picker {
+      font-size: 0.667rem; 
     }
 
-    .ql-editor a {
+  .ql-editor a {
       cursor: pointer;
       color: blue; /* Optional: link color */
       text-decoration: underline; /* Optional: link underline */
   }
+  .ql-toolbar button svg, .ql-toolbar .ql-picker svg {
+    width: 0.667rem; /* Adjust icon width */
+    height: 0.667rem; /* Adjust icon height */
+  }
+
+  .ql-toolbar button {
+    padding: 0.25rem;
+  }
+
+  .ql-toolbar .ql-formats {
+    margin-right: 0;
+  }
+    
 `;

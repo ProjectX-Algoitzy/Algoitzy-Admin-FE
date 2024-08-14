@@ -24,7 +24,7 @@ export default function ViewApplicationListTuple({ application, isSelected, onOp
 		const status = application.status;
 
 		if (status === "최종 합격" || status === "최종 불합격" || status === "서류 불합격") {
-			console.log("최종 메일 발송완료");
+			// console.log("최종 메일 발송완료");
 		} else if (status !== "서류 합격") {
 			setIsChecked(checked);
 			onCheckChange(application.answerId, checked, status);
@@ -48,8 +48,8 @@ export default function ViewApplicationListTuple({ application, isSelected, onOp
 
 	// 메일 발송 후 체크 해제
 	useEffect(() => {
-		console.log('튜플isSendMail',isSendMail);
-		console.log('튜플sendMailItems',sendMailItems);
+		// console.log('튜플isSendMail',isSendMail);
+		// console.log('튜플sendMailItems',sendMailItems);
 		if (isSendMail) {
 			if (sendMailItems.includes(application.answerId)) {
 				setIsChecked(false);
@@ -86,7 +86,7 @@ export default function ViewApplicationListTuple({ application, isSelected, onOp
 				<itemS.TupleInterview>{application.interviewTime}</itemS.TupleInterview>
 				<itemS.EditIcon src="/img/edit.svg" alt="Edit Icon" onClick={handleEditClick}/>
 				{isUpdateModalOpen && (
-				<UpdateModal interviewId={application.interviewId} onConfirm={handleUpdateConfirm} fetchApplication={fetchApplication} />
+				<UpdateModal interviewId={application.interviewId} onConfirm={handleUpdateConfirm} fetchApplication={fetchApplication} interviewTime={application.interviewTime} />
 				)}
 			</itemS.TupleInterviewContainer>
 			{isSelected && (

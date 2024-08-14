@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import Select, { components } from 'react-select';
 import * as itemS from "./Styled/MakingInstitutionModal.styles"
-import QuillAnalyze from './Quilleditor';
+import QuillPractice from '../MakingCurriculum/MakingCurriculum.makingcurriculum.quilleditor';
 import request from '../../Api/request';
 import { AlertContext } from '../../Common/Alert/AlertContext';
 
@@ -39,7 +39,7 @@ export default function MakingInstitutionModal({ onClose, isModalOpen, fetchInst
       } 
     } catch (error) {
       console.error('기업/부트캠프 생성에서 에러', error);
-      alert(error.response.data.message || "이름/유형 입력칸을 채워주세요.");
+      alert("이름/유형/분석내용 입력칸을 채워주세요.");
     }
   };
 
@@ -102,7 +102,7 @@ export default function MakingInstitutionModal({ onClose, isModalOpen, fetchInst
 
           <itemS.LittleContainer>
             <itemS.StyledTitle>분석 내용</itemS.StyledTitle>
-            <QuillAnalyze setContent={setContent} />
+            <QuillPractice setContent={setContent} />
           </itemS.LittleContainer>
         
           <itemS.Btn onClick={handleAdd}>추가하기</itemS.Btn>

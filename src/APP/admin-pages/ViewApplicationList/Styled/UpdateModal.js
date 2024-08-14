@@ -9,55 +9,53 @@ export const ModalContainer = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  width: 320px;
-  height: 51px;
+  width: 13.333rem;
+  height: 2.125rem;
   background: white;
-  padding: 0 12px;
-  border-radius: 4px;
-  box-shadow: 0 4px 10px 4px rgba(58, 107, 135, 0.08);
+  padding: 0 0.5rem;
+  border-radius: 0.167rem;
+  box-shadow: 0 0.167rem 0.417rem 0.167rem rgba(58, 107, 135, 0.08);
   z-index: 1001;
 `;
 
 export const DropText = styled.div`
   ${tokens.typography.B2_M_16};
   color: ${tokens.colors.Black};
-  margin: 0 4px;
+  margin: 0 0.167rem;
 `;
 
 export const ConfirmButton = styled.button`
-  width: 40px;
-  height: 24px;
+  width: 1.667rem;
+  height: 1rem;
   background-color: ${tokens.colors.B_Grey_7};
   color: ${tokens.colors.White};
   border: none;
   padding: 0;
   cursor: pointer;
-  border-radius: 4px;
+  border-radius: 0.167rem;
 `;
 
 export const InterviewSelect = styled(Select).attrs({
   classNamePrefix: 'react-select',
 })`
 .react-select__control {
-  // width: 42px;
-  // height: 24px;
   color: ${tokens.colors.Grey_8};
   ${tokens.typography.B3_M_14};
   border: 1px solid ${tokens.colors.B_Grey_3};
-  border-radius: 4px;
+  border-radius: 0.167rem;
   text-align: center;
   justify-content: center;
 }
 
 .react-select__menu {
   position: absolute;
-  top: -10px;  
-  left: -2px;
-  width: 44px;
-  height: 244px; 
-  border-radius: 4px;
+  top: -0.417rem;  
+  left: -0.083rem;
+  width: 1.833rem;
+  height: 10.167rem; 
+  border-radius: 0.167rem;
   border: none;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0.083rem 0.167rem rgba(0, 0, 0, 0.1);
   font-weight: 600;
   text-align: center;
   ${tokens.typography.B3_M_14};
@@ -65,7 +63,7 @@ export const InterviewSelect = styled(Select).attrs({
 }
 
 .react-select__menu-list {
-  max-height: 244px;
+  max-height: 10.167rem;
   overflow-y: auto;
   /* Hide scrollbar for WebKit-based browsers (Chrome, Safari, etc.) */
   &::-webkit-scrollbar {
@@ -92,20 +90,20 @@ export const InterviewSelect = styled(Select).attrs({
   background-color: ${tokens.colors.White};
   backdrop-filter: blur(8px);
   color: ${tokens.colors.Grey_8};
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
+  border-top-left-radius: 0.167rem;
+  border-top-right-radius: 0.167rem;
   border: none;
   ${tokens.typography.B3_M_14};
   position: relative;
-  top: -4px;
+  top: -0.167rem;
 }
 
 .react-select__option--is-selected:last-of-type {
   background-color: ${tokens.colors.White};
   backdrop-filter: blur(8px);
   color: ${tokens.colors.Grey_8};
-  border-bottom-left-radius: 4px;
-  border-bottom-right-radius: 4px;
+  border-bottom-left-radius: 0.167rem;
+  border-bottom-right-radius: 0.167rem;
   border: none;
   ${tokens.typography.B3_M_14};
 }

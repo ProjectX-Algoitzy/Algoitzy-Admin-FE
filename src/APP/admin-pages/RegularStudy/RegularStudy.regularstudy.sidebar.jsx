@@ -49,11 +49,11 @@ export default function RegularStudySideBar({setActiveComponent, activeComponent
               <img src={regularStudyInfo.profileUrl} alt="스터디 이미지" style={{width:"100%", height:"100%"}} />
             </itemS.StudyImgContainer>
             <itemS.TitleContainer>
-              {regularStudyInfo.studyName} <img src="/img/iconregularstudy.png" alt="정규스터디 아이콘" style={{marginLeft:"8px", width:"44px", height:"21px"}} />
+              {regularStudyInfo.studyName} <img src="/img/iconregularstudy.png" alt="정규스터디 아이콘" style={{marginLeft:"0.333rem", width:"1.833rem", height:"0.875rem"}} />
             </itemS.TitleContainer>
             <itemS.CountAndOnlineContainer>
               <itemS.CountContainer>
-                <img src="/img/iconpeople.png" alt="사람아이콘" style={{width:"24px", height:"24px", marginRight:"8px"}} />
+                <img src="/img/iconpeople.png" alt="사람아이콘" style={{width:"1rem", height:"1rem", marginRight:"0.333rem"}} />
                  {regularStudyInfo.memberCount}명
               </itemS.CountContainer>
               {/* <itemS.OnlineContainer>

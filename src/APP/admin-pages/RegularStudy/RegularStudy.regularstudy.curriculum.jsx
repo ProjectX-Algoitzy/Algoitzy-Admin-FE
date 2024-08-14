@@ -62,7 +62,7 @@ export default function RegularStudyCurriculum() {
         <itemS.CurriculumContainer>
             <itemS.CurriculumText key={curriculum.curriculumId} onClick={() => handleCurriculumClick(curriculum.curriculumId)}>{curriculum.title}</itemS.CurriculumText>
             <itemS.MiddleCurriculumContainer>
-              <itemS.SmallCurriculumContainer style={{marginRight:"64px"}}>
+              <itemS.SmallCurriculumContainer style={{marginRight:"2.667rem"}}>
                 <itemS.Gray6Text>주차</itemS.Gray6Text>
                 <itemS.Gray7Text>{curriculum.week}주차</itemS.Gray7Text>
               </itemS.SmallCurriculumContainer>

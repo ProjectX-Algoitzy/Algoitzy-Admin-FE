@@ -5,19 +5,19 @@ import Select, { components } from 'react-select';
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  padding-left: 32px;
+  padding-left: 1.333rem;
   height: 100%;
 `;
 
 export const Title = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-top: 100px;
-  margin-bottom: 36px;
-  width: 793px;
+  margin-top: 4.167rem;
+  margin-bottom: 1.5rem;
+  width: 33.042rem;
   ${tokens.typography.T1_SB_32};
   color: ${tokens.colors.Grey_8};
-  padding-bottom: 16px;
+  padding-bottom: 0.667rem;
   border-bottom: 1px solid ${tokens.colors.B_Grey_2};
 `;
 
@@ -25,10 +25,10 @@ export const ComingSoonContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 793px;
-  height: 360px;
+  width: 33.042rem;
+  height: 15rem;
   background-color: ${tokens.colors.B_Grey_1};
-  border-radius: 10px;
+  border-radius: 0.417rem;
   color: ${tokens.colors.B_Grey_5};
   ${tokens.typography.T3_B_24};
 `;
@@ -38,22 +38,22 @@ export const WeeksSelectContainer = styled(Select).attrs({
 })`
   .react-select__control {
     display: flex;
-    width: 142px;
-    height: 36px;
+    width: 5.917rem;
+    height: 1.5rem;
     color: ${tokens.colors.Grey_8};
     ${tokens.typography.B3_M_14};
     border: 1px solid ${tokens.colors.B_Grey_3};
-    border-radius: 4px;
+    border-radius: 0.167rem;
   }
   .react-select__menu {
     position: absolute;
-    top: -10px;
-    left: -1px;
-    width: 145px;
-    height: 280px;
-    border-radius: 4px;
+    top: -0.417rem;
+    left: -0.042rem;
+    width: 6.042rem;
+    height: 11.667rem;
+    border-radius: 0.167rem;
     border: none;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0.083rem 0.167rem rgba(0, 0, 0, 0.1);
     font-weight: 600;
     text-align: center;
     ${tokens.typography.B3_M_14};
@@ -70,19 +70,19 @@ export const WeeksSelectContainer = styled(Select).attrs({
     background-color: rgba(102, 201, 255, 0.2);
     backdrop-filter: blur(8px);
     color: ${tokens.colors.Grey_8};
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
+    border-top-left-radius: 0.167rem;
+    border-top-right-radius: 0.167rem;
     border: none;
     ${tokens.typography.B3_M_14};
     position: relative;
-    top: -4px;
+    top: -0.167rem;
   }
   .react-select__option--is-selected:last-of-type {
     background-color: rgba(102, 201, 255, 0.2);
     backdrop-filter: blur(8px);
     color: ${tokens.colors.Grey_8};
-    border-bottom-left-radius: 4px;
-    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 0.167rem;
+    border-bottom-right-radius: 0.167rem;
     border: none;
     ${tokens.typography.B3_M_14};
   }
@@ -103,7 +103,7 @@ export const WeeksSelectContainer = styled(Select).attrs({
   .react-select__single-value {
     width: 100%;
     text-align: center;
-    padding-left: 27px;
+    padding-left: 1.125rem;
   }
 `;
 
@@ -113,8 +113,7 @@ export const TableContainer = styled.div`
 `;
 
 export const Table = styled.table`
-  width: 793px;
-  /* height: 447px; */
+  width: 33.042rem;
   border-collapse: collapse;
   background-color: #fff;
   table-layout: fixed; /* 열 너비 고정 */
@@ -124,74 +123,74 @@ export const TableHead = styled.th`
   background-color: ${tokens.colors.Grey_1};
   color: ${tokens.colors.Black};
   border-bottom: 1px solid ${tokens.colors.B_Grey_4};
-  padding-top: 17px; 
-  padding-bottom: 17px;
+  padding-top: 0.708rem; 
+  padding-bottom: 0.708rem;
   text-align: left;
   ${tokens.typography.T5_SB_16};
   position: relative;
 
-  /* 첫 번째 열: 백준 번호 */
   &:nth-child(1) {
-    padding-left: 22px;
+    padding-left: 0.917rem;
   }
 
-  /* 두 번째 열: 제목 */
   &:nth-child(2) {
-    padding-left: 50px;
+    padding-left: 2.083rem;
   }
 
-  /* 세 번째 열은 공백, 네 번째 열은 레벨 */
   &:nth-child(4) {
-    padding-left: 60px;
+    padding-left: 2.5rem;
   }
-
 `;
 
 export const TableRow = styled.tr``;
 
 export const TableCell = styled.td`
   text-align: left;
-  padding-top: 17px; 
-  padding-bottom: 17px;
+  padding-top: 0.708rem; 
+  padding-bottom: 0.708rem;
   border-bottom: 1px solid ${tokens.colors.B_Grey_3};
   ${tokens.typography.B2_M_16};
 
-  /* 첫 번째 열: 백준 번호 */
   &:nth-child(1) {
-    padding-left: 22px;
+    padding-left: 0.917rem;
   }
 
-  /* 두 번째 열: 제목 */
   &:nth-child(2) {
-    padding-left: 50px;
+    padding-left: 2.083rem;
   }
 
-  /* 세 번째 열: 레벨 */
   &:nth-child(3) {
-    padding-left: 265px;
+    padding-left: 11.042rem;
   }
 
-  /* 오른쪽 정렬 추가 */
   &:nth-child(4) {
-    padding-left: 170px;
+    padding-left: 7.083rem;
   }
 `;
 // 테이블 스타일 끝
 
 export const BtnContainer = styled.div`
   display: flex;
-  width: 793px;
-  margin-top: 16px;
+  width: 33.042rem;
+  margin-top: 0.667rem;
   flex-direction: row-reverse;
 `;
 
-export const AddQuestionBtn = styled.button` /* 문제 추가하기 버튼*/
-  width: 176px;
-	height: 48px;
-  border-radius: 4px;
+export const AddQuestionBtn = styled.button`
+  width: 7.333rem;
+	height: 2rem;
+  border-radius: 0.167rem;
 	border: none;
 	cursor: pointer;
 	color: ${tokens.colors.White};
 	${tokens.typography.T5_SB_16}
   background-color: ${tokens.colors.B_Grey_7};
+`;
+
+export const DeleteIcon = styled.div`
+  background-image: url('/img/GrayX.png');
+  background-size: cover;
+  width: 0.583rem;
+  height: 0.583rem;
+  cursor: pointer;
 `;

@@ -7,46 +7,31 @@ export const StudySelectContainer = styled(Select).attrs({
   classNamePrefix: 'react-select',
 })`
 .react-select__control { /*선택 상자의 컨트롤 부분을 스타일링*/
-  // margin-top: 32px;
-  /* margin-left: 32px; */
-  width: 142px;
-  height: 34px;
+  width: 5.917rem;
+  height: 1.417rem;
   color: ${tokens.colors.Grey_8};
   ${tokens.typography.B3_M_14};
-  border: 1px solid ${tokens.colors.B_Grey_3};
-  border-radius: 4px;
-  // background-color: rgba(102, 201, 255, 0.2); /* 색상 코드를 rgba 형식으로 변경하고, 투명도를 20%로 설정 */
-  // backdrop-filter: blur(8px); /* 필터를 원하는 것으로 설정 */
+  border: 0.042rem solid ${tokens.colors.B_Grey_3};
+  border-radius: 0.167rem;
   text-align: center;
   justify-content: center;
-  // margin-bottom: 16px;
-  // margin-right: 16px;
 }
-// .react-select__single-value { /*선택된 값의 텍스트를 스타일링*/
-//   color: ${tokens.colors.Grey_8};
-//   ${tokens.typography.B3_M_14};
-//   border: none;
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   padding: 10px;
-// }
 .react-select__menu {  /*클릭 시 나오는 드롭다운 메뉴의 스타일을 지정*/
   position: absolute;
-  top: -10px;  
-  left: -1px;
-  width: 145px;
-  height: 144px; 
-  border-radius: 4px;
+  top: -0.417rem;  
+  left: -0.042rem;
+  width: 6.042rem;
+  height: 6rem; 
+  border-radius: 0.167rem;
   border: none;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0.083rem 0.167rem rgba(0, 0, 0, 0.1);
   font-weight: 600;
   text-align: center;
   ${tokens.typography.B3_M_14};
 }
 .react-select__option:not(:last-child) { /* 각 옵션 사이에 회색 줄 추가 */
-    border-bottom: 1px solid ${tokens.colors.B_Grey_2}; 
-  }
+    border-bottom: 0.042rem solid ${tokens.colors.B_Grey_2}; 
+}
 .react-select__option { /*각각의 선택 옵션을 스타일링*/
   color: ${tokens.colors.Grey_8};
   ${tokens.typography.B3_M_14};
@@ -56,20 +41,20 @@ export const StudySelectContainer = styled(Select).attrs({
   background-color: rgba(102, 201, 255, 0.2);
   backdrop-filter: blur(8px);
   color: ${tokens.colors.Grey_8};
-  border-top-left-radius: 4px; /* 상단 왼쪽 모서리를 둥글게 만듭니다. */
-  border-top-right-radius: 4px; /* 상단 오른쪽 모서리를 둥글게 만듭니다. */
+  border-top-left-radius: 0.167rem; /* 상단 왼쪽 모서리를 둥글게 만듭니다. */
+  border-top-right-radius: 0.167rem; /* 상단 오른쪽 모서리를 둥글게 만듭니다. */
   border: none;
   ${tokens.typography.B3_M_14};
   position: relative; /* 요소를 상대적인 위치로 설정 */
-  top: -4px; /* 원하는 만큼 위로 이동 */
+  top: -0.167rem; /* 원하는 만큼 위로 이동 */
 }
 
 .react-select__option--is-selected:last-of-type { /* 마지막 옵션의 스타일을 지정 */
   background-color: rgba(102, 201, 255, 0.2);
   backdrop-filter: blur(8px);
   color: ${tokens.colors.Grey_8};
-  border-bottom-left-radius: 4px; /* 하단 왼쪽 모서리를 둥글게 만듭니다. */
-  border-bottom-right-radius: 4px; /* 하단 오른쪽 모서리를 둥글게 만듭니다. */
+  border-bottom-left-radius: 0.167rem; /* 하단 왼쪽 모서리를 둥글게 만듭니다. */
+  border-bottom-right-radius: 0.167rem; /* 하단 오른쪽 모서리를 둥글게 만듭니다. */
   border: none;
   ${tokens.typography.B3_M_14};
 }
@@ -83,7 +68,6 @@ export const StudySelectContainer = styled(Select).attrs({
 }
 .react-select__option--is-focused { /*현재 포커스된 옵션의 스타일을 지정*/
   background-color: transparent;
-  // background-color: rgba(102, 201, 255, 0.2);
   cursor: pointer;
 }
 

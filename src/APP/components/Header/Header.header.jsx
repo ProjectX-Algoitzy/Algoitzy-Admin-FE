@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import * as itemS from "./Styled/Header.headr";
+import * as itemS from "./Styled/Header.header.style";
 import request from '../../Api/request';
 import ProfileModal from './Header.profile.modal'; 
 

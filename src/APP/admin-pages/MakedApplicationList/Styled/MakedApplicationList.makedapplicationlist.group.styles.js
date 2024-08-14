@@ -1,63 +1,40 @@
 import styled from 'styled-components';
-import * as tokens from "../../../../tokens"
+import * as tokens from "../../../../tokens";
 
 export const Container = styled.div`
 
 `;
 
-// export const Head = styled.div`
-//   ${tokens.typography.T1_SB_32};
-//   margin-bottom: 24px;
-// `;
-
 export const TxtBtnBox = styled.div`
   display: flex;
-  // flex-direction: column-reverse;
   flex-direction: row;
   justify-content: space-between; 
   align-items: flex-end;
-  // ${tokens.typography.T1_SB_32};
-  
 `;
 
 export const ApplicationText = styled.div`
-  padding-top: 55px;
+  padding-top: 2.292rem;
   ${tokens.typography.T3_B_24};
-  `;
-  
-export const BtnMakeApp = styled.button`
-  width: 190px;
-  height: 47px;
-  background: #00A5FF; 
-  color: white;
-  border-radius: 5px; 
-  border: none; 
-  cursor: pointer; 
 `;
 
-// export const Group = styled.div`
-//   display: flex;
-//   flex-direction: row;
-//   align-items: center; 
-//   justify-content: center; 
-//   background-color: ${tokens.colors.White};
-//   width: 1200px;
-//   border-top: 1px solid ${tokens.colors.Grey_4};
-//   margin-top:20px;
-// `;
+export const BtnMakeApp = styled.button`
+  width: 7.917rem;
+  height: 1.958rem;
+  background: #00A5FF; 
+  color: white;
+  border-radius: 0.208rem; 
+  border: none; 
+  cursor: pointer;
+  ${tokens.typography.T6_SB_14};
+`;
 
 export const Group = styled.div`
   display: flex;
   flex-wrap: wrap;
-  // justify-content: space-between;
   align-items: flex-start; 
   background-color: ${tokens.colors.White};
-  width: 1220px;
-  border-top: 1px solid ${tokens.colors.Grey_4};
-  padding-top: 44px;
-  margin-top:20px;
+  width: 50.843rem;
+  border-top: 0.042rem solid ${tokens.colors.Grey_4};
+  padding-top: 1.833rem;
+  margin-top: 0.833rem;
 `;
-
-
-
-

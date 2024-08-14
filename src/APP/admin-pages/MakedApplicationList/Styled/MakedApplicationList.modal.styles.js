@@ -1,20 +1,18 @@
 import styled from 'styled-components';
-import * as tokens from "../../../../tokens"
+import * as tokens from "../../../../tokens";
 
 export const ModalContainer = styled.div`
   position: absolute;
-  top: -56px;
-  left: 219px;
-  // transform: translate(-50%, -50%);
-  width: 121px;
-  height: 112px;
+  top: -2.333rem;
+  left: 9.125rem;
+  width: 5.042rem;
+  height: 4.667rem;
   background-color: white;
-  border-radius: 4px;
+  border-radius: 0.167rem;
   z-index: 999; 
-  box-shadow: rgba(58, 107, 135, 0.2) 0px 4px 10px 4px;
+  box-shadow: rgba(58, 107, 135, 0.2) 0px 0.167rem 0.417rem 0.167rem;
 `;
 
-// 모달 외부 배경 클릭 시 모달 닫기 위한 투명한 배경
 export const Backdrop = styled.div`
   position: fixed;
   top: 0;
@@ -29,15 +27,13 @@ export const BtnBox = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 16px 32px;
-  // height: 56px;
+  padding: 0.667rem 1.333rem;
   cursor: pointer;
-
 `;
 
 export const Hr = styled.hr`
-  border-width:1px 0 0 0; 
-  border-color:${tokens.colors.B_Grey_2};
+  border-width: 0.042rem 0 0 0; 
+  border-color: ${tokens.colors.B_Grey_2};
   margin: 0;
 `;
 
@@ -48,22 +44,23 @@ export const TrashImg = styled.div`
   background-image: url('/img/trashcan.svg');
   background-repeat: no-repeat;
   background-position: center;
-	width: 24px;
-	height: 24px;
-  margin-right: 5px;
+  background-size: cover;
+	width: 0.9rem;
+	height: 1rem;
+  margin-right: 0.208rem;
 `;
 
 export const CopyImg = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url('/img/trashcan.svg');
+  background-image: url('/img/copy.svg');
   background-repeat: no-repeat;
   background-position: center;
-  background-image: url('/img/copy.svg');
-	width: 24px;
-	height: 24px;
-  margin-right: 5px;
+  background-size: cover;
+	width: 0.9rem;
+	height: 1rem;
+  margin-right: 0.208rem;
 `;
 
 export const Text = styled.div`

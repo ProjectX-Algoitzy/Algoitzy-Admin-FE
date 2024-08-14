@@ -201,8 +201,9 @@ export default function ViewApplicationList() {
 				// });
 				setSendMailItems(checkedItems);
 				setCheckedItems([]);
-
 				setFirstCheckedStage(null); // 위와 같은 이유
+				alert("성공적으로 이메일 발송하였습니다.");
+
 			} else {
 				console.error("이메일 전송 실패:", response);
 			}

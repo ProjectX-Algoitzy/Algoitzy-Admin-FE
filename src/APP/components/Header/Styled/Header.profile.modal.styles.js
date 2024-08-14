@@ -4,7 +4,8 @@ import * as tokens from "../../../../tokens"
 export const ArrowBubble = styled.div`
   position: absolute;
   width: 10rem;
-  height: 4.88rem;
+  //height: 4.88rem;  //TODO - 2학기에 할일
+  height: 3.34rem;
   padding: 0;
   background: #FFFFFF;
   border-radius: 0.17rem;

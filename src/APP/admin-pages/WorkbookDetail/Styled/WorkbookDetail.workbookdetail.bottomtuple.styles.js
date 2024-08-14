@@ -53,6 +53,7 @@ export const AddButton = styled.img`
   width: 30px;
   height: 30px;
   margin-right: 17px;
+  cursor: pointer;
 `;
 
 

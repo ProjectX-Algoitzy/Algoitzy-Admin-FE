@@ -88,7 +88,6 @@ export default function InstitutionDetail() {
 
   const closeModal = () => {
     setIsModalOpen(false);
-    // setSelectedWorkbookId(null); 
   };
 
   const openModal = () => { 
@@ -109,17 +108,17 @@ export default function InstitutionDetail() {
             <itemS.EditButtonBox onClick={openModal}>
               <itemS.EditIcon src='/img/edit.svg' alt='수정' />
               <itemS.EditText>수정하기</itemS.EditText>
-              <EditInstitutionModal
-                isModalOpen={isModalOpen}
-                onClose={closeModal}
-                originName={name}
-                originType={type}
-                originContent={content}
-                institutionId={institutionId}
-                fetchWorkbook={fetchWorkbook}
-                fetchWorkbookExplain={fetchWorkbookExplain}
-              />
             </itemS.EditButtonBox>
+            <EditInstitutionModal
+              isModalOpen={isModalOpen}
+              onClose={closeModal}
+              originName={name}
+              originType={type}
+              originContent={content}
+              institutionId={institutionId}
+              fetchWorkbook={fetchWorkbook}
+              fetchWorkbookExplain={fetchWorkbookExplain}
+            />
           </itemS.PartBox>
           <InstitutionDetailExplanation
             content={content}

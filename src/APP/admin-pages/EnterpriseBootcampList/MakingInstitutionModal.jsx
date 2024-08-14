@@ -11,6 +11,11 @@ export default function MakingInstitutionModal({ onClose, isModalOpen, fetchInst
   const [type, setType] = useState('');
   const [content, setContent] = useState('');
   const { alert } = useContext(AlertContext);
+  useEffect(() => {
+    console.log('모달창',isModalOpen);
+    
+   
+  }, [isModalOpen]);
 
   const onChangeName = (e) => {
     setName(e.target.value);

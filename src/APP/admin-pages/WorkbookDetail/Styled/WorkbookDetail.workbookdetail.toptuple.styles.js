@@ -53,6 +53,7 @@ export const DeleteButton = styled.img`
   width: 14px;
   height: 14px;
   margin-right: 28px;
+  cursor: pointer;
 `;
 
 

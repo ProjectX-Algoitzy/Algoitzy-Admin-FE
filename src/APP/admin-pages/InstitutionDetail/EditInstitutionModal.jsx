@@ -13,7 +13,8 @@ export default function EditInstitutionModal({ isModalOpen, onClose, originName,
   const { alert } = useContext(AlertContext);
 
   useEffect(() => {
-    console.log(originName,originType,originContent);
+    console.log('모달창',isModalOpen);
+    // console.log(originName,originType,originContent);
     if (isModalOpen) {
       setName(originName);
       // if (originType === 'COMPANY') {

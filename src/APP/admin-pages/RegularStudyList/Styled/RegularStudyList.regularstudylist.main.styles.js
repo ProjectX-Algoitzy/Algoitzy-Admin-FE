@@ -36,7 +36,8 @@ export const BtnMakeApp = styled.button`
   color: white;
   border-radius: 0.208rem; 
   border: none; 
-  cursor: pointer; 
+  cursor: pointer;
+  ${tokens.typography.T6_SB_14};
 `;
 
 export const Group = styled.div`

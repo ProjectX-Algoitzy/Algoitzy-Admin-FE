@@ -20,7 +20,7 @@ export default function FindEmail() {
   const [count, setCount] = useState(0); // 인증번호 발송 count
 
   // 이름 색상 및 메시지
-  const [nameBorderColor, setNameBorderColor] = useState('1px solid #CFCFCF'); 
+  const [nameBorderColor, setNameBorderColor] = useState('0.042rem solid #CFCFCF'); 
 
   // 이름 유효성 확인
   const [isNameValid, setIsNameValid] = useState(false);
@@ -69,9 +69,9 @@ export default function FindEmail() {
     // setIsNameValid(value.trim().length > 0);
     setIsNameValid(NameRegex.test(value));
     if (!NameRegex.test(value) && value.trim().length > 0) {
-      setNameBorderColor('1px solid #DC4A41'); // Red
+      setNameBorderColor('0.042rem solid #DC4A41'); // Red
     } else {
-      setNameBorderColor('1px solid #555555'); // Grey_6
+      setNameBorderColor('0.042rem solid #555555'); // Grey_6
     }
   }
   
@@ -249,7 +249,7 @@ export default function FindEmail() {
                 placeholder="000-0000-0000"
                 value={phoneNumber}
                 onChange={(e) => handlePhoneNumberChange(e.target.value)}
-                style={{ border: `1px solid ${phoneBorderColor}` }}
+                style={{ border: `0.042rem solid ${phoneBorderColor}` }}
                 disabled={isSMSValid}
               />
               <itemS.BtnConfirm onClick={handleSubmitSMS} disabled={isSMSValid}>
@@ -268,7 +268,7 @@ export default function FindEmail() {
                 placeholder="인증코드"
                 value={SMSCode}
                 onChange={(e) => handleSMSCodeChange(e.target.value)}
-                style={{ border: `1px solid ${SMSColor}` }}
+                style={{ border: `0.042rem solid ${SMSColor}` }}
                 disabled={isSMSValid}
               />
               

@@ -154,7 +154,7 @@ export default function FindPassword() {
               placeholder="이메일을 입력해주세요."
               value={email}
               onChange={(e) => handleEmailChange(e.target.value)}
-              style={{ border: `1px solid ${emailBorderColor}` }}
+              style={{ border: `0.042rem solid ${emailBorderColor}` }}
               disabled={isEmailCodeValid}
             />
             <itemS.BtnConfirm onClick={handleSubmitEmail} disabled={isEmailCodeValid}>
@@ -173,7 +173,7 @@ export default function FindPassword() {
               placeholder="인증코드"
               value={emailCode}
               onChange={(e) => handleEmailCodeChange(e.target.value)}
-              style={{ border: `1px solid ${emailCodeColor}` }}
+              style={{ border: `0.042rem solid ${emailCodeColor}` }}
               disabled={isEmailCodeValid}
             />
             <itemS.BtnConfirm onClick={handleConfirmEmail} disabled={isEmailCodeValid}>

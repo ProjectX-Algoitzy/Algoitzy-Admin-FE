@@ -22,6 +22,7 @@ export const TupleNumber = styled.div`
   text-align: center;
   width: 210px;
   margin-left: 23px;
+  cursor: pointer;
 `;
 
 export const TupleTitle = styled.div`
@@ -32,6 +33,7 @@ export const TupleTitle = styled.div`
   color: ${tokens.colors.Black};
   text-align: center;
   width: 420px;
+  cursor: pointer;
 `;
 
 export const TupleLevel = styled.div`
@@ -39,6 +41,7 @@ export const TupleLevel = styled.div`
   justify-content: flex-start;
   align-items: center;
   width: 98px;
+  cursor: pointer;
 `;
 
 export const Level = styled.img`

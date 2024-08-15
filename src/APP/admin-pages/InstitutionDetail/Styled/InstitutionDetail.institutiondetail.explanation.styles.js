@@ -13,4 +13,5 @@ export const CategoryContainer = styled.div`
   border-bottom: 0.042rem solid ${tokens.colors.B_Grey_2};
   margin-bottom: 0.833rem;
   padding: 0.417rem 0.417rem;
+  overflow: auto;
 `;

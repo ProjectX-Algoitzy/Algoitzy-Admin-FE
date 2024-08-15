@@ -10,8 +10,8 @@ export const ArrowBubble = styled.div`
   background: #FFFFFF;
   border-radius: 0.17rem;
   box-shadow: 0 0 0.42rem 0 rgba(58, 107, 135, 0.2);
-  top: 2.5rem;
-  left: 50%;
+  top: 2.0rem;
+  left: 60%;
   transform: translateX(-50%);
   z-index: 99;
 

@@ -16,9 +16,7 @@ export default function FindEmailSuccess() {
 				<itemS.Body>아이디</itemS.Body>
 				<itemS.Text>고객님의 정보와 일치하는 아이디는 다음과 같습니다.</itemS.Text>
 				<itemS.EmailBox>
-					<itemS.EmailIcon>
-
-					</itemS.EmailIcon>
+					<itemS.EmailIcon src="/img/id.svg" alt="id 아이콘" />
 					<itemS.Email>
 						{email}
 					</itemS.Email>

@@ -70,7 +70,7 @@ export const GrantButton = styled.div`
   background-color: ${tokens.colors.B_Grey_1};
   ${tokens.typography.T5_SB_16};
   color: ${tokens.colors.B_Grey_8};
-  border: 0.167rem solid ${tokens.colors.B_Grey_4};
+  border: 0.07rem solid ${tokens.colors.B_Grey_4};
   border-radius: 0.167rem;
   width: 5.458rem;
   height: 1.667rem;

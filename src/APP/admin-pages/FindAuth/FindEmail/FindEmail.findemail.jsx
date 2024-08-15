@@ -117,7 +117,7 @@ export default function FindEmail() {
       code: SMSCode
     };
     try {
-      const response = await axios.post('https://admin-dev.kau-koala.com/sign-up/phone-number', requestData);
+      const response = await axios.post('https://admin-dev.kau-koala.com/sms/phone-number', requestData);
       console.log("response",response.data);
       if (response.data["isSuccess"]) {
         console.log("핸드폰 번호 인증 성공!");

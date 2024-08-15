@@ -1,7 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
 import * as itemS from "./Styled/WorkbookDetail.workbookdetail.main.styles";
-// import { useRecoilState } from 'recoil';
-// import { IsOpenModal } from '../Recoil/Recoil.state';
 import request from '../../Api/request';
 import TopTable from './WorkbookDetail.workbookdetail.toptable';
 import BottomTable from './WorkbookDetail.workbookdetail.bottomtable';
@@ -12,8 +10,7 @@ const WorkbookDetail = ({ workbookId, workbookName, isOpen, onClose, fetchWorkbo
   const { alert } = useContext(AlertContext);
   const { confirm } = useContext(ConfirmContext);
 
-  // const [isModalOpen, setIsModalOpen] = useRecoilState(IsOpenModal);
-  // const [isOpen, setIsOpen] = useState(true);
+  const [name, setName] = useState(workbookName);
 
   const [ itemList, setItemList ] = useState([]); // 설정한 문제 목록
   const [ allItemList, setAllItemList ] = useState([]);  // 백준 전체 문제 목록
@@ -117,13 +114,33 @@ const WorkbookDetail = ({ workbookId, workbookName, isOpen, onClose, fetchWorkbo
   //   setIsModalOpen(false);
   //   setIsOpen(false);
   // };
-
-  const handleConfirm = () => {
-    alert("수정사항이 저장되었습니다.")
-      .then(() => {
-        onClose();
-      });
+  const handleConfirm = async () => {
+    const requestData = {
+      name: name,
+    };
+    
+    
+    try {
+      const response = await request.patch(`/workbook/${workbookId}`, requestData);
+      if (response.isSuccess) {
+        alert("수정사항이 저장되었습니다.")
+        .then(() => {
+          console.log("문제집 이름 수정 성공", response);
+          fetchWorkbook();
+          onClose();
+        });
+      } else {
+        console.error("문제집 이름 수정 실패:", response);
+      }
+    } catch (error) {
+      console.error('문제집 이름 수정 오류', error);
+    }
+  
   };
+
+  const onChangeName = (e) => {
+    setName(e.target.value);
+  }
 
   if (!isOpen) return null;
 
@@ -131,7 +148,7 @@ const WorkbookDetail = ({ workbookId, workbookName, isOpen, onClose, fetchWorkbo
     <itemS.Backdrop>
       <itemS.ModalContainer>
         <itemS.TopBox>
-          <itemS.Title>{workbookName}</itemS.Title>
+          <itemS.Title type='text' value={name} onChange={onChangeName} />
           <itemS.Close onClick={onClose}></itemS.Close>
         </itemS.TopBox>
         <itemS.InnerContainer>

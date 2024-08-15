@@ -13,21 +13,21 @@ export default function EditInstitutionModal({ isModalOpen, onClose, originName,
   const { alert } = useContext(AlertContext);
 
   useEffect(() => {
-    console.log('모달창',isModalOpen);
     // console.log(originName,originType,originContent);
     if (isModalOpen) {
       setName(originName);
+      setSelectType(originType);
       // if (originType === 'COMPANY') {
       //   setSelectType('기업');
       // } else if (originType === 'CAMP') {
       //   setSelectType('부트캠프');
       // }
       setContent(originContent);
-      // if (originType === '기업') {
-      //   setType('COMPANY');
-      // } else if (originType === '부트캠프') {
-      //   setType('CAMP');
-      // }
+      if (originType === '기업') {
+        setType('COMPANY');
+      } else if (originType === '부트캠프') {
+        setType('CAMP');
+      }
     }
   }, [isModalOpen, originName, originType, originContent]);
 

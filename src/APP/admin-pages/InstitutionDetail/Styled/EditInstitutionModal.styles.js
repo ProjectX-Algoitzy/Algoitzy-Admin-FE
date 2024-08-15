@@ -109,8 +109,8 @@ export const TypeSelectContainer = styled(Select).attrs({
   
   .react-select__menu { 
     position: absolute;
-    top: -0.417rem;  
-    left: -0.042rem;
+    top: -0.5rem;  
+    left: -0.052rem;
     width: 24.708rem;
     height: 4.967rem; 
     border-radius: 0.167rem;

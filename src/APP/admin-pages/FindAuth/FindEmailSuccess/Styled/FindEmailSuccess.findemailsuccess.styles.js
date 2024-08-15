@@ -16,7 +16,8 @@ export const InnerContainer = styled.div`
   border: 0.042rem solid ${tokens.colors.Grey_4};
   border-radius: 0.83rem;
   padding: 5.33rem 12.71rem;
-  margin-top: 2.5rem;
+  // margin-top: 2.5rem;
+	margin: 5rem 0;
 `;
 
 // 아이디 찾기 head
@@ -59,9 +60,9 @@ export const EmailBox = styled.div`
 `;
 
 // 이메일 아이콘
-export const EmailIcon = styled.div`
-	border: 0.042rem solid ${tokens.colors.B_Grey_6};
-	border-radius: 0.17rem;
+export const EmailIcon = styled.img`
+	// border: 0.042rem solid ${tokens.colors.B_Grey_6};
+	// border-radius: 0.17rem;
 	width: 1rem;
 	height: 1rem;
 	margin: 0.67rem;

@@ -36,16 +36,20 @@ export const TopBox = styled.div`
   justify-content: space-between;
   width: 911px;
   // height: 62px;
-  padding: 15px 24px 21px 52px;
+  padding: 15px 24px 15px 52px;
   border-bottom: 1px solid ${tokens.colors.B_Grey_3};
   margin-bottom: 50px;
 `;
 
 
 // 지원서 보기
-export const Title = styled.div`
+export const Title = styled.input`
   ${tokens.typography.T3_B_24};
   color: ${tokens.colors.Grey_8};
+  width: 24.583rem;
+  border: none;
+  border: 0.042rem solid ${tokens.colors.Grey_4};
+  padding: 0.3rem 0.667rem ;
 `;
 
 // 닫기 버튼

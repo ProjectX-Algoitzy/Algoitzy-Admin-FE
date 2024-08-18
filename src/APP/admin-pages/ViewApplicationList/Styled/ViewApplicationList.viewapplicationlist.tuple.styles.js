@@ -31,10 +31,12 @@ export const CheckBox = styled.input`
   margin-left: 1rem;
   cursor: pointer;
   background-image: url('/img/checkboxicon.png');
+  background-repeat: no-repeat;
   &:checked {
     background-image: url('/img/checkedicon.png');
-    width: 1rem;
-    height: 1rem;
+    background-repeat: no-repeat;
+    width: 1.5rem;
+    height: 1.5rem;
     margin-right: 2.417rem;
     margin-left: 0.917rem;
   }

@@ -41,8 +41,9 @@ export const TopTitle = styled.div`
 
 export const Close = styled.div`
   background-image: url('/img/close.png');
-  width: 1.333rem;
-  height: 1.333rem;
+  background-repeat: no-repeat;
+  width: 2rem;
+  height: 2rem;
   cursor: pointer;
 `;
 
@@ -155,6 +156,7 @@ export const DecisionBtn = styled.button`
   width: 9.958rem;
   height: 2.333rem;
   color: ${tokens.colors.White};
+  border: none;
   border-radius: 0.167rem;
   margin: 3.333rem 0 7.458rem 0;
   cursor: pointer;

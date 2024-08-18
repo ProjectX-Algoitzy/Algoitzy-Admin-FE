@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import * as itemS from "./Styled/ManageAuth.manageauth.managertuple";
 import request from "../../Api/request";
+import { AlertContext } from '../../Common/Alert/AlertContext';
 
 
 export default function ManageAuthManagerTuple({ item, fetchAdminList, fetchUserList }) {
+  const { alert } = useContext(AlertContext);
 
   const handleRevoke = async () => {
 
@@ -23,6 +25,8 @@ export default function ManageAuthManagerTuple({ item, fetchAdminList, fetchUser
       }
     } catch (error) {
       console.error("권한 회수 에러:", error);
+      const errorMessage = error.response?.data?.message || "권한 회수 에러"; 
+        alert(String(errorMessage));
     }
   };
   

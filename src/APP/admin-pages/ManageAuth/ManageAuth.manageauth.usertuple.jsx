@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import * as itemS from "./Styled/ManageAuth.manageauth.usertuple";
 import request from "../../Api/request";
+import { AlertContext } from '../../Common/Alert/AlertContext';
 
 
 export default function ManageAuthUserTuple({ item, fetchAdminList, fetchUserList }) {
+  const { alert } = useContext(AlertContext);
 
   const [isDropVisible, setIsDropVisible] = useState(false);
-  const [role, setRole] = useState('');
+  // const [role, setRole] = useState('');
 
   const toggleSortDrop = () => {
     setIsDropVisible(prevState => !prevState);
@@ -23,7 +25,7 @@ export default function ManageAuthUserTuple({ item, fetchAdminList, fetchUserLis
         const response = await request.patch(`/member/role`, requestData);
         if (response.isSuccess) {
           console.log("권한 추가 성공 response:", response);
-          setRole(role);
+          // setRole(role);
           setIsDropVisible(prevState => !prevState);
           fetchAdminList();
           fetchUserList();
@@ -32,6 +34,8 @@ export default function ManageAuthUserTuple({ item, fetchAdminList, fetchUserLis
         }
       } catch (error) {
         console.error("권한 추가 에러:", error);
+        const errorMessage = error.response?.data?.message || "권한 추가 에러"; 
+        alert(String(errorMessage));
       }
   
   };

@@ -98,6 +98,7 @@ export const TypeSelectContainer = styled(Select).attrs({
     border-radius: 0.167rem;
     padding-left: 10.417rem;
     min-height: auto;
+    cursor: pointer;
   }
   
   .react-select__menu { 

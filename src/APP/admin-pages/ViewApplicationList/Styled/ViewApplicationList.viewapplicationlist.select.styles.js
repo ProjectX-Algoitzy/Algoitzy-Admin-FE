@@ -15,6 +15,7 @@ export const StudySelectContainer = styled(Select).attrs({
   border-radius: 0.167rem;
   text-align: center;
   justify-content: center;
+  cursor: pointer;
 }
 .react-select__menu {  /*클릭 시 나오는 드롭다운 메뉴의 스타일을 지정*/
   position: absolute;

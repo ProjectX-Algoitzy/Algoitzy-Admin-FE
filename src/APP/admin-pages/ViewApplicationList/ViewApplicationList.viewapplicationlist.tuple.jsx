@@ -24,7 +24,7 @@ export default function ViewApplicationListTuple({ application, isSelected, onOp
 		const status = application.status;
 
 		if (status === "최종 합격" || status === "최종 불합격" || status === "서류 불합격") {
-			// console.log("최종 메일 발송완료");
+			alert("모집 전형이 마무리된 지원자입니다.");
 		} else if (status !== "서류 합격") {
 			setIsChecked(checked);
 			onCheckChange(application.answerId, checked, status);
@@ -33,7 +33,9 @@ export default function ViewApplicationListTuple({ application, isSelected, onOp
 			onCheckChange(application.answerId, checked, status);
 			setIsAbled(false); 
 		} else {
-			alert("면접 일정 변경 후 메일 발송해주세요.");
+			// alert("면접 일정 변경 후 메일 발송해주세요.");
+			setIsChecked(checked);
+			onCheckChange(application.answerId, checked, status)
 		}
 			
 	};

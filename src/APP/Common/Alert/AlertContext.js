@@ -1,5 +1,6 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
 import Alert from './Alert';
+import { setAlertFunction } from './alertSingleton';
 
 const AlertContext = createContext({
   alert: () => new Promise((_, reject) => reject()),
@@ -7,6 +8,10 @@ const AlertContext = createContext({
 
 const AlertProvider = ({ children }) => {
   const [state, setState] = useState(null);
+
+  useEffect(() => {
+    setAlertFunction(alert);
+  }, []);
 
   const alert = (title = '', message = '') => {
     return new Promise((resolve) => {

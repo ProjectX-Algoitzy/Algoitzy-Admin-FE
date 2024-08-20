@@ -1,12 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import request from '../../Api/request';
 import * as itemS from "../../admin-pages/ViewApplicationList/Styled/ViewApplicationList.viewapplicationlist.main.styles";
 import ViewApplicationListTable from './ViewApplicationList.viewapplicationlist.table';
 import StudySelect from './ViewApplicationList.viewapplicationlist.select';
 import { useRecoilState } from "recoil";
 import { IsSendMail } from '../Recoil/Recoil.state';
+import { AlertContext } from '../../Common/Alert/AlertContext';
 
 export default function ViewApplicationList() {
+	const { alert } = useContext(AlertContext);
+	
 	const [applications, setApplications] = useState([]);
 	const [generation, setGeneration] = useState(null);
 	const [generations, setGenerations] = useState([]);
@@ -208,7 +211,8 @@ export default function ViewApplicationList() {
 				console.error("이메일 전송 실패:", response);
 			}
 		} catch (error) {
-			console.error('이메일 전송 오류:', error);
+			// console.error('이메일 전송 오류:', error);
+			alert(error.response?.data?.message || '이메일 전송 오류');
 		}
 	};
 

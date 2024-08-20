@@ -25,19 +25,19 @@ export const TupleContainer = styled.div`
 export const CheckBox = styled.input`
   appearance: none;
   border: none;
-  width: 0.833rem;
-  height: 0.833rem;
-  margin-right: 2.5rem;
-  margin-left: 1rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-right: 1.917rem;
+  margin-left: 0.917rem;
   cursor: pointer;
   background-image: url('/img/checkboxicon.png');
   background-repeat: no-repeat;
   &:checked {
     background-image: url('/img/checkedicon.png');
     background-repeat: no-repeat;
-    width: 1.5rem;
-    height: 1.5rem;
-    margin-right: 2.417rem;
+    width: 1.77rem;
+    height: 1.77rem;
+    margin-right: 1.647rem;
     margin-left: 0.917rem;
   }
 `;

@@ -61,6 +61,7 @@ export const AdminName = styled.div`
 
 export const Btn = styled.button`
   ${tokens.Btns.Btn_ghost_default}
+  ${tokens.typography.T5_SB_16};
   margin-left: 2.083rem;
 `;
 

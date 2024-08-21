@@ -20,7 +20,7 @@ export const CategoryContainer = styled.div`
   background-color: rgba(0, 165, 255, 0.05);
   width: 50rem;
   height: 2.292rem;
-  border-bottom: 1px solid ${tokens.colors.B_Grey_4};
+  border-bottom: 0.042rem solid ${tokens.colors.B_Grey_4};
   margin-top: 1.667rem;
   margin-bottom: 0.833rem;
 `;
@@ -148,7 +148,7 @@ export const SortCenterText = styled.div`
     background-color: rgba(102, 201, 255, 0.2); 
   }
   cursor: pointer;
-  border-top : 1px solid ${tokens.colors.B_Grey_2};
-  border-bottom : 1px solid ${tokens.colors.B_Grey_2};
+  border-top : 0.042rem solid ${tokens.colors.B_Grey_2};
+  border-bottom : 0.042rem solid ${tokens.colors.B_Grey_2};
 `;
 

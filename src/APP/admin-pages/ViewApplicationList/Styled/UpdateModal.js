@@ -9,7 +9,7 @@ export const ModalContainer = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  width: 13.333rem;
+  width: auto;
   height: 2.125rem;
   background: white;
   padding: 0 0.5rem;
@@ -33,24 +33,41 @@ export const ConfirmButton = styled.button`
   padding: 0;
   cursor: pointer;
   border-radius: 0.167rem;
+  ${tokens.typography.B3_M_14};
+  margin-left: 0.333rem;
 `;
 
 export const InterviewSelect = styled(Select).attrs({
   classNamePrefix: 'react-select',
 })`
+
 .react-select__control {
   color: ${tokens.colors.Grey_8};
   ${tokens.typography.B3_M_14};
-  border: 1px solid ${tokens.colors.B_Grey_3};
-  border-radius: 0.167rem;
+  border: none;
+  border-bottom: 0.029rem solid ${tokens.colors.B_Grey_3};
+  border-radius: 0;
   text-align: center;
   justify-content: center;
+  height: auto;
+  min-height: unset;
+  width: 2.5rem;
+  outline: none; 
+}
+
+.react-select__single-value {
+  text-align: center;
+  display: flex;
+  align-items: center; 
+  justify-content: center;
+  width: 100%;
+  padding: 0;
+  margin : 0;
 }
 
 .react-select__menu {
   position: absolute;
-  top: -0.417rem;  
-  left: -0.083rem;
+  top: -1rem; 
   width: 1.833rem;
   height: 10.167rem; 
   border-radius: 0.167rem;
@@ -59,7 +76,8 @@ export const InterviewSelect = styled(Select).attrs({
   font-weight: 600;
   text-align: center;
   ${tokens.typography.B3_M_14};
-  overflow: hidden; /* Hide scrollbar */
+  overflow: hidden;
+  width: 2.5rem;
 }
 
 .react-select__menu-list {
@@ -77,13 +95,19 @@ export const InterviewSelect = styled(Select).attrs({
 }
 
 .react-select__option:not(:last-child) {
-  border-bottom: 1px solid ${tokens.colors.B_Grey_2};
+  border-bottom: 0.042rem solid ${tokens.colors.B_Grey_2};
 }
 
 .react-select__option {
   color: ${tokens.colors.Grey_8};
   ${tokens.typography.B3_M_14};
   border: none;
+  min-height: unset;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 1.5rem;
 }
 
 .react-select__option--is-selected:first-of-type {

@@ -31,13 +31,17 @@ export const CheckBox = styled.input`
   margin-left: 0.917rem;
   cursor: pointer;
   background-image: url('/img/checkboxicon.png');
+  background-size: cover;
   background-repeat: no-repeat;
+  width: 1rem;
+  height: 1rem;
   &:checked {
-    background-image: url('/img/checkedicon.png');
+    background-image: url('/img/checkedicon_lowpadding.png');
     background-repeat: no-repeat;
-    width: 1.77rem;
-    height: 1.77rem;
-    margin-right: 1.647rem;
+    background-size: cover;
+    width: 1rem;
+    height: 1rem;
+    margin-right: 1.947rem;
     margin-left: 0.917rem;
   }
 `;

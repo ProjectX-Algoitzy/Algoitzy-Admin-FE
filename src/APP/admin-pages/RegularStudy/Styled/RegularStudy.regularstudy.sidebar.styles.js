@@ -6,6 +6,7 @@ export const Container = styled.div`
   flex-direction: column;
   padding-right: 1.333rem;
   border-right: 1px solid ${tokens.colors.Grey_4};
+  margin-left: 15rem;
 `;
 
 export const InnerContainer = styled.div`

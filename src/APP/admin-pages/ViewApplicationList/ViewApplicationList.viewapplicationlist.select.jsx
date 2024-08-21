@@ -5,7 +5,7 @@ const StudySelect = ({ generationOptions, onChange }) => {
     const CustomDropdownIndicator = props => {
         return (
             <components.DropdownIndicator {...props}>
-                <img src="/img/triangle.png" alt="triangle-icon" style={{ width: "1rem", height: "1rem" }} />
+                <img src="/img/triangle_lowpadding.png" alt="triangle-icon" style={{ width: "0.583rem", height: "auto" }} />
             </components.DropdownIndicator>
         );
     };

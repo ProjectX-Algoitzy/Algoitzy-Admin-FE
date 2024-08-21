@@ -7,8 +7,8 @@ export const StudySelectContainer = styled(Select).attrs({
   classNamePrefix: 'react-select',
 })`
 .react-select__control { /*선택 상자의 컨트롤 부분을 스타일링*/
-  width: 6.2rem;
-  height: 1.417rem;
+  width: 5.917rem;
+  min-height: 1.5rem;
   color: ${tokens.colors.Grey_8};
   ${tokens.typography.B3_M_14};
   border: 0.042rem solid ${tokens.colors.B_Grey_3};
@@ -22,7 +22,7 @@ export const StudySelectContainer = styled(Select).attrs({
   top: -0.617rem;  
   left: -0.082rem;
   width: 6.542rem;
-  height: 7rem; 
+  height: auto;
   border-radius: 0.167rem;
   border: none;
   box-shadow: 0 0.083rem 0.167rem rgba(0, 0, 0, 0.1);

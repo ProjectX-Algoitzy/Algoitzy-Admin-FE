@@ -38,72 +38,69 @@ export const WeeksSelectContainer = styled(Select).attrs({
 })`
   .react-select__control {
     display: flex;
-    width: 5.917rem;
-    height: 1.5rem;
+    padding: 0.1rem;
     color: ${tokens.colors.Grey_8};
     ${tokens.typography.B3_M_14};
-    border: 1px solid ${tokens.colors.B_Grey_3};
+    border: 0.042rem solid ${tokens.colors.B_Grey_3};
     border-radius: 0.167rem;
+    box-shadow: 0 0.042rem 0.083rem rgba(0, 0, 0, 0.1);
   }
+
   .react-select__menu {
     position: absolute;
-    top: -0.417rem;
-    left: -0.042rem;
-    width: 6.042rem;
-    height: 11.667rem;
+    top: -0.5rem;
+    width: 100%;
+    max-height: 14.5rem; /* Adjusted height to fit 8 items */
     border-radius: 0.167rem;
     border: none;
     box-shadow: 0 0.083rem 0.167rem rgba(0, 0, 0, 0.1);
     font-weight: 600;
-    text-align: center;
     ${tokens.typography.B3_M_14};
+    background-color: white; 
   }
-  .react-select__option:not(:last-child) {
-    border-bottom: 1px solid ${tokens.colors.B_Grey_2};
-  }
+
   .react-select__option {
     color: ${tokens.colors.Grey_8};
     ${tokens.typography.B3_M_14};
     border: none;
+    padding: 0.5rem;
+    cursor: pointer; /* Ensure the cursor indicates interactiveness */
+    display: flex;
+    align-items: center; /* Vertically center-align text */
+    justify-content: center; /* Horizontally center-align text */
   }
-  .react-select__option--is-selected:first-of-type {
+
+  .react-select__option:not(:last-child) {
+    border-bottom: 0.042rem solid ${tokens.colors.B_Grey_2};
+  }
+
+  .react-select__option--is-selected {
     background-color: rgba(102, 201, 255, 0.2);
     backdrop-filter: blur(8px);
     color: ${tokens.colors.Grey_8};
+    border: none;
+    ${tokens.typography.B3_M_14};
+  }
+
+  .react-select__option--is-selected:first-of-type {
     border-top-left-radius: 0.167rem;
     border-top-right-radius: 0.167rem;
-    border: none;
-    ${tokens.typography.B3_M_14};
-    position: relative;
-    top: -0.167rem;
   }
+
   .react-select__option--is-selected:last-of-type {
-    background-color: rgba(102, 201, 255, 0.2);
-    backdrop-filter: blur(8px);
-    color: ${tokens.colors.Grey_8};
     border-bottom-left-radius: 0.167rem;
     border-bottom-right-radius: 0.167rem;
-    border: none;
-    ${tokens.typography.B3_M_14};
   }
-  .react-select__option--is-selected:not(:first-of-type):not(:last-of-type) {
-    background-color: rgba(102, 201, 255, 0.2);
-    backdrop-filter: blur(8px);
-    color: ${tokens.colors.Grey_8};
-    border: none;
-    ${tokens.typography.B3_M_14};
-  }
+
   .react-select__option--is-focused {
-    background-color: transparent;
+    background-color: rgba(102, 201, 255, 0.1);
     cursor: pointer;
   }
-  .react-select__option:active {
-    background-color: transparent;
-  }
+
   .react-select__single-value {
     width: 100%;
     text-align: center;
-    padding-left: 1.125rem;
+    padding-left: 0.5rem;
   }
 `;
 

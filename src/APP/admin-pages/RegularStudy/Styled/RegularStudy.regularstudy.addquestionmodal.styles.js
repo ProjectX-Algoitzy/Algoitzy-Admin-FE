@@ -12,17 +12,19 @@ export const ModalOverlay = styled.div`
   justify-content: center;
   align-items: center;
   z-index: 1000;
+  padding: 1rem; /* 모달이 화면에 붙지 않도록 여백 추가 */
+  overflow-y: auto; /* 내용이 넘칠 때 스크롤 가능하도록 */
 `;
 
 export const ModalContent = styled.div`
   display: flex;
   flex-direction: column;
   background-color: #fff;
-  // padding: 0.833rem;
   border-radius: 0.333rem;
   width: 41.125rem;
-  height: auto;
+  overflow-y: auto; /* Enable scrolling if the content exceeds the max height */
   box-shadow: 0 0.083rem 0.417rem rgba(0, 0, 0, 0.1);
+  margin: auto; /* Center the content */
 `;
 
 export const ModalHeader = styled.div`
@@ -174,7 +176,9 @@ export const PaginationNumber = styled.div`
   margin: 0 0.208rem;
   width: 0.333rem;
   height: 0.875rem;
-  padding: 0.417rem;
+  padding-left: 0.417rem;
+  padding-right: 0.417rem;
+  /* padding: 0.417rem; */
   cursor: pointer;
   color: ${(props) => (props.active ? tokens.colors.Blue_3 : tokens.colors.B_Grey_7)};
   font-weight: ${(props) => (props.active ? 'bold' : 'normal')};

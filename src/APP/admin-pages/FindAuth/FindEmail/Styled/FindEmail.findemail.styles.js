@@ -5,7 +5,7 @@ import * as tokens from "../../../../../tokens"
 export const Container = styled.div`
   display: flex;
   justify-content: center; 
-  background-image: url('/img/signup.png');
+  background-image: url('/img/login.png');
 `;
 
 export const InnerContainer = styled.div`

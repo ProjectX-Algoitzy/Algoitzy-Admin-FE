@@ -2,55 +2,32 @@ import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
   html {
-    font-size: 16px;
+    font-size: 24px;
     box-sizing: border-box;
 
-    @media (min-width: 2500px) {
-      font-size: 24px;
+    /* Extra small devices (phones, 600px and down). */
+    @media only screen and (max-width: 600px) {
+      font-size: 8px;
     }
 
-    @media (min-width: 2000px) and (max-width: 2499px) {
-      font-size: 22px;
-    }
-
-    @media (min-width: 1800px) and (max-width: 1999px) {
-      font-size: 20px;
-    }
-
-    @media (min-width: 1600px) and (max-width: 1799px) {
-      font-size: 18px;
-    }
-
-    @media (min-width: 1400px) and (max-width: 1599px) {
-      font-size: 16px;
-    }
-
-    @media (min-width: 1200px) and (max-width: 1399px) {
-      font-size: 15px;
-    }
-
-    @media (min-width: 1000px) and (max-width: 1199px) {
-      font-size: 14px;
-    }
-
-    @media (min-width: 900px) and (max-width: 999px) {
-      font-size: 13px;
-    }
-
-    @media (min-width: 768px) and (max-width: 899px) {
+    /* Small devices (portrait tablets and large phones, 600px and up) */
+    @media only screen and (min-width: 600px) and (max-width: 767px) {
       font-size: 12px;
     }
 
-    @media (min-width: 600px) and (max-width: 767px) {
-      font-size: 11px;
+    /* Medium devices (landscape tablets, 768px and up) */
+    @media only screen and (min-width: 768px) and (max-width: 991px) {
+      font-size: 16px;
     }
 
-    @media (min-width: 480px) and (max-width: 599px) {
-      font-size: 10px;
+    /* Large devices (laptops/desktops, 992px and up) */
+    @media only screen and (min-width: 992px) and (max-width: 1199px) {
+      font-size: 20px;
     }
 
-    @media (max-width: 479px) {
-      font-size: 8px;
+    /* Extra large devices (large laptops and desktops, 1200px and up) */
+    @media only screen and (min-width: 1200px) {
+      font-size: 24px;
     }
   }
 

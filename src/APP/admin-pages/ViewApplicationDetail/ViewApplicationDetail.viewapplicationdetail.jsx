@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import * as itemS from "./Styled/ViewApplicationDetail.viewapplicationdetail.styles";
 import request from '../../Api/request';
 
-const ViewApplicationDetail = ({ applicationId, isOpen, onClose, fetchApplication }) => {
+const ViewApplicationDetail = ({ applicationId, status, isOpen, onClose, fetchApplication }) => {
   const [applications, setApplications] = useState({});
   const [activeButton, setActiveButton] = useState(null);
 
   useEffect(() => {
+    console.log('status',status);
     const fetchDetail = async () => {
       try {
         const response = await request.get(`/answer/${applicationId}`);
@@ -113,28 +114,33 @@ const ViewApplicationDetail = ({ applicationId, isOpen, onClose, fetchApplicatio
             )}
           </itemS.InnerInnerContainer>
 
-          <itemS.Time>{new Date(applications.submitTime).toLocaleString()}</itemS.Time>
+          <itemS.Time status={status}>{new Date(applications.submitTime).toLocaleString()}</itemS.Time>
 
-          <itemS.BottomContainer>
-            <itemS.Title>평가</itemS.Title>
-            <itemS.BtnContainer>
-              <itemS.NonPassBtn
-                onClick={() => handleButtonClick('nonPass')}
-                isActive={activeButton === 'nonPass'}
-              >
-                불합격
-              </itemS.NonPassBtn>
-              <itemS.PassBtn
-                onClick={() => handleButtonClick('pass')}
-                isActive={activeButton === 'pass'}
-              >
-                합격
-              </itemS.PassBtn>
-            </itemS.BtnContainer>
-          </itemS.BottomContainer>
+          {status === '서류 전형' && (
+            <>
+              <itemS.BottomContainer>
+                <itemS.Title>평가</itemS.Title>
+                <itemS.BtnContainer>
+                  <itemS.NonPassBtn
+                    onClick={() => handleButtonClick('nonPass')}
+                    isActive={activeButton === 'nonPass'}
+                  >
+                    불합격
+                  </itemS.NonPassBtn>
+                  <itemS.PassBtn
+                    onClick={() => handleButtonClick('pass')}
+                    isActive={activeButton === 'pass'}
+                  >
+                    합격
+                  </itemS.PassBtn>
+                </itemS.BtnContainer>
+              </itemS.BottomContainer>
+              <itemS.DecisionBtnBox>
+                <itemS.DecisionBtn onClick={handleDecisionClick}>확정하기</itemS.DecisionBtn>
+              </itemS.DecisionBtnBox>
+            </>
+          )}
         </itemS.InnerContainer>
-
-        <itemS.DecisionBtn onClick={handleDecisionClick}>확정하기</itemS.DecisionBtn>
       </itemS.ModalContainer>
     </itemS.Backdrop>
   );

@@ -28,7 +28,8 @@ export const TopContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 46.833rem;
+  align-items: center;
+  width: 50rem;
   padding: 0.875rem 0.958rem 0.875rem 2.208rem;
   border-bottom: 1px solid ${tokens.colors.B_Grey_3};
   margin-bottom: 3.333rem;
@@ -42,6 +43,7 @@ export const TopTitle = styled.div`
 export const Close = styled.div`
   background-image: url('/img/close.png');
   background-repeat: no-repeat;
+  background-position: center;
   width: 2rem;
   height: 2rem;
   cursor: pointer;
@@ -106,7 +108,7 @@ export const Time = styled.div`
   justify-content: flex-end;
   ${tokens.typography.B2_M_16};
   color: ${tokens.colors.Grey_5};
-  margin-bottom: 1.792rem;
+  margin-bottom: ${({ status }) => (status === '서류 전형' ? '1.792rem' : '7.458rem')};
 `;
 
 export const BottomContainer = styled.div`
@@ -120,6 +122,13 @@ export const BtnContainer = styled.div`
   display: flex;
   flex-direction: row;
   margin-bottom: 1rem;
+`;
+
+export const DecisionBtnBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 38.333rem;
 `;
 
 export const NonPassBtn = styled.button`

@@ -94,6 +94,7 @@ export default function ViewApplicationListTuple({ application, isSelected, onOp
 			{isSelected && (
 				<ViewApplicationDetail
 					applicationId={application.answerId}
+					status={application.status}
 					isOpen={isSelected}
 					onClose={onClose}
 					fetchApplication={fetchApplication}

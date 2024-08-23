@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import * as itemS from "./Styled/InstitutionDetail.institutiondetail.explanation.styles";
 
-export default function InstitutionDetailExplanation({ content }) {
-   console.log("ㄴ야ㅓ랸얼content: ", content);
-    
+export default function InstitutionDetailExplanation({ content }) {    
   return (
     <itemS.Container>
         <itemS.CategoryContainer>

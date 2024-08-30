@@ -32,7 +32,7 @@ export const TopBox = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 46.833rem;
+  width: 50rem;
   padding: 0.625rem 1rem 0.875rem 2.167rem;
   border-bottom: 0.042rem solid ${tokens.colors.B_Grey_3};
   margin-bottom: 1.833rem;
@@ -183,7 +183,7 @@ export const TypeSelectContainer = styled(Select).attrs({
 export const Btn = styled.button` 
   color: ${tokens.colors.White};
   ${tokens.typography.T5_SB_16}
-  background-color: ${tokens.colors.Blue_0_Main};
+  background-color: ${({ isButtonDisabled }) => isButtonDisabled ? tokens.colors.Grey_3 : tokens.colors.Blue_0_Main};
   width: 14.333rem;
   height: 2rem;
   margin-bottom: 1.667rem;

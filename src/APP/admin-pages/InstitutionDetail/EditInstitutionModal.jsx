@@ -96,6 +96,8 @@ export default function EditInstitutionModal({ isModalOpen, onClose, originName,
 
   if (!isModalOpen) return null;
 
+  const isButtonDisabled = !name || !type;  
+
   return (
     <itemS.Backdrop>
       <itemS.ModalContainer>
@@ -120,7 +122,7 @@ export default function EditInstitutionModal({ isModalOpen, onClose, originName,
             <QuillPractice setContent={setContent} content={content} />
           </itemS.LittleContainer>
 
-          <itemS.Btn onClick={handleEdit}>수정하기</itemS.Btn>
+          <itemS.Btn onClick={handleEdit} disabled={isButtonDisabled} isButtonDisabled={isButtonDisabled} >수정하기</itemS.Btn>
 
         </itemS.InnerContainer>
 

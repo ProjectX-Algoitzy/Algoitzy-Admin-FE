@@ -87,6 +87,8 @@ export default function MakingInstitutionModal({ onClose, isModalOpen, fetchInst
 
   if (!isModalOpen) return null;
 
+  const isButtonDisabled = !name || !type || !content;
+
   return (
     <itemS.Backdrop>
       <itemS.ModalContainer>
@@ -111,7 +113,7 @@ export default function MakingInstitutionModal({ onClose, isModalOpen, fetchInst
             <QuillPractice setContent={setContent} />
           </itemS.LittleContainer>
         
-          <itemS.Btn onClick={handleAdd}>추가하기</itemS.Btn>
+          <itemS.Btn onClick={handleAdd} disabled={isButtonDisabled} isButtonDisabled={isButtonDisabled} >추가하기</itemS.Btn>
           
         </itemS.InnerContainer>
 
@@ -119,3 +121,4 @@ export default function MakingInstitutionModal({ onClose, isModalOpen, fetchInst
     </itemS.Backdrop>
   );
 }
+// D2D9E5

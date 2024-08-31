@@ -43,7 +43,7 @@ export default function MakingRegularStudyEditStudyInfo() {
     }, [id]);
 
     const onChangeName = (e) => {
-        if(name === "코딩테스트 기초반" || name === "코딩테스트 대비반") {
+        if(name === "코딩테스트 기초반" || name === "코딩테스트 심화반") {
             alert("해당 정규스터디의 이름은 변경할 수 없습니다");
             return;
         }

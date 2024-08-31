@@ -7,7 +7,7 @@ export const Container = styled.div`
   flex-direction: column;
   overflow: auto;
   /* align-items : center; */
-  background-image: url('/img/imgbackground.jpg');
+  background-image: url('/img/login.png');
   min-height: 100%;
 `;
 
@@ -385,7 +385,38 @@ export const SelectionQuestionContainer = styled.div` /*객관식 문항을 위�
   position: relative;
 `;
 
-export const QuestionContainer = styled.input`
+// export const QuestionContainer = styled.input`
+//   ${({ innerContainerClicked }) => 
+//     innerContainerClicked ? css`
+//         padding-left: 0.5rem;
+//         width: 19.167rem;
+//         height: 2.333rem;
+//         background-color: rgba(102, 201, 255, 0.1);
+//         backdrop-filter: blur(8px);
+//         border: none;
+//         border-bottom: 0.042rem solid ${tokens.colors.B_Grey_6};
+//         ${tokens.typography.T5_SB_16};
+
+//         &::placeholder {
+//           color: ${tokens.colors.Grey_8};
+//         }
+
+//         &:focus {
+//           outline: none;
+//           border-bottom: 0.083rem solid ${tokens.colors.Black};
+//         }
+//     `: css`
+//         width: ${({ value }) => (value ? `${value.length * 0.592 + 0.417}rem` : '19.167rem')}; /* 약간의 여유 추가 */
+//         min-width: 1.5rem;
+//         margin-right: 0.667rem;
+//         height: auto;
+//         border: none;
+//         ${tokens.typography.T5_SB_16};
+//         letter-spacing: 0.021rem; /* 글자 간 간격 추가 */
+//   `}
+// `;
+
+export const QuestionContainer = styled.textarea`
   ${({ innerContainerClicked }) => 
     innerContainerClicked ? css`
         padding-left: 0.5rem;
@@ -396,7 +427,11 @@ export const QuestionContainer = styled.input`
         border: none;
         border-bottom: 0.042rem solid ${tokens.colors.B_Grey_6};
         ${tokens.typography.T5_SB_16};
-
+        resize: none; /* 사용자 크기 조정 방지 */
+        overflow: auto; /* 스크롤이 필요한 경우 표시 */
+        line-height: 1.5; /* 줄 간격 조정 */
+        white-space: pre-wrap; /* 줄바꿈 지원 */
+        
         &::placeholder {
           color: ${tokens.colors.Grey_8};
         }
@@ -406,13 +441,19 @@ export const QuestionContainer = styled.input`
           border-bottom: 0.083rem solid ${tokens.colors.Black};
         }
     `: css`
-        width: ${({ value }) => (value ? `${value.length * 0.592 + 0.417}rem` : '19.167rem')}; /* 약간의 여유 추가 */
+        width: ${({ value }) => (value ? `${value.length * 0.692 + 0.417}rem` : '19.167rem')}; /* 약간의 여유 추가 */
         min-width: 1.5rem;
+        /* max-width: 19.167rem; */
+        max-width: 25.167rem;
         margin-right: 0.667rem;
         height: auto;
         border: none;
         ${tokens.typography.T5_SB_16};
         letter-spacing: 0.021rem; /* 글자 간 간격 추가 */
+        resize: none; /* 사용자 크기 조정 방지 */
+        overflow: hidden; 
+        line-height: 1.5; /* 줄 간격 조정 */
+        white-space: pre-wrap; /* 줄바꿈 지원 */
   `}
 `;
 

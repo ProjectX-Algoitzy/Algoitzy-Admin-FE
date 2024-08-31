@@ -25,8 +25,8 @@ export default function ManageAuthManagerTuple({ item, fetchAdminList, fetchUser
       }
     } catch (error) {
       console.error("권한 회수 에러:", error);
-      const errorMessage = error.response?.data?.message || "권한 회수 에러"; 
-        alert(String(errorMessage));
+      // const errorMessage = error.response?.data?.message || "권한 회수 에러"; 
+      //   alert(String(errorMessage));
     }
   };
   

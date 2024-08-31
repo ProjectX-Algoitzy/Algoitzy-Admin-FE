@@ -26,7 +26,7 @@ export default function BottomTuple({ item, fetchItemList, workbookId }) {
       }
       
     } catch (error) {
-      alert(error.response.data.message || "문제집 문제 추가 에러");
+      console.error("문제집 문제 추가 에러:", error);
     }
   };
 

@@ -9,9 +9,9 @@ const AlertContext = createContext({
 const AlertProvider = ({ children }) => {
   const [state, setState] = useState(null);
 
-  // useEffect(() => {
-  //   setAlertFunction(alert);
-  // }, []);
+  useEffect(() => {
+    setAlertFunction(alert);
+  }, []);
 
   const alert = (title = '', message = '') => {
     return new Promise((resolve) => {

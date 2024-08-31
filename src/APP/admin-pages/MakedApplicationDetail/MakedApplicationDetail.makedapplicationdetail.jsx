@@ -517,7 +517,7 @@ export default function MakedApplicationDetail() {
             }
         } catch (error) {
             console.error("지원서 " + (distribution ? "저장" : "임시저장") + " 오류", error); // 저장 또는 임시저장 오류 메시지 출력
-            alert("지원서 " + (distribution ? "저장" : "임시저장") + " 실패하였습니다");
+            // alert("지원서 " + (distribution ? "저장" : "임시저장") + " 실패하였습니다");
         }
     };
 

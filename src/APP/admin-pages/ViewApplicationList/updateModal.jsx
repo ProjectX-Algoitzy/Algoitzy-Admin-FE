@@ -66,9 +66,6 @@ export default function UpdateModal({ interviewId, onConfirm, fetchApplication, 
       }
     } catch (error) {
       console.error("면접 날짜 업뎃 에러:", error);
-      alert(error.response?.data?.message || '면접 날짜 업뎃 에러');
-      // const errorMessage = error.response?.data?.result?.message || error.response?.data?.result?.email || error.response?.data?.result?.password || error.response?.data?.result || error.response?.data?.message || "면접 날짜 업뎃 에러"; // 객체를 문자열로 변환하거나 기본 메시지 사용
-      // alert(String(errorMessage));  // 문자열로 변환 보장
     }
   };
 

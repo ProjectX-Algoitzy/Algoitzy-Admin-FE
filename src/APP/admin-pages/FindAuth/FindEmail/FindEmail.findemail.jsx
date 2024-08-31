@@ -207,7 +207,6 @@ export default function FindEmail() {
         alert(response.data.message || "이메일 찾기 실패");
       }
     } catch (error) {
-      alert(error.response?.data?.message || "이메일 찾기 오류");
       console.error("이메일 찾기 오류:", error);
     }
   };

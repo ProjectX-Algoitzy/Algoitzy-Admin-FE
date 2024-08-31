@@ -34,8 +34,8 @@ export default function ManageAuthUserTuple({ item, fetchAdminList, fetchUserLis
         }
       } catch (error) {
         console.error("권한 추가 에러:", error);
-        const errorMessage = error.response?.data?.message || "권한 추가 에러"; 
-        alert(String(errorMessage));
+        // const errorMessage = error.response?.data?.message || "권한 추가 에러"; 
+        // alert(String(errorMessage));
       }
   
   };

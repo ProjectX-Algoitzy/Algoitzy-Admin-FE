@@ -211,8 +211,7 @@ export default function ViewApplicationList() {
 				console.error("이메일 전송 실패:", response);
 			}
 		} catch (error) {
-			// console.error('이메일 전송 오류:', error);
-			alert(error.response?.data?.message || '이메일 전송 오류');
+			console.error('이메일 전송 오류:', error);
 		}
 	};
 

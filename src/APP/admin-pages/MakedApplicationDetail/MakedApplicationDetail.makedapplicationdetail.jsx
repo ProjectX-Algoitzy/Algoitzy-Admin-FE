@@ -87,6 +87,20 @@ export default function MakedApplicationDetail() {
         // fetchStudyCurriculum();
     }, [id]);
 
+    useEffect(() => {
+        questions.forEach((question, index) => {
+            adjustTextAreaHeight(`textarea-${index}`);
+        });
+    }, [questions]);
+
+    const adjustTextAreaHeight = (id) => {
+        const textArea = document.getElementById(id);
+        if (textArea) {
+            textArea.style.height = 'auto';
+            textArea.style.height = `${textArea.scrollHeight}px`;
+        }
+    };
+
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error.message}</div>;
 
@@ -577,7 +591,7 @@ export default function MakedApplicationDetail() {
                         <TypeSelection index={index} sequenceByIndex={index + 1} />
                         {question.type === '주관식' ? (
                             <items.TextQuestionContainer>
-                                <items.QuestionContainer innerContainerClicked={innerContainerClicked[index]} type='text' placeholder='질문을 작성해주세요' value={question.textQuestion} onChange={(e) => onChangeTextQuestion(index, e)} />
+                                <items.QuestionContainer id={`textarea-${index}`} innerContainerClicked={innerContainerClicked[index]} type='text' placeholder='질문을 작성해주세요' value={question.textQuestion} onChange={(e) => onChangeTextQuestion(index, e)} />
                                 {question.isRequired === true ? (
                                     <items.NecessaryImg src='/img/necessarystar.png' alt='필수' innerContainerClicked={innerContainerClicked[index]}  />
                                 ) : (
@@ -586,7 +600,7 @@ export default function MakedApplicationDetail() {
                             </items.TextQuestionContainer>
                         ) : question.type === '객관식-단일' || question.type === '객관식-복수' ? (
                             <items.SelectionQuestionContainer>
-                                <items.QuestionContainer innerContainerClicked={innerContainerClicked[index]} type='text' placeholder='질문을 작성해주세요' value={question.selectQuestion} onChange={(e) => onChangeSelectQuestion(index, e)} />
+                                <items.QuestionContainer id={`textarea-${index}`} innerContainerClicked={innerContainerClicked[index]} type='text' placeholder='질문을 작성해주세요' value={question.selectQuestion} onChange={(e) => onChangeSelectQuestion(index, e)} />
                                 {question.isRequired === true ? (
                                     <items.NecessaryImg src='/img/necessarystar.png' alt='필수' innerContainerClicked={innerContainerClicked[index]}  />
                                 ) : (

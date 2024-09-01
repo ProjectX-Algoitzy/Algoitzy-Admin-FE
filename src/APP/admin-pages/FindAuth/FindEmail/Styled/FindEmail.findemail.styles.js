@@ -149,8 +149,10 @@ export const TimerBox = styled.div`
 	position: absolute;
 	top: 0.42rem;
 	left: 13.71rem;
-	width: 2.79rem;
-	height: 0.75rem;
+	// width: 2.79rem;
+	// height: 0.75rem;
+	width: 3rem;
+	height: 1.5rem;
 	background-color: rgba(251, 170, 132, 0.2);
 	border-radius: 0.17rem;
 	padding: 0.375rem 0.58rem; 

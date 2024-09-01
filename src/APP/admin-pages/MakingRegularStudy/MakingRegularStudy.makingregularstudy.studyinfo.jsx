@@ -78,10 +78,6 @@ export default function MakingRegularStudyStudyinfo() {
             } 
         } catch (error) {
             console.error('정규스터디 저장과정에서 에러', error);
-            if(error.response.data.code === "NOTICE") {
-                alert(error.response.data.message);
-                return;
-            }
         }
     };
 

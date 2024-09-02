@@ -75,7 +75,7 @@ export default function Header() {
           <itemS.StyledLink to={isLoggedIn ? "/regularstudylist" : "/login"} onClick={handleNav}>
             <itemS.SubMenuItem>정규 스터디</itemS.SubMenuItem>
           </itemS.StyledLink>
-          <itemS.StyledLink to={isLoggedIn ? "/application" : "/login"} onClick={handleNav}>
+          {/* <itemS.StyledLink to={isLoggedIn ? "/application" : "/login"} onClick={handleNav}>
             <itemS.SubMenuItem>지원서 관리</itemS.SubMenuItem>
           </itemS.StyledLink>
           <itemS.StyledLink to={isLoggedIn ? "/makingcurriculumhome" : "/login"} onClick={handleNav}>
@@ -86,7 +86,7 @@ export default function Header() {
           </itemS.StyledLink>
           <itemS.StyledLink to={isLoggedIn ? "#" : "/login"} onClick={handleNav}>
             <itemS.SubMenuItem>출석부 확인</itemS.SubMenuItem>
-          </itemS.StyledLink>
+          </itemS.StyledLink> */}
           <itemS.StyledLink to={isLoggedIn ? "/generation" : "/login"} onClick={handleNav}>
             <itemS.SubMenuItem>기수 갱신</itemS.SubMenuItem>
           </itemS.StyledLink>

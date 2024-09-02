@@ -57,7 +57,8 @@ request.interceptors.response.use(
           await alert(message);
           break;
         default:
-          console.error(`Unexpected error: ${message}`, error);
+          // console.error(`Unexpected error: ${message}`, error);
+          console.error('잘못된 요청입니다.');
           break;
       }
     }

@@ -35,7 +35,7 @@ export default function Header() {
     setActiveMenu((prev) => (prev === menu ? '' : menu));
   };
 
-  const handleNav = () => { // 하위 메뉴 이동 후 메뉴창 닫기
+  const handleNav = () => {  // 하위 메뉴 이동 후 메뉴창 닫기
     setActiveMenu('');
   };
 

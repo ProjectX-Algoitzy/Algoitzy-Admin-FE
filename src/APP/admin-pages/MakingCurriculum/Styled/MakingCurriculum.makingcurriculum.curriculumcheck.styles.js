@@ -5,8 +5,8 @@ import Select, { components } from 'react-select';
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  width: 794px;
-  margin-left: 563px;
+  width: 33.083rem; /* 794px */
+  margin-left: 23.458rem; /* 563px */
 `;
 
 export const Title = styled.div`
@@ -14,10 +14,10 @@ export const Title = styled.div`
   justify-content: space-between;
   ${tokens.typography.T1_SB_32};
   color: ${tokens.colors.Grey_8};
-  margin-top: 180px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid ${tokens.colors.B_Grey_2};
-  margin-bottom: 32px;
+  margin-top: 7.5rem; /* 180px */
+  padding-bottom: 0.833rem; /* 20px */
+  border-bottom: 0.042rem solid ${tokens.colors.B_Grey_2}; /* 1px */
+  margin-bottom: 1.333rem; /* 32px */
 `;
 
 export const TitleInput = styled.input`
@@ -39,13 +39,13 @@ export const SecondContainer = styled.div`
 `;
 
 export const WhiteBox = styled.div`
-  width: 390px;
-  height: 56px;
+  width: 16.25rem; /* 390px */
+  height: 2.333rem; /* 56px */
   display: flex;
   justify-content: center; /* 수평 가운데 정렬 */
   align-items: center; /* 수직 가운데 정렬 */
-  border-radius: 4px;
-  border: 1px solid ${tokens.colors.Grey_4};
+  border-radius: 0.167rem; /* 4px */
+  border: 0.042rem solid ${tokens.colors.Grey_4}; /* 1px */
   color: ${tokens.colors.Grey_7};
   ${tokens.typography.B2_M_16};
 `;
@@ -55,29 +55,29 @@ export const WeeksSelectContainer = styled(Select).attrs({
 })`
   .react-select__control {
     text-align: center;
-    width: 390px;
-    height: 58px;
-    margin-bottom: 32px;
+    width: 16.25rem; /* 390px */
+    height: 2.417rem; /* 58px */
+    margin-bottom: 1.333rem; /* 32px */
     color: ${tokens.colors.Grey_8};
     ${tokens.typography.B3_M_14};
-    border: 1px solid ${tokens.colors.B_Grey_3};
-    border-radius: 4px;
+    border: 0.042rem solid ${tokens.colors.B_Grey_3}; /* 1px */
+    border-radius: 0.167rem; /* 4px */
   }
   .react-select__menu {
     position: absolute;
-    top: -10px;
-    left: -1px;
-    width: 392px;
-    height: 280px;
-    border-radius: 4px;
+    top: -0.417rem; /* -10px */
+    left: -0.042rem; /* -1px */
+    width: 16.333rem; /* 392px */
+    height: 11.667rem; /* 280px */
+    border-radius: 0.167rem; /* 4px */
     border: none;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0.083rem 0.167rem rgba(0, 0, 0, 0.1); /* 0 2px 4px */
     font-weight: 600;
     text-align: center;
     ${tokens.typography.B3_M_14};
   }
   .react-select__option:not(:last-child) {
-    border-bottom: 1px solid ${tokens.colors.B_Grey_2};
+    border-bottom: 0.042rem solid ${tokens.colors.B_Grey_2}; /* 1px */
   }
   .react-select__option {
     color: ${tokens.colors.Grey_8};
@@ -88,19 +88,19 @@ export const WeeksSelectContainer = styled(Select).attrs({
     background-color: rgba(102, 201, 255, 0.2);
     backdrop-filter: blur(8px);
     color: ${tokens.colors.Grey_8};
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
+    border-top-left-radius: 0.167rem; /* 4px */
+    border-top-right-radius: 0.167rem; /* 4px */
     border: none;
     ${tokens.typography.B3_M_14};
     position: relative;
-    top: -4px;
+    top: -0.167rem; /* -4px */
   }
   .react-select__option--is-selected:last-of-type {
     background-color: rgba(102, 201, 255, 0.2);
     backdrop-filter: blur(8px);
     color: ${tokens.colors.Grey_8};
-    border-bottom-left-radius: 4px;
-    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 0.167rem; /* 4px */
+    border-bottom-right-radius: 0.167rem; /* 4px */
     border: none;
     ${tokens.typography.B3_M_14};
   }
@@ -121,12 +121,12 @@ export const WeeksSelectContainer = styled(Select).attrs({
 `;
 
 export const ContentsContainer = styled.div`
-  margin-top: 32px;
-  margin-bottom: 43px;
-  border-radius: 4px;
-  border: 1px solid ${tokens.colors.B_Grey_2};
+  margin-top: 1.333rem; /* 32px */
+  margin-bottom: 1.792rem; /* 43px */
+  border-radius: 0.167rem; /* 4px */
+  border: 0.042rem solid ${tokens.colors.B_Grey_2}; /* 1px */
   color: ${tokens.colors.Grey_7};
   width: 100%;
-  height: 679px;
+  height: 28.292rem; /* 679px */
   overflow: auto;
 `;

@@ -152,7 +152,7 @@ export default function EnterBootList() {
               ))}
             </itemS.TabContainer>
             <itemS.CategoryInterviewContainer>
-              <itemS.CategoryDrop>{sortText}</itemS.CategoryDrop>
+              <itemS.CategoryDrop onClick={toggleSortDrop}>{sortText}</itemS.CategoryDrop>
               <itemS.SortIcon src="/img/sorticon.svg" alt="Sort Icon" onClick={toggleSortDrop} />
               {isSortDropVisible && (
                 <itemS.SortDrop>

@@ -46,7 +46,7 @@ export default function ViewApplicationListTable({ applications, onCheckChange, 
                     <itemS.Category>참여 희망 스터디</itemS.Category>
                     <itemS.Category>진행 단계</itemS.Category>
                     <itemS.CategoryInterviewContainer>
-                        <itemS.CategoryDrop>면접 일정</itemS.CategoryDrop>
+                        <itemS.CategoryDrop onClick={toggleSortDrop}>면접 일정</itemS.CategoryDrop>
                         <itemS.SortIcon src="/img/sorticon.svg" alt="Sort Icon" onClick={toggleSortDrop} />
                         {isSortDropVisible && (
                             <itemS.SortDrop>

@@ -80,6 +80,7 @@ export const CategoryDrop = styled.div`
   ${tokens.typography.T5_SB_16};
   color: ${tokens.colors.Black};
   text-align: center;
+  cursor: pointer;
 `;
 
 export const SortIcon = styled.img`

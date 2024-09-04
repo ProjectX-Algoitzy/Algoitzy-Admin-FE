@@ -84,16 +84,10 @@ export const UtilBox = styled.div`
   align-items: center;
 `;
 
-export const RouteSignup = styled.span`
-  color: ${tokens.colors.Blue_3};
-  ${tokens.typography.B3_M_14}
-  cursor: pointer;
-  margin-right: 1.67rem;
-`;
-
 export const UtilText = styled.span`
   color: ${tokens.colors.B_Grey_7};
   ${tokens.typography.B3_M_14}
+  margin: 0 0.5rem;
   cursor: pointer;
 `;
 

@@ -153,4 +153,5 @@ export const InterviewSelect = styled(Select).attrs({
 .react-select__option:hover {
   background-color: rgba(102, 201, 255, 0.2);
 }
+
 `;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext  } from 'react';
+import React, { useState, useRef, useEffect, useContext  } from 'react';
 import * as itemS from "../../admin-pages/ViewApplicationList/Styled/ViewApplicationList.viewapplicationlist.tuple.styles";
 import ViewApplicationDetail from '../ViewApplicationDetail/ViewApplicationDetail.viewapplicationdetail';
 import UpdateModal from './updateModal';
@@ -15,7 +15,7 @@ export default function ViewApplicationListTuple({ application, isSelected, onOp
 
   const isSendMail = useRecoilValue(IsSendMail);
 
-  
+  const modalRef = useRef(null); 
 
 	const handleCheckChange = (event) => {
 		const checked = event.target.checked;
@@ -23,7 +23,7 @@ export default function ViewApplicationListTuple({ application, isSelected, onOp
 		const isValidFormat = regexPattern.test(application.interviewTime);
 		const status = application.status;
 
-		if (status === "최종 합격" || status === "최종 불합격" || status === "서류 불합격") {
+		if (status === "최종 합격" || status === "불합격" || status === "서류 불합격") {
 			alert("모집 전형이 마무리된 지원자입니다.");
 		} else if (status !== "서류 합격") {
 			setIsChecked(checked);
@@ -71,6 +71,24 @@ export default function ViewApplicationListTuple({ application, isSelected, onOp
 		// fetchApplication();
 	};
 
+	useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (modalRef.current && !modalRef.current.contains(event.target)) {
+        setIsUpdateModalOpen(false);
+      }
+    };
+
+    if (isUpdateModalOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isUpdateModalOpen]);
+
 	return (
 		<itemS.TupleContainer>
 			<itemS.CheckBox
@@ -88,7 +106,9 @@ export default function ViewApplicationListTuple({ application, isSelected, onOp
 				<itemS.TupleInterview>{application.interviewTime}</itemS.TupleInterview>
 				<itemS.EditIcon src="/img/edit.svg" alt="Edit Icon" onClick={handleEditClick}/>
 				{isUpdateModalOpen && (
-				<UpdateModal interviewId={application.interviewId} onConfirm={handleUpdateConfirm} fetchApplication={fetchApplication} interviewTime={application.interviewTime} />
+					<div ref={modalRef}>
+						<UpdateModal interviewId={application.interviewId} onConfirm={handleUpdateConfirm} fetchApplication={fetchApplication} interviewTime={application.interviewTime} />
+					</div>
 				)}
 			</itemS.TupleInterviewContainer>
 			{isSelected && (

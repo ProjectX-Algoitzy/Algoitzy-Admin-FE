@@ -1,11 +1,8 @@
 import React, { useContext } from 'react';
 import * as itemS from "./Styled/WorkbookDetail.workbookdetail.bottomtuple.styles";
 import request from '../../Api/request';
-import { AlertContext } from '../../Common/Alert/AlertContext';
 
 export default function BottomTuple({ item, fetchItemList, workbookId }) {
-
-  const { alert } = useContext(AlertContext);
 
   const handleRedirect = () => {
     window.location.href = item.baekjoonUrl;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import * as itemS from "./Styled/Header.header.style";
 import request from '../../Api/request';
 import ProfileModal from './Header.profile.modal'; 
@@ -9,6 +9,12 @@ export default function Header() {
   const [profileUrl, setProfileUrl] = useState('');
   const [showProfileModal, setShowProfileModal] = useState(false);
   const [activeMenu, setActiveMenu] = useState(''); 
+
+  // Refs for detecting clicks outside
+  const modalRef = useRef(null); 
+  const studyMenuRef = useRef(null);
+  const applicationMenuRef = useRef(null);
+  const codingMenuRef = useRef(null);
 
   useEffect(() => {
     const checkLoginStatus = async () => {
@@ -39,6 +45,39 @@ export default function Header() {
     setActiveMenu('');
   };
 
+  // Click Outside Handler
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      // Check if click is inside Profile Modal
+      const clickedInsideProfile = modalRef.current && modalRef.current.contains(event.target);
+
+      // Check if click is inside any open submenu
+      let clickedInsideMenu = false;
+      if (activeMenu === 'study') {
+        clickedInsideMenu = studyMenuRef.current && studyMenuRef.current.contains(event.target);
+      } else if (activeMenu === 'application') {
+        clickedInsideMenu = applicationMenuRef.current && applicationMenuRef.current.contains(event.target);
+      } else if (activeMenu === 'coding') {
+        clickedInsideMenu = codingMenuRef.current && codingMenuRef.current.contains(event.target);
+      }
+      
+
+      // If click is outside both Profile Modal and any open submenu, close them
+      if (!clickedInsideProfile && !clickedInsideMenu) {
+        setShowProfileModal(false);
+        setActiveMenu('');
+      }
+    };
+
+    // Attach the event listener
+    document.addEventListener('mousedown', handleClickOutside);
+
+    // Cleanup the event listener on component unmount
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showProfileModal, activeMenu]);
+
   return (
     <>
       <itemS.HeaderContainer>
@@ -57,7 +96,7 @@ export default function Header() {
               <itemS.PageLink>코딩테스트 분석</itemS.PageLink>
             </itemS.StyledLink>
             {isLoggedIn ? (
-              <div style={{ position: 'relative' }}>
+              <div style={{ position: 'relative' }} ref={modalRef}>
                 <itemS.AdminName onClick={toggleProfileModal}>안녕하세요, {userName} 님</itemS.AdminName>
                 {showProfileModal && <ProfileModal userName={userName} profileUrl={profileUrl} setIsLoggedIn={setIsLoggedIn}/>}
               </div>
@@ -71,7 +110,10 @@ export default function Header() {
       </itemS.HeaderContainer>
       
       {activeMenu === 'study' && (
-        <itemS.SubStudyMenu>
+        <itemS.SubStudyMenu
+          ref={studyMenuRef} 
+          onClick={(e) => e.stopPropagation()}
+        >
           <itemS.StyledLink to={isLoggedIn ? "/regularstudylist" : "/login"} onClick={handleNav}>
             <itemS.SubMenuItem>정규 스터디</itemS.SubMenuItem>
           </itemS.StyledLink>
@@ -93,7 +135,10 @@ export default function Header() {
         </itemS.SubStudyMenu>
       )}
       {activeMenu === 'application' && (
-        <itemS.SubApplicationMenu>
+        <itemS.SubApplicationMenu
+          ref={applicationMenuRef} 
+          onClick={(e) => e.stopPropagation()}
+        >
           <itemS.StyledLink to={isLoggedIn ? "/manageauth" : "/login"} onClick={handleNav}>
             <itemS.SubMenuItem>권한 관리</itemS.SubMenuItem>
           </itemS.StyledLink>
@@ -103,7 +148,10 @@ export default function Header() {
         </itemS.SubApplicationMenu>
       )}
       {activeMenu === 'coding' && (
-        <itemS.SubCodingMenu>
+        <itemS.SubCodingMenu
+          ref={codingMenuRef} 
+          onClick={(e) => e.stopPropagation()}
+        >
           <itemS.StyledLink to={isLoggedIn ? "/enterbootlist" : "/login"} onClick={handleNav}>
             <itemS.SubMenuItem>기업/부트캠프</itemS.SubMenuItem>
           </itemS.StyledLink>

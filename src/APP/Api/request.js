@@ -53,12 +53,11 @@ request.interceptors.response.use(
 
       switch (code) {
         case 'NOTICE':
-          // console.error(`Unexpected error: ${message}`, error);
           await alert(message);
           break;
         default:
-          // console.error(`Unexpected error: ${message}`, error);
-          console.error('잘못된 요청입니다.');
+          console.error(`Unexpected error: ${message}`, error);
+          // await alert('잘못된 요청입니다.');
           break;
       }
     }

@@ -81,7 +81,7 @@ export default function ViewApplicationList() {
 		if (
 			stages.includes('면접 전형') || 
 			stages.includes('최종 합격') ||
-			stages.includes('최종 불합격')
+			stages.includes('불합격')
 		) {
 			newTabs.push('면접 전형');
 		}
@@ -149,7 +149,7 @@ export default function ViewApplicationList() {
 			setFilteredApplications(applications.filter(app => 
 				app.status === '면접 전형' ||
 				app.status === '최종 합격' ||
-				app.status === '최종 불합격'
+				app.status === '불합격'
 			));
 		}
 	};
@@ -244,7 +244,7 @@ export default function ViewApplicationList() {
 					</itemS.BtnFinalPass>
 				</>
 			);
-		} else if (firstCheckedStage === '서류 불합격' || firstCheckedStage === '최종 불합격') {
+		} else if (firstCheckedStage === '서류 불합격' || firstCheckedStage === '불합격') {
 			return null;
 		} else {
 			return null;

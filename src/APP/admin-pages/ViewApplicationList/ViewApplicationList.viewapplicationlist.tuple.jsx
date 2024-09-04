@@ -23,7 +23,7 @@ export default function ViewApplicationListTuple({ application, isSelected, onOp
 		const isValidFormat = regexPattern.test(application.interviewTime);
 		const status = application.status;
 
-		if (status === "최종 합격" || status === "최종 불합격" || status === "서류 불합격") {
+		if (status === "최종 합격" || status === "불합격" || status === "서류 불합격") {
 			alert("모집 전형이 마무리된 지원자입니다.");
 		} else if (status !== "서류 합격") {
 			setIsChecked(checked);

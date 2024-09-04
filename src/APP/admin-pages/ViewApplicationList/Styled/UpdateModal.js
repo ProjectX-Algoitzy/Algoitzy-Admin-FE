@@ -4,6 +4,7 @@ import Select from 'react-select';
 
 export const ModalContainer = styled.div`
   position: absolute;
+  top: -70%;
   right: 0;
   display: flex;
   flex-direction: row;
@@ -46,12 +47,12 @@ export const InterviewSelect = styled(Select).attrs({
   ${tokens.typography.B3_M_14};
   border: none;
   border-bottom: 0.029rem solid ${tokens.colors.B_Grey_3};
-  border-radius: 0;
+  border-radius: 0.167rem;
   text-align: center;
   justify-content: center;
   height: auto;
   min-height: unset;
-  width: 2.5rem;
+  width: 1.5rem;
   outline: none; 
 }
 
@@ -67,7 +68,8 @@ export const InterviewSelect = styled(Select).attrs({
 
 .react-select__menu {
   position: absolute;
-  top: -1rem; 
+  top: -0.5rem; 
+  right: -0.2rem;;
   width: 1.833rem;
   height: 10.167rem; 
   border-radius: 0.167rem;
@@ -77,7 +79,6 @@ export const InterviewSelect = styled(Select).attrs({
   text-align: center;
   ${tokens.typography.B3_M_14};
   overflow: hidden;
-  width: 2.5rem;
 }
 
 .react-select__menu-list {

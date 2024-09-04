@@ -4,6 +4,7 @@ import Select from 'react-select';
 
 export const ModalContainer = styled.div`
   position: absolute;
+  top: 0;
   left: 16.75rem;
   display: flex;
   flex-direction: row;

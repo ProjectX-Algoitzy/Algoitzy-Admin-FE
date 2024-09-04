@@ -4,6 +4,7 @@ import * as tokens from "../../../../tokens"
 
 // 튜플 파트 시작
 export const TupleContainer = styled.div`
+  position: relative;
   display: flex;
   // position: relative;
   flex-direction: row;
@@ -30,7 +31,7 @@ export const TupleWeek = styled.div`
 `;
 
 export const TupleStartDateContainer = styled.div`
-  position: relative;
+  
   display: flex;
   flex-direction: row;
   justify-content: center;

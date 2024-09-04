@@ -63,12 +63,12 @@ export const CategoryEndDate = styled.div`
 export const TupleContainer = styled.div`
   display: flex;
   flex-direction: column;
-  height: 460px;
-  overflow: auto;
-  &::-webkit-scrollbar {
-    width: 0px; /* Chrome, Safari, Opera용 */
-  }
-  scrollbar-width: none; /* Firefox용 */
+  min-height: 460px;
+  // overflow: auto;
+  // &::-webkit-scrollbar {
+  //   width: 0px; /* Chrome, Safari, Opera용 */
+  // }
+  // scrollbar-width: none; /* Firefox용 */
 `;
 
 

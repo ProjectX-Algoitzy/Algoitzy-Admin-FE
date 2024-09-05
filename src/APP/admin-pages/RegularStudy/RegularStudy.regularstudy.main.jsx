@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import * as itemS from "../../admin-pages/RegularStudy/Styled/RegularStudy.regularstudy.main.styles";
-import { useSearchParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import RegularStudySideBar from "./RegularStudy.regularstudy.sidebar";
 import RegularStudyHome from "./RegularStudy.regularstudy.home"
 import RegularStudyAttendance from "./RegularStudy.regularstudy.attendance"
@@ -8,15 +8,18 @@ import RegularStudyCurriculum from "./RegularStudy.regularstudy.curriculum"
 import RegularStudyMocktest from './RegularStudy.regularstudy.mocktest';
 
 export default function RegularStudyMain() {
-  const [activeComponent, setActiveComponent] = useState('home');
-  const [searchParams] = useSearchParams();
+  const { id } = useParams();  // 정규스터디 ID 가져오기
+  
+  const getInitialComponent = () => {
+    const savedComponent = localStorage.getItem(`activeComponent_${id}`);
+    return savedComponent || 'home';
+  };
+
+  const [activeComponent, setActiveComponent] = useState(getInitialComponent);
 
   useEffect(() => {
-    const activeComponentParam = searchParams.get('activeComponent');
-    if (activeComponentParam) {
-      setActiveComponent(activeComponentParam);
-    }
-  }, [searchParams]);
+    localStorage.setItem(`activeComponent_${id}`, activeComponent);
+  }, [activeComponent, id]);
 
   const renderComponent = () => {
     switch (activeComponent) {

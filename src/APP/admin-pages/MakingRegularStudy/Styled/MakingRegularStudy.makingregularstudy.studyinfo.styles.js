@@ -6,7 +6,7 @@ export const BackGroundContainer = styled.div`
   flex-direction: column;
   overflow: auto;
   align-items: center;
-  background-image: url('/img/imgbackground.jpg');
+  background-image: url('/img/login.png');
   min-height: 100%;
 `;
 

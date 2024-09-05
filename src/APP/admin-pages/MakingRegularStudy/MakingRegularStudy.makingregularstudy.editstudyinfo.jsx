@@ -6,6 +6,7 @@ import { useDropzone } from 'react-dropzone';
 import { useNavigate, useParams } from 'react-router-dom';
 import { AlertContext } from '../../Common/Alert/AlertContext';
 import { useContext } from 'react';
+import { hardCodedContent } from './tmpContentData';
 
 export default function MakingRegularStudyEditStudyInfo() {
     const { id } = useParams();  //해당 스터디의 id를 파라미터로 가져온다
@@ -31,6 +32,7 @@ export default function MakingRegularStudyEditStudyInfo() {
             setName(infoResponse.result.studyName);
             setImageUrl(infoResponse.result.profileUrl);
             setContent(homeResponse.result);
+            // setContent(hardCodedContent);
             setLoading(false);
         } catch (error) {
             console.error('데이터 불러오기 오류:', error);
@@ -111,7 +113,7 @@ export default function MakingRegularStudyEditStudyInfo() {
         }
         
         // 에디터 수정을 위한 출력
-        console.log("########################## 에디터에서 보낸 데이터: ", requestData);
+        // console.log("########################## 에디터에서 보낸 데이터: ", requestData);
     };
 
     if (loading) return <div>Loading...</div>;

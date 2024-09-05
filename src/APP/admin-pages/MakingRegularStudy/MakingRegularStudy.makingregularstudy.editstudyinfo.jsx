@@ -109,6 +109,9 @@ export default function MakingRegularStudyEditStudyInfo() {
         } catch (error) {
             console.error('정규스터디 수정 중 오류:', error);
         }
+        
+        // 에디터 수정을 위한 출력
+        console.log("########################## 에디터에서 보낸 데이터: ", requestData);
     };
 
     if (loading) return <div>Loading...</div>;

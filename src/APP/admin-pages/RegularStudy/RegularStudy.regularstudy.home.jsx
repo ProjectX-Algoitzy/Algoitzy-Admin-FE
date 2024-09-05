@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react'
 import * as itemS from "../RegularStudy/Styled/RegularStudy.regularstudy.home.styles"
 import request from '../../Api/request'
 import { useNavigate, useParams } from 'react-router-dom';
+import hljs from 'highlight.js';
+import 'highlight.js/styles/atom-one-dark.css';
+
 
 export default function RegularStudyHome() {
   const { id } = useParams(); //파라미터로 각 스터디별로 부여된 id를 받아옵니다
@@ -25,6 +28,15 @@ export default function RegularStudyHome() {
     }
     fetchRegularStudyHome();
   }, []);  
+
+  useEffect(() => {
+    // 코드블록에 하이라이트 적용
+    if (regularStudyHome) {
+      document.querySelectorAll('pre').forEach((block) => {
+        hljs.highlightBlock(block);
+      });
+    }
+  }, [regularStudyHome]);
 
   const handleEditStduyInfo = () => {
     navigate(`/editingregularstudyinfo/${id}`);

@@ -1,9 +1,7 @@
 import styled from 'styled-components';
 import * as tokens from "../../../../tokens"
 
-
 export const Container = styled.div`
-  
 `;
 
 export const Table = styled.div`
@@ -18,10 +16,9 @@ export const CategoryContainer = styled.div`
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 165, 255, 0.05);
-  width: 1200px;
-  height: 55px;
+  width: 50rem;
+  height: 2.292rem;
   border-bottom: 1px solid ${tokens.colors.B_Grey_4};
-  // margin-bottom: 20px;
 `;
 
 export const CategoryWeek = styled.div`
@@ -32,7 +29,7 @@ export const CategoryWeek = styled.div`
   ${tokens.typography.T5_SB_16};
   color: ${tokens.colors.Black};
   text-align: center;
-  width: 72px;
+  width: 3rem;
 `;
 
 export const CategoryStartDate = styled.div`
@@ -43,7 +40,7 @@ export const CategoryStartDate = styled.div`
   ${tokens.typography.T5_SB_16};
   color: ${tokens.colors.Black};
   text-align: center;
-  width: 928px;
+  width: 38.667rem;
 `;
 
 export const CategoryEndDate = styled.div`
@@ -54,23 +51,14 @@ export const CategoryEndDate = styled.div`
   ${tokens.typography.T5_SB_16};
   color: ${tokens.colors.Black};
   text-align: center;
-  width: 200px;
+  width: 8.333rem;
 `;
-
 // 카테고리 파트 끝
 
 // 튜플 파트 
 export const TupleContainer = styled.div`
   display: flex;
   flex-direction: column;
-  height: 460px;
-  overflow: auto;
-  &::-webkit-scrollbar {
-    width: 0px; /* Chrome, Safari, Opera용 */
-  }
-  scrollbar-width: none; /* Firefox용 */
+  min-height: 19.167rem;
 `;
-
-
-
 

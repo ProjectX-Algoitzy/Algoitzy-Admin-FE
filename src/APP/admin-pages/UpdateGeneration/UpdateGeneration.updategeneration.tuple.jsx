@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import * as itemS from "./Styled/UpdateGeneration.updategeneration.tuple.styles";
 import UpdateModal from './UpdateModal';
 
@@ -32,6 +32,8 @@ export default function UpdateGenerationTuple({ item, onUpdateTuple  }) {
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
   const [isAbled, setIsAbled] = useState(true);
 
+  const modalRef = useRef(null); 
+
   useEffect(() => {
     if (item.startTime) {
       const parsedStartDate = new Date(item.startTime);
@@ -43,6 +45,24 @@ export default function UpdateGenerationTuple({ item, onUpdateTuple  }) {
       setEndDate(formatDate(parsedEndDate));
     }
   }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (modalRef.current && !modalRef.current.contains(event.target)) {
+        setIsUpdateModalOpen(false);
+      }
+    };
+
+    if (isUpdateModalOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isUpdateModalOpen]);
 
   const handleEditClick = () => {
     if (isAbled) {
@@ -67,7 +87,9 @@ export default function UpdateGenerationTuple({ item, onUpdateTuple  }) {
         <itemS.TupleStartDate>{startDate}</itemS.TupleStartDate>
         <itemS.EditIcon src="/img/edit.svg" alt="Edit Icon" onClick={handleEditClick} />
         {isUpdateModalOpen && (
-          <UpdateModal interviewId={item.week} onConfirm={handleUpdateConfirm} />
+          <div ref={modalRef}>
+            <UpdateModal interviewId={item.week} onConfirm={handleUpdateConfirm} />
+          </div>
         )}
       </itemS.TupleStartDateContainer>
       <itemS.TupleEndDate>{endDate}</itemS.TupleEndDate>

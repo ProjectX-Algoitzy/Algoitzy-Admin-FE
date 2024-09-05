@@ -17,10 +17,9 @@ export const CategoryContainer = styled.div`
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 165, 255, 0.05);
-  width: 793px;
-  height: 55px;
-  border-bottom: 1px solid ${tokens.colors.B_Grey_4};
-  // margin-bottom: 20px;
+  width: 33.042rem;
+  height: 2.292rem;
+  border-bottom: 0.042rem solid ${tokens.colors.B_Grey_4};
 `;
 
 export const CategoryNumber = styled.div`
@@ -30,8 +29,8 @@ export const CategoryNumber = styled.div`
   ${tokens.typography.T5_SB_16};
   color: ${tokens.colors.Black};
   text-align: center;
-  width: 210px;
-  margin-left: 23px;
+  width: 8.75rem;
+  margin-left: 0.958rem;
 `;
 
 export const CategoryTitle = styled.div`
@@ -41,7 +40,7 @@ export const CategoryTitle = styled.div`
   ${tokens.typography.T5_SB_16};
   color: ${tokens.colors.Black};
   text-align: center;
-  width: 420px;
+  width: 17.5rem;
 `;
 
 export const CategoryLevel = styled.div`
@@ -51,7 +50,7 @@ export const CategoryLevel = styled.div`
   ${tokens.typography.T5_SB_16};
   color: ${tokens.colors.Black};
   text-align: center;
-  width: 140px;
+  width: 5.833rem;
 `;
 // 카테고리 파트 끝
 
@@ -59,14 +58,10 @@ export const CategoryLevel = styled.div`
 export const TupleContainer = styled.div`
   display: flex;
   flex-direction: column;
-  min-height: 140px;
+  min-height: 5.833rem;
   overflow: auto;
   &::-webkit-scrollbar {
     width: 0px; /* Chrome, Safari, Opera용 */
   }
   scrollbar-width: none; /* Firefox용 */
 `;
-
-
-
-

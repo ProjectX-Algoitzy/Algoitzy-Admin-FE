@@ -47,5 +47,11 @@ export const EditorWrapper = styled.div`
   .ql-toolbar .ql-formats {
     margin-right: 0;
   }
-    
+    .ql-syntax {
+  background-color: #ffffff;  /* 검정색 배경 */
+  color: #abb2bf;  /* 밝은 텍스트 색 */
+  padding: 10px;
+  border-radius: 4px;
+  font-family: 'Courier New', Courier, monospace;
+}
 `;

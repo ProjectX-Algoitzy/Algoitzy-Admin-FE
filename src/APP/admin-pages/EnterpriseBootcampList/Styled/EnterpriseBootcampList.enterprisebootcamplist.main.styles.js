@@ -146,6 +146,7 @@ export const CategoryDrop = styled.div`
   ${tokens.typography.B3_M_14};
   color: ${tokens.colors.Grey_8};
   text-align: center;
+  cursor: pointer;
 `;
 
 export const SortIcon = styled.img`

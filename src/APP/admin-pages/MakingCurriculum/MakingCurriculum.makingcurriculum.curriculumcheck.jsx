@@ -102,6 +102,7 @@ export default function CurriculumCheck() {
   if (error) return <div>{error}</div>;
 
   return (
+    <itemS.ContentWrapper>
     <itemS.Container>
       <itemS.Title>
         {isEditing ? (
@@ -133,5 +134,6 @@ export default function CurriculumCheck() {
         )}
       </>
     </itemS.Container>
+    </itemS.ContentWrapper>
   );
 }

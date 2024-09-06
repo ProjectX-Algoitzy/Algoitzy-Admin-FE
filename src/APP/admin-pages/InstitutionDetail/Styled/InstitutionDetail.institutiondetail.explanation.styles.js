@@ -14,4 +14,22 @@ export const CategoryContainer = styled.div`
   margin-bottom: 0.833rem;
   padding: 0.417rem 0.417rem;
   overflow: auto;
+
+    pre {
+    background-color: #282c34;  /* 배경색 검정 */
+    color: #abb2bf;  /* 텍스트 색 회색 */
+    padding: 10px;
+    border-radius: 4px;
+    font-family: 'Courier New', Courier, monospace;
+    display: block;
+    overflow-x: auto;
+  }
+
+  code {
+    background-color: #282c34;
+    color: #abb2bf;
+    padding: 10px;
+    border-radius: 4px;
+    font-family: 'Courier New', Courier, monospace;
+  }
 `;

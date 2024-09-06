@@ -6,6 +6,8 @@ import InstitutionDetailTable from './InstitutionDetail.institutiondetail.table'
 import InstitutionDetailExplanation from './InstitutionDetail.institutiondetail.explanation';
 import EditInstitutionModal from './EditInstitutionModal';
 import { ConfirmContext } from '../../Common/Confirm/ConfirmContext';
+import hljs from 'highlight.js';
+import 'highlight.js/styles/atom-one-dark-reasonable.css';
 
 export default function InstitutionDetail() {
   const { institutionId } = useParams();
@@ -54,6 +56,15 @@ export default function InstitutionDetail() {
     fetchWorkbookExplain();
     fetchWorkbook();
   }, [institutionId]);
+
+  useEffect(() => {
+    // 코드블록에 하이라이트 적용
+    if (content) {
+      document.querySelectorAll('pre').forEach((block) => {
+        hljs.highlightBlock(block);
+      });
+    }
+  }, [content]);
 
   const handleDeleteClick = async () => {
     const confirmed = await confirm('추천 문제집과 함께 삭제되며, 삭제된 정보는 복구할 수 없습니다.\n정말로 삭제하시겠습니까?');

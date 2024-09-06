@@ -5,6 +5,8 @@ import Select, { components } from 'react-select';
 import QuillPractice from './MakingCurriculum.makingcurriculum.quilleditor';
 import { useParams } from 'react-router-dom';
 import { AlertContext } from '../../Common/Alert/AlertContext';
+import hljs from 'highlight.js';
+import 'highlight.js/styles/atom-one-dark-reasonable.css';
 
 export default function CurriculumCheck() {
   const { curriculumId } = useParams();
@@ -38,6 +40,15 @@ export default function CurriculumCheck() {
     };
     fetchData();
   }, [curriculumId]);
+
+  useEffect(() => {
+    // 코드블록에 하이라이트 적용
+    if (content) {
+      document.querySelectorAll('pre').forEach((block) => {
+        hljs.highlightBlock(block);
+      });
+    }
+  }, [content]);
 
   const handleEditCurriculum = () => {
     setIsEditing(true);

@@ -47,11 +47,11 @@ export default function CurriculumCheck() {
     const CustomDropdownIndicator = props => {
       return (
         <components.DropdownIndicator {...props}>
-          <img src="/img/triangle.png" alt="triangle-icon" style={{ width: "24px", height: "24px" }} />
+          <img src="/img/triangle.png" alt="triangle-icon" style={{ width: "1rem", height: "1rem" }} />
         </components.DropdownIndicator>
       );
     };
-  
+
     const options = [
       { value: '1', label: '1주차' },
       { value: '2', label: '2주차' },
@@ -113,7 +113,7 @@ export default function CurriculumCheck() {
           src={isEditing ? "/img/btnsave.png" : "/img/btnedit.png"}
           alt={isEditing ? "저장 버튼" : "편집 버튼"}
           onClick={isEditing ? handleSaveCurriculum : handleEditCurriculum}
-          style={{ width: "60px", height: "41px", cursor: "pointer" }}
+          style={{ width: "2.5rem", height: "1.708rem", cursor: "pointer" }}
         />
       </itemS.Title>
       <itemS.SecondContainer>

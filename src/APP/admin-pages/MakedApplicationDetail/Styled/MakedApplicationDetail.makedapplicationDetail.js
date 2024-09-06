@@ -6,9 +6,13 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   overflow: auto;
-  /* align-items : center; */
+  align-items : center;
+  /* justify-content: center; */
+  width: 100%;
+  height: 100vh;
+  padding: 20px;
+  /* box-sizing: border-box; */
   background-image: url('/img/login.png');
-  min-height: 100%;
 `;
 
 export const InnerContainer = styled.div`
@@ -17,7 +21,7 @@ export const InnerContainer = styled.div`
   align-items: flex-start;
   gap: 0.5rem;
   margin-top: 4.167rem;
-  margin-left: 20.833rem;
+  /* margin-left: 20.833rem; */
 `;
 
 export const SecondInnerContainer = styled.div` /*문항들 하나하나를 감싸주는 컨테이너*/
@@ -26,7 +30,7 @@ export const SecondInnerContainer = styled.div` /*문항들 하나하나를 감�
   align-items: flex-start;
   gap: 0.5rem;
   margin-top: 1rem;
-  margin-left: 18.875rem;
+  margin-left: 18rem;
   margin-right: 20rem;
 `;
 
@@ -768,7 +772,7 @@ export const BtnContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  /* justify-content: center; */
+  justify-content: center;
   width: 100%;
   height: 4rem;
 
@@ -783,7 +787,6 @@ export const BtnContainer = styled.div`
 export const BtnContainer2 = styled.div`
   display: flex;
   flex-direction: row;
-  margin-left: 23.5rem;
 `;
 
 export const ArbitaryBtn = styled.button` /* 임시 저장하기 버튼*/

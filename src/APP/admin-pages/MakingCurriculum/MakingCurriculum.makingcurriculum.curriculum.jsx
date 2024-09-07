@@ -81,8 +81,8 @@ export default function MakingCurriculum() {
         const CustomDropdownIndicator = props => {
             return (
                 <components.DropdownIndicator {...props}>
-                    <img src="/img/triangle.png" alt="triangle-icon" style={{ width: "24px", height: "24px", paddingRight:"216px" }} />
-                </components.DropdownIndicator>
+            <img src="/img/triangle.png" alt="triangle-icon" style={{ width: "1rem", height: "1rem", padding: "0" }} />
+            </components.DropdownIndicator>
             );
         };
 

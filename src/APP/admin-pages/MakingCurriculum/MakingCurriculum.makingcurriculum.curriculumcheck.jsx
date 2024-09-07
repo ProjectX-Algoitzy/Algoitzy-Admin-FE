@@ -5,6 +5,8 @@ import Select, { components } from 'react-select';
 import QuillPractice from './MakingCurriculum.makingcurriculum.quilleditor';
 import { useParams } from 'react-router-dom';
 import { AlertContext } from '../../Common/Alert/AlertContext';
+import hljs from 'highlight.js';
+import 'highlight.js/styles/atom-one-dark-reasonable.css';
 
 export default function CurriculumCheck() {
   const { curriculumId } = useParams();
@@ -39,6 +41,15 @@ export default function CurriculumCheck() {
     fetchData();
   }, [curriculumId]);
 
+  useEffect(() => {
+    // 코드블록에 하이라이트 적용
+    if (content) {
+      document.querySelectorAll('pre').forEach((block) => {
+        hljs.highlightBlock(block);
+      });
+    }
+  }, [content]);
+
   const handleEditCurriculum = () => {
     setIsEditing(true);
   };
@@ -47,11 +58,11 @@ export default function CurriculumCheck() {
     const CustomDropdownIndicator = props => {
       return (
         <components.DropdownIndicator {...props}>
-          <img src="/img/triangle.png" alt="triangle-icon" style={{ width: "24px", height: "24px" }} />
+          <img src="/img/triangle.png" alt="triangle-icon" style={{ width: "1rem", height: "1rem" }} />
         </components.DropdownIndicator>
       );
     };
-  
+
     const options = [
       { value: '1', label: '1주차' },
       { value: '2', label: '2주차' },
@@ -102,6 +113,7 @@ export default function CurriculumCheck() {
   if (error) return <div>{error}</div>;
 
   return (
+    <itemS.ContentWrapper>
     <itemS.Container>
       <itemS.Title>
         {isEditing ? (
@@ -112,7 +124,7 @@ export default function CurriculumCheck() {
           src={isEditing ? "/img/btnsave.png" : "/img/btnedit.png"}
           alt={isEditing ? "저장 버튼" : "편집 버튼"}
           onClick={isEditing ? handleSaveCurriculum : handleEditCurriculum}
-          style={{ width: "60px", height: "41px", cursor: "pointer" }}
+          style={{ width: "2.5rem", height: "1.708rem", cursor: "pointer" }}
         />
       </itemS.Title>
       <itemS.SecondContainer>
@@ -133,5 +145,6 @@ export default function CurriculumCheck() {
         )}
       </>
     </itemS.Container>
+    </itemS.ContentWrapper>
   );
 }

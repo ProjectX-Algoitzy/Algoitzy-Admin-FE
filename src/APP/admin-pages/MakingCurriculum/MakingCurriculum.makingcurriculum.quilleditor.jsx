@@ -7,6 +7,8 @@ import hljs from 'highlight.js';
 import 'highlight.js/styles/atom-one-dark.css';
 import { ImageActions } from '@xeger/quill-image-actions';
 import { ImageFormats } from '@xeger/quill-image-formats';
+import Modal from './MakingCurriculum.makingcurriculum.quilleditor.modal';
+import { useState } from 'react';
 
 Quill.register('modules/imageActions', ImageActions);
 Quill.register('modules/imageFormats', ImageFormats);
@@ -23,7 +25,7 @@ class CustomVideo extends Video {
     iframe.setAttribute('frameborder', '0');
     iframe.setAttribute('allowfullscreen', true);
     iframe.setAttribute('src', this.sanitize(value));
-    iframe.setAttribute('style', 'height: 300px; width: 100%');
+    iframe.setAttribute('style', 'height: 25rem; width: 100%');
     node.appendChild(iframe);
 
     return node;
@@ -87,6 +89,8 @@ const formats = [
 
 export default function QuillPractice({ setContent, content }) {
   const quillRef = useRef(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [videoURL, setVideoURL] = useState('');
   let isHandlingTextChange = false;
 
   useEffect(() => {
@@ -148,6 +152,17 @@ export default function QuillPractice({ setContent, content }) {
     }
   };
 
+  const handleVideoInsert = () => {
+    const quill = quillRef.current.getEditor();
+    const range = quill.getSelection(true);
+
+    if (videoURL) {
+      quill.insertEmbed(range.index, 'video', videoURL);
+      setVideoURL('');
+      setIsModalOpen(false); // Close modal after inserting video
+    }
+  };
+
   const modules = React.useMemo(
     () => ({
       imageActions: {},
@@ -178,11 +193,12 @@ export default function QuillPractice({ setContent, content }) {
             };
           },
           video: () => {
-            const videoURL = prompt("동영상의 URL을 넣어주세요");
-            if (videoURL) {
-              const range = quillRef.current.getEditor().getSelection(true);
-              quillRef.current.getEditor().insertEmbed(range.index, 'video', videoURL);
-            }
+            // const videoURL = prompt("동영상의 URL을 넣어주세요");
+            // if (videoURL) {
+            //   const range = quillRef.current.getEditor().getSelection(true);
+            //   quillRef.current.getEditor().insertEmbed(range.index, 'video', videoURL);
+            // }
+            setIsModalOpen(true); // Show modal when video button is clicked
           },
         },
         ImageResize: {
@@ -210,6 +226,19 @@ export default function QuillPractice({ setContent, content }) {
           formats={formats}
         />
       </itemS.EditorWrapper>
+
+      {/* 모달 구현 */}
+      {isModalOpen && (
+        <>
+          <Modal 
+            isOpen={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
+            onSubmit={handleVideoInsert}
+            value={videoURL}
+            onChange={setVideoURL}
+          />
+        </>
+      )}
     </itemS.Container>
   );
 }

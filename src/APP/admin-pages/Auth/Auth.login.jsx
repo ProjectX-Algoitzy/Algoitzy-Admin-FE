@@ -90,7 +90,7 @@ export default function Login() {
         </itemS.LoginIContainer>
         <itemS.Btn onClick={handleSubmit}>로그인</itemS.Btn>
         <itemS.UtilBox>
-          <itemS.UtilText onClick={() => navigate("/findemail")}>아이디</itemS.UtilText>
+          <itemS.UtilText onClick={() => navigate("/findemail")}>아이디 찾기</itemS.UtilText>
           <itemS.UtilText>|</itemS.UtilText>
           <itemS.UtilText onClick={() => navigate("/findpassword")}>비밀번호 찾기</itemS.UtilText>
         </itemS.UtilBox>

@@ -3,7 +3,7 @@ import * as itemS from "../RegularStudy/Styled/RegularStudy.regularstudy.home.st
 import request from '../../Api/request'
 import { useNavigate, useParams } from 'react-router-dom';
 import hljs from 'highlight.js';
-import 'highlight.js/styles/atom-one-dark.css';
+import 'highlight.js/styles/atom-one-dark-reasonable.css';
 
 
 export default function RegularStudyHome() {

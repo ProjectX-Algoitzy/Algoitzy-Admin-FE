@@ -1,11 +1,11 @@
-name: Front Deployment
+name: Front Deployment Prod
 
 # trigger가 되길 바라는 action을 입력합니다. push / pull_request가 있습니다.
-# 이곳은 develop 브랜치에 merge가 되면 actions을 실행하도록 설정했습니다.
+# 저는 prod 브랜치에 merge가 되면 actions을 실행하도록 설정했습니다.
 on:
   pull_request:
     branches:
-      - develop
+      - prod
     types: 
       - closed  # pull request가 close될 때만 실행 (즉, merge 후에 실행)
 
@@ -57,7 +57,7 @@ jobs:
       # S3에 build 파일을 올립니다.
       - name: Upload to S3
         env:
-          BUCKET_NAME: ${{ secrets.AWS_S3_BUCKET_NAME_DEV}}
+          BUCKET_NAME: ${{ secrets.AWS_S3_BUCKET_NAME}}
         run: |
           aws s3 sync \
             ./build s3://$BUCKET_NAME --delete
@@ -68,7 +68,7 @@ jobs:
       # 해당 부분은 과금될 수 있으니 확인 후 사용하세요!
       - name: CloudFront Invalidation
         env:
-          CLOUD_FRONT_ID: ${{ secrets.AWS_CLOUDFRONT_ID_DEV}}
+          CLOUD_FRONT_ID: ${{ secrets.AWS_CLOUDFRONT_ID}}
         run: |
           aws cloudfront create-invalidation \
             --distribution-id $CLOUD_FRONT_ID --paths "/*"

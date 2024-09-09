@@ -1,11 +1,13 @@
 name: Front Deployment
 
 # trigger가 되길 바라는 action을 입력합니다. push / pull_request가 있습니다.
-# 저는 feature/197 브랜치에 push가 되면 actions을 실행하도록 설정했습니다.
+# 저는 prod 브랜치에 push가 되면 actions을 실행하도록 설정했습니다.
 on:
-  push:
+  pull_request:
     branches:
-      - feature/232
+      - prod
+    types: 
+      - closed  # pull request가 close될 때만 실행 (즉, merge 후에 실행)
 
 # 위의 이벤트가 트리거되면 실행할 목록입니다.
 jobs:

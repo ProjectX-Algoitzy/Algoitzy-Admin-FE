@@ -12,6 +12,7 @@ export const HeaderContainer = styled.div`
 export const HeaderWrap = styled.div`
   background-color: rgba(255, 255, 255, 0.05); 
   backdrop-filter: blur(200px);
+  -webkit-backdrop-filter: blur(200px);
   height: 3.333rem;
   margin: 0 auto;
   display: flex;

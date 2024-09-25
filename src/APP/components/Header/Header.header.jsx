@@ -97,7 +97,10 @@ export default function Header() {
             </itemS.StyledLink>
             {isLoggedIn ? (
               <div style={{ position: 'relative' }} ref={modalRef}>
-                <itemS.AdminName onClick={toggleProfileModal}>안녕하세요, {userName} 님</itemS.AdminName>
+                <itemS.ProfileBox onClick={toggleProfileModal}>
+                  <itemS.AdminName>안녕하세요, {userName} 님</itemS.AdminName>
+                  <itemS.Arrow src='/img/arrow-bt.svg' alt='화살표' />
+                </itemS.ProfileBox>
                 {showProfileModal && <ProfileModal userName={userName} profileUrl={profileUrl} setIsLoggedIn={setIsLoggedIn}/>}
               </div>
             ) : (

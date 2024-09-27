@@ -4,6 +4,7 @@ import App from './App';
 import { RecoilRoot } from 'recoil';
 import { ConfirmProvider } from './APP/Common/Confirm/ConfirmContext';
 import { AlertProvider } from './APP/Common/Alert/AlertContext';
+import { LoadingProvider } from './APP/Common/Loading/LoadingContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -11,7 +12,9 @@ root.render(
     <React.StrictMode>
       <ConfirmProvider>
         <AlertProvider>
-          <App />
+          <LoadingProvider>
+            <App />
+          </LoadingProvider>
         </AlertProvider>
       </ConfirmProvider>
     </React.StrictMode>

@@ -9,7 +9,7 @@ export const checkToken = async () => {
     };
 
     const response = await axios.post(
-      'https://admin-dev.kau-koala.com/member/check-token',
+      'https://admin-api.kau-koala.com/member/check-token',
       requestData,
       {
         headers: {

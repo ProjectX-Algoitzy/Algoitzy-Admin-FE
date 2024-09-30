@@ -31,6 +31,8 @@ import { refreshToken } from "./APP/Api/refreshToken"
 import { checkToken } from "./APP/Api/checkToken"
 import { ACCESS_TOKEN } from "./APP/Api/request"
 import GlobalStyle from './GlobalStyles';
+import { useLoading } from "./APP/Common/Loading/LoadingContext";
+import { setLoadingFunctions } from "./APP/Api/request";
 
 const Root = styled.div`
   position: absolute;
@@ -42,6 +44,9 @@ const Root = styled.div`
 `;
 
 function App() {
+  const { showLoading, hideLoading } = useLoading(); 
+
+  setLoadingFunctions(showLoading, hideLoading);
 
   useInterval(async () => {
     if (localStorage.getItem(ACCESS_TOKEN)) {

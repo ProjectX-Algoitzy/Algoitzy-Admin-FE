@@ -9,6 +9,10 @@ on:
     types: 
       - closed  # pull request가 close될 때만 실행 (즉, merge 후에 실행)
 
+  push:
+    branches:
+      - release/*  # release/* 브랜치에 push될 때 실행
+
 # 위의 이벤트가 트리거되면 실행할 목록입니다.
 jobs:
   build:

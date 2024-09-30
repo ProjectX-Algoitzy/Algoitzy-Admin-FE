@@ -42,8 +42,9 @@ export default function Login() {
 
       if (response.data.isSuccess) {
         console.log("로그인 성공!");
-        navigate("/regularstudylist");
-        window.location.reload(); // 페이지 새로고침 추가
+        // navigate("/regularstudylist");
+        // window.location.reload(); // 페이지 새로고침 추가
+        window.location.replace('/regularstudylist');
       } else {
         // console.error("로그인 실패:", response.data);
         setIsAlertOpen(true);

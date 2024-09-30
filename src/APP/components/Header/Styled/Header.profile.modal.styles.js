@@ -42,7 +42,7 @@ export const ArrowBubble = styled.div`
 export const TopContainer = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: space-around;
   align-items: center;
 `;
 
@@ -50,19 +50,19 @@ export const Profile = styled.img`
   width: 1.67rem;
   height: 1.67rem;
   border-radius: 0.83rem;
-  margin: 0.75rem 0.13rem 0.13rem 0.42rem;
+  margin: 0.75rem 0 0.13rem 0;
 `;
 
 export const Name = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 3.5rem;
+  // width: 3.5rem;
   height: 1.67rem;
   color: ${tokens.colors.B_Grey_7};
   ${tokens.typography.B2_M_16};
   font-weight: 800;
-  margin: 0.75rem 0.13rem 0.13rem 0;
+  margin: 0.75rem 0 0.13rem 0;
 `;
 
 export const Logout = styled.button`
@@ -77,7 +77,7 @@ export const Logout = styled.button`
   border: 0.04rem solid ${tokens.colors.B_Grey_5};
   border-radius: 0.17rem;
   padding: 0;
-  margin: 0.75rem 0.13rem 0.13rem 0;
+  margin: 0.75rem 0 0.13rem 0;
   cursor: pointer;
 `;
 

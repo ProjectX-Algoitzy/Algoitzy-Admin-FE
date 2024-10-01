@@ -7,7 +7,7 @@ export const refreshToken = async () => {
     const requestData = {
       accessToken: `${window.localStorage.getItem(ACCESS_TOKEN)}`,
     };
-    const response = await axios.post('https://admin-api.kau-koala.com/member/refresh-token', requestData);
+    const response = await axios.post(`${process.env.REACT_APP_API_URL}/member/refresh-token`, requestData);
     console.log("리프레시 성공 response", response);
     localStorage.setItem(ACCESS_TOKEN, response.data.result.accessToken);
     request.defaults.headers.Authorization = `Bearer ${response.data.result.accessToken}`;

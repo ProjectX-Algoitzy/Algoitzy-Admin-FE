@@ -36,7 +36,7 @@ export default function Login() {
     };
 
     try {
-      const response = await axios.post('https://admin-api.kau-koala.com/member/login', requestData);
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/member/login`, requestData);
       console.log("response", response.data);
       localStorage.setItem(ACCESS_TOKEN, response.data.result.accessToken);
 
@@ -90,6 +90,7 @@ export default function Login() {
           </itemS.IIContainer>
         </itemS.LoginIContainer>
         <itemS.Btn onClick={handleSubmit}>로그인</itemS.Btn>
+        {/* <itemS.Btn onClick={handleSubmit}>Login</itemS.Btn> */}
         <itemS.UtilBox>
           <itemS.UtilText onClick={() => navigate("/findemail")}>아이디 찾기</itemS.UtilText>
           <itemS.UtilText>|</itemS.UtilText>

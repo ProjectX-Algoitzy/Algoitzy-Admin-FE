@@ -5,7 +5,7 @@ export const ACCESS_TOKEN = 'accessToken';
 
 // Authorization에 토큰 자동으로 설정
 const request = axios.create({
-  baseURL: 'https://admin-api.kau-koala.com',
+  baseURL: process.env.REACT_APP_API_URL,  // 환경 변수를 사용하여 API 주소 설정 'https://admin-dev.kau-koala.com',
   headers: {
     withCredentials: true,
     transformRequest: true,

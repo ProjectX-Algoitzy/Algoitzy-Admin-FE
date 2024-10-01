@@ -117,7 +117,7 @@ export default function FindEmail() {
       code: SMSCode
     };
     try {
-      const response = await axios.post('https://admin-api.kau-koala.com/sms/phone-number', requestData);
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/sms/phone-number`, requestData);
       console.log("response",response.data);
       if (response.data["isSuccess"]) {
         console.log("핸드폰 번호 인증 성공!");
@@ -152,7 +152,7 @@ export default function FindEmail() {
       phoneNumber: phone,
     };
     try {
-      const response = await axios.post('https://admin-api.kau-koala.com/sms/certification', requestData);
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/sms/certification`, requestData);
       console.log("response",response.data);
       if (response.data["isSuccess"]) {
         console.log("SMS 인증 코드 전송 성공!");
@@ -194,7 +194,7 @@ export default function FindEmail() {
     };
     console.log("requestData",requestData);
     try {
-      const response = await axios.get('https://admin-api.kau-koala.com/member/find-email', {
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/member/find-email`, {
         params: requestData,
       });
       console.log("response",response.data);

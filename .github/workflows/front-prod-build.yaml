@@ -42,13 +42,9 @@ jobs:
 
       - name: install npm dependencies
         run: npm install
-
-      # .env.production 파일 사용
-      - name: Copy .env.production
-        run: cp .env.production .env
         
       - name: react build
-        run: CI=false npm run build
+        run: CI=false npm run build:prod
       
       # aws에 접근하기 위한 권한을 받아옵니다.
       - name: Configure AWS credentials

@@ -46,10 +46,6 @@ jobs:
 
       - name: install npm dependencies
         run: npm install
-
-      # .env.development 파일 사용
-      - name: Copy .env.development
-        run: cp .env.development .env
         
       - name: react build
         run: CI=false npm run build

@@ -142,7 +142,7 @@ export default function MakingRegularStudyEditStudyInfo() {
 
             <itemS.BtnContainer>
                 <itemS.BtnContainer2>
-                    {/* <itemS.ArbitaryBtn>임시저장</itemS.ArbitaryBtn> */}
+                    {/* <itemS.ArbitaryBtn>임시저장</itemS.ArbitaryBtn> */} 
                     <itemS.Btn onClick={handleSave}>저장하기</itemS.Btn>
                 </itemS.BtnContainer2>
             </itemS.BtnContainer>

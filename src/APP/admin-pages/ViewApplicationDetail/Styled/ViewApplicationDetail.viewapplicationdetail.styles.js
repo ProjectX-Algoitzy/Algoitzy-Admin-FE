@@ -98,6 +98,8 @@ export const BaseQuestion = styled.div`
 export const BaseAnswer = styled.div`
   ${tokens.typography.T5_SB_16};
   width: 38.333rem;
+  word-wrap: break-word; /* 긴 단어나 링크가 다음 줄로 넘어가게 함 */
+  overflow-wrap: break-word; /* 긴 단어나 URL이 적절하게 끊기도록 설정 */
   border-bottom: 1px solid ${tokens.colors.B_Grey_3};
   padding: 1rem 0 1rem 0.667rem;
   margin-bottom: 0.667rem;

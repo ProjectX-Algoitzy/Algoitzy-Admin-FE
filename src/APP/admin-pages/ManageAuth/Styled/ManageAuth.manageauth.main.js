@@ -111,10 +111,9 @@ export const PaginationArrow = styled.div`
 `;
 
 export const PaginationNumber = styled.div`
-  margin: 0 0.208rem;
+  margin: 0.417rem;
   width: 0.333rem;
   height: 0.875rem;
-  padding: 0.417rem;
   cursor: pointer;
   color: ${(props) => (props.active ? tokens.colors.Blue_3 : tokens.colors.B_Grey_7)};
   font-weight: ${(props) => (props.active ? 'bold' : 'normal')};

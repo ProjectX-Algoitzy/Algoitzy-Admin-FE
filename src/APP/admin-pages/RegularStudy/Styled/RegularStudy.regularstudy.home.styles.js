@@ -7,6 +7,11 @@ export const Container = styled.div`
   padding-left: 1.333rem;
   height: 100%;
   width: 33.042rem;
+
+    @media (max-width: 600px) {
+    width: 100%;
+    padding-right: 1.33rem;
+  }
 `;
 
 export const Title = styled.div`
@@ -24,8 +29,11 @@ export const Title = styled.div`
 export const ContentContainer = styled.div`
   width: 100%;
   height: 100%;
-  margin-bottom: 4.208rem;
+  margin-bottom: 4.21rem;
   font-size: 0.75rem;
+  @media (max-width: 600px) {
+    font-size: 1rem;
+  }
     pre {
     background-color: #282c34;  /* 배경색 검정 */
     color: #abb2bf;  /* 텍스트 색 회색 */

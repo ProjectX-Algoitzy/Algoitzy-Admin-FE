@@ -4,11 +4,11 @@ import * as tokens from "../../../../tokens";
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  padding-left: 1.333rem;
+  padding-left: 1.33rem;
   height: 100%;
-  width: 33.042rem;
+  width: 33.04rem;
 
-    @media (max-width: 600px) {
+  @media (max-width: 600px) {
     width: 100%;
     padding-right: 1.33rem;
   }
@@ -17,13 +17,13 @@ export const Container = styled.div`
 export const Title = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-top: 4.167rem;
+  margin-top: 4.17rem;
   margin-bottom: 1.5rem;
   width: 100%;
   ${tokens.typography.T1_SB_32};
   color: ${tokens.colors.Grey_8};
-  padding-bottom: 0.667rem;
-  border-bottom: 1px solid ${tokens.colors.B_Grey_2};
+  padding-bottom: 0.67rem;
+  border-bottom: 0.042rem solid ${tokens.colors.B_Grey_2};
 `;
 
 export const ContentContainer = styled.div`

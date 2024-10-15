@@ -14,7 +14,7 @@ export const TupleContainer = styled.div`
   align-items: center;
   width: 50rem;
   border-bottom: 1px solid ${tokens.colors.B_Grey_3};
-  background-color: ${({ fix }) => (fix ? tokens.colors.B_Grey_1 : 'transparent')};
+  background-color: ${({ fixyn }) => (fixyn ? tokens.colors.B_Grey_1 : 'transparent')};
   &:hover {
     background-color: ${tokens.colors.B_Grey_2};
   }

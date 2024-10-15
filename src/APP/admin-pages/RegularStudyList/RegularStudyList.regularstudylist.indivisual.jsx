@@ -7,7 +7,6 @@ export default function RegularStudyListIndividual({ application }){
 
 	const navigate = useNavigate();
 
-	
 	const moveToDetail = (id) => { // 보기 추가 함수
 		navigate(`/regularstudy/${id}`);
 	}

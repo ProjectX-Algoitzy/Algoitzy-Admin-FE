@@ -9,16 +9,23 @@ export default function Community() {
 	const { alert } = useContext(AlertContext);
 	
 	const [posts, setPosts] = useState([]);
-	const tabs = ['전체', '공지', '자유', '질문', '정보', '홍보'];
+	const tabMappings = {
+		'전체': '',
+		'공지': 'NOTICE',
+		'자유': 'FREE',
+		'질문': 'QUESTION',
+		'정보': 'INFO',
+		'홍보': 'PROMOTION'
+};
 	// api 요청 파라미터
   const [searchKeyword, setSearchKeyword] = useState('');
-	const [sortType, setSortType] = useState('');
+	const [sortType, setSortType] = useState('LATEST');
 	// const [page, setPage] = useState(1);
 	// const [size, setSize] = useState(20);
 	const [filteredPosts, setFilteredPosts] = useState([]);
 	// const [tabs, setTabs] = useState(['전체']);
 	const [selectedTab, setSelectedTab] = useState('');
-
+	
 	const [content, setContent] = useState('커뮤니티 내의 모든 글을 볼 수 있습니다.');
 
 	const [sortText, setSortText] = useState('최신순');
@@ -57,68 +64,31 @@ export default function Community() {
 		fetchPost();
 	},[ searchKeyword, selectedTab, sortType, currentPage]);
 
-	// useEffect(() => {
-	// 	const stages = [...new Set(posts.map(post => post.type))];
-	// 	const newTabs = ['전체'];
-	// 	if (stages.includes('공지사항')) {
-	// 		newTabs.push('공지사항');
-	// 	}
-	// 	if (stages.includes('자유')) {
-	// 		newTabs.push('자유');
-	// 	}
-	// 	if (stages.includes('질문')) {
-	// 		newTabs.push('질문');
-	// 	}
-	// 	if (stages.includes('정보 공유')) {
-	// 		newTabs.push('정보 공유');
-	// 	}
-	// 	if (stages.includes('홍보')) {
-	// 		newTabs.push('홍보');
-	// 	}
-	// 	setTabs(newTabs);
-
-	// 	setFilteredPosts(posts);
-
-	// }, [posts]);
-
-	// const handleSortClick = (order) => {
-	// 	setSortOrder(order);
-	// };
-
 	const handleTabClick = (tab) => {
-		// setSelectedTab(tab);
+		const englishTab = tabMappings[tab]; // 탭 한글 이름에 맞는 영어 값 가져오기
+		setSelectedTab(englishTab); // 영어 값 설정
+
+		// 탭에 맞는 내용 설정
 		if (tab === '전체') {
-			setSelectedTab('');
-			setIsTabClick(false);
-			setFilteredPosts(posts);
-			setContent('커뮤니티 내의 모든 글을 볼 수 있습니다.');
+				setIsTabClick(false);
+				setContent('커뮤니티 내의 모든 글을 볼 수 있습니다.');
 		} else if (tab === '공지') {
-			setSelectedTab('공지');
-			setIsTabClick(true);
-			setFilteredPosts(posts.filter(post => post.category === '공지'));
-			setContent('Koala의 중요한 소식과 공지들을 확인할 수 있습니다.');
+				setIsTabClick(true);
+				setContent('Koala의 중요한 소식과 공지들을 확인할 수 있습니다.');
 		} else if (tab === '자유') {
-			setSelectedTab('자유');
-			setIsTabClick(true);
-			setFilteredPosts(posts.filter(post => post.category === '자유'));
-			setContent('자유롭게 소통하는 공간입니다.');
+				setIsTabClick(true);
+				setContent('자유롭게 소통하는 공간입니다.');
 		} else if (tab === '질문') {
-			setSelectedTab('질문');
-			setIsTabClick(true);
-			setFilteredPosts(posts.filter(post => post.category === '질문'));
-			setContent('');
+				setIsTabClick(true);
+				setContent('');
 		} else if (tab === '정보') {
-			setSelectedTab('정보');
-			setIsTabClick(true);
-			setFilteredPosts(posts.filter(post => post.category === '정보'));
-			setContent('');
+				setIsTabClick(true);
+				setContent('');
 		} else if (tab === '홍보') {
-			setSelectedTab('홍보');
-			setIsTabClick(true);
-			setFilteredPosts(posts.filter(post => post.category === '홍보'));
-			setContent('');
+				setIsTabClick(true);
+				setContent('');
 		}
-	};
+};
 
 	const handleSearchChange = (e) => {
     setSearchKeyword(e.target.value);
@@ -150,7 +120,7 @@ export default function Community() {
   const onSortType = (type) => {
     setIsSortDropVisible(false);
     setSortType(type);
-    if (type === '') {
+    if (type === 'LATEST') {
       setSortText('최신순');
     } else if (type === 'VIEW_COUNT') {
       setSortText('조회수');
@@ -182,8 +152,8 @@ export default function Community() {
 					</itemS.TopContainer>
 					<itemS.TabSortContainer>
 						<itemS.TabContainer>
-							{tabs.map(tab => (
-								tab === selectedTab ? (
+							{Object.keys(tabMappings).map(tab => (
+								tabMappings[tab] === selectedTab ? (
 									<itemS.TabSelected key={tab} onClick={() => handleTabClick(tab)}>
 										{tab}
 									</itemS.TabSelected>
@@ -200,7 +170,7 @@ export default function Community() {
 								<itemS.SortIcon src="/img/sorticon.svg" alt="Sort Icon" onClick={toggleSortDrop} />
 								{isSortDropVisible && (
 									<itemS.SortDrop>
-										<itemS.SortText onClick={() => onSortType('DATE')}>최신순</itemS.SortText>
+										<itemS.SortText onClick={() => onSortType('LATEST')}>최신순</itemS.SortText>
 										<itemS.SortText onClick={() => onSortType('VIEW_COUNT')}>조회수</itemS.SortText>
 										<itemS.SortText onClick={() => onSortType('LIKE')}>좋아요</itemS.SortText>
 									</itemS.SortDrop>
@@ -209,7 +179,7 @@ export default function Community() {
 						)}
 					</itemS.TabSortContainer>
 					<CommunityTable 
-						items={filteredPosts} 
+						items={posts} 
 						isTabClick={isTabClick}
 					/>
 					<itemS.PaginationContainer>

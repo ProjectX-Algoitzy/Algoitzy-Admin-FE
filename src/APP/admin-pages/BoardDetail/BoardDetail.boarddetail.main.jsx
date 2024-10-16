@@ -100,8 +100,12 @@ export default function BoardDetail() {
 					<itemS.TitleContainer>
 						<itemS.Title>{board.title}</itemS.Title>
 						<itemS.ButtonBox>
-							<itemS.EditBtn onClick={handleFix}>고정</itemS.EditBtn>
-							<itemS.EditBtn>수정</itemS.EditBtn>
+							{board.category === '공지' && (
+								<>
+									<itemS.EditBtn onClick={handleFix}>고정</itemS.EditBtn>
+									<itemS.EditBtn>수정</itemS.EditBtn>
+								</>
+							)}
 							<itemS.DeleteBtn>삭제</itemS.DeleteBtn>
 						</itemS.ButtonBox>
 					</itemS.TitleContainer>

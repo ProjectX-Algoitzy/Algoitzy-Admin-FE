@@ -9,21 +9,11 @@ export default function Community() {
 	const { alert } = useContext(AlertContext);
 	
 	const [posts, setPosts] = useState([]);
-	const tabMappings = {
-		'전체': '',
-		'공지': 'NOTICE',
-		'자유': 'FREE',
-		'질문': 'QUESTION',
-		'정보': 'INFO',
-		'홍보': 'PROMOTION'
-};
+	const [categories, setCategories] = useState([{ code: '', name: '전체' }]); // Default '전체' tab
+
 	// api 요청 파라미터
   const [searchKeyword, setSearchKeyword] = useState('');
 	const [sortType, setSortType] = useState('LATEST');
-	// const [page, setPage] = useState(1);
-	// const [size, setSize] = useState(20);
-	const [filteredPosts, setFilteredPosts] = useState([]);
-	// const [tabs, setTabs] = useState(['전체']);
 	const [selectedTab, setSelectedTab] = useState('');
 	
 	const [content, setContent] = useState('커뮤니티 내의 모든 글을 볼 수 있습니다.');
@@ -43,7 +33,22 @@ export default function Community() {
 		{ length: Math.min(5, totalPages - currentPageGroup * 5) },
 		(_, i) => currentPageGroup * 5 + i
 	);
-	const fetchPost = async () => {
+
+	const fetchCategories = async () => {
+    try {
+      const response = await request.get('/board/category');
+      if (response.isSuccess) {
+        const apiCategories = response.result.categoryList;
+        setCategories([{ code: '', name: '전체' }, ...apiCategories]); // Add '전체' as the first tab
+      } else {
+        console.error('카테고리 목록 조회 실패:', response);
+      }
+    } catch (error) {
+      console.error('카테고리 목록 조회 오류', error);
+    }
+  };
+
+	const fetchBoard = async () => {
 		try {
 			const response = await request.get(`/board?searchKeyword=${searchKeyword}&category=${selectedTab}&sort=${sortType}&page=${currentPage + 1}&size=${itemsPerPage}`);
 			console.log("response", response);
@@ -51,7 +56,6 @@ export default function Community() {
 			if (response.isSuccess) {
 				console.log("게시글 목록 조회 성공");
 				setPosts(response.result.boardList);
-				// setFilteredPosts(response.result.answerList);
 			} else {
 				console.error("게시글 목록 조회 실패:", response);
 			}
@@ -61,37 +65,34 @@ export default function Community() {
 	};
 
 	useEffect(() => {
-		fetchPost();
-	},[ searchKeyword, selectedTab, sortType, currentPage]);
+    fetchCategories();
+  }, []);
+
+	useEffect(() => {
+		fetchBoard();
+	},[ selectedTab, sortType, currentPage]);
 
 	const handleTabClick = (tab) => {
-		const englishTab = tabMappings[tab]; // 탭 한글 이름에 맞는 영어 값 가져오기
-		setSelectedTab(englishTab); // 영어 값 설정
-
+		setSelectedTab(tab.code);
+		setIsTabClick(tab.code !== '');
 		// 탭에 맞는 내용 설정
 		if (tab === '전체') {
-				setIsTabClick(false);
 				setContent('커뮤니티 내의 모든 글을 볼 수 있습니다.');
 		} else if (tab === '공지') {
-				setIsTabClick(true);
 				setContent('Koala의 중요한 소식과 공지들을 확인할 수 있습니다.');
 		} else if (tab === '자유') {
-				setIsTabClick(true);
 				setContent('자유롭게 소통하는 공간입니다.');
 		} else if (tab === '질문') {
-				setIsTabClick(true);
 				setContent('');
 		} else if (tab === '정보') {
-				setIsTabClick(true);
 				setContent('');
 		} else if (tab === '홍보') {
-				setIsTabClick(true);
 				setContent('');
 		}
-};
+	};
 
-	const handleSearchChange = (e) => {
-    setSearchKeyword(e.target.value);
+	const handleSearch = () => {
+    fetchBoard();
 		setCurrentPage(0);
 		setCurrentPageGroup(0);
   };
@@ -120,14 +121,7 @@ export default function Community() {
   const onSortType = (type) => {
     setIsSortDropVisible(false);
     setSortType(type);
-    if (type === 'LATEST') {
-      setSortText('최신순');
-    } else if (type === 'VIEW_COUNT') {
-      setSortText('조회수');
-    } else if (type === 'LIKE') {
-      setSortText('좋아요');
-    }
-		
+		setSortText(type === 'LATEST' ? '최신순' : type === 'VIEW_COUNT' ? '조회수' : '좋아요');
   };
 
 
@@ -137,32 +131,32 @@ export default function Community() {
 				<itemS.InnerContainer>
 					<itemS.TopContainer>
 						<itemS.HeadContainer>
-							<itemS.Head>커뮤니티 &gt; {selectedTab}</itemS.Head>
+							<itemS.Head>커뮤니티 &gt; {selectedTab ? categories.find(tab => tab.code === selectedTab)?.name : '전체'}</itemS.Head>
 							<itemS.SemiHead>{content}</itemS.SemiHead>
 						</itemS.HeadContainer>
 						<itemS.SearchContainer>
 								<itemS.Search 
 									type="text"
 									value={searchKeyword}
-									onChange={handleSearchChange}
+									onChange={(e) => setSearchKeyword(e.target.value)}
 								/>
-								<itemS.SearchIcon src='/img/search.svg' alt='돋보기' />
+								<itemS.SearchIcon onClick={() => handleSearch()} src='/img/search.svg' alt='돋보기' />
 								{/* <itemS.SearchIcon onClick={() => fetchInstitutionList()} src='/img/search.svg' alt='돋보기' /> */}
 							</itemS.SearchContainer>
 					</itemS.TopContainer>
 					<itemS.TabSortContainer>
 						<itemS.TabContainer>
-							{Object.keys(tabMappings).map(tab => (
-								tabMappings[tab] === selectedTab ? (
-									<itemS.TabSelected key={tab} onClick={() => handleTabClick(tab)}>
-										{tab}
-									</itemS.TabSelected>
-								) : (
-									<itemS.Tab key={tab} onClick={() => handleTabClick(tab)}>
-										{tab}
-									</itemS.Tab>
-								)
-							))}
+							{categories.map(tab => (
+                tab.code === selectedTab ? (
+                  <itemS.TabSelected key={tab.code} onClick={() => handleTabClick(tab)}>
+                    {tab.name}
+                  </itemS.TabSelected>
+                ) : (
+                  <itemS.Tab key={tab.code} onClick={() => handleTabClick(tab)}>
+                    {tab.name}
+                  </itemS.Tab>
+                )
+              ))}
 						</itemS.TabContainer>
 						{isTabClick && (
 							<itemS.SortContainer>

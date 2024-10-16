@@ -25,7 +25,7 @@ import UpdateGeneration from "./APP/admin-pages/UpdateGeneration/UpdateGeneratio
 import ManageAuth from "./APP/admin-pages/ManageAuth/ManageAuth.manageauth.main"
 import InstitutionDetail from "./APP/admin-pages/InstitutionDetail/InstitutionDetail.institutiondetail.main"
 import Community from "./APP/admin-pages/Community/Community.community.main"
-import PostDetail from "./APP/admin-pages/PostDetail/PostDetail.postdetail.main"
+import BoardDetail from "./APP/admin-pages/BoardDetail/BoardDetail.boarddetail.main"
 import styled from "styled-components"
 import ScrollToTop from "./APP/Common/ScrollToTop"
 import useInterval from "./APP/Common/UseInterval"
@@ -94,8 +94,8 @@ function App() {
           <Route path="/generation" element={isLoggedIn() ? <UpdateGeneration /> : <Navigate to="/login" />} /> {/* 기수 갱신 */}
           <Route path="/manageauth" element={isLoggedIn() ? <ManageAuth /> : <Navigate to="/login" />} /> {/* 권한 관리 */}
           <Route path="/institutiondetail/:institutionId" element={isLoggedIn() ? <InstitutionDetail /> : <Navigate to="/login" />} /> {/* 기업/부트캠프 상세조회 */}
-          <Route path="/community" element={<Community />} /> {/* 커뮤니티 */}
-          <Route path="/postdetail" element={<PostDetail />} /> {/* 커뮤니티 글 세부 */} {/* ANCHOR - id로 설정하기 */}
+          <Route path="/community" element={isLoggedIn() ? <Community /> : <Navigate to="/login" />} /> {/* 커뮤니티 */}
+          <Route path="/board/:id" element={isLoggedIn() ? <BoardDetail /> : <Navigate to="/login" />} /> {/* 커뮤니티 글 세부 */} {/* ANCHOR - id로 설정하기 */}
         </Routes>
         {/* <Footer /> */} {/* figma에 보니 admin은 푸터가 없었기에 일단 임시로 주석처리를 했다 */}
       </BrowserRouter>

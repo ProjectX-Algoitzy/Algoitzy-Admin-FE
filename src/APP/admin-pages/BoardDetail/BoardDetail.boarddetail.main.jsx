@@ -1,27 +1,26 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import request from '../../Api/request';
-import * as itemS from "./Styled/PostDetail.postdetail.main.styles";
-import Content from './PostDetail.postdetail.content';
-import Comment from './PostDetail.postdetail.comment';
+import * as itemS from "./Styled/BoardDetail.boarddetail.main.styles";
+import Content from './BoardDetail.boarddetail.content';
+import Comment from './BoardDetail.boarddetail.comment';
 import WriteBox from './WriteBox';
 import { AlertContext } from '../../Common/Alert/AlertContext';
 import { dummyInfo, originData, dummyContent, dummyComment } from './dummy';
 
-export default function PostDetail() {
-	const myId = 1;
+export default function BoardDetail() {
+	const { id } = useParams();  // 게시글 ID 가져오기
 	
 	const { alert } = useContext(AlertContext);
 
-  const [postInfo, setPostInfo] = useState([]);
-  const [content, setContent] = useState([]);
-  const [commentItem, setCommentItem] = useState([]);
+	const [board, setBoard] = useState({});
+
+  // const [postInfo, setPostInfo] = useState([]);
+  // const [content, setContent] = useState([]);
+  // const [commentItem, setCommentItem] = useState([]);
 
   const [type, setType] = useState(originData[0].type);
   const [title, setTitle] = useState(originData[0].title);
-
-	// api 요청 파라미터
-	const [page, setPage] = useState(1);
-	const [size, setSize] = useState(20);
 
 	// 페이지
 	const [currentPage, setCurrentPage] = useState(0);
@@ -33,12 +32,40 @@ export default function PostDetail() {
 		{ length: Math.min(5, totalPages - currentPageGroup * 5) },
 		(_, i) => currentPageGroup * 5 + i
 	);
+
+	const formatDate = (createdTime) => {
+    const date = new Date(createdTime);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}.${month}.${day}`;
+  };
+
+	const fetchBoard = async () => {
+    try {
+      const response = await request.get(`/board/${id}`);
+
+      if (response.isSuccess) {
+        console.log("게시글 상세 조회 성공", response);
+        setBoard(response.result);
+      } else {
+        console.error("게시글 상세 조회 실패:", response);
+      }
+    } catch (error) {
+      console.error('게시글 상세 조회 오류', error);
+    }
+  };
 	
 	useEffect(() => {
-		setPostInfo(dummyInfo);
-		setContent(dummyContent);
-    setCommentItem(dummyComment);
+		console.log("id",id);
+		fetchBoard();
 	}, []);
+
+	// useEffect(() => {
+	// 	setPostInfo(dummyInfo);
+	// 	setContent(dummyContent);
+  //   setCommentItem(dummyComment);
+	// }, []);
 
 	const handlePageChange = (newPage) => {
 		if (newPage >= 0 && newPage < totalPages) {
@@ -64,12 +91,12 @@ export default function PostDetail() {
 				<itemS.InnerContainer>
 					<itemS.TopContainer>
 						<itemS.HeadContainer>
-							<itemS.Head>커뮤니티 &gt; {type}</itemS.Head>
+							<itemS.Head>커뮤니티 &gt; {board.category}</itemS.Head>
 							{/* <itemS.SemiHead>{title}</itemS.SemiHead> */}
 						</itemS.HeadContainer>
 					</itemS.TopContainer>
 					<itemS.TitleContainer>
-						<itemS.Title>{title}</itemS.Title>
+						<itemS.Title>{board.title}</itemS.Title>
 						<itemS.ButtonBox>
 							<itemS.EditBtn>고정</itemS.EditBtn>
 							<itemS.EditBtn>수정</itemS.EditBtn>
@@ -77,29 +104,30 @@ export default function PostDetail() {
 						</itemS.ButtonBox>
 					</itemS.TitleContainer>
 					<itemS.WriterInfoContainer>
-						<itemS.Profile src={dummyInfo[0].profileUrl} alt='프로필'/>
+						<itemS.Profile src={board.profileUrl} alt='프로필'/>
 						<itemS.InfoBox>
-							<itemS.WriterName>{dummyInfo[0].name}</itemS.WriterName>
+							<itemS.WriterName>{board.createdName}</itemS.WriterName>
 							<itemS.InfoBottomBox>
-								<itemS.CreatedTime>{dummyInfo[0].createdTime}</itemS.CreatedTime>
-								<itemS.ViewCnt>조회수 {dummyInfo[0].view}</itemS.ViewCnt>
+								<itemS.CreatedTime>{formatDate(board.createdTime)}</itemS.CreatedTime>
+								<itemS.ViewCnt>조회수 {board.viewCount}</itemS.ViewCnt>
 							</itemS.InfoBottomBox>
 						</itemS.InfoBox>
 					</itemS.WriterInfoContainer>
 					<Content 
-						item={dummyContent} 
+						content={board.content} 
+						files={board.boardFileList}
 					/>
 					<itemS.CountContainer>
-						<itemS.LC_Icon src='img/like-md.svg' alt='하뚜' />
-						<itemS.CountText>좋아요 {dummyInfo[0].like}</itemS.CountText>
-						<itemS.LC_Icon src='img/comment.svg' alt='댓글' />
-						<itemS.CountText>댓글 {dummyInfo[0].commentCnt}</itemS.CountText>
+						<itemS.LC_Icon src='/img/like-md.svg' alt='하뚜' />
+						<itemS.CountText>좋아요 {board.likeCount}</itemS.CountText>
+						<itemS.LC_Icon src='/img/comment.svg' alt='댓글' />
+						<itemS.CountText>댓글 {board.replyCount}</itemS.CountText>
 					</itemS.CountContainer>
 
 					<itemS.Body>댓글</itemS.Body>
 					<itemS.ContentContainer>
 						<itemS.WriteContainer>
-							<itemS.CommentProfile src='img/people.png' alt='프로필' />
+							<itemS.CommentProfile src='/img/people.png' alt='프로필' />
 							<WriteBox />
 						</itemS.WriteContainer>
 						

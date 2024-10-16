@@ -6,7 +6,7 @@ import Content from './BoardDetail.boarddetail.content';
 import Comment from './BoardDetail.boarddetail.comment';
 import WriteBox from './WriteBox';
 import { AlertContext } from '../../Common/Alert/AlertContext';
-import { dummyInfo, originData, dummyContent, dummyComment } from './dummy';
+import { dummyComment } from './dummy';
 
 export default function BoardDetail() {
 	const { id } = useParams();  // 게시글 ID 가져오기
@@ -14,13 +14,6 @@ export default function BoardDetail() {
 	const { alert } = useContext(AlertContext);
 
 	const [board, setBoard] = useState({});
-
-  // const [postInfo, setPostInfo] = useState([]);
-  // const [content, setContent] = useState([]);
-  // const [commentItem, setCommentItem] = useState([]);
-
-  const [type, setType] = useState(originData[0].type);
-  const [title, setTitle] = useState(originData[0].title);
 
 	// 페이지
 	const [currentPage, setCurrentPage] = useState(0);
@@ -57,15 +50,24 @@ export default function BoardDetail() {
   };
 	
 	useEffect(() => {
-		console.log("id",id);
 		fetchBoard();
 	}, []);
 
-	// useEffect(() => {
-	// 	setPostInfo(dummyInfo);
-	// 	setContent(dummyContent);
-  //   setCommentItem(dummyComment);
-	// }, []);
+	const handleFix = async () => {
+
+    try {
+      const response = await request.patch(`/board/${id}/fix`);
+      if (response.isSuccess) {
+        console.log("게시글 고정 토글 성공:", response);
+       
+      } else {
+        console.error("게시글 고정 토글 실패:", response);
+      }
+    } catch (error) {
+      console.error("게시글 고정 토글 에러:", error);
+      
+    }
+  };
 
 	const handlePageChange = (newPage) => {
 		if (newPage >= 0 && newPage < totalPages) {
@@ -98,7 +100,7 @@ export default function BoardDetail() {
 					<itemS.TitleContainer>
 						<itemS.Title>{board.title}</itemS.Title>
 						<itemS.ButtonBox>
-							<itemS.EditBtn>고정</itemS.EditBtn>
+							<itemS.EditBtn onClick={handleFix}>고정</itemS.EditBtn>
 							<itemS.EditBtn>수정</itemS.EditBtn>
 							<itemS.DeleteBtn>삭제</itemS.DeleteBtn>
 						</itemS.ButtonBox>

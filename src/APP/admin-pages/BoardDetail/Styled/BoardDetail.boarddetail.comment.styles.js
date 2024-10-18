@@ -95,7 +95,7 @@ export const WriteBox = styled.div`
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  margin-top: 1rem;
+  margin-top: 13px;
 `;
 
 export const Blank = styled.div`

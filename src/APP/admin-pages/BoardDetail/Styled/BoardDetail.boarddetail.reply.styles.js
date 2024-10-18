@@ -10,7 +10,6 @@ export const Container = styled.div`
   // padding-bottom: 18px;
   // border-bottom: 1px solid ${tokens.colors.B_Grey_3};
   margin-top: 18px;
-  // margin-left: 104px;
 `;
 
 export const WriteContainer = styled.div`
@@ -25,6 +24,7 @@ export const CommentContainer = styled.div`
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
+  margin-left: 104px;
 `;
 
 export const CommentProfile = styled.img`
@@ -54,30 +54,29 @@ export const WriterName = styled.div`
   font-size: 15px;
   font-weight: semibold;
   color: ${tokens.colors.Black};
-  margin: 0 16px 12px 0;
+  margin: 0 10px 6px 0;
 `;
 
-export const ContentBox = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
-  flex-direction: column;
-  width: 957px;
-  margin-bottom: 12px;
-`;
+// export const ContentBox = styled.div`
+//   display: flex;
+//   justify-content: flex-start;
+//   align-items: flex-start;
+//   flex-direction: row;
+//   width: 957px;
+//   margin-bottom: 12px;
+// `;
 
-export const Mention = styled.img`
-  width: 16px;
-  height: 16px;
-  border: 0.04rem solid ${tokens.colors.B_Grey_2}; 
-  border-radius: 8px;
-  margin-right: 5px;
+export const Mention = styled.span`
+  ${tokens.typography.B2_M_16};
+  color: ${tokens.colors.Blue_0_Main};
+  margin-right: 4px;
 `;
 
 export const Content = styled.div`
   ${tokens.typography.B2_M_16};
   color: ${tokens.colors.Black};
-  
+  width: 957px;
+  margin-bottom: 6px;
 `;
 
 export const InfoBottomBox = styled.div`
@@ -112,7 +111,7 @@ export const WriteBox = styled.div`
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  margin-top: 1rem;
+  margin-top: 13px;
 `;
 
 export const Blank = styled.div`

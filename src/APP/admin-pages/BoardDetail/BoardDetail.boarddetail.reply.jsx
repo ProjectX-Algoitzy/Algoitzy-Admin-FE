@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import * as itemS from "./Styled/BoardDetail.boarddetail.reply.styles";
 import WriteBox from './WriteBox';
 
-export default function Reply({ item, parentProfile, formatDate }) {
+export default function Reply({ item, parentName, formatDate }) {
 
 	const [isReplyBoxVisible, setIsReplyBoxVisible] = useState(false);
 
@@ -10,9 +10,9 @@ export default function Reply({ item, parentProfile, formatDate }) {
     setIsReplyBoxVisible(!isReplyBoxVisible);
   };
 
-  useEffect(() => {
-		console.log('parentProfile',parentProfile);
-	}, []);
+  // useEffect(() => {
+	// 	console.log('parentName',parentName);
+	// }, []);
 
 	return (
     <itemS.Container>
@@ -23,10 +23,10 @@ export default function Reply({ item, parentProfile, formatDate }) {
             <itemS.WriterBox>
               <itemS.WriterName>{item.createdName}</itemS.WriterName>
             </itemS.WriterBox>
-            <itemS.ContentBox>
-              <itemS.Mention src={parentProfile} alt='프로필' />
-              <itemS.Content>{item.content}</itemS.Content>
-            </itemS.ContentBox>
+            {/* <itemS.ContentBox> */}
+              
+            <itemS.Content><itemS.Mention>@{parentName} </itemS.Mention>{item.content}</itemS.Content>
+            {/* </itemS.ContentBox> */}
             <itemS.InfoBottomBox>
               <itemS.CreatedTime>{formatDate(item.createdTime)}</itemS.CreatedTime>
               <itemS.Reply onClick={handleReplyClick}>답글 달기</itemS.Reply>
@@ -50,7 +50,7 @@ export default function Reply({ item, parentProfile, formatDate }) {
             <Reply
               key={reply.replyId}
               item={reply}
-              parentProfile={item.profileUrl} // Pass the current reply's profile as parentProfile for child replies
+              parentName={item.createdName} // Pass the current reply's profile as parentProfile for child replies
               formatDate={formatDate}
             />
           ))}

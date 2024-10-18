@@ -11,9 +11,9 @@ export default function Comment({ item, formatDate }) {
     setIsReplyBoxVisible(!isReplyBoxVisible);
   };
 
-  useEffect(() => {
-		console.log('item',item);
-	}, []);
+  // useEffect(() => {
+	// 	console.log('item',item);
+	// }, []);
 
 	return (
     <itemS.Container>
@@ -47,7 +47,7 @@ export default function Comment({ item, formatDate }) {
 							<Reply
 								key={reply.replyId}
 								item={reply}
-                parentProfile={item.profileUrl}
+                parentName={item.createdName}
 								formatDate={formatDate}
 							/>
 						))}

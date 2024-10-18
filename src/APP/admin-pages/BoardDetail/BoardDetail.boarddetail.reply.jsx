@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
-import * as itemS from "./Styled/BoardDetail.boarddetail.comment.styles";
+import * as itemS from "./Styled/BoardDetail.boarddetail.reply.styles";
 import WriteBox from './WriteBox';
-import Reply from './BoardDetail.boarddetail.reply';
 
-export default function Comment({ item, formatDate }) {
+export default function Reply({ item, parentProfile, formatDate }) {
 
 	const [isReplyBoxVisible, setIsReplyBoxVisible] = useState(false);
 
@@ -12,7 +11,7 @@ export default function Comment({ item, formatDate }) {
   };
 
   useEffect(() => {
-		console.log('item',item);
+		console.log('parentProfile',parentProfile);
 	}, []);
 
 	return (
@@ -24,7 +23,10 @@ export default function Comment({ item, formatDate }) {
             <itemS.WriterBox>
               <itemS.WriterName>{item.createdName}</itemS.WriterName>
             </itemS.WriterBox>
-            <itemS.Content>{item.content}</itemS.Content>
+            <itemS.ContentBox>
+              <itemS.Mention src={parentProfile} alt='프로필' />
+              <itemS.Content>{item.content}</itemS.Content>
+            </itemS.ContentBox>
             <itemS.InfoBottomBox>
               <itemS.CreatedTime>{formatDate(item.createdTime)}</itemS.CreatedTime>
               <itemS.Reply onClick={handleReplyClick}>답글 달기</itemS.Reply>
@@ -43,14 +45,15 @@ export default function Comment({ item, formatDate }) {
           </itemS.WriteBox>
         )}
 
-        {item.childrenReplyList.map(reply => (
-							<Reply
-								key={reply.replyId}
-								item={reply}
-                parentProfile={item.profileUrl}
-								formatDate={formatDate}
-							/>
-						))}
+        {item.childrenReplyList.length > 0 &&
+          item.childrenReplyList.map((reply) => (
+            <Reply
+              key={reply.replyId}
+              item={reply}
+              parentProfile={item.profileUrl} // Pass the current reply's profile as parentProfile for child replies
+              formatDate={formatDate}
+            />
+          ))}
       </itemS.WriteContainer>
     </itemS.Container>
   );

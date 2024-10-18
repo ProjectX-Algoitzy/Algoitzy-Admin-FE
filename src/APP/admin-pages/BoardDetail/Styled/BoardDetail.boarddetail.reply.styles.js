@@ -7,9 +7,10 @@ export const Container = styled.div`
   align-items: center;
   flex-direction: row;
   // width: 50rem;
-  padding-bottom: 18px;
-  border-bottom: 1px solid ${tokens.colors.B_Grey_3};
+  // padding-bottom: 18px;
+  // border-bottom: 1px solid ${tokens.colors.B_Grey_3};
   margin-top: 18px;
+  // margin-left: 104px;
 `;
 
 export const WriteContainer = styled.div`
@@ -27,11 +28,11 @@ export const CommentContainer = styled.div`
 `;
 
 export const CommentProfile = styled.img`
-  width: 64px;
-  height: 64px;
+  width: 40px;
+  height: 40px;
   border: 0.04rem solid ${tokens.colors.B_Grey_2}; 
-  border-radius: 32px;
-  margin-right: 32px;
+  border-radius: 20px;
+  margin-right: 17px;
 `;
 
 export const CommentBox = styled.div`
@@ -56,11 +57,27 @@ export const WriterName = styled.div`
   margin: 0 16px 12px 0;
 `;
 
+export const ContentBox = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+  width: 957px;
+  margin-bottom: 12px;
+`;
+
+export const Mention = styled.img`
+  width: 16px;
+  height: 16px;
+  border: 0.04rem solid ${tokens.colors.B_Grey_2}; 
+  border-radius: 8px;
+  margin-right: 5px;
+`;
+
 export const Content = styled.div`
   ${tokens.typography.B2_M_16};
   color: ${tokens.colors.Black};
-  width: 1015px;
-  margin-bottom: 12px;
+  
 `;
 
 export const InfoBottomBox = styled.div`
@@ -68,7 +85,7 @@ export const InfoBottomBox = styled.div`
   justify-content: flex-start;
   align-items: center;
   flex-direction: row;
-  width: 1015px;
+  width: 957px;
 `;
 
 export const CreatedTime = styled.div`

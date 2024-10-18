@@ -14,6 +14,7 @@ export default function BoardDetail() {
 	const { alert } = useContext(AlertContext);
 
 	const [board, setBoard] = useState({});
+	const [comment, setComment] = useState([]);
 
 	// 페이지
 	const [currentPage, setCurrentPage] = useState(0);
@@ -34,7 +35,7 @@ export default function BoardDetail() {
     return `${year}.${month}.${day}`;
   };
 
-	const fetchBoard = async () => {
+	const fetchBoard = async () => { // 게시글 조회
     try {
       const response = await request.get(`/board/${id}`);
 
@@ -48,9 +49,28 @@ export default function BoardDetail() {
       console.error('게시글 상세 조회 오류', error);
     }
   };
+
+	const fetchComment = async () => { // 댓글 조회
+    try {
+      const response = await request.get(`/board/${id}/reply?page=${currentPage + 1}&size=${itemsPerPage}`);
+
+      if (response.isSuccess) {
+        console.log("댓글 조회 성공", response.result.replyList);
+        setComment(response.result.replyList);
+      } else {
+        console.error("댓글 조회 실패:", response);
+      }
+    } catch (error) {
+      console.error('댓글 조회 오류', error);
+    }
+  };
 	
 	useEffect(() => {
 		fetchBoard();
+	}, []);
+
+	useEffect(() => {
+		fetchComment();
 	}, []);
 
 	const handleFix = async () => {
@@ -132,15 +152,16 @@ export default function BoardDetail() {
 
 					<itemS.Body>댓글</itemS.Body>
 					<itemS.ContentContainer>
-						<itemS.WriteContainer>
+						{/* <itemS.WriteContainer>
 							<itemS.CommentProfile src='/img/people.png' alt='프로필' />
 							<WriteBox />
-						</itemS.WriteContainer>
+						</itemS.WriteContainer> */}
 						
-						{dummyComment.map(item => (
+						{comment.map(item => (
 							<Comment
-								key={item.commentId}
+								key={item.replyId}
 								item={item}
+								formatDate={formatDate}
 							/>
 						))}
 						

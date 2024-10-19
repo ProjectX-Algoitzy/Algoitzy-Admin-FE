@@ -29,11 +29,11 @@ export default function Reply({ item, parentName, formatDate }) {
             {/* </itemS.ContentBox> */}
             <itemS.InfoBottomBox>
               <itemS.CreatedTime>{formatDate(item.createdTime)}</itemS.CreatedTime>
-              <itemS.Reply onClick={handleReplyClick}>답글 달기</itemS.Reply>
-              <itemS.CommentLike
+              {/* <itemS.Reply onClick={handleReplyClick}>답글 달기</itemS.Reply> */}
+              {/* <itemS.CommentLike
                 src={item.myLikeYn ? '/img/like-s-fill.svg' : '/img/like-s.svg'}
                 alt='하뚜'
-              />
+              /> */}
             </itemS.InfoBottomBox>
           </itemS.CommentBox>
         </itemS.CommentContainer>

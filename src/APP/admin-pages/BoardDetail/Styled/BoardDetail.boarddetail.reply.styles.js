@@ -10,6 +10,7 @@ export const Container = styled.div`
   // padding-bottom: 18px;
   // border-bottom: 1px solid ${tokens.colors.B_Grey_3};
   margin-top: 18px;
+  // margin-left: 50px;
 `;
 
 export const WriteContainer = styled.div`
@@ -23,8 +24,9 @@ export const CommentContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  align-items: center;
+  align-items: flex-start;
   margin-left: 104px;
+  // margin-left: 54px;
 `;
 
 export const CommentProfile = styled.img`

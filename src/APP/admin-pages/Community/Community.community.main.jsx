@@ -158,7 +158,7 @@ export default function Community() {
                 )
               ))}
 						</itemS.TabContainer>
-						{isTabClick && (
+						{/* {isTabClick && ( */}
 							<itemS.SortContainer>
 								<itemS.CategoryDrop onClick={toggleSortDrop}>{sortText}</itemS.CategoryDrop>
 								<itemS.SortIcon src="/img/sorticon.svg" alt="Sort Icon" onClick={toggleSortDrop} />
@@ -170,7 +170,7 @@ export default function Community() {
 									</itemS.SortDrop>
 								)}
 							</itemS.SortContainer>
-						)}
+						{/* )} */}
 					</itemS.TabSortContainer>
 					<CommunityTable 
 						items={posts} 

@@ -12,6 +12,7 @@ export const HeaderContainer = styled.div`
 export const HeaderWrap = styled.div`
   background-color: rgba(255, 255, 255, 0.05); 
   backdrop-filter: blur(200px);
+  -webkit-backdrop-filter: blur(200px);
   height: 3.333rem;
   margin: 0 auto;
   display: flex;
@@ -51,12 +52,31 @@ export const PageLink = styled.div`
   ${tokens.typography.T5_SB_16};
 `;
 
+export const ProfileBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  height: 0.88rem;
+  margin-left: 2.08rem;
+  margin-right: 2.08rem;
+  @media (max-width: 600px) {
+     margin-left: 1rem;
+     margin-right: 0;
+  }
+  cursor: pointer;
+`;
+
 export const AdminName = styled.div`
   color: ${tokens.colors.Blue_0_Main};
-  height: 0.875rem;
   ${tokens.typography.T5_SB_16};
-  margin-left: 2.083rem;
-  cursor: pointer;
+  margin-right: 0.3rem;
+  // cursor: pointer;
+`;
+
+export const Arrow = styled.img`
+  // width: 0.3rem;
+  // height: 0.46rem;
 `;
 
 export const Btn = styled.button`

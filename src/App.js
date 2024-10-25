@@ -31,6 +31,8 @@ import { refreshToken } from "./APP/Api/refreshToken"
 import { checkToken } from "./APP/Api/checkToken"
 import { ACCESS_TOKEN } from "./APP/Api/request"
 import GlobalStyle from './GlobalStyles';
+import { useLoading } from "./APP/Common/Loading/LoadingContext";
+import { setLoadingFunctions } from "./APP/Api/request";
 
 const Root = styled.div`
   position: absolute;
@@ -42,6 +44,9 @@ const Root = styled.div`
 `;
 
 function App() {
+  const { showLoading, hideLoading } = useLoading(); 
+
+  setLoadingFunctions(showLoading, hideLoading);
 
   useInterval(async () => {
     if (localStorage.getItem(ACCESS_TOKEN)) {
@@ -72,7 +77,6 @@ function App() {
           <Route path="/findpassword" element={<FindPassword />}/>
           <Route path="/application" element={isLoggedIn() ? <MakedApplicationList /> : <Navigate to="/login" />} />
           <Route path="/newapplication/:id" element={isLoggedIn() ? <MakedApplicationDetail />: <Navigate to="/login" />} />
-          {/* <Route path="/makingapplicationform" element={<MakingApplicationForm />} /> */}
           <Route path="/answer" element={isLoggedIn() ? <ViewApplicationList /> : <Navigate to="/login" />} />
           <Route path="/answer/:id" element={isLoggedIn() ? <ViewApplicationDetail /> : <Navigate to="/login" />} />
           <Route path="/makedselfstudylist" element={isLoggedIn() ? <MakedSelfStudyList /> : <Navigate to="/login" />} />
@@ -92,7 +96,7 @@ function App() {
         {/* <Footer /> */} {/* figma에 보니 admin은 푸터가 없었기에 일단 임시로 주석처리를 했다 */}
       </BrowserRouter>
     </Root>
-  );
+  ); 
 }
 
 export default App;

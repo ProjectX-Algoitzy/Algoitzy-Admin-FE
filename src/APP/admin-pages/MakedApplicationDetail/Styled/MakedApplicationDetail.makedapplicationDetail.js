@@ -779,7 +779,6 @@ export const BtnContainer = styled.div`
 export const BtnContainer2 = styled.div`
   display: flex;
   flex-direction: row;
-  // margin-left: 23.5rem;
 `;
 
 export const ArbitaryBtn = styled.button` /* 임시 저장하기 버튼*/

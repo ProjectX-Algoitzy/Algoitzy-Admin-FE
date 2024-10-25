@@ -660,6 +660,7 @@ export default function MakedApplicationDetail() {
             </items.SecondInnerContainer>
             ))}
             <img src="/img/makingapplicationbtn.png" alt="문항추가하기" onClick={addQuestion} style={{ marginTop:"1.667rem", width: "7.875rem", height:"2.625rem", marginBottom:"8.167rem"}} />
+
             
             <items.BtnContainer>
                 <items.BtnContainer2>

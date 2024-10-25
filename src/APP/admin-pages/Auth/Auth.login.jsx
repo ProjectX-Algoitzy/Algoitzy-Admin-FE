@@ -36,14 +36,15 @@ export default function Login() {
     };
 
     try {
-      const response = await axios.post('https://admin-dev.kau-koala.com/member/login', requestData);
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/member/login`, requestData);
       console.log("response", response.data);
       localStorage.setItem(ACCESS_TOKEN, response.data.result.accessToken);
 
       if (response.data.isSuccess) {
         console.log("로그인 성공!");
-        navigate("/regularstudylist");
-        window.location.reload(); // 페이지 새로고침 추가
+        // navigate("/regularstudylist");
+        // window.location.reload(); // 페이지 새로고침 추가
+        window.location.replace('/regularstudylist');
       } else {
         // console.error("로그인 실패:", response.data);
         setIsAlertOpen(true);
@@ -89,8 +90,9 @@ export default function Login() {
           </itemS.IIContainer>
         </itemS.LoginIContainer>
         <itemS.Btn onClick={handleSubmit}>로그인</itemS.Btn>
+        {/* <itemS.Btn onClick={handleSubmit}>Login</itemS.Btn> */}
         <itemS.UtilBox>
-          <itemS.UtilText onClick={() => navigate("/findemail")}>아이디</itemS.UtilText>
+          <itemS.UtilText onClick={() => navigate("/findemail")}>아이디 찾기</itemS.UtilText>
           <itemS.UtilText>|</itemS.UtilText>
           <itemS.UtilText onClick={() => navigate("/findpassword")}>비밀번호 찾기</itemS.UtilText>
         </itemS.UtilBox>

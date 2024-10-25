@@ -46,7 +46,7 @@ export const TupleMajor = styled.div`
   align-items: center;
   ${tokens.typography.T5_SB_16};
   color: ${tokens.colors.Black};
-  width: 6.167rem;
+  width: 6.75rem;
   height: 2.333rem;
 `;
 

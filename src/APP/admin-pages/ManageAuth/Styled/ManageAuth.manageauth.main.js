@@ -111,6 +111,9 @@ export const PaginationArrow = styled.div`
 `;
 
 export const PaginationNumber = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;  
   margin: 0.417rem;
   width: 0.333rem;
   height: 0.875rem;

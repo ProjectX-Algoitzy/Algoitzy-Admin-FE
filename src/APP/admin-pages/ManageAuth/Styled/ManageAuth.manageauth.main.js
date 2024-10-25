@@ -16,7 +16,7 @@ export const InnerContainer = styled.div`
   flex-direction: column;
   align-items: center; 
   border-radius: 1.667rem;
-  padding: 6.583rem 15rem 0rem 15rem;
+  padding: 6.583rem 0;
   margin-bottom: 4.083rem;
 `;
 

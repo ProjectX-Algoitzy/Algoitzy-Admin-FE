@@ -103,13 +103,13 @@ export const Pagination = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;  
-  padding: 0.833rem;  /* 20px */
+  padding: 0.833rem;
   list-style: none;
 `;
 
 export const PaginationArrow = styled.div`
-  width: 1rem;  /* 24px */
-  height: 1rem;  /* 24px */
+  width: 1rem;
+  height: 1rem;
   background-image: url('/img/grayarrow.png');
   background-size: contain;
   background-repeat: no-repeat;
@@ -119,15 +119,18 @@ export const PaginationArrow = styled.div`
 `;
 
 export const PaginationNumber = styled.div`
-  margin: 0 0.208rem;  /* 0 5px */
-  width: 0.333rem;  /* 8px */
-  height: 0.875rem;  /* 21px */
-  padding: 0.417rem;  /* 10px */
+  display: flex;
+  justify-content: center;
+  align-items: center;  
+  margin: 0.417rem;
+  width: 0.333rem;
+  height: 0.875rem;
   cursor: pointer;
   color: ${(props) => (props.active ? tokens.colors.Blue_3 : tokens.colors.B_Grey_7)};
   font-weight: ${(props) => (props.active ? 'bold' : 'normal')};
   ${tokens.typography.B3_M_14};
 `;
+
 
 export const ButtonContainer = styled.div`
   display: flex;

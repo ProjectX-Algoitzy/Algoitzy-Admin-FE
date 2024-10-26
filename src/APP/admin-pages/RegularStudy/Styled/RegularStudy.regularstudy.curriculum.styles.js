@@ -13,34 +13,34 @@ export const Title = styled.div`
   flex-direction: row;
   width: 33.042rem;
   justify-content: space-between;
-  margin-top: 4.167rem;
+  margin-top: 4.17rem;
   margin-bottom: 1.5rem;
-  padding-bottom: 0.833rem;
-  border-bottom: 1px solid ${tokens.colors.B_Grey_2};
+  padding-bottom: 0.83rem;
+  border-bottom: 0.042rem solid ${tokens.colors.B_Grey_2};
   ${tokens.typography.T1_SB_32};
   color: ${tokens.colors.Grey_8};
 `;
 
 export const BtnMakeCurri = styled.button`
-  width: 7.917rem;
-  height: 1.958rem;
+  width: 7.92rem;
+  height: 1.96rem;
   background: #00A5FF; 
   color: white;
-  border-radius: 0.208rem; 
-  border: none; 
-  cursor: pointer;
+  border-radius: 0.21rem; 
+  border: none;
+  cursor: pointer; 
   ${tokens.typography.T6_SB_14}; 
 `;
 
 export const CurriculumContainer = styled.div`
   display: flex;
-  align-items: center;
+  flex-direction: row;
   justify-content: space-between;
   margin-bottom: 0.833rem;
-  width: 33.042rem;
-  height: 4.167rem;
-  background-color: ${(props) => (props.isCurrentWeek ? tokens.colors.White : tokens.colors.Grey_2)}; /* props로 배경색 변경 */
-  box-shadow: 0px 0.167rem 0.417rem rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+  width: 33.04rem;
+  height: 4.17rem;
+  background-color: ${tokens.colors.White};
+  box-shadow: 0px 0.167rem 0.417rem rgba(0, 0, 0, 0.1);
 `;
 
 export const TextContainer = styled.div`

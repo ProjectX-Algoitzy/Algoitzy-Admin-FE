@@ -60,7 +60,7 @@ export const FirstPart = styled.div`
   ${tokens.typography.T4_SB_20};
   color: ${tokens.colors.Blue_0_Main};
   background-color: rgba(0, 165, 255, 0.1);
-  width: 43.125rem;
+  width: 44.125rem;
   height: 1.667rem;
   border: none;
   border-radius: 0.25rem;
@@ -100,7 +100,7 @@ export const SecondPart = styled.div`
   ${tokens.typography.T4_SB_20};
   color: ${tokens.colors.Blue_0_Main};
   background-color: rgba(0, 165, 255, 0.1);
-  width: 46.833rem;
+  width: 47.833rem;
   height: 1.667rem;
   border: none;
   border-radius: 0.25rem;

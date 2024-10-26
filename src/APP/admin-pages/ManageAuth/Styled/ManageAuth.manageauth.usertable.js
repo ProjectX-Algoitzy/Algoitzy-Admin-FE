@@ -53,7 +53,7 @@ export const CategoryMajor = styled.div`
   ${tokens.typography.T5_SB_16};
   color: ${tokens.colors.Black};
   text-align: center;
-  width: 6.167rem;
+  width: 6.75rem;
 `;
 
 export const Blank = styled.div`

@@ -76,18 +76,18 @@ export default function Community() {
 		setSelectedTab(tab.code);
 		setIsTabClick(tab.code !== '');
 		// 탭에 맞는 내용 설정
-		if (tab === '전체') {
+		if (tab.name === '전체') {
 				setContent('커뮤니티 내의 모든 글을 볼 수 있습니다.');
-		} else if (tab === '공지') {
+		} else if (tab.name === '공지') {
 				setContent('Koala의 중요한 소식과 공지들을 확인할 수 있습니다.');
-		} else if (tab === '자유') {
+		} else if (tab.name === '자유') {
 				setContent('자유롭게 소통하는 공간입니다.');
-		} else if (tab === '질문') {
-				setContent('');
-		} else if (tab === '정보') {
-				setContent('');
-		} else if (tab === '홍보') {
-				setContent('');
+		} else if (tab.name === '질문') {
+				setContent('다양한 이벤트, 서비스, 동아리 등을 홍보하는 공간입니다.');
+		} else if (tab.name === '정보') {
+				setContent('기업 채용, 대회 일정 등 유용한 정보를 공유하는 공간입니다.');
+		} else if (tab.name === '홍보') {
+				setContent('궁금한 점을 나누며 성장하는 공간입니다.');
 		}
 	};
 
@@ -139,6 +139,7 @@ export default function Community() {
 									type="text"
 									value={searchKeyword}
 									onChange={(e) => setSearchKeyword(e.target.value)}
+									placeholder='제목, 내용, 작성자 검색'
 								/>
 								<itemS.SearchIcon onClick={() => handleSearch()} src='/img/search.svg' alt='돋보기' />
 								{/* <itemS.SearchIcon onClick={() => fetchInstitutionList()} src='/img/search.svg' alt='돋보기' /> */}

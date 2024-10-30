@@ -112,7 +112,12 @@ export const TableHead = styled.th`
 
   /* 두 번째 열: 제목 */
   &:nth-child(2) {
+    width: 15rem;
     padding-left: 2.083rem;
+  }
+    
+  &:nth-child(3) {
+    width: 0;
   }
 
   /* 세 번째 열은 공백, 네 번째 열은 레벨 */
@@ -138,17 +143,18 @@ export const TableCell = styled.td`
 
   /* 두 번째 열: 제목 */
   &:nth-child(2) {
+    width: 20rem;
     padding-left: 2.083rem;
   }
 
   /* 세 번째 열: 레벨 */
   &:nth-child(3) {
-    padding-left: 11.042rem;
+    padding-left: 2.8rem;
   }
 
   /* 오른쪽 정렬 추가 */
   &:nth-child(4) {
-    padding-left: 6.667rem;
+    padding-left: 7rem;
   }
 `;
 // 테이블 스타일 끝

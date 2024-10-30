@@ -152,7 +152,12 @@ export const TableHead = styled.th`
 
   /* 두 번째 열: 제목 */
   &:nth-child(2) {
+    width: 15rem;
     padding-left: 2.08rem;
+  }
+
+  &:nth-child(3) {
+    width: 0;
   }
 
   /* 세 번째 열은 공백, 네 번째 열은 레벨 */
@@ -172,17 +177,22 @@ export const TableCell = styled.td`
 
   /* 첫 번째 열: 백준 번호 */
   &:nth-child(1) {
-    padding-left: 0.92rem;
+    padding-left: .92rem;
   }
 
   /* 두 번째 열: 제목 */
   &:nth-child(2) {
     padding-left: 2.08rem;
+    width: 10rem;
   }
 
   /* 세 번째 열: 레벨 */
+  &:nth-child(3) {
+    padding-left: 2.8rem;
+  }
+
   &:nth-child(4) {
-    padding-left: 2.5rem;
+    padding-left: 7.5rem;
   }
 `;
 // 테이블 스타일 끝

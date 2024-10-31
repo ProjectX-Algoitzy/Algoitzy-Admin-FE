@@ -104,7 +104,7 @@ export default function RegularStudyAddQuestionModal({ week, onClose, onAddQuest
                 </itemS.SearchContainer>
                 <itemS.TableContainer>
                     <itemS.Table>
-                        <itemS.TableHead>백준번호</itemS.TableHead>
+                        <itemS.TableHead>백준 번호</itemS.TableHead>
                         <itemS.TableHead>제목</itemS.TableHead>
                         <itemS.TableHead></itemS.TableHead>
                         <itemS.TableHead>레벨</itemS.TableHead>

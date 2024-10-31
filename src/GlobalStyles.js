@@ -7,7 +7,7 @@ const GlobalStyle = createGlobalStyle`
 
     /* Extra small devices (phones, 600px and down). */
     @media only screen and (max-width: 600px) {
-      font-size: 8px;
+      font-size: 2.8vw;
     }
 
     /* Small devices (portrait tablets and large phones, 600px and up) */

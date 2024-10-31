@@ -113,4 +113,7 @@ export const CurriculumDate = styled.div`
 export const DeleteIcon = styled.div`
   background-size: cover;
   margin-right: 1.583rem;
+    display: flex;
+  flex-direction: column;
+  justify-content: center;
 `;

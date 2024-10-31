@@ -37,6 +37,10 @@ export const ArrowBubble = styled.div`
     left: 4.58rem;
     z-index: -1;
   }
+
+  @media (max-width: 600px) {
+    left: -150%;
+  }
 `;
 
 export const TopContainer = styled.div`

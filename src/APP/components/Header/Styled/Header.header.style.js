@@ -84,10 +84,24 @@ export const ProfileBox = styled.div`
   cursor: pointer;
 `;
 
+// export const AdminName = styled.div`
+//   color: ${tokens.colors.Blue_0_Main};
+//   ${tokens.typography.T5_SB_16};
+//   max-width: 10rem;
+//   margin-right: 0.3rem;
+//   // cursor: pointer;
+// `;
+
 export const AdminName = styled.div`
   color: ${tokens.colors.Blue_0_Main};
   ${tokens.typography.T5_SB_16};
+  min-width: 5rem;
+  max-width: 5.83rem;
   margin-right: 0.3rem;
+  @media (max-width: 600px) {
+    display: none;
+    margin-right: 0;
+  }
   // cursor: pointer;
 `;
 

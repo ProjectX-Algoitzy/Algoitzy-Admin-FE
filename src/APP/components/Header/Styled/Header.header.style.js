@@ -10,7 +10,6 @@ export const HeaderContainer = styled.div`
   background-color: rgba(255, 255, 255, 0.05); 
   backdrop-filter: blur(200px);
   -webkit-backdrop-filter: blur(200px);
-  /* height: ${({ activeMenu }) => ['study', 'application', 'coding'].includes(activeMenu) ? '230px' : 'auto'}; */
   height: ${({ activeMenu }) => ['study', 'application', 'coding'].includes(activeMenu) ? '10rem' : 'auto'};
 `;
 
@@ -84,14 +83,6 @@ export const ProfileBox = styled.div`
   cursor: pointer;
 `;
 
-// export const AdminName = styled.div`
-//   color: ${tokens.colors.Blue_0_Main};
-//   ${tokens.typography.T5_SB_16};
-//   max-width: 10rem;
-//   margin-right: 0.3rem;
-//   // cursor: pointer;
-// `;
-
 export const AdminName = styled.div`
   color: ${tokens.colors.Blue_0_Main};
   ${tokens.typography.T5_SB_16};
@@ -140,107 +131,6 @@ export const SubMenu = styled.div`
   border-top: 1px solid ${tokens.colors.Blue_3};
   margin-top: -1px;
 `;
-
-// export const SubMenu = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   justify-content: space-evenly;
-//   width: 100%;
-//   height: 134px;
-//   background-color: #EEF1FD;
-//   /* background-color: rgba(255, 255, 255, 0.05); 
-//   backdrop-filter: blur(200px);
-//   -webkit-backdrop-filter: blur(200px); */
-//   position: fixed;
-//   top: 3.333rem; 
-//   z-index: 1000;
-// `;
-
-// export const SubApplicationMenuContaier = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: space-evenly;
-//   height: 100%;
-//   border-top: 1px solid ${tokens.colors.Blue_3};
-//   margin-top: -1px;
-
-//   margin-left: ${(props) => (props.isLoggedIn ? '-155px' : '60px')};
-//   @media (max-width: 1300px) {
-//     margin-left: ${(props) => (props.isLoggedIn ? '-200px' : '35px')};
-//   }
-// `;
-
-// export const SubStudyMenuContaier = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: space-evenly;
-//   height: 100%;
-//   margin-top: -1px;
-//   border-top: 1px solid ${tokens.colors.Blue_3};
-
-//   margin-left: ${(props) => (props.isLoggedIn ? '148px' : '370px')};
-//   @media (max-width: 1300px) {
-//     margin-left: ${(props) => (props.isLoggedIn ? '110px' : '340px')};
-//   }
-// `;
-
-// export const SubCodingMenuContaier = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: space-evenly;
-//   height: 100%;
-//   margin-top: -1px;
-//   border-top: 1px solid ${tokens.colors.Blue_3};
-
-//   margin-left: ${(props) => (props.isLoggedIn ? '443px' : '665px')};
-//   @media (max-width: 1300px) {
-//     margin-left: ${(props) => (props.isLoggedIn ? '413px' : '643px')};
-//   }
-// `;
-
-// export const SubApplicationMenu = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   width: 100%;
-//   height: 134px;
-//   /* padding-left: 32.583rem; */
-//   padding-left: 3%;
-//   background-color: ${tokens.colors.B_Grey_1};
-//   position: fixed;
-//   top: 3.333rem; 
-//   z-index: 999;
-// `;
-
-// export const SubStudyMenu = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   width: 100%;
-//   height: 134px;
-//   /* padding-left: 45.25rem; */
-//   padding-left: 19%;
-//   background-color: ${tokens.colors.B_Grey_1};
-//   position: fixed;
-//   top: 3.333rem; 
-//   z-index: 999;
-// `;
-
-// export const SubCodingMenu = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   width: 100%;
-//   /* height: 2.5rem; */
-//   height: 134px;
-//   /* padding-left: 58.042rem; */
-//   padding-left: 35%;
-//   background-color: ${tokens.colors.B_Grey_1};
-//   position: fixed;
-//   top: 3.333rem; 
-//   z-index: 999;
-// `;
 
 export const SubMenuItem = styled.div`
   display: flex;

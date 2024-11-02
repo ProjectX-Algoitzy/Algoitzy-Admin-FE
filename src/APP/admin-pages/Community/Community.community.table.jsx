@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import * as itemS from "./Styled/Community.community.table.styles";
 import CommunityTuple from './Community.community.tuple';
 
-export default function CommunityTable({ items, isTabClick }) {
+export default function CommunityTable({ items, isTabClick, searchKeyword }) {
     // const [selectedApplicationId, setSelectedApplicationId] = useState(null);
     // const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -32,6 +32,7 @@ export default function CommunityTable({ items, isTabClick }) {
 									key={item.boardId}
 									item={item}
 									isTabClick={isTabClick}
+									searchKeyword={searchKeyword}
 									// isSelected={selectedApplicationId === item.answerId && isModalOpen}
 									// onOpen={() => openModal(item.answerId)}
 									// onClose={closeModal}

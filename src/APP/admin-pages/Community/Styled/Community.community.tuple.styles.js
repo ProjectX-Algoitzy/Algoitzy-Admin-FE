@@ -41,9 +41,14 @@ export const TupleTitleBox = styled.div`
   cursor: pointer;
 `;
 
-export const TupleTitle = styled.div`
+export const TupleTitle = styled.span`
   ${tokens.typography.T5_SB_16};
   color: ${tokens.colors.Black};
+`;
+
+export const HighlightedText = styled.span`
+  ${tokens.typography.T5_SB_16};
+  color: ${tokens.colors.Blue_0_Main};
 `;
 
 export const NewIcon = styled.div`

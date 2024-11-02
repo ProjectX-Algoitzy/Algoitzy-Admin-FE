@@ -70,7 +70,7 @@ export default function Community() {
 
 	useEffect(() => {
 		fetchBoard();
-	},[ selectedTab, sortType, currentPage]);
+	},[ selectedTab, sortType, currentPage, searchKeyword]);
 
 	const handleTabClick = (tab) => {
 		setSelectedTab(tab.code);
@@ -176,6 +176,7 @@ export default function Community() {
 					<CommunityTable 
 						items={posts} 
 						isTabClick={isTabClick}
+						searchKeyword={searchKeyword}
 					/>
 					<itemS.PaginationContainer>
 						<itemS.BlankBtn></itemS.BlankBtn>

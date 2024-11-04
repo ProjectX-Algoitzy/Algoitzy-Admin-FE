@@ -79,16 +79,31 @@ const transformData = (attendanceList) => {
 
   const students = {};
 
-  attendanceList.forEach(({ name, problemYN, blogYN, workbookYN, week }) => {
+  attendanceList.forEach(({ name, handle, problemYN, blogYN, workbookYN, week }) => {
     if (!students[name]) {
       students[name] = {
         '문제 인증': Array(9).fill(""),
         '블로그 포스팅': Array(9).fill(""),
         '주말 모의테스트': Array(9).fill("")
       };
-      students[name]['문제 인증'][0] = name;
-      students[name]['블로그 포스팅'][0] = name;
-      students[name]['주말 모의테스트'][0] = name;
+      students[name]['문제 인증'][0] = (
+        <>
+          {name} <br />
+          <itemS.StyledSpanBaekjoon>{handle}</itemS.StyledSpanBaekjoon>
+        </>
+      );
+      students[name]['블로그 포스팅'][0] = (
+        <>
+          {name} <br />
+          <itemS.StyledSpanBaekjoon>{handle}</itemS.StyledSpanBaekjoon>
+        </>
+      );
+      students[name]['주말 모의테스트'][0] = (
+        <>
+          {name} <br />
+          <itemS.StyledSpanBaekjoon>{handle}</itemS.StyledSpanBaekjoon>
+        </>
+      );
     }
 
     // week와 YN 필드들이 null인 경우 빈 값 유지

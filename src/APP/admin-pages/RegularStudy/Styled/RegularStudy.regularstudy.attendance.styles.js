@@ -43,6 +43,11 @@ export const StyledTd = styled.td`
   height: ${({ rowIndex }) => (rowIndex === 0 ? '1.875rem' : '2.5rem')};
 `;
 
+export const StyledSpanBaekjoon = styled.span`
+  font-size: 0.5rem;
+  color: ${tokens.colors.Grey_6};
+`;
+
 export const ImgIcon = styled.img`
   width: 1.958rem;
   height: 1.958rem;

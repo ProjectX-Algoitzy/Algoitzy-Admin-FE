@@ -1,4 +1,4 @@
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom" 
+import { Navigate, Route, Routes, useLocation } from "react-router-dom" 
 import Home from "./APP/sharing-pages/Home"
 import Login from "./APP/admin-pages/Auth/Auth.login"
 import Header from "./APP/components/Header/Header.header"
@@ -64,12 +64,12 @@ function App() {
     return !!localStorage.getItem(ACCESS_TOKEN);
   };
 
+  const location = useLocation(); // 현재 경로 확인
   const hideHeader = window.location.pathname.toLowerCase() === '/writepost';
 
   return (
     <Root>
     <GlobalStyle />
-      <BrowserRouter>
         <ScrollToTop />
         {!hideHeader && <Header />}
         <Routes>
@@ -102,7 +102,6 @@ function App() {
           <Route path="/writepost" element={<WritePost />} /> {/* 새 글쓰기 */}
         </Routes>
         {/* <Footer /> */} {/* figma에 보니 admin은 푸터가 없었기에 일단 임시로 주석처리를 했다 */}
-      </BrowserRouter>
     </Root>
   ); 
 }

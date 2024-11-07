@@ -167,7 +167,6 @@ export default function Community() {
 	window.location.reload(); // 페이지 전환 후 강제 새로고침	
 };
 
-
 	return (
 		<itemS.OuterContainer>
 			<itemS.Container>

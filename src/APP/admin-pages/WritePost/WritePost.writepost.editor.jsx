@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { EditorState, EditorSelection } from '@codemirror/state';
 import { EditorView, keymap, placeholder } from '@codemirror/view';
 import { markdown } from '@codemirror/lang-markdown';
@@ -24,6 +25,8 @@ export default function Editor({
   setTitle,
   setMarkdownContent,
 }) {
+
+  const navigate = useNavigate();
   const editorRef = useRef(null);
   const imageInputRef = useRef(null); // 이미지 파일 입력창을 제어할 useRef
   const fileInputRef = useRef(null); // 일반 파일 입력창을 제어할 useRef
@@ -329,8 +332,8 @@ export default function Editor({
       )}
 
       <Styled.BtnContainer>
-      <Styled.ExitButton>← 나가기</Styled.ExitButton>
-        <Styled.BtnContainer2>
+      <Styled.ExitButton onClick={() => navigate(-1)}>← 나가기</Styled.ExitButton> {/* 뒤로 가기 기능 추가 */}
+      <Styled.BtnContainer2>
           <Styled.ArbitaryBtn>임시저장</Styled.ArbitaryBtn>
           <Styled.Btn>등록하기</Styled.Btn> 
         </Styled.BtnContainer2>

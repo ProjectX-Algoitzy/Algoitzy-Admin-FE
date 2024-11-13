@@ -6,7 +6,7 @@ export const Container = styled.div`
   flex-direction: column;
   padding-right: 1.333rem;
   border-right: 0.063rem solid ${tokens.colors.Grey_4};
-  margin-left: 15rem;
+  /* margin-left: 15rem; */
 
     @media (max-width: 600px) {
     margin-left: 1.33rem;

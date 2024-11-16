@@ -43,9 +43,10 @@ export const CommentBox = styled.div`
 
 export const WriterBox = styled.div`
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: flex-start;
-  flex-direction: column;
+  flex-direction: row;
+  width: 1015px;
 `;
 
 export const WriterName = styled.div`
@@ -54,6 +55,47 @@ export const WriterName = styled.div`
   font-weight: semibold;
   color: ${tokens.colors.Black};
   margin: 0 16px 12px 0;
+`;
+
+export const DotBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 45px;
+  position: relative;
+  cursor: pointer;
+`;
+
+export const DotButton = styled.img`
+  width: 3px;
+  height: 15px;
+`;
+
+export const UtilButtonBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  background-color: ${tokens.colors.White};
+  position: absolute;
+  left: 10px;
+  top: 27px;
+  width: 142px;
+  height: 36px;
+  border-radius: 4px;
+  box-shadow: 2px 2px 10px 5px rgba(58, 107, 135, 0.08);
+  cursor: pointer;
+`;
+
+export const UtilIcon = styled.img`
+  width: 17px;
+  height: 17px;
+  margin-right: 6px;
+`;
+
+export const UtilText = styled.div`
+  ${tokens.typography.B3_M_14};
+  color: ${tokens.colors.Grey_8};
 `;
 
 export const Content = styled.div`

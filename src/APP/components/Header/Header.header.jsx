@@ -10,7 +10,6 @@ export default function Header() {
   const [showProfileModal, setShowProfileModal] = useState(false);
   const [activeMenu, setActiveMenu] = useState(''); 
 
-  // Refs for detecting clicks outside
   const modalRef = useRef(null); 
   const studyMenuRef = useRef(null);
   const applicationMenuRef = useRef(null);
@@ -24,6 +23,7 @@ export default function Header() {
         if(response["isSuccess"]) {
           setUserName(response.result.name);
           setProfileUrl(response.result.profileUrl);
+          // localStorage.setItem('memberId', response.result.memberId);
           setIsLoggedIn(true);
         }
       } catch (error) {

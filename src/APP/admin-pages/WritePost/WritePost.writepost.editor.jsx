@@ -5,6 +5,7 @@ import { EditorView, keymap, placeholder } from '@codemirror/view';
 import { markdown } from '@codemirror/lang-markdown';
 import { defaultKeymap } from '@codemirror/commands';
 import * as Styled from './Styled/WritePost.writepost.editor.styles';
+import request from '../../Api/request';
 
 
 const gradeOptions = [
@@ -38,6 +39,7 @@ export default function Editor({
   const [selectedFiles, setSelectedFiles] = useState([]); // 선택된 파일들 상태
   const [isGradeSelected, setisGradeSelected] = useState(false); 
   const [grade, setGrade] = useState(gradeOptions[0]);
+  const [saveYn, setSaveYn] = useState(true); // 임시 저장 여부 (default: true)
 
   // 학년 선택 change event
   const handleGradeChange = (selectedOption) => {
@@ -242,6 +244,43 @@ export default function Editor({
     setSelectedFiles(files); // 상태에 파일 목록 저장
   };
 
+ // 게시글 등록 API 호출 함수
+ const handlePostSubmit = async () => {
+  const content = editorView.state.doc.toString().trim();
+
+  if (!title.trim() || !content) {
+    alert('제목과 내용을 입력하세요.');
+    return;
+  }
+
+  const fileUrls = selectedFiles.map((file) => URL.createObjectURL(file));
+
+  const requestData = {
+    title: "111asdf",//title.trim(),
+    content: "111asdf",
+    fileUrlList: fileUrls,
+    saveYn: true,
+  };
+
+  console.log('요청 데이터:', requestData);
+
+  try {
+    const response = await request.post('/board', requestData);
+
+    if (response.isSuccess) {
+      alert('게시글이 성공적으로 등록되었습니다.');
+      navigate('/');
+    } else {
+      alert(`등록 실패: ${response.message}`);
+    }
+  } catch (error) {
+    console.error('게시글 등록 중 오류 발생:', error);
+    console.error('에러 응답 데이터:', error.response?.data);
+    alert('게시글 등록 중 오류가 발생했습니다.');
+  }
+};
+
+
   return (
     <Styled.LeftContainer>
       <Styled.EditorHeader>
@@ -334,8 +373,8 @@ export default function Editor({
       <Styled.BtnContainer>
       <Styled.ExitButton onClick={() => navigate(-1)}>← 나가기</Styled.ExitButton> {/* 뒤로 가기 기능 추가 */}
       <Styled.BtnContainer2>
-          <Styled.ArbitaryBtn>임시저장</Styled.ArbitaryBtn>
-          <Styled.Btn>등록하기</Styled.Btn> 
+          <Styled.ArbitaryBtn onClick={() => setSaveYn(true)}>임시저장</Styled.ArbitaryBtn>
+          <Styled.Btn onClick={handlePostSubmit}>등록하기</Styled.Btn>
         </Styled.BtnContainer2>
       </Styled.BtnContainer>
     </Styled.LeftContainer>

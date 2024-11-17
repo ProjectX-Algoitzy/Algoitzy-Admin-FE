@@ -52,7 +52,6 @@ export const SearchIcon = styled.img`
   width: 1rem;
   height: 1rem;
   margin-right: 0.5rem;
-  cursor: pointer;
 `;
 
 export const IntroduceContainer = styled.div`
@@ -72,7 +71,7 @@ export const IntroduceIcon = styled.img`
 `;
 
 export const IntroduceSentence = styled.p`
-  ${tokens.typography.B2_M_16};
+  ${tokens.typography.B2_M_16};  // 본래는 B1M20이다. 
   color: ${tokens.colors.B_Grey_8};
   margin-left: 8.08px;
 `;
@@ -83,8 +82,8 @@ export const StyledTable = styled.table`
 `;
 
 export const StyledTd = styled.td`
-  color: ${tokens.colors.Grey_7};
-  ${tokens.typography.T5_SB_16};
+  color: ${tokens.colors.Black};
+  ${tokens.typography.B2_M_16}; 
   padding: 0.33rem;
   text-align: center;
   background-color: ${({ rowIndex, colIndex }) => {
@@ -112,6 +111,7 @@ export const AcceptanceBtn = styled.button`
 
 export const Pagination = styled.div`
   display: flex;
+  width: 33.042rem;
   justify-content: center;
   align-items: center;  
   padding: 0.833rem;
@@ -141,4 +141,61 @@ export const PaginationNumber = styled.div`
   color: ${(props) => (props.active ? tokens.colors.Blue_3 : tokens.colors.B_Grey_7)};
   font-weight: ${(props) => (props.active ? 'bold' : 'normal')};
   ${tokens.typography.B3_M_14};
+`;
+
+// 모달 스타일
+export const ModalBackdrop = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+`;
+
+export const ModalContainer = styled.div`
+  background: white;
+  width: 33rem;
+  height: 15rem;
+  position: relative;
+`;
+
+export const ModalContent = styled.div`
+  margin-top: 17%;
+  margin-left: 48px;
+  ${tokens.typography.B1_M_20};
+`;
+
+export const ModalActions = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 14%;
+`;
+
+export const ConfirmButton = styled.button`
+  background: ${tokens.colors.Blue_0_Main};
+  ${tokens.typography.T5_SB_16};
+  color: white;
+  border: none;
+  width: 160px;
+  height: 48px;
+  margin-left: 16px;
+  /* padding: 14px 66px; */
+  border-radius: 4px;
+  cursor: pointer;
+`;
+
+export const CancelButton = styled.button`
+  background: ${tokens.colors.B_Grey_6};
+  ${tokens.typography.T5_SB_16};
+  color: white;
+  border: none;
+  width: 160px;
+  height: 48px;
+  border-radius: 4px;
+  cursor: pointer;
 `;

@@ -46,11 +46,13 @@ export const CurriculumContainer = styled.div`
 export const TextContainer = styled.div`
   display: flex;
   width: 48%;
+  align-items: center;
   justify-content: space-between;
 `;
 
 export const CurriculumText = styled.div`
   display: flex;
+  max-width: 60%;
   align-items: center;
   ${tokens.typography.T3_B_24};
   color: ${tokens.colors.Grey_8};
@@ -63,8 +65,8 @@ export const HighlightBox = styled.div`
   align-items: center;
   justify-content: center;
   ${tokens.typography.T5_SB_16};
-  padding: 2px 8px 2px 8px;
-  margin-top: 3px;
+  height: 21px;
+  width: 62px;
   background-color: rgba(251, 170, 132, 0.2); 
   color: #F88F78;
   border-radius: 4px; 

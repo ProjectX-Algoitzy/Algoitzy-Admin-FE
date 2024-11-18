@@ -12,7 +12,8 @@ export const Title = styled.div`
   display: flex;
   margin-top: 4.167rem;
   margin-bottom: 1.5rem;
-  width: 33.042rem;
+  /* width: 33.042rem; */
+  width: 39.042rem;
   ${tokens.typography.T1_SB_32};
   color: ${tokens.colors.Grey_8};
   padding-bottom: 0.667rem;
@@ -20,7 +21,8 @@ export const Title = styled.div`
 `;
 
 export const StyledTable = styled.table`
-  width: 33.042rem;
+  /* width: 33.042rem; */
+  width: 39.042rem;
   border-collapse: collapse;
 `;
 

@@ -9,11 +9,11 @@ import { useContext } from 'react';
 export default function RegularStudyAddStudyone() {
   const {id} = useParams();
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 5;
+  const itemsPerPage = 10;
 
   const [members, setMembers] = useState([]);
   const [totalPages, setTotalPages] = useState(0);
-  const [currentPageGroup, setCurrentPageGroup] = useState(0);
+  const [currentPageGroup, setCurrentPageGroup] = useState(0); 
   const [searchTerm, setSearchTerm] = useState("");  
 
   const { alert } = useContext(AlertContext);
@@ -44,7 +44,7 @@ export default function RegularStudyAddStudyone() {
   
   // 멤버 추가하는 함수
   const handleAddMember = async (memberId) => {
-    const confirmation = await confirm("해당 학생을 추가하시겠습니까?");
+    const confirmation = await confirm("스터디원으로 추가하시겠습니까?");
     if(confirmation) {
       try {
         const response = await request.post(`/study/${id}/study-member`, {memberId});
@@ -63,13 +63,30 @@ export default function RegularStudyAddStudyone() {
     setSearchTerm(e.target.value);
   };
 
-  // 페이지네이션 함수
+  // 페이지 변경 함수
   const handlePageChange = (newPage) => {
     if (newPage >= 1 && newPage <= totalPages) {
       setCurrentPage(newPage);
-      setCurrentPageGroup(Math.floor((newPage - 1) / 5));
+      setCurrentPageGroup(Math.floor((newPage - 1) / 5)); // 페이지 그룹 업데이트
     }
-  }
+  };
+
+  // 페이지 그룹 변경 함수
+  const handlePageGroupChange = (direction) => {
+    if (direction === 'next' && (currentPageGroup + 1) * 5 < totalPages) {
+      setCurrentPageGroup(currentPageGroup + 1);
+      setCurrentPage(currentPageGroup * 5 + 6); // 다음 그룹의 첫 페이지로 이동
+    } else if (direction === 'prev' && currentPageGroup > 0) {
+      setCurrentPageGroup(currentPageGroup - 1);
+      setCurrentPage(currentPageGroup * 5 - 4); // 이전 그룹의 첫 페이지로 이동
+    }
+  };
+
+  // 페이지 번호 리스트 생성
+  const pageNumbers = Array.from(
+    { length: Math.min(5, totalPages - currentPageGroup * 5) },
+    (_, i) => currentPageGroup * 5 + i + 1
+  );
 
   return (
     <itemS.Container>
@@ -77,7 +94,7 @@ export default function RegularStudyAddStudyone() {
             <itemS.SearchContainer>
               <itemS.Search 
                 type="text" 
-                placeholder="문제 제목 검색" 
+                placeholder="이름 및 백준 닉네임 검색" 
                 value={searchTerm} 
                 onChange={handleSearchInput}
               />
@@ -105,7 +122,7 @@ export default function RegularStudyAddStudyone() {
                   <itemS.StyledTd rowIndex={index + 1} colIndex={0}>{member.name}</itemS.StyledTd>
                   <itemS.StyledTd rowIndex={index + 1} colIndex={1}>{member.handle}</itemS.StyledTd>
                   <itemS.StyledTd rowIndex={index + 1} colIndex={2}>{member.major}</itemS.StyledTd>
-                  <itemS.StyledTd rowIndex={index + 1} colIndex={3}>
+                  <itemS.StyledTd rowIndex={index + 1} colIndex={3} style={{ textAlign: 'right' }}>
                     <itemS.AcceptanceBtn onClick={() => handleAddMember(member.memberId)}>추가</itemS.AcceptanceBtn>
                   </itemS.StyledTd>
                 </tr>
@@ -116,23 +133,25 @@ export default function RegularStudyAddStudyone() {
         <itemS.Pagination>
           <itemS.PaginationArrow
             left
-            onClick={() => handlePageChange(currentPage - 1)}
-            disabled={currentPage === 1}
+            onClick={() => handlePageGroupChange('prev')}
+            style={{marginRight:"30px"}}
+            disabled={currentPageGroup === 0}
           />
-          {[...Array(totalPages)].map((_, i) => (
+          {pageNumbers.map((pageNumber) => (
             <itemS.PaginationNumber
-              key = {i}
-              onClick={() => handlePageChange(i + 1)}
-              active={ i+1 === currentPage}
+              key={pageNumber}
+              onClick={() => handlePageChange(pageNumber)}
+              active={pageNumber === currentPage}
             >
-              {i + 1}
+              {pageNumber}
             </itemS.PaginationNumber>
           ))}
           <itemS.PaginationArrow
-            onClick={() => handlePageChange(currentPage + 1)}
-            disabled={currentPage === totalPages}
+            onClick={() => handlePageGroupChange('next')}
+            style={{marginLeft:"30px"}}
+            disabled={(currentPageGroup + 1) * 5 >= totalPages}
           />
-      </itemS.Pagination>
+        </itemS.Pagination>
     </itemS.Container>
   )
 }

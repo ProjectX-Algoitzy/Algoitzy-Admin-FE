@@ -11,7 +11,8 @@ export const Container = styled.div`
 export const Title = styled.div`
   display: flex;
   flex-direction: row;
-  width: 33.042rem;
+  /* width: 33.042rem; */
+  width: 39.042rem;
   justify-content: space-between;
   margin-top: 4.17rem;
   margin-bottom: 1.5rem;
@@ -37,7 +38,8 @@ export const CurriculumContainer = styled.div`
   flex-direction: row;
   justify-content: space-between;
   margin-bottom: 0.833rem;
-  width: 33.04rem;
+  /* width: 33.04rem; */
+  width: 39.042rem;
   height: 4.17rem;
   background-color: ${tokens.colors.White};
   box-shadow: 0px 0.167rem 0.417rem rgba(0, 0, 0, 0.1);

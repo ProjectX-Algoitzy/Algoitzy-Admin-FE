@@ -61,6 +61,7 @@ export default function RegularStudyAddStudyone() {
   //검색 함수
   const handleSearchInput = (e) => {
     setSearchTerm(e.target.value);
+    setCurrentPage(1);
   };
 
   // 페이지 변경 함수

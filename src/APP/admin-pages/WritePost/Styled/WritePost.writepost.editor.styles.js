@@ -22,7 +22,7 @@ export const TitleInput = styled.textarea`
   max-height: 10rem; /* 드래그 기능 개발 후에는 삭제 필요 */
   overflow-y: hidden; /* 내용이 넘치면 자동으로 높이 조절되도록 설정 */
   color: ${({ hasText }) => hasText ? tokens.colors.B_Grey_8 : tokens.colors.B_Grey_6}; /* hasText에 따라 색상 변경 */
-	${tokens.typography.H2_SB_48}
+	${tokens.typography.H4_SB_35}
   font-family: 'Pretendard', sans-serif;
   border: 1px solid #ffffff;
   outline: none;
@@ -55,7 +55,8 @@ export const Label = styled.label`
 export const BlankLabel = styled.label`
   height: 1rem;
   ${tokens.typography.T4_SB_20}
-  color: ${tokens.colors.Grey_8};
+  color: ${tokens.colors.Grey_6};
+  margin-top: 1.56rem;
   margin-bottom: 0.42rem;
 `;
 
@@ -285,4 +286,55 @@ export const Btn = styled.button` /*저장하기 버튼*/
   color: ${tokens.colors.White};
   ${tokens.typography.T5_SB_16};
   background-color: ${tokens.colors.Blue_0_Main};
+`;
+
+export const DraftButton = styled.button`
+   width: 6.67rem;
+  height: 2rem;
+  border-radius: 0.167rem;
+  border: none;
+  cursor: pointer;
+  color: ${tokens.colors.White};
+  ${tokens.typography.T5_SB_16}
+  background-color: ${tokens.colors.B_Grey_7};
+`;
+
+export const DraftModal = styled.div`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  border: 1px solid #ddd;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  width: 400px;
+  max-height: 500px;
+  overflow-y: auto;
+  z-index: 1000;
+  border-radius: 8px;
+`;
+
+export const ModalHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  background: #f9f9f9;
+  border-bottom: 1px solid #ddd;
+`;
+
+export const ModalBody = styled.div`
+  padding: 1rem;
+`;
+
+export const DraftItem = styled.div`
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #f1f1f1;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  p {
+    margin: 0;
+  }
 `;

@@ -113,6 +113,11 @@ export const typography = {
         fontSize: "1.667rem",
         lineHeight: "2.25rem",
       },
+      H4_SB_35: {
+        fontWeight: "600",
+        fontSize: "1.458rem",
+        lineHeight: "2.25rem",
+      },
       T1_SB_32: {
         fontWeight: "600",
         fontSize: "1.333rem",

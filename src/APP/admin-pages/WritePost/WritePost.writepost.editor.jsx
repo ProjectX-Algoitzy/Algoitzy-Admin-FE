@@ -18,7 +18,7 @@ const gradeOptions = [
   */
 ]
 
-const gradePlaceholderText = '게시판 선택';
+const gradePlaceholderText = '카테고리 선택';
 
 
 export default function Editor({
@@ -40,6 +40,11 @@ export default function Editor({
   const [isGradeSelected, setisGradeSelected] = useState(false); 
   const [grade, setGrade] = useState(gradeOptions[0]);
   const [saveYn, setSaveYn] = useState(true); // 임시 저장 여부 (default: true)
+  const [uploadedImageUrls, setUploadedImageUrls] = useState([]);
+  const [draftCount, setDraftCount] = useState(0); // 임시저장 게시글 수
+  const [isDraftModalOpen, setIsDraftModalOpen] = useState(false); // 모달 상태
+  const [drafts, setDrafts] = useState([]); // 임시저장 게시글 목록
+
 
   // 학년 선택 change event
   const handleGradeChange = (selectedOption) => {
@@ -209,24 +214,92 @@ export default function Editor({
     };
   }, [isModalOpen]);
 
-  const handleImageUpload = (event) => {
-    const file = event.target.files[0];
-    if (!file) return;
 
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      const imageURL = reader.result;
-      const markdownImage = `<img src="${imageURL}" alt="" style="width:100%;" />`;
-
-      editorView.dispatch(
-        editorView.state.changeByRange((range) => ({
-          changes: { from: range.from, to: range.to, insert: markdownImage },
-          range: EditorSelection.cursor(range.from + markdownImage.length),
-        }))
-      );
+    // S3 이미지 업로드 함수
+    const uploadImage = async (file) => {
+      try {
+        const formData = new FormData();
+        formData.append('multipartFileList', file);
+  
+        const response = await request.post('/s3', formData);
+        if (response.isSuccess) {
+          return response.result[0]; // 반환된 이미지 URL
+        } else {
+          throw new Error('이미지 업로드 실패');
+        }
+      } catch (error) {
+        console.error('이미지 업로드 오류:', error);
+        throw error;
+      }
     };
-    reader.readAsDataURL(file);
-  };
+  
+    // 이미지 업로드 핸들러
+    const handleImageUpload = async (event) => {
+      const file = event.target.files[0];
+      if (!file) return;
+  
+      try {
+        const imageURL = await uploadImage(file); // S3 업로드 후 URL 반환
+        setUploadedImageUrls((prevUrls) => [...prevUrls, imageURL]); // 업로드된 URL 저장
+  
+        const markdownImage = `<img src="${imageURL}" alt="" style="width:100%;" />`;
+        editorView.dispatch(
+          editorView.state.changeByRange((range) => ({
+            changes: { from: range.from, to: range.to, insert: markdownImage },
+            range: EditorSelection.cursor(range.from + markdownImage.length),
+          }))
+        );
+      } catch (error) {
+        alert('이미지 업로드에 실패했습니다.');
+      }
+    };
+  
+    const deleteImageFromS3 = async (fileUrl) => {
+      try {
+        const response = await request.delete('/s3', { params: { fileUrl } });
+        if (!response.isSuccess) {
+          console.error('이미지 삭제 실패:', response.message);
+        }
+      } catch (error) {
+        console.error('이미지 삭제 중 오류:', error);
+      }
+    };
+  
+    const deleteAllUploadedImages = async () => {
+      const promises = uploadedImageUrls.map((url) => deleteImageFromS3(url));
+      await Promise.all(promises); // 모든 삭제 요청 실행
+    };
+  
+    useEffect(() => {
+      // 페이지를 떠날 때 처리
+      const handleBeforeUnload = (event) => {
+        if (uploadedImageUrls.length > 0) {
+          deleteAllUploadedImages();
+          event.preventDefault();
+          event.returnValue = ''; // 브라우저 기본 메시지 표시
+        }
+      };
+  
+      window.addEventListener('beforeunload', handleBeforeUnload);
+  
+      // Cleanup: 이벤트 리스너 제거
+      return () => {
+        window.removeEventListener('beforeunload', handleBeforeUnload);
+      };
+    }, [uploadedImageUrls]);
+  
+    useEffect(() => {
+      // 컴포넌트 언마운트 시 이미지 삭제
+      return () => {
+        deleteAllUploadedImages();
+      };
+    }, []);
+  
+    const handleExit = async () => {
+      await deleteAllUploadedImages();
+      navigate(-1); // 이전 페이지로 이동
+    };
+    
   const openImageFileExplorer = () => {
     if (imageInputRef.current) {
       imageInputRef.current.click(); // 이미지 파일 탐색기 열기
@@ -242,6 +315,31 @@ export default function Editor({
   const handleFileChange = (event) => {
     const files = Array.from(event.target.files); // 선택된 파일 배열로 변환
     setSelectedFiles(files); // 상태에 파일 목록 저장
+  };
+
+   // 임시저장 게시글 목록 조회
+   const fetchDrafts = async () => {
+    try {
+      const response = await request.get('/board/draft');
+      if (response.isSuccess) {
+        setDrafts(response.result.boardList || []);
+        setDraftCount(response.result.boardList?.length || 0); // 게시글 수 업데이트
+      } else {
+        console.error('임시저장 목록 조회 실패:', response.message);
+      }
+    } catch (error) {
+      console.error('임시저장 목록 조회 중 오류:', error);
+    }
+  };
+
+  // 컴포넌트 마운트 시 임시저장 목록 가져오기
+  useEffect(() => {
+    fetchDrafts();
+  }, []);
+
+  // 모달 열기/닫기
+  const toggleDraftModal = () => {
+    setIsDraftModalOpen((prev) => !prev);
   };
 
  // 게시글 등록 API 호출 함수
@@ -301,6 +399,8 @@ export default function Editor({
         <Styled.GradeSelect
           options={gradeOptions}
           placeholder={gradePlaceholderText}
+          value={gradeOptions[0]} // 기본값을 "공지사항"으로 설정
+          // isDisabled={true} // 선택 비활성화
           // defaultValue={gradeOptions[0]}
           components={{ DropdownIndicator: null, IndicatorSeparator: null }}
           isSearchable={false}
@@ -371,12 +471,36 @@ export default function Editor({
       )}
 
       <Styled.BtnContainer>
-      <Styled.ExitButton onClick={() => navigate(-1)}>← 나가기</Styled.ExitButton> {/* 뒤로 가기 기능 추가 */}
+      <Styled.ExitButton onClick={handleExit}>← 나가기</Styled.ExitButton>
       <Styled.BtnContainer2>
-          <Styled.ArbitaryBtn onClick={() => setSaveYn(true)}>임시저장</Styled.ArbitaryBtn>
-          <Styled.Btn onClick={handlePostSubmit}>등록하기</Styled.Btn>
+      <Styled.DraftButton onClick={toggleDraftModal}>
+          임시저장 | {draftCount}
+        </Styled.DraftButton>
+        <Styled.Btn onClick={handlePostSubmit}>등록하기</Styled.Btn>
         </Styled.BtnContainer2>
       </Styled.BtnContainer>
+
+      {isDraftModalOpen && (
+      <Styled.DraftModal>
+        <Styled.ModalHeader>
+          <h2>임시저장 목록</h2>
+          <button onClick={toggleDraftModal}>닫기</button>
+        </Styled.ModalHeader>
+        <Styled.ModalBody>
+          {drafts.length > 0 ? (
+            drafts.map((draft) => (
+              <Styled.DraftItem key={draft.boardId}>
+                <p>{draft.title}</p>
+                <p>{new Date(draft.createdTime).toLocaleString()}</p>
+              </Styled.DraftItem>
+            ))
+          ) : (
+            <p>임시저장된 게시글이 없습니다.</p>
+          )}
+        </Styled.ModalBody>
+      </Styled.DraftModal>
+    )}
+
     </Styled.LeftContainer>
   );
 }

@@ -321,7 +321,7 @@ export default function Editor({
   // 임시저장 게시글 목록 조회
   const fetchDrafts = async () => {
     try {
-      const response = await request.get('/board/draft');
+      const response = await request.get('board/draft');
       if (response.isSuccess) {
         const draftList = response.result.boardList || [];
         setDrafts(draftList);
@@ -363,8 +363,8 @@ export default function Editor({
   const fileUrls = selectedFiles.map((file) => URL.createObjectURL(file));
 
   const requestData = {
-    title: "111asdf",//title.trim(),
-    content: "111asdf",
+    title: "안녕하세요",//title.trim(),
+    content: "안녕하세요",
     fileUrlList: fileUrls,
     saveYn: true,
   };
@@ -372,7 +372,7 @@ export default function Editor({
   console.log('요청 데이터:', requestData);
 
   try {
-    const response = await request.post('/board', requestData);
+    const response = await request.post('board', requestData);
 
     if (response.isSuccess) {
       alert('게시글이 성공적으로 등록되었습니다.');

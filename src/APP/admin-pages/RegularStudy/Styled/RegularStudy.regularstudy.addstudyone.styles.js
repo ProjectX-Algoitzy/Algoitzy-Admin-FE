@@ -96,20 +96,20 @@ export const StyledTd = styled.td`
   }};
   border-top: ${({ rowIndex }) => (rowIndex === 0 ? 'none' : '0.042rem solid #B9C4D2')};
   width: ${({ colIndex }) => {
+    if (colIndex === 0) return '20%';
     if (colIndex === 3) return '10%';
-    return 'auto';
+    return '30%';
   }};
   height: ${({ rowIndex }) => (rowIndex === 0 ? '2.5rem' : '2.88rem')};
 `;
 
 export const AcceptanceBtn = styled.button`
-  width: 8.188rem;
-  height: 2.5rem;
+  width: 5.188rem;
+  height: 1.9rem;
   border-radius: 4px;
   border: 1px solid ${tokens.colors.B_Grey_4};
   cursor: pointer;
   color: ${tokens.colors.B_Grey_8};
-  ${tokens.typography.T5_SB_16}
   background-color: ${tokens.colors.B_Grey_1};
 `;
 

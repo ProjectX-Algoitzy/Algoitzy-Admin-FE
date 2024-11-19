@@ -6,6 +6,7 @@ import RegularStudyHome from "./RegularStudy.regularstudy.home"
 import RegularStudyAttendance from "./RegularStudy.regularstudy.attendance"
 import RegularStudyCurriculum from "./RegularStudy.regularstudy.curriculum"
 import RegularStudyMocktest from './RegularStudy.regularstudy.mocktest';
+import RegularStudyAddStudyone from './RegularStudy.regularstudy.addstudyone';
 
 export default function RegularStudyMain() {
   const { id } = useParams();  // 정규스터디 ID 가져오기
@@ -31,14 +32,18 @@ export default function RegularStudyMain() {
         return <RegularStudyCurriculum />;
       case 'mocktest':
         return <RegularStudyMocktest />;
+      case 'addStudyone':
+        return <RegularStudyAddStudyone />;
       default:
         return <RegularStudyHome />;
     }
   }
   return (
-    <itemS.Container>
-      <RegularStudySideBar setActiveComponent={setActiveComponent} activeComponent={activeComponent} />
-      <itemS.Content>{renderComponent()}</itemS.Content>
-    </itemS.Container>
+    <itemS.OutsideContainer>
+      <itemS.Container>
+        <RegularStudySideBar setActiveComponent={setActiveComponent} activeComponent={activeComponent} />
+        <itemS.Content>{renderComponent()}</itemS.Content>
+      </itemS.Container>
+    </itemS.OutsideContainer>
   )
 }

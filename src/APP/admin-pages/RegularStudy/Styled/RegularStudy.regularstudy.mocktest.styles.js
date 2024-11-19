@@ -7,6 +7,7 @@ export const Container = styled.div`
   flex-direction: column;
   padding-left: 1.33rem;
   height: 100%;
+  width: 39.042rem;
 `;
 
 export const Title = styled.div`
@@ -14,7 +15,8 @@ export const Title = styled.div`
   justify-content: space-between;
   margin-top: 4.167rem;
   margin-bottom: 1.5rem;
-  width: 33.04rem;
+  /* width: 33.04rem; */
+  width: 100%;
   ${tokens.typography.T1_SB_32};
   color: ${tokens.colors.Grey_8};
   padding-bottom: 0.67rem;
@@ -25,7 +27,8 @@ export const ComingSoonContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 33.04rem;
+  /* width: 33.04rem; */
+  width: 100%;
   height: 15rem;
   background-color: ${tokens.colors.B_Grey_1};
   border-radius: 0.42rem;
@@ -128,7 +131,8 @@ export const TableContainer = styled.div`
 `;
 
 export const Table = styled.table`
-  width: 33.04rem;
+  /* width: 33.04rem; */
+  width: 100%;
   /* height: 18.63rem; */
   border-collapse: collapse;
   background-color: #fff;
@@ -192,14 +196,16 @@ export const TableCell = styled.td`
   }
 
   &:nth-child(4) {
-    padding-left: 7.5rem;
+    /* padding-left: 7.5rem; */
+    padding-left: 9.77rem;
   }
 `;
 // 테이블 스타일 끝
 
 export const BtnContainer = styled.div`
   display: flex;
-  width: 33.042rem;
+  /* width: 33.042rem; */
+  width: 100%;
   margin-top: 0.667rem;
   flex-direction: row-reverse;
 `;

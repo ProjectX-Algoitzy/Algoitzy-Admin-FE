@@ -80,25 +80,26 @@ const transformData = (attendanceList) => {
   const students = {};
 
   attendanceList.forEach(({ name, handle, problemYN, blogYN, workbookYN, week }) => {
-    if (!students[name]) {
-      students[name] = {
+    const uniqueKey = `${name}-${handle}`;
+    if (!students[uniqueKey]) {
+      students[uniqueKey] = {
         '문제 인증': Array(9).fill(""),
         '블로그 포스팅': Array(9).fill(""),
         '주말 모의테스트': Array(9).fill("")
       };
-      students[name]['문제 인증'][0] = (
+      students[uniqueKey]['문제 인증'][0] = (
         <>
           {name} <br />
           <itemS.StyledSpanBaekjoon>{handle}</itemS.StyledSpanBaekjoon>
         </>
       );
-      students[name]['블로그 포스팅'][0] = (
+      students[uniqueKey]['블로그 포스팅'][0] = (
         <>
           {name} <br />
           <itemS.StyledSpanBaekjoon>{handle}</itemS.StyledSpanBaekjoon>
         </>
       );
-      students[name]['주말 모의테스트'][0] = (
+      students[uniqueKey]['주말 모의테스트'][0] = (
         <>
           {name} <br />
           <itemS.StyledSpanBaekjoon>{handle}</itemS.StyledSpanBaekjoon>
@@ -109,7 +110,7 @@ const transformData = (attendanceList) => {
     // week와 YN 필드들이 null인 경우 빈 값 유지
     if (week !== null) {
       if (problemYN !== null) {
-        students[name]['문제 인증'][week] = problemYN ? (
+        students[uniqueKey]['문제 인증'][week] = problemYN ? (
           <itemS.ImgIcon src='/img/attendanceicon.png' alt="출석" />
         ) : (
           <itemS.ImgIcon src='/img/noattendanceicon.png' alt="결석" />
@@ -117,7 +118,7 @@ const transformData = (attendanceList) => {
       }
 
       if (blogYN !== null) {
-        students[name]['블로그 포스팅'][week] = blogYN ? (
+        students[uniqueKey]['블로그 포스팅'][week] = blogYN ? (
           <itemS.ImgIcon src='/img/attendanceicon.png' alt="출석" />
         ) : (
           <itemS.ImgIcon src='/img/noattendanceicon.png' alt="결석" />
@@ -125,7 +126,7 @@ const transformData = (attendanceList) => {
       }
 
       if (workbookYN !== null) {
-        students[name]['주말 모의테스트'][week] = workbookYN ? (
+        students[uniqueKey]['주말 모의테스트'][week] = workbookYN ? (
           <itemS.ImgIcon src='/img/attendanceicon.png' alt="출석" />
         ) : (
           <itemS.ImgIcon src='/img/noattendanceicon.png' alt="결석" />
@@ -134,10 +135,10 @@ const transformData = (attendanceList) => {
     }
   });
 
-  Object.keys(students).forEach(name => {
-    data['문제 인증'].push(students[name]['문제 인증']);
-    data['블로그 포스팅'].push(students[name]['블로그 포스팅']);
-    data['주말 모의테스트'].push(students[name]['주말 모의테스트']);
+  Object.keys(students).forEach(uniqueKey => {
+    data['문제 인증'].push(students[uniqueKey]['문제 인증']);
+    data['블로그 포스팅'].push(students[uniqueKey]['블로그 포스팅']);
+    data['주말 모의테스트'].push(students[uniqueKey]['주말 모의테스트']);
   });
 
   return data;

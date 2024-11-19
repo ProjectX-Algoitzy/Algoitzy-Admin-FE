@@ -6,13 +6,14 @@ export const Container = styled.div`
   flex-direction: column;
   padding-left: 1.333rem;
   height: 100%;
+  width: 39.042rem;
 `;
 
 export const Title = styled.div`
   display: flex;
   flex-direction: row;
   /* width: 33.042rem; */
-  width: 39.042rem;
+  width: 100%;
   justify-content: space-between;
   margin-top: 4.17rem;
   padding-bottom: 0.83rem;
@@ -59,7 +60,7 @@ export const IntroduceContainer = styled.div`
   display: flex;
   margin-top: 0.75rem; /* 12px -> 0.75rem */
   margin-bottom: 0.6875rem; /* 11px -> 0.6875rem */
-  width: 39.042rem;
+  width: 100%;
   height: 3.208rem; /* 77px -> 4.8125rem */
   border-radius: 0.417rem;
   align-items: center;
@@ -81,7 +82,7 @@ export const IntroduceSentence = styled.p`
 export const StyledTable = styled.table`
   border-collapse: collapse;
   /* width: 33.042rem; */
-  width: 39.042rem;
+  width: 100%;
 `;
 
 export const StyledTd = styled.td`

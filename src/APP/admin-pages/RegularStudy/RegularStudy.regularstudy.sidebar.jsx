@@ -56,16 +56,7 @@ export default function RegularStudySideBar({setActiveComponent, activeComponent
                 <img src="/img/iconpeople.png" alt="사람아이콘" style={{width:"1rem", height:"1rem", marginRight:"0.333rem"}} />
                  {regularStudyInfo.memberCount}명
               </itemS.CountContainer>
-              {/* <itemS.OnlineContainer>
-                <img src="/img/icononline.png" alt="사람아이콘" style={{width:"24px", height:"24px", marginRight:"8px"}} />
-                온라인
-              </itemS.OnlineContainer> */}
             </itemS.CountAndOnlineContainer>
-            {/* <itemS.ManagerNameContainer>
-              <img src={regularStudyInfo.leaderProfileUrl} alt="회색동그라미" style={{width:"18px", height:"18px", marginRight:"8px"}} />
-              {regularStudyInfo.leaderName}
-              <img src="/img/iconstudymanager.png" alt="스터디장" style={{width:"58px", height:"19px", marginLeft:"8px"}} />
-            </itemS.ManagerNameContainer> */}
           </>
         )}
         <itemS.LinkContainer>
@@ -88,7 +79,6 @@ export default function RegularStudySideBar({setActiveComponent, activeComponent
           </itemS.styledLink>
           <itemS.styledLink 
             onClick={() => setActiveComponent('curriculum')} 
-            // onClick={() => navigate('/makingcurriculumhome')}
             isActive={activeComponent === 'curriculum'}
           >
             커리큘럼 <itemS.ArrowImg src="/img/grayarrow.png" alt="화살표"/> 
@@ -99,11 +89,18 @@ export default function RegularStudySideBar({setActiveComponent, activeComponent
           >
             모의테스트 <itemS.ArrowImg src="/img/grayarrow.png" alt="화살표"/> 
           </itemS.styledLink>
-          <itemS.ThirdstyledLink 
+          <itemS.styledLink 
             onClick={() => setActiveComponent('attendance')}
             isActive={activeComponent === 'attendance'}
           >
             출석부 <itemS.ArrowImg src="/img/grayarrow.png" alt="화살표"/> 
+          </itemS.styledLink>
+
+          <itemS.ThirdstyledLink
+            onClick={() => setActiveComponent('addStudyone')}
+            isActive={activeComponent === 'addStudyone'}
+          >
+            스터디원 추가 <itemS.ArrowImg src="/img/grayarrow.png" alt="화살표"/> 
           </itemS.ThirdstyledLink>
         </itemS.LinkContainer>
       </itemS.InnerContainer>

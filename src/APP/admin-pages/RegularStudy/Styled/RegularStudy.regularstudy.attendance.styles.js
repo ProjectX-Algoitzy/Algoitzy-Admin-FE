@@ -6,13 +6,15 @@ export const Container = styled.div`
   flex-direction: column;
   padding-left: 1.333rem;
   height: 100%;
+  width: 39.042rem;
 `;
 
 export const Title = styled.div`
   display: flex;
   margin-top: 4.167rem;
   margin-bottom: 1.5rem;
-  width: 33.042rem;
+  /* width: 33.042rem; */
+  width: 100%;
   ${tokens.typography.T1_SB_32};
   color: ${tokens.colors.Grey_8};
   padding-bottom: 0.667rem;
@@ -20,7 +22,8 @@ export const Title = styled.div`
 `;
 
 export const StyledTable = styled.table`
-  width: 33.042rem;
+  /* width: 33.042rem; */
+  width: 100%;
   border-collapse: collapse;
 `;
 
@@ -51,22 +54,4 @@ export const StyledSpanBaekjoon = styled.span`
 export const ImgIcon = styled.img`
   width: 1.958rem;
   height: 1.958rem;
-`;
-
-export const BtnContainer = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  width: 33.042rem;
-  margin-top: 1.5rem;
-`;
-
-export const CertificationBtn = styled.button`
-  width: 7.333rem;
-  height: 2rem;
-  border-radius: 0.167rem;
-  border: none;
-  cursor: pointer;
-  color: ${tokens.colors.White};
-  ${tokens.typography.T5_SB_16}
-  background-color: ${tokens.colors.B_Grey_7};
 `;

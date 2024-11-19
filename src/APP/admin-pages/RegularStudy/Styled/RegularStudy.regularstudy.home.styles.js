@@ -4,9 +4,10 @@ import * as tokens from "../../../../tokens";
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  padding-left: 1.33rem;
+  padding-left: 1.333rem;
   height: 100%;
-  width: 33.04rem;
+  /* width: 33.04rem; */
+  width: 39.042rem;
 
   @media (max-width: 600px) {
     width: 100%;

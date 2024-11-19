@@ -156,8 +156,8 @@ export const Toolbar = styled.div`
     }
   }
   img {
-    width: 0.8rem;
-    height: 0.8rem;
+    width: 1.25rem;
+    height: 1.25rem;
   }
   span {
     color: #ccc;

@@ -400,7 +400,7 @@ export default function Editor({
           options={gradeOptions}
           placeholder={gradePlaceholderText}
           value={gradeOptions[0]} // 기본값을 "공지사항"으로 설정
-          // isDisabled={true} // 선택 비활성화
+          isDisabled={true} // 선택 비활성화
           // defaultValue={gradeOptions[0]}
           components={{ DropdownIndicator: null, IndicatorSeparator: null }}
           isSearchable={false}

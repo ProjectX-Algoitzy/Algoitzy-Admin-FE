@@ -6,6 +6,7 @@ import { markdown } from '@codemirror/lang-markdown';
 import { defaultKeymap } from '@codemirror/commands';
 import * as Styled from './Styled/WritePost.writepost.editor.styles';
 import request from '../../Api/request';
+import DraftModal from './WritePost.writepost.draft';
 
 
 const gradeOptions = [
@@ -317,13 +318,14 @@ export default function Editor({
     setSelectedFiles(files); // 상태에 파일 목록 저장
   };
 
-   // 임시저장 게시글 목록 조회
-   const fetchDrafts = async () => {
+  // 임시저장 게시글 목록 조회
+  const fetchDrafts = async () => {
     try {
       const response = await request.get('/board/draft');
       if (response.isSuccess) {
-        setDrafts(response.result.boardList || []);
-        setDraftCount(response.result.boardList?.length || 0); // 게시글 수 업데이트
+        const draftList = response.result.boardList || [];
+        setDrafts(draftList);
+        setDraftCount(draftList.length); // 게시글 수 업데이트
       } else {
         console.error('임시저장 목록 조회 실패:', response.message);
       }
@@ -332,15 +334,22 @@ export default function Editor({
     }
   };
 
-  // 컴포넌트 마운트 시 임시저장 목록 가져오기
-  useEffect(() => {
-    fetchDrafts();
-  }, []);
-
-  // 모달 열기/닫기
-  const toggleDraftModal = () => {
-    setIsDraftModalOpen((prev) => !prev);
-  };
+    // 모달 열기/닫기
+    const toggleDraftModal = () => {
+      setIsDraftModalOpen((prev) => !prev);
+    };
+  
+    // 임시저장 글 선택
+    const handleSelectDraft = (draft) => {
+      setTitle(draft.title);
+      setMarkdownContent(draft.content); // 불러온 내용으로 에디터 업데이트
+      toggleDraftModal();
+    };
+  
+    // 컴포넌트 마운트 시 임시저장 목록 가져오기
+    useEffect(() => {
+      fetchDrafts();
+    }, []);
 
  // 게시글 등록 API 호출 함수
  const handlePostSubmit = async () => {
@@ -400,7 +409,7 @@ export default function Editor({
           options={gradeOptions}
           placeholder={gradePlaceholderText}
           value={gradeOptions[0]} // 기본값을 "공지사항"으로 설정
-          isDisabled={true} // 선택 비활성화
+          // isDisabled={true} // 선택 비활성화
           // defaultValue={gradeOptions[0]}
           components={{ DropdownIndicator: null, IndicatorSeparator: null }}
           isSearchable={false}
@@ -473,33 +482,19 @@ export default function Editor({
       <Styled.BtnContainer>
       <Styled.ExitButton onClick={handleExit}>← 나가기</Styled.ExitButton>
       <Styled.BtnContainer2>
-      <Styled.DraftButton onClick={toggleDraftModal}>
+        <Styled.DraftButton onClick={toggleDraftModal}>
           임시저장 | {draftCount}
         </Styled.DraftButton>
         <Styled.Btn onClick={handlePostSubmit}>등록하기</Styled.Btn>
         </Styled.BtnContainer2>
       </Styled.BtnContainer>
 
-      {isDraftModalOpen && (
-      <Styled.DraftModal>
-        <Styled.ModalHeader>
-          <h2>임시저장 목록</h2>
-          <button onClick={toggleDraftModal}>닫기</button>
-        </Styled.ModalHeader>
-        <Styled.ModalBody>
-          {drafts.length > 0 ? (
-            drafts.map((draft) => (
-              <Styled.DraftItem key={draft.boardId}>
-                <p>{draft.title}</p>
-                <p>{new Date(draft.createdTime).toLocaleString()}</p>
-              </Styled.DraftItem>
-            ))
-          ) : (
-            <p>임시저장된 게시글이 없습니다.</p>
-          )}
-        </Styled.ModalBody>
-      </Styled.DraftModal>
-    )}
+      <DraftModal
+        isDraftModalOpen={isDraftModalOpen}
+        toggleDraftModal={toggleDraftModal}
+        drafts={drafts}
+        onSelectDraft={handleSelectDraft}
+      />
 
     </Styled.LeftContainer>
   );

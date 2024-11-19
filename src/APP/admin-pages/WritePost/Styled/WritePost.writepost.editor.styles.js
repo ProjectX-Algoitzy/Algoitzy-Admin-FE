@@ -140,7 +140,7 @@ export const GradeSelect = styled(Select).attrs({
 
 export const Toolbar = styled.div`
   position: sticky; /* 스크롤 시 상단 고정 */
-  padding: 1rem;
+  padding: 0.667rem 1rem;
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -165,7 +165,7 @@ export const Toolbar = styled.div`
 `;
 
 export const EditorContainer = styled.div`
-  padding: 1rem;
+  padding: 0.667rem 1rem;
   flex: 1;
   border: 1px solid #ffffff;
   font-size: 0.8rem;

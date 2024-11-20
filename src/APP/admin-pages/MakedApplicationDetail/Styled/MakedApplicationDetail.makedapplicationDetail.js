@@ -14,6 +14,7 @@ export const Container = styled.div`
 export const InnerContainer = styled.div`
   display: flex;
   flex-direction: row;
+  margin-left: 12.5px;
   align-items: flex-start;
   gap: 0.5rem;
   margin-top: 4.167rem;
@@ -191,6 +192,7 @@ export const QuestionNumberContainer = styled.div`  /*문항1, 문항2 같은 �
   border-top: 0.042rem solid ${tokens.colors.Grey_4};
   justify-content: center;
   ${tokens.typography.T5_SB_16};
+  cursor: pointer;
 
    /*조건부 스타일링*/ 
    ${({ innerContainerClicked }) => 
@@ -205,7 +207,7 @@ export const QuestionNumberContainer = styled.div`  /*문항1, 문항2 같은 �
 
 export const QuestionNumberImg = styled.img`
   ${({ innerContainerClicked }) => innerContainerClicked ? css`
-    width: 0.717rem;
+    width: 0.517rem;
     height: 0.708rem;
     margin-right: 0.5rem;
   `: css`
@@ -230,6 +232,7 @@ export const ContentContainer = styled.div` /*하나의 질문 전체를 담아�
   ${({ innerContainerClicked }) => 
     innerContainerClicked ? css`
       border-top: 0.333rem solid #3083F7;
+      margin-right: 26.5px;
     `: css`
       pointer-events: none;
   `} 

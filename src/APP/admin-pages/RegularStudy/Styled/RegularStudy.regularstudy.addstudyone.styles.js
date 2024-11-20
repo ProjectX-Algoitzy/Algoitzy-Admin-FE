@@ -124,7 +124,7 @@ export const Pagination = styled.div`
 
 export const PaginationArrow = styled.div`
   width: 1rem;
-  height: 1rem;
+  height: 0.7rem;
   background-image: url('/img/darkarrow.png');
   background-size: contain;
   background-repeat: no-repeat;
@@ -144,5 +144,5 @@ export const PaginationNumber = styled.div`
   cursor: pointer;
   color: ${(props) => (props.active ? tokens.colors.Blue_3 : tokens.colors.B_Grey_7)};
   font-weight: ${(props) => (props.active ? 'bold' : 'normal')};
-  ${tokens.typography.B1_M_20};
+  ${tokens.typography.B3_M_14};
 `;

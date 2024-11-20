@@ -399,7 +399,7 @@ export default function MakedApplicationDetail() {
         const CustomDropdownIndicator = props => {
             return (
                 <components.DropdownIndicator {...props}>
-                    <img src="/img/icontriangle.png" alt="triangle-icon" style={{width: "1rem", height: "1rem"}} />
+                    <img src="/img/Polygon.png" alt="triangle-icon" style={{width: "14px", height: "10px"}} />
                 </components.DropdownIndicator>
             );
         };

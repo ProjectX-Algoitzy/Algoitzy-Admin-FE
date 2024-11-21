@@ -22,7 +22,7 @@ export const TitleInput = styled.textarea`
   max-height: 10rem; /* 드래그 기능 개발 후에는 삭제 필요 */
   overflow-y: hidden; /* 내용이 넘치면 자동으로 높이 조절되도록 설정 */
   color: ${({ hasText }) => hasText ? tokens.colors.B_Grey_8 : tokens.colors.B_Grey_6}; /* hasText에 따라 색상 변경 */
-	${tokens.typography.H4_SB_35}
+	${tokens.typography.H2_SB_48}
   font-family: 'Pretendard', sans-serif;
   border: 1px solid #ffffff;
   outline: none;

@@ -13,6 +13,7 @@ export const EditorHeader = styled.div`
   display: flex;
   flex-direction: column;
   padding: 1rem;
+  padding-bottom: 0.542rem;
   gap: 0.5rem;
 `
 
@@ -140,7 +141,7 @@ export const GradeSelect = styled(Select).attrs({
 
 export const Toolbar = styled.div`
   position: sticky; /* 스크롤 시 상단 고정 */
-  padding: 0.667rem 1rem;
+  padding: 0.542rem 1rem;
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -288,8 +289,16 @@ export const Btn = styled.button` /*저장하기 버튼*/
   background-color: ${tokens.colors.Blue_0_Main};
 `;
 
+export const DraftButtonContainer = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
 export const DraftButton = styled.button`
-   width: 6.67rem;
+display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 6.67rem;
   height: 2rem;
   border-radius: 0.167rem;
   border: none;
@@ -297,6 +306,16 @@ export const DraftButton = styled.button`
   color: ${tokens.colors.White};
   ${tokens.typography.T5_SB_16}
   background-color: ${tokens.colors.B_Grey_7};
+`;
+
+export const DraftSaveArea = styled.div`
+  padding: 0.5rem;
+  cursor: pointer;
+`;
+
+export const DraftCountArea = styled.div`
+  padding: 0.5rem;
+  cursor: pointer;
 `;
 
 export const DraftModal = styled.div`
@@ -312,6 +331,23 @@ export const DraftModal = styled.div`
   overflow-y: auto;
   z-index: 1000;
   border-radius: 8px;
+`;
+
+export const DraftText = styled.span`
+  cursor: pointer;
+  margin-right: 4px;
+  color: #007bff;
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
+export const DraftCount = styled.span`
+  cursor: pointer;
+  color: #555;
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 
 export const ModalHeader = styled.div`

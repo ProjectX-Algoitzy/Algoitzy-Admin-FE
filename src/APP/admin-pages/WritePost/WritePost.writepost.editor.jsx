@@ -338,6 +338,38 @@ export default function Editor({
     const toggleDraftModal = () => {
       setIsDraftModalOpen((prev) => !prev);
     };
+
+    const handleSaveDraft = async () => {
+      const content = editorView.state.doc.toString().trim();
+    
+      if (!title.trim() && !content.trim()) {
+        alert('제목이나 내용을 입력하세요.');
+        return;
+      }
+    
+      const fileUrls = selectedFiles.map((file) => URL.createObjectURL(file));
+    
+      const requestData = {
+        title: title.trim() || '제목 없음',
+        content: content || '',
+        fileUrlList: fileUrls,
+        saveYn: false, // 임시저장
+      };
+    
+      try {
+        const response = await request.post('board', requestData);
+    
+        if (response.isSuccess) {
+          alert('글이 임시저장되었습니다.');
+          fetchDrafts(); // 임시저장 목록 갱신
+        } else {
+          alert(`임시저장 실패: ${response.message}`);
+        }
+      } catch (error) {
+        console.error('임시저장 중 오류 발생:', error);
+        alert('임시저장 중 오류가 발생했습니다.');
+      }
+    };
   
     // 임시저장 글 선택
     const handleSelectDraft = (draft) => {
@@ -482,11 +514,18 @@ export default function Editor({
       <Styled.BtnContainer>
       <Styled.ExitButton onClick={handleExit}>← 나가기</Styled.ExitButton>
       <Styled.BtnContainer2>
-        <Styled.DraftButton onClick={toggleDraftModal}>
-          임시저장 | {draftCount}
-        </Styled.DraftButton>
-        <Styled.Btn onClick={handlePostSubmit}>등록하기</Styled.Btn>
-        </Styled.BtnContainer2>
+      <Styled.DraftButton>
+        {/* 임시저장 클릭 영역 */}
+        <Styled.DraftSaveArea onClick={handleSaveDraft}>
+          임시저장
+        </Styled.DraftSaveArea>
+        {/* 임시저장 카운트 클릭 영역 */}
+        <Styled.DraftCountArea onClick={toggleDraftModal}>
+          | {draftCount}
+        </Styled.DraftCountArea>
+      </Styled.DraftButton>
+  <Styled.Btn onClick={handlePostSubmit}>등록하기</Styled.Btn>
+</Styled.BtnContainer2>
       </Styled.BtnContainer>
 
       <DraftModal

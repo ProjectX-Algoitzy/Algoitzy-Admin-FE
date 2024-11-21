@@ -324,6 +324,7 @@ export default function Editor({
       const response = await request.get('board/draft');
       if (response.isSuccess) {
         const draftList = response.result.boardList || [];
+        console.log('Fetched Drafts:', draftList); // 디버깅용 출력
         setDrafts(draftList);
         setDraftCount(draftList.length); // 게시글 수 업데이트
       } else {
@@ -524,8 +525,8 @@ export default function Editor({
           | {draftCount}
         </Styled.DraftCountArea>
       </Styled.DraftButton>
-  <Styled.Btn onClick={handlePostSubmit}>등록하기</Styled.Btn>
-</Styled.BtnContainer2>
+    <Styled.Btn onClick={handlePostSubmit}>등록하기</Styled.Btn>
+    </Styled.BtnContainer2>
       </Styled.BtnContainer>
 
       <DraftModal

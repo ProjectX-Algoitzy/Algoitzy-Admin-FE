@@ -220,13 +220,21 @@ export default function Editor({
     const uploadImage = async (file) => {
       try {
         const formData = new FormData();
-        formData.append('multipartFileList', file);
-  
-        const response = await request.post('/s3', formData);
+        formData.append('multipartFileList', file); // 파일 추가
+    
+        // 요청 경로를 /s3/v2로 변경
+        const response = await request.post('/s3/v2', formData);
+    
         if (response.isSuccess) {
-          return response.result[0]; // 반환된 이미지 URL
+          // 반환된 파일 URL 추출
+          const uploadedFile = response.result.s3FileList?.[0];
+          if (uploadedFile) {
+            return uploadedFile.fileUrl; // 파일 URL 반환
+          } else {
+            throw new Error('파일 정보가 응답에 없습니다.');
+          }
         } else {
-          throw new Error('이미지 업로드 실패');
+          throw new Error(`이미지 업로드 실패: ${response.message}`);
         }
       } catch (error) {
         console.error('이미지 업로드 오류:', error);
@@ -325,6 +333,7 @@ export default function Editor({
       if (response.isSuccess) {
         const draftList = response.result.boardList || [];
         console.log('Fetched Drafts:', draftList); // 디버깅용 출력
+
         setDrafts(draftList);
         setDraftCount(draftList.length); // 게시글 수 업데이트
       } else {

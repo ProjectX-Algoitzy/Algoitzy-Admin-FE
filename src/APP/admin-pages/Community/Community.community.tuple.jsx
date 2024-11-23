@@ -28,6 +28,12 @@ export default function CommunityTuple({ item, isTabClick, searchKeyword }) {
 
   const renderTupleTitle = (title) => {
     const maxLength = 36;
+
+    if (!title) {
+      // title이 null, undefined, 또는 빈 문자열일 경우 처리
+      return <itemS.TupleTitle>제목 없음</itemS.TupleTitle>;
+    }
+    
     const truncatedTitle = title.length > maxLength ? title.slice(0, maxLength - 1) + '...' : title;
 
     return (

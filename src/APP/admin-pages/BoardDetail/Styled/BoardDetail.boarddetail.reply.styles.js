@@ -46,9 +46,10 @@ export const CommentBox = styled.div`
 
 export const WriterBox = styled.div`
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: flex-start;
-  flex-direction: column;
+  flex-direction: row;
+  width: 960px;
 `;
 
 export const WriterName = styled.div`
@@ -59,14 +60,61 @@ export const WriterName = styled.div`
   margin: 0 10px 6px 0;
 `;
 
-// export const ContentBox = styled.div`
-//   display: flex;
-//   justify-content: flex-start;
-//   align-items: flex-start;
-//   flex-direction: row;
-//   width: 957px;
-//   margin-bottom: 12px;
-// `;
+export const DotBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 45px;
+  position: relative;
+  cursor: pointer;
+`;
+
+export const DotButton = styled.img`
+  width: 3px;
+  height: 15px;
+`;
+
+export const UtilButtonBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  background-color: ${tokens.colors.White};
+  position: absolute;
+  left: 10px;
+  top: 27px;
+  width: 142px;
+  height: 36px;
+  border-radius: 4px;
+  box-shadow: 2px 2px 10px 5px rgba(58, 107, 135, 0.08);
+  cursor: pointer;
+`;
+
+export const UtilIcon = styled.img`
+  width: 17px;
+  height: 17px;
+  margin-right: 6px;
+`;
+
+export const UtilText = styled.div`
+  ${tokens.typography.B3_M_14};
+  color: ${tokens.colors.Grey_8};
+`;
+
+
+export const ContentBox = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 957px;
+  margin-bottom: 6px;
+`;
+
+export const DeletedIcon = styled.img`
+  width: 0.833rem;
+  height: 0.833rem;
+  margin-right: 0.16rem;
+`;
 
 export const Mention = styled.span`
   ${tokens.typography.B2_M_16};
@@ -76,9 +124,7 @@ export const Mention = styled.span`
 
 export const Content = styled.div`
   ${tokens.typography.B2_M_16};
-  color: ${tokens.colors.Black};
-  width: 957px;
-  margin-bottom: 6px;
+  color: ${({ deleteYn }) => (deleteYn ? '#888888' : tokens.colors.Black)};
 `;
 
 export const InfoBottomBox = styled.div`

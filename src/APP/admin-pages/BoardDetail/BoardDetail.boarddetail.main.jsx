@@ -5,13 +5,10 @@ import * as itemS from "./Styled/BoardDetail.boarddetail.main.styles";
 import Content from './BoardDetail.boarddetail.content';
 import Comment from './BoardDetail.boarddetail.comment';
 import WriteBox from './WriteBox';
-import { AlertContext } from '../../Common/Alert/AlertContext';
-import { dummyComment } from './dummy';
 
 export default function BoardDetail() {
 	const { id } = useParams();  // 게시글 ID 가져오기
-	
-	const { alert } = useContext(AlertContext);
+
 
 	const [board, setBoard] = useState({});
 	const [comment, setComment] = useState([]);
@@ -71,7 +68,7 @@ export default function BoardDetail() {
 
 	useEffect(() => {
 		fetchComment();
-	}, []);
+	}, [currentPage]);
 
 	const handleFix = async () => {
 
@@ -162,6 +159,7 @@ export default function BoardDetail() {
 								key={item.replyId}
 								item={item}
 								formatDate={formatDate}
+								fetchComment={fetchComment}
 							/>
 						))}
 						

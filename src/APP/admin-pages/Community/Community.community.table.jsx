@@ -3,18 +3,6 @@ import * as itemS from "./Styled/Community.community.table.styles";
 import CommunityTuple from './Community.community.tuple';
 
 export default function CommunityTable({ items, isTabClick, searchKeyword }) {
-    // const [selectedApplicationId, setSelectedApplicationId] = useState(null);
-    // const [isModalOpen, setIsModalOpen] = useState(false);
-
-    // const closeModal = () => {
-		// 	setIsModalOpen(false);
-		// 	setSelectedApplicationId(null);
-    // };
-
-    // const openModal = (applicationId) => {
-		// 	setIsModalOpen(true);
-		// 	setSelectedApplicationId(applicationId);
-    // };
 
     return (
         <itemS.Container>
@@ -33,9 +21,6 @@ export default function CommunityTable({ items, isTabClick, searchKeyword }) {
 									item={item}
 									isTabClick={isTabClick}
 									searchKeyword={searchKeyword}
-									// isSelected={selectedApplicationId === item.answerId && isModalOpen}
-									// onOpen={() => openModal(item.answerId)}
-									// onClose={closeModal}
 								/>
 							))}
 						</itemS.TupleContainer>

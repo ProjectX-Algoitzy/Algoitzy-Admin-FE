@@ -221,25 +221,11 @@ export const ModalContent = styled.div`
 
 
 export const FileContainer = styled.div`
-  display: flex;
   color: ${tokens.colors.B_Grey_8};
 	${tokens.typography.B2_M_16}
-  padding: 0.8rem;
-  border: 1px solid ${tokens.colors.B_Grey_3};
-  border-radius: 4px;
   gap: 1rem;
 `;
 
-export const FileList = styled.div`
-`;
-
-export const FileLabel = styled.div`
-`;
-
-export const FileItem = styled.div`
-  color: #555;
-  gap: 0.2rem;
-`;
 
 export const BtnContainer = styled.div`
  

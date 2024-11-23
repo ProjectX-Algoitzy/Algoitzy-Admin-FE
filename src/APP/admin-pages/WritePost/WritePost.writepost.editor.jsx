@@ -7,6 +7,7 @@ import { defaultKeymap } from '@codemirror/commands';
 import * as Styled from './Styled/WritePost.writepost.editor.styles';
 import request from '../../Api/request';
 import DraftModal from './WritePost.writepost.draft';
+import FileTable from './WritePost.writepost.filetable';
 
 
 const gradeOptions = [
@@ -38,6 +39,7 @@ export default function Editor({
   const [modalPosition, setModalPosition] = useState({ top: 0, left: 0 });
   const [linkURL, setLinkURL] = useState('');
   const [selectedFiles, setSelectedFiles] = useState([]); // 선택된 파일들 상태
+  const [uploadedFiles, setUploadedFiles] = useState([]);
   const [isGradeSelected, setisGradeSelected] = useState(false); 
   const [grade, setGrade] = useState(gradeOptions[0]);
   const [saveYn, setSaveYn] = useState(true); // 임시 저장 여부 (default: true)
@@ -326,6 +328,49 @@ export default function Editor({
     setSelectedFiles(files); // 상태에 파일 목록 저장
   };
 
+  const deleteFile = async (file) => {
+    try {
+      const response = await request.delete('/s3', { params: { fileUrl: file.fileUrl } });
+      if (response.isSuccess) {
+        setUploadedFiles((prevFiles) =>
+          prevFiles.filter((f) => f.fileUrl !== file.fileUrl)
+        );
+      } else {
+        throw new Error('파일 삭제 실패');
+      }
+    } catch (error) {
+      console.error('파일 삭제 실패:', error);
+      alert('파일 삭제 중 오류가 발생했습니다.');
+    }
+  };
+
+  const handleFileUpload = async (event) => {
+    const files = Array.from(event.target.files); // 다중 파일 처리
+  
+    for (const file of files) {
+      try {
+        const formData = new FormData();
+        formData.append('multipartFileList', file);
+  
+        const response = await request.post('/s3/v2', formData);
+        if (response.isSuccess) {
+          const uploadedFile = response.result.s3FileList?.[0];
+          if (uploadedFile) {
+            setUploadedFiles((prevFiles) => [
+              ...prevFiles,
+              { ...uploadedFile, size: file.size },
+            ]);
+          }
+        } else {
+          throw new Error('파일 업로드 실패');
+        }
+      } catch (error) {
+        console.error('파일 업로드 오류:', error);
+        alert('파일 업로드 중 오류가 발생했습니다.');
+      }
+    }
+  };
+
   // 임시저장 게시글 목록 조회
   const fetchDrafts = async () => {
     try {
@@ -464,14 +509,19 @@ export default function Editor({
         {/* 선택된 파일 목록 표시 */}
         {selectedFiles.length > 0 && (
         <Styled.FileContainer>
-          <Styled.FileLabel>첨부파일 :</Styled.FileLabel>
-          <Styled.FileList>
-            {selectedFiles.map((file, index) => (
-              <Styled.FileItem key={index}>{file.name}</Styled.FileItem>
-            ))}
-          </Styled.FileList>
+          <FileTable uploadedFiles={uploadedFiles} deleteFile={deleteFile} />
+          <input
+            type="file"
+            ref={fileInputRef}
+            style={{ display: 'none' }}
+            onChange={handleFileUpload}
+            multiple // 다중 파일 업로드 지원
+          />
+
+
         </Styled.FileContainer>
       )}
+      
     </Styled.EditorHeader>
 
       <Styled.Toolbar>

@@ -463,7 +463,7 @@ export default function Editor({
 
     if (response.isSuccess) {
       alert('게시글이 성공적으로 등록되었습니다.');
-      navigate('/');
+      navigate(-1);
     } else {
       alert(`등록 실패: ${response.message}`);
     }

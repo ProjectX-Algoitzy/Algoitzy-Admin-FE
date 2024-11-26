@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { EditorState, EditorSelection } from '@codemirror/state';
 import { EditorView, keymap, placeholder } from '@codemirror/view';
@@ -8,6 +8,7 @@ import * as Styled from './Styled/WritePost.writepost.editor.styles';
 import request from '../../Api/request';
 import DraftModal from './WritePost.writepost.draft';
 import FileTable from './WritePost.writepost.filetable';
+import { ConfirmContext } from '../../Common/Confirm/ConfirmContext';
 
 
 const gradeOptions = [
@@ -34,6 +35,7 @@ export default function Editor({
   const imageInputRef = useRef(null); // 이미지 파일 입력창을 제어할 useRef
   const fileInputRef = useRef(null); // 일반 파일 입력창을 제어할 useRef
   const modalRef = useRef(null);
+  const { confirm } = useContext(ConfirmContext); // ConfirmContext 사용
   const [editorView, setEditorView] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalPosition, setModalPosition] = useState({ top: 0, left: 0 });
@@ -47,6 +49,8 @@ export default function Editor({
   const [draftCount, setDraftCount] = useState(0); // 임시저장 게시글 수
   const [isDraftModalOpen, setIsDraftModalOpen] = useState(false); // 모달 상태
   const [drafts, setDrafts] = useState([]); // 임시저장 게시글 목록
+  const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
+  const [selectedDraft, setSelectedDraft] = useState(null);
 
 
   // 학년 선택 change event
@@ -425,18 +429,84 @@ export default function Editor({
         alert('임시저장 중 오류가 발생했습니다.');
       }
     };
+
+    // 임시저장 글 상세 데이터를 가져오는 함수
+const fetchDraftDetails = async (boardId) => {
+  try {
+    const response = await request.get(`board/${boardId}`);
+    if (response.isSuccess) {
+      const draft = response.result;
+
+      // 제목과 내용을 업데이트
+      setTitle(draft.title);
+      setMarkdownContent(draft.content);
+
+      // 에디터 내용 업데이트
+      editorView.dispatch({
+        changes: {
+          from: 0,
+          to: editorView.state.doc.length, // 기존 내용 삭제
+          insert: draft.content, // 새로운 내용 삽입
+        },
+      });
+
+      // 파일 리스트 업데이트
+      const uploadedFilesFromDraft = draft.boardFileList.map((file) => ({
+        originalName: file.originalName,
+        fileUrl: file.fileUrl,
+      }));
+      setUploadedFiles(uploadedFilesFromDraft);
+
+      // 카테고리 업데이트
+      setGrade({ value: draft.category, label: draft.category });
+
+      console.log('임시저장 글 불러오기 성공:', draft);
+    } else {
+      console.error('임시저장 글 불러오기 실패:', response.message);
+    }
+  } catch (error) {
+    console.error('임시저장 글 불러오기 오류:', error);
+  }
+};
   
     // 임시저장 글 선택
-    const handleSelectDraft = (draft) => {
-      setTitle(draft.title);
-      setMarkdownContent(draft.content); // 불러온 내용으로 에디터 업데이트
-      toggleDraftModal();
+    const handleSelectDraft = async (draft) => {
+      try {
+        const confirmed = await confirm(
+          '저장하지 않은 내용은 사라집니다. 계속하시겠습니까?'
+        );
+  
+        if (confirmed) {
+          fetchDraftDetails(draft.boardId); // 선택된 글 불러오기
+          toggleDraftModal(); // 모달 닫기
+        }
+      } catch {
+        console.log('사용자가 취소했습니다.');
+      }
     };
   
     // 컴포넌트 마운트 시 임시저장 목록 가져오기
     useEffect(() => {
       fetchDrafts();
     }, []);
+
+    const openConfirmationModal = (draft) => {
+      setSelectedDraft(draft); // 선택된 글 저장
+      setIsConfirmationModalOpen(true); // 모달 열기
+    };
+    
+    const closeConfirmationModal = () => {
+      setSelectedDraft(null); // 선택된 글 초기화
+      setIsConfirmationModalOpen(false); // 모달 닫기
+    };
+    
+    const confirmLoadDraft = () => {
+      if (selectedDraft) {
+        fetchDraftDetails(selectedDraft.boardId); // 선택된 글 불러오기
+      }
+      closeConfirmationModal();
+      toggleDraftModal(); // 모달 닫기
+    };
 
  // 게시글 등록 API 호출 함수
  const handlePostSubmit = async () => {
@@ -450,8 +520,8 @@ export default function Editor({
   const fileUrls = selectedFiles.map((file) => URL.createObjectURL(file));
 
   const requestData = {
-    title: "안녕하세요",//title.trim(),
-    content: "안녕하세요",
+    title: title.trim(),
+    content: content,
     fileUrlList: fileUrls,
     saveYn: true,
   };
@@ -594,7 +664,6 @@ export default function Editor({
         drafts={drafts}
         onSelectDraft={handleSelectDraft}
       />
-
     </Styled.LeftContainer>
   );
 }

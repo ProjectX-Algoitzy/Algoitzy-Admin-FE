@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useContext } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { EditorState, EditorSelection } from '@codemirror/state';
 import { EditorView, keymap, placeholder } from '@codemirror/view';
@@ -36,6 +36,7 @@ export default function Editor({
   const fileInputRef = useRef(null); // 일반 파일 입력창을 제어할 useRef
   const modalRef = useRef(null);
   const { confirm } = useContext(ConfirmContext); // ConfirmContext 사용
+
   const [editorView, setEditorView] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalPosition, setModalPosition] = useState({ top: 0, left: 0 });
@@ -49,8 +50,6 @@ export default function Editor({
   const [draftCount, setDraftCount] = useState(0); // 임시저장 게시글 수
   const [isDraftModalOpen, setIsDraftModalOpen] = useState(false); // 모달 상태
   const [drafts, setDrafts] = useState([]); // 임시저장 게시글 목록
-  const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
-  const [selectedDraft, setSelectedDraft] = useState(null);
 
 
   // 학년 선택 change event
@@ -469,26 +468,26 @@ const fetchDraftDetails = async (boardId) => {
   }
 };
   
-    // 임시저장 글 선택
-    const handleSelectDraft = async (draft) => {
-      try {
-        const confirmed = await confirm(
-          '저장하지 않은 내용은 사라집니다. 계속하시겠습니까?'
-        );
-  
-        if (confirmed) {
-          fetchDraftDetails(draft.boardId); // 선택된 글 불러오기
-          toggleDraftModal(); // 모달 닫기
-        }
-      } catch {
-        console.log('사용자가 취소했습니다.');
-      }
-    };
-  
-    // 컴포넌트 마운트 시 임시저장 목록 가져오기
-    useEffect(() => {
-      fetchDrafts();
-    }, []);
+// 임시저장 글 선택
+const handleSelectDraft = async (draft) => {
+  try {
+    const confirmed = await confirm(
+      '저장하지 않은 내용은 사라집니다. 계속하시겠습니까?'
+    );
+
+    if (confirmed) {
+      fetchDraftDetails(draft.boardId); // 선택된 글 불러오기
+      toggleDraftModal(); // 모달 닫기
+    }
+  } catch {
+    console.log('사용자가 취소했습니다.');
+  }
+};
+
+// 컴포넌트 마운트 시 임시저장 목록 가져오기
+useEffect(() => {
+  fetchDrafts();
+}, []);
 
 
  // 게시글 등록 API 호출 함수

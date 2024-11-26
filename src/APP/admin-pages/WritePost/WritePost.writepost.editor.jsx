@@ -490,23 +490,6 @@ const fetchDraftDetails = async (boardId) => {
       fetchDrafts();
     }, []);
 
-    const openConfirmationModal = (draft) => {
-      setSelectedDraft(draft); // 선택된 글 저장
-      setIsConfirmationModalOpen(true); // 모달 열기
-    };
-    
-    const closeConfirmationModal = () => {
-      setSelectedDraft(null); // 선택된 글 초기화
-      setIsConfirmationModalOpen(false); // 모달 닫기
-    };
-    
-    const confirmLoadDraft = () => {
-      if (selectedDraft) {
-        fetchDraftDetails(selectedDraft.boardId); // 선택된 글 불러오기
-      }
-      closeConfirmationModal();
-      toggleDraftModal(); // 모달 닫기
-    };
 
  // 게시글 등록 API 호출 함수
  const handlePostSubmit = async () => {

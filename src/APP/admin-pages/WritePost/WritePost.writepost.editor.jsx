@@ -476,7 +476,6 @@ const fetchDraftDetails = async (boardId) => {
   
         if (confirmed) {
           fetchDraftDetails(draft.boardId); // 선택된 글 불러오기
-          toggleDraftModal(); // 모달 닫기
         }
       } catch {
         console.log('사용자가 취소했습니다.');

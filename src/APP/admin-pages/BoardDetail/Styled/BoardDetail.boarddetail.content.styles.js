@@ -49,5 +49,14 @@ export const FileList = styled.div`
 
 export const File = styled.div`
   ${tokens.typography.B2_M_16};
-  color: ${tokens.colors.Black};
+  // color: ${tokens.colors.Black};
+
+  a {
+    text-decoration: none;
+    color: ${tokens.colors.Black};
+
+    // &:hover {
+    //   color: ${tokens.colors.Primary};
+    // }
+  }
 `;

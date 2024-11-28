@@ -79,7 +79,7 @@ export const ButtonBox = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  width: 22rem;
+  // width: 22rem;
   
 `;
 
@@ -90,6 +90,7 @@ export const EditBtn = styled.button`
   color: ${tokens.colors.White};
   border: none;
   border-radius: 4px;
+  margin-right: 16px;
   cursor: pointer;
 `;
 

@@ -87,6 +87,10 @@ export const Search = styled.input`
   &:focus {
     outline: none;
   }
+
+  &::placeholder {
+    color: ${tokens.colors.B_Grey_4};
+  }
 `;
 
 export const SearchIcon = styled.img`

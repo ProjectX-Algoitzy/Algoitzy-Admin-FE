@@ -431,7 +431,7 @@ export default function Editor({
     // 임시저장 글 상세 데이터를 가져오는 함수
 const fetchDraftDetails = async (boardId) => {
   try {
-    const response = await request.get(`board/${boardId}`);
+    const response = await request.get(`board/draft/${boardId}`);
     if (response.isSuccess) {
       const draft = response.result;
 

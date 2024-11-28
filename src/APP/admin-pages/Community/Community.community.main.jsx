@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import request from '../../Api/request';
 import * as itemS from "./Styled/Community.community.main.styles";
 import CommunityTable from './Community.community.table';
@@ -7,7 +8,8 @@ import { dummyData } from './dummy';
 
 export default function Community() {
 	const { alert } = useContext(AlertContext);
-	
+	const navigate = useNavigate();
+
 	const [posts, setPosts] = useState([]);
 	const [categories, setCategories] = useState([{ code: '', name: '전체' }]); // Default '전체' tab
 
@@ -124,6 +126,10 @@ export default function Community() {
 		setSortText(type === 'LATEST' ? '최신순' : type === 'VIEW_COUNT' ? '조회수' : '좋아요');
   };
 
+  const handleWriteClick = () => {
+	navigate('/writepost'); // Navigate to the /writepost route
+	window.location.reload(); // 페이지 전환 후 강제 새로고침	
+};
 
 	return (
 		<itemS.OuterContainer>
@@ -202,7 +208,7 @@ export default function Community() {
 							/>
 						</itemS.Pagination>
 
-						<itemS.WriteBtn>+ 글쓰기</itemS.WriteBtn>
+						<itemS.WriteBtn onClick={handleWriteClick}>+ 글쓰기</itemS.WriteBtn>
 					</itemS.PaginationContainer>
 				</itemS.InnerContainer>
 			</itemS.Container>

@@ -397,6 +397,7 @@ export default function Editor({
   const handleFileChange = (event) => {
     const files = Array.from(event.target.files); // 선택된 파일 배열로 변환
     setSelectedFiles(files); // 상태에 파일 목록 저장
+    handleFileUpload(event);
   };
 
   const deleteFile = async (file) => {
@@ -417,7 +418,7 @@ export default function Editor({
 
   const handleFileUpload = async (event) => {
     const files = Array.from(event.target.files); // 다중 파일 처리
-  
+   
     for (const file of files) {
       try {
         const formData = new FormData();

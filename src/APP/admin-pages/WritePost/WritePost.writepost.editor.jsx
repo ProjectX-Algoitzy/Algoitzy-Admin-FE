@@ -28,6 +28,9 @@ export default function Editor({
   title,
   setTitle,
   setMarkdownContent,
+  boardId,
+  initialCategoryCode,
+  initialContent, // 초기 content 전달
 }) {
 
   const navigate = useNavigate();
@@ -43,7 +46,7 @@ export default function Editor({
   const [selectedFiles, setSelectedFiles] = useState([]); // 선택된 파일들 상태
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const [isGradeSelected, setisGradeSelected] = useState(false); 
-  const [categoryCode, setCategoryCode] = useState(null);
+  const [categoryCode, setCategoryCode] = useState(initialCategoryCode || null);
   const [grade, setGrade] = useState(gradeOptions[0]);
   const [saveYn, setSaveYn] = useState(true); // 임시 저장 여부 (default: true)
   const [uploadedImageUrls, setUploadedImageUrls] = useState([]);
@@ -88,7 +91,7 @@ export default function Editor({
     if (!editorRef.current) return;
 
     const startState = EditorState.create({
-      doc: '',
+      doc: initialContent || '', // 수정 시 초기 내용을 Codemirror에 반영
       extensions: [
         keymap.of(defaultKeymap),
         markdown(),
@@ -522,6 +525,7 @@ const fetchDraftDetails = async (boardId) => {
   const requestData = {
     title: title.trim(),
     content: content,
+    //category: categoryCode,
     fileUrlList: fileUrls,
     saveYn: true,
   };
@@ -529,20 +533,27 @@ const fetchDraftDetails = async (boardId) => {
   console.log('요청 데이터:', requestData);
 
   try {
-    const response = await request.post('board', requestData);
+    let response;
 
-    if (response.isSuccess) {
-      alert('게시글이 성공적으로 등록되었습니다.');
-      navigate(-1);
-    } else {
-      alert(`등록 실패: ${response.message}`);
+      if (boardId) {
+        // 수정 요청
+        response = await request.patch(`/board/${boardId}`, requestData);
+      } else {
+        // 새 게시글 작성 요청
+        response = await request.post('/board', requestData);
+      }
+
+      if (response.isSuccess) {
+        alert(boardId ? '게시글이 수정되었습니다.' : '게시글이 등록되었습니다.');
+        navigate(-1); // 이전 페이지로 이동
+      } else {
+        alert(`저장 실패: ${response.message}`);
+      }
+    } catch (error) {
+      console.error('게시글 저장 중 오류 발생:', error);
+      alert('게시글 저장 중 오류가 발생했습니다.');
     }
-  } catch (error) {
-    console.error('게시글 등록 중 오류 발생:', error);
-    console.error('에러 응답 데이터:', error.response?.data);
-    alert('게시글 등록 중 오류가 발생했습니다.');
-  }
-};
+  };
 
 
   return (
@@ -644,6 +655,7 @@ const fetchDraftDetails = async (boardId) => {
       <Styled.BtnContainer>
       <Styled.ExitButton onClick={handleExit}>← 나가기</Styled.ExitButton>
       <Styled.BtnContainer2>
+      {!boardId && ( // boardId가 없을 때만 표시
       <Styled.DraftButton>
         {/* 임시저장 클릭 영역 */}
         <Styled.DraftSaveArea onClick={handleSaveDraft}>
@@ -654,8 +666,11 @@ const fetchDraftDetails = async (boardId) => {
           | {draftCount}
         </Styled.DraftCountArea>
       </Styled.DraftButton>
-    <Styled.Btn onClick={handlePostSubmit}>등록하기</Styled.Btn>
-    </Styled.BtnContainer2>
+    )}
+      <Styled.Btn onClick={handlePostSubmit}>
+        {boardId ? '수정하기' : '등록하기'}
+      </Styled.Btn>
+      </Styled.BtnContainer2>
       </Styled.BtnContainer>
 
       <DraftModal

@@ -43,6 +43,8 @@ export const PreviewContainer = styled.div`
   }
   p {
     margin: 1rem 0;
+    font-size: 0.8rem;
+
   }
   code {
     background-color: #f5f5f5;
@@ -57,7 +59,7 @@ export const PreviewContainer = styled.div`
     color: #f8f8f2;
     overflow-x: auto;
     border-radius: 8px;
-    font-size: 0.95rem;
+    font-size: 0.7rem;
   }
   a {
     color: #1e90ff;
@@ -71,8 +73,8 @@ export const PreviewContainer = styled.div`
     padding-left: 2rem;
   }
   blockquote {
-    border-left: 4px solid #ddd;
-    padding-left: 16px;
+    border-left: 0.2rem solid ${tokens.colors.B_Grey_3};
+    padding-left: 1rem;
     color: #666;
     font-style: italic;
     margin: 1rem 0;

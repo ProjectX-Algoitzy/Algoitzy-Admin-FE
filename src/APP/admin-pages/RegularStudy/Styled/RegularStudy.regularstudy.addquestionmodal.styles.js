@@ -112,6 +112,7 @@ export const TableHead = styled.th`
 
   /* 두 번째 열: 제목 */
   &:nth-child(2) {
+    width: 15rem;
     padding-left: 2.083rem;
   }
 

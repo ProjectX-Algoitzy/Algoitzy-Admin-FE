@@ -594,11 +594,6 @@ const fetchDraftDetails = async (boardId) => {
  const handlePostSubmit = async () => {
   const content = editorView.state.doc.toString().trim();
 
-  if (!title.trim() || !content) {
-    alert('제목과 내용을 입력하세요.');
-    return;
-  }
-
   const fileUrls = selectedFiles.map((file) => URL.createObjectURL(file));
 
   const requestData = {
@@ -630,7 +625,6 @@ const fetchDraftDetails = async (boardId) => {
       }
     } catch (error) {
       console.error('게시글 저장 중 오류 발생:', error);
-      alert('게시글 저장 중 오류가 발생했습니다.');
     }
   };
 

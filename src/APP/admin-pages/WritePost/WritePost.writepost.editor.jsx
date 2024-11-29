@@ -12,7 +12,7 @@ import { ConfirmContext } from '../../Common/Confirm/ConfirmContext';
 
 
 const gradeOptions = [
-  {value: "공지사항", label:"공지사항"},
+  {value: "NOTICE", label: "공지"},
   /*
   {value: "자유", label:"자유"},
   {value: "질문", label:"질문"},
@@ -54,7 +54,7 @@ export default function Editor({
   const [draftCount, setDraftCount] = useState(0); // 임시저장 게시글 수
   const [isDraftModalOpen, setIsDraftModalOpen] = useState(false); // 모달 상태
   const [drafts, setDrafts] = useState([]); // 임시저장 게시글 목록
-
+  const loadCount = useRef(0);
 
   const handleGradeChange = (selectedOption) => {
     // 카테고리 목록 요청
@@ -117,7 +117,7 @@ export default function Editor({
   };
 
   useEffect(() => {
-    if (!editorRef.current) return;
+    if (!editorRef.current || initialContent === undefined) return;
 
     const startState = EditorState.create({
       doc: initialContent || '', // 수정 시 초기 내용을 Codemirror에 반영
@@ -141,12 +141,28 @@ export default function Editor({
     });
 
     setEditorView(view);
-    
 
     return () => {
       view.destroy();
     };
   }, []);
+
+  useEffect(() => {
+    // initialContent가 늦게 바뀌므로 2번 변경 감지 후 초기화 끄기
+  
+    if (editorView && initialContent !== undefined) {
+      if (loadCount.current < 2) {
+        editorView.dispatch({
+          changes: {
+            from: 0,
+            to: editorView.state.doc.length, 
+            insert: initialContent || '',
+          },
+        });
+        loadCount.current += 1; // 실행 횟수 증가
+      }
+    }
+  }, [editorView, initialContent]); // initialContent를 포함해 변경 감지
 
   const applyMarkdownSyntax = (syntax) => {
     if (!editorView) return;

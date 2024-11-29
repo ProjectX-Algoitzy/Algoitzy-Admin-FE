@@ -9,7 +9,7 @@ marked.setOptions({
   gfm: true,
   breaks: true,
   highlight: function (code, language) {
-    const validLanguage = hljs.getLanguage(language) ? language : "plaintext"; // 언어 감지
+    const validLanguage = hljs.getLanguage(language) ? language : "plaintext";
     return hljs.highlight(code, { language: validLanguage }).value;
   },
 });

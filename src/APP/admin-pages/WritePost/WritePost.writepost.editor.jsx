@@ -31,6 +31,7 @@ export default function Editor({
   boardId,
   initialCategoryCode,
   initialContent, // 초기 content 전달
+  initialUploadedFiles,
 }) {
 
   const navigate = useNavigate();
@@ -87,6 +88,34 @@ export default function Editor({
     e.target.style.height = `${e.target.scrollHeight}px`; // 내용에 맞게 높이 조정
   };
 
+  const fetchEditDetails = async () => {
+        // 제목과 내용을 업데이트
+        setTitle(title);
+        setMarkdownContent(initialContent);
+  
+        // 에디터 내용 업데이트
+        editorView.dispatch({
+          changes: {
+            from: 0,
+            to: editorView.state.doc.length, // 기존 내용 삭제
+            insert: initialContent, // 새로운 내용 삽입
+          },
+        });
+  
+        // 파일 리스트 업데이트
+        /*
+        const initialUploadedFiles = boardFileList.map((file) => ({
+          originalName: file.originalName,
+          fileUrl: file.fileUrl,
+        }));
+        setUploadedFiles(initialUploadedFiles);
+        */
+        // 카테고리 업데이트
+        setGrade({ value: initialCategoryCode, label: initialCategoryCode });
+  
+        console.log('수정 글 불러오기 성공:', title);
+  };
+
   useEffect(() => {
     if (!editorRef.current) return;
 
@@ -112,6 +141,7 @@ export default function Editor({
     });
 
     setEditorView(view);
+    
 
     return () => {
       view.destroy();

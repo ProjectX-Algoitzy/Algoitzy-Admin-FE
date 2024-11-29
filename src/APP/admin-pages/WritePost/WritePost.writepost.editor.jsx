@@ -55,6 +55,26 @@ export default function Editor({
   const [isDraftModalOpen, setIsDraftModalOpen] = useState(false); // 모달 상태
   const [drafts, setDrafts] = useState([]); // 임시저장 게시글 목록
   const loadCount = useRef(0);
+  const [isScrolling, setIsScrolling] = useState(false); // 스크롤 상태 관리
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolling(true); // 스크롤 상태 활성화
+      // 일정 시간 후 스크롤 상태 비활성화
+      setTimeout(() => setIsScrolling(false), 1000);
+    };
+
+    const editorElement = editorRef.current;
+    if (editorElement) {
+      editorElement.addEventListener("scroll", handleScroll);
+    }
+
+    return () => {
+      if (editorElement) {
+        editorElement.removeEventListener("scroll", handleScroll);
+      }
+    };
+  }, []);
 
   const handleGradeChange = (selectedOption) => {
     // 카테고리 목록 요청
@@ -606,6 +626,7 @@ const fetchDraftDetails = async (boardId) => {
 
   return (
     <Styled.LeftContainer>
+      <Styled.InnerEditorContainer ref={editorRef} isScrolling={isScrolling}>
       <Styled.EditorHeader>
       <Styled.TitleInput
         placeholder="제목을 입력하세요"
@@ -683,7 +704,6 @@ const fetchDraftDetails = async (boardId) => {
         <button onClick={() => applyMarkdownSyntax('code')}><img src='/img/toolbar_code.svg' alt="Code"/></button>
       </Styled.Toolbar>
 
-      <Styled.EditorContainer ref={editorRef} />
 
       {isModalOpen && (
         <Styled.ModalContent ref={modalRef} style={{ position: 'absolute', top: modalPosition.top, left: modalPosition.left }}>
@@ -699,7 +719,7 @@ const fetchDraftDetails = async (boardId) => {
           </Styled.UrlContainer>
         </Styled.ModalContent>
       )}
-
+    </Styled.InnerEditorContainer> 
       <Styled.BtnContainer>
       <Styled.ExitButton onClick={handleExit}>← 나가기</Styled.ExitButton>
       <Styled.BtnContainer2>

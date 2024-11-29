@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import * as tokens from "../../../../tokens";
 import Select from 'react-select';
+import { css } from "styled-components";
+
 
 
 export const LeftContainer = styled.div`
@@ -9,10 +11,60 @@ export const LeftContainer = styled.div`
   width: 50%;
 `;
 
+export const InnerEditorContainer = styled.div`
+  padding: 0.542rem 1rem;
+  flex: 1;
+  border: 1px solid #ffffff;
+  font-size: 0.8rem;
+  font-family: 'Pretendard', sans-serif;
+  line-height: 1.6;
+  overflow-y: auto; /* 스크롤 가능 */
+  max-height: 100rem; /* 최대 높이 제한 */
+  white-space: pre-wrap;
+  word-wrap: break-word;
+
+  /* 기본 스크롤바 설정 (투명색) */
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: transparent; /* 기본적으로 투명 */
+    border-radius: 4px; /* 스크롤바 모서리 둥글게 */
+    transition: background-color 0.2s; /* 색상 변화 트랜지션 */
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: transparent; /* 트랙 배경 투명 */
+  }
+
+  /* 스크롤 상태에 따라 동적 스타일 적용 */
+  ${(props) =>
+    props.isScrolling &&
+    css`
+      &::-webkit-scrollbar-thumb {
+        background-color: ${tokens.colors.B_Grey_4}; /* 스크롤 시 색상 변경 */
+      }
+    `}
+
+  /* Firefox 스크롤바 설정 */
+  scrollbar-width: thin; /* 얇은 스크롤바 */
+  scrollbar-color: transparent transparent; /* 기본적으로 투명 */
+
+  ${(props) =>
+    props.isScrolling &&
+    css`
+      scrollbar-color: ${tokens.colors.B_Grey_4} transparent; /* 스크롤 시 색상 변경 */
+    `}
+
+  .cm-editor.cm-focused {
+    outline: none;
+  }
+`;
+
 export const EditorHeader = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 1rem;
   padding-bottom: 0.542rem;
   gap: 0.5rem;
 `
@@ -141,7 +193,6 @@ export const GradeSelect = styled(Select).attrs({
 
 export const Toolbar = styled.div`
   position: sticky; /* 스크롤 시 상단 고정 */
-  padding: 0.542rem 1rem;
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -172,7 +223,6 @@ export const EditorContainer = styled.div`
   font-size: 0.8rem;
   font-family: 'Pretendard', sans-serif;
   line-height: 1.6;
-  overflow-y: auto;
   white-space: pre-wrap;
   word-wrap: break-word;
   .cm-editor.cm-focused {

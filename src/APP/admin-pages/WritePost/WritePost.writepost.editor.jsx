@@ -398,8 +398,19 @@ export default function Editor({
     }, []);
   
     const handleExit = async () => {
-      await deleteAllUploadedImages();
-      navigate(-1); // 이전 페이지로 이동
+      try {
+        const confirmed = await confirm(
+          '저장하지 않은 내용은 사라집니다. 계속하시겠습니까?'
+        );
+        if (confirmed) {
+          await deleteAllUploadedImages(); // 이미지 삭제 로직 실행
+          navigate(-1); // 이전 페이지로 이동
+        } else {
+          console.log('사용자가 취소했습니다.');
+        }
+      } catch (error) {
+        console.error('나가기 처리 중 오류 발생:', error);
+      }
     };
     
   const openImageFileExplorer = () => {

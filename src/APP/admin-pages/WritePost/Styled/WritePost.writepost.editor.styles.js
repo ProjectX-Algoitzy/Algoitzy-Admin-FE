@@ -12,7 +12,7 @@ export const LeftContainer = styled.div`
 `;
 
 export const InnerEditorContainer = styled.div`
-  padding: 0.542rem 1rem;
+  padding: 0 1rem;
   flex: 1;
   border: 1px solid #ffffff;
   font-size: 0.8rem;
@@ -193,9 +193,15 @@ export const GradeSelect = styled(Select).attrs({
 
 export const Toolbar = styled.div`
   position: sticky; /* 스크롤 시 상단 고정 */
+  top: 0; /* 뷰포트 상단에 고정 */
+  z-index: 10; /* 다른 요소 위에 표시 */
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.4rem;
+  background-color: white;
+  padding: 0.5rem;
+  padding-bottom: 0.25rem;
+
   button {
     background: none;
     border: none;
@@ -203,14 +209,17 @@ export const Toolbar = styled.div`
     cursor: pointer;
     padding: 0.2rem;
     color: #666;
+
     &:hover {
       color: #333;
     }
   }
+
   img {
     width: 1.25rem;
     height: 1.25rem;
   }
+
   span {
     color: #ccc;
   }

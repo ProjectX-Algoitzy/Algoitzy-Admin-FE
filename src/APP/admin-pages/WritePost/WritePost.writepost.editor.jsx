@@ -344,7 +344,7 @@ export default function Editor({
         const imageURL = await uploadImage(file); // S3 업로드 후 URL 반환
         setUploadedImageUrls((prevUrls) => [...prevUrls, imageURL]); // 업로드된 URL 저장
   
-        const markdownImage = `<img src="${imageURL}" alt="" style="width:100%;" />`;
+        const markdownImage = `<img src="${imageURL}" alt="" style="max-width: 100%; height: auto;" />`;
         editorView.dispatch(
           editorView.state.changeByRange((range) => ({
             changes: { from: range.from, to: range.to, insert: markdownImage },

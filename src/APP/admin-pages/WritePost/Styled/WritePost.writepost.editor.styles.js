@@ -65,7 +65,7 @@ export const InnerEditorContainer = styled.div`
 export const EditorHeader = styled.div`
   display: flex;
   flex-direction: column;
-  padding-bottom: 0.542rem;
+  padding: 0.542rem 0;
   gap: 0.5rem;
 `
 

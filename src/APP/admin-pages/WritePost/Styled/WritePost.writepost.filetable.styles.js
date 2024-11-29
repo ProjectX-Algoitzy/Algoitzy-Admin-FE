@@ -88,6 +88,13 @@ export const DeleteButton = styled.button`
   }
 `;
 
+export const FileIcon = styled.img`
+  width: 1rem; /* 아이콘 크기 설정 */
+  height: 1rem;
+  margin-right: 0.5rem; /* 아이콘과 파일명 사이 여백 */
+  vertical-align: middle;
+`;
+
 export const EmptyMessage = styled.div`
   padding: 1rem;
   text-align: center;

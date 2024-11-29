@@ -704,6 +704,7 @@ const fetchDraftDetails = async (boardId) => {
         <button onClick={() => applyMarkdownSyntax('code')}><img src='/img/toolbar_code.svg' alt="Code"/></button>
       </Styled.Toolbar>
 
+      <Styled.EditorContainer ref={editorRef} />
 
       {isModalOpen && (
         <Styled.ModalContent ref={modalRef} style={{ position: 'absolute', top: modalPosition.top, left: modalPosition.left }}>

@@ -31,7 +31,6 @@ export const InnerEditorContainer = styled.div`
   &::-webkit-scrollbar-thumb {
     background-color: transparent; /* 기본적으로 투명 */
     border-radius: 4px; /* 스크롤바 모서리 둥글게 */
-    transition: background-color 0.2s; /* 색상 변화 트랜지션 */
   }
 
   &::-webkit-scrollbar-track {
@@ -72,7 +71,6 @@ export const EditorHeader = styled.div`
 export const TitleInput = styled.textarea`
   width: 100%;
   height: auto;
-  max-height: 10rem; /* 드래그 기능 개발 후에는 삭제 필요 */
   overflow-y: hidden; /* 내용이 넘치면 자동으로 높이 조절되도록 설정 */
   color: ${({ hasText }) => hasText ? tokens.colors.B_Grey_8 : tokens.colors.B_Grey_6}; /* hasText에 따라 색상 변경 */
 	${tokens.typography.H2_SB_48}

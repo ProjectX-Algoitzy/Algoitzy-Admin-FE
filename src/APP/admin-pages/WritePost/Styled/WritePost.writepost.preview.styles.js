@@ -15,6 +15,24 @@ export const PreviewContainer = styled.div`
   word-wrap: break-word; /* 줄바꿈 설정 */
   white-space: pre-wrap; /* 긴 문자열이 줄바꿈되도록 설정 */
 
+  /* 스크롤바 스타일 */
+  &::-webkit-scrollbar {
+    width: 8px; /* 스크롤바 너비 */
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: ${tokens.colors.B_Grey_8}; /* 스크롤바 색상 */
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: transparent; /* 스크롤 트랙 배경색 */
+  }
+
+  /* Firefox 스크롤바 스타일 */
+  scrollbar-width: thin; /* 얇은 스크롤바 */
+  scrollbar-color: ${tokens.colors.B_Grey_4} transparent;
+
+  /* 컨텐츠 스타일 */
   h1 {
     font-size: 2rem;
     margin-top: 0;

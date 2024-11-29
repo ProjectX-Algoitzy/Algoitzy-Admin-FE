@@ -73,7 +73,7 @@ export const PreviewContainer = styled.div`
     padding-left: 2rem;
   }
   blockquote {
-    border-left: 0.2rem solid ${tokens.colors.B_Grey_3};
+    border-left: 0.2rem solid ${tokens.colors.B_Grey_2};
     padding-left: 1rem;
     color: #666;
     font-style: italic;

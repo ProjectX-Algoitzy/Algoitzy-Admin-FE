@@ -42,7 +42,7 @@ export const InnerEditorContainer = styled.div`
     props.isScrolling &&
     css`
       &::-webkit-scrollbar-thumb {
-        background-color: ${tokens.colors.B_Grey_4}; /* 스크롤 시 색상 변경 */
+        background-color: ${tokens.colors.B_Grey_3}; /* 스크롤 시 색상 변경 */
       }
     `}
 
@@ -53,7 +53,7 @@ export const InnerEditorContainer = styled.div`
   ${(props) =>
     props.isScrolling &&
     css`
-      scrollbar-color: ${tokens.colors.B_Grey_4} transparent; /* 스크롤 시 색상 변경 */
+      scrollbar-color: ${tokens.colors.B_Grey_3} transparent; /* 스크롤 시 색상 변경 */
     `}
 
   .cm-editor.cm-focused {

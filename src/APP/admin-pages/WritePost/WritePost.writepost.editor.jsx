@@ -486,7 +486,16 @@ export default function Editor({
     try {
       const response = await request.get('board/draft');
       if (response.isSuccess) {
-        const draftList = response.result.boardList || [];
+        const draftList = response.result.boardList.map((draft) => {
+          const matchedCategory = categoryOptions.find(
+            (option) => option.value === draft.category
+          );
+          return {
+            ...draft,
+            name: matchedCategory ? matchedCategory.label : '알 수 없음',
+          };
+        });
+        
         console.log('Fetched Drafts:', draftList); // 디버깅용 출력
 
         setDrafts(draftList);

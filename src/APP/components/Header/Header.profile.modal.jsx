@@ -28,11 +28,6 @@ const ProfileModal = ({ userName, profileUrl, setIsLoggedIn }) => {
           <itemS.Name>{userName} 님</itemS.Name>
           <itemS.Logout onClick={handleLogout}>로그아웃</itemS.Logout>
         </itemS.TopContainer>
-        
-        {/* <itemS.BottomContainer>    //TODO -  2학기에 할일 
-          <itemS.Button>개인 정보 수정</itemS.Button>
-          <itemS.Button>나의 스터디</itemS.Button>
-        </itemS.BottomContainer> */}
       </itemS.ArrowBubble>
   );
 };

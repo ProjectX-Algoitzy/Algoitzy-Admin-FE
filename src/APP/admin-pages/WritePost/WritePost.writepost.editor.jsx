@@ -10,19 +10,7 @@ import DraftModal from './WritePost.writepost.draft';
 import FileTable from './WritePost.writepost.filetable';
 import { ConfirmContext } from '../../Common/Confirm/ConfirmContext';
 
-
-const gradeOptions = [
-  {value: "NOTICE", label: "공지"},
-  /*
-  {value: "자유", label:"자유"},
-  {value: "질문", label:"질문"},
-  {value: "정보 공유", label:"정보 공유"},
-  {value: "홍보", label:"홍보"},
-  */
-]
-
-const gradePlaceholderText = '카테고리 선택';
-
+const categoryPlaceholderText = '카테고리 선택';
 
 export default function Editor({
   title,
@@ -39,23 +27,32 @@ export default function Editor({
   const imageInputRef = useRef(null); // 이미지 파일 입력창을 제어할 useRef
   const fileInputRef = useRef(null); // 일반 파일 입력창을 제어할 useRef
   const modalRef = useRef(null);
-  const { confirm } = useContext(ConfirmContext); // ConfirmContext 사용
   const [editorView, setEditorView] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalPosition, setModalPosition] = useState({ top: 0, left: 0 });
+  const [isScrolling, setIsScrolling] = useState(false); // 스크롤 상태 관리
+
+  const [selectedCategory, setSelectedCategory] = useState(null); // 선택된 카테고리 상태
+  const [isCategorySelected, setIsCategorySelected] = useState(false); // 카테고리 선택 여부 상태
+  const [categoryCode, setCategoryCode] = useState(initialCategoryCode || null);
+  const [categoryOptions, setCategoryOptions] = useState([]); // 동적 카테고리 옵션
+  const [category, setCategory] = useState(categoryOptions[0]);
+
   const [linkURL, setLinkURL] = useState('');
   const [selectedFiles, setSelectedFiles] = useState([]); // 선택된 파일들 상태
   const [uploadedFiles, setUploadedFiles] = useState([]);
-  const [isGradeSelected, setisGradeSelected] = useState(false); 
-  const [categoryCode, setCategoryCode] = useState(initialCategoryCode || null);
-  const [grade, setGrade] = useState(gradeOptions[0]);
-  const [saveYn, setSaveYn] = useState(true); // 임시 저장 여부 (default: true)
+
   const [uploadedImageUrls, setUploadedImageUrls] = useState([]);
+
+  const [saveYn, setSaveYn] = useState(true); // 임시 저장 여부 (default: true)
+
   const [draftCount, setDraftCount] = useState(0); // 임시저장 게시글 수
   const [isDraftModalOpen, setIsDraftModalOpen] = useState(false); // 모달 상태
   const [drafts, setDrafts] = useState([]); // 임시저장 게시글 목록
   const loadCount = useRef(0);
-  const [isScrolling, setIsScrolling] = useState(false); // 스크롤 상태 관리
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalPosition, setModalPosition] = useState({ top: 0, left: 0 });
+
+  const { confirm } = useContext(ConfirmContext); // ConfirmContext 사용
 
   useEffect(() => {
     const handleScroll = () => {
@@ -76,32 +73,41 @@ export default function Editor({
     };
   }, []);
 
-  const handleGradeChange = (selectedOption) => {
-    // 카테고리 목록 요청
-    request.get('/board/category')
-      .then((response) => {
+  useEffect(() => {
+    // 카테고리 옵션을 API에서 가져오기
+    const fetchCategoryOptions = async () => {
+      try {
+        const response = await request.get('/board/category');
         if (response.isSuccess) {
-          const categoryList = response.result.categoryList;
-  
-          // 선택된 옵션과 일치하는 카테고리 찾기
-          const matchedCategory = categoryList.find(
-            (category) => category.name === selectedOption.label
+          const options = response.result.categoryList.map((category) => ({
+            value: category.code,
+            label: category.name,
+          }));
+
+          // '공지' 옵션 제외 (필요 시 주석 제거 가능)
+          const filteredOptions = options.filter(
+            (option) => option.label == '공지'
           );
-  
-          if (matchedCategory) {
-            setCategoryCode(matchedCategory.code); // 카테고리 코드 저장
-            setGrade(selectedOption); // 선택한 옵션 설정
-          } else {
-            alert('선택한 카테고리가 목록에 없습니다.');
-          }
+
+          setCategoryOptions(filteredOptions);
+          setSelectedCategory(filteredOptions[0] || null); // 첫 번째 옵션 선택
         } else {
-          alert(`카테고리 목록 조회 실패: ${response.message}`);
+          console.error('카테고리 목록 조회 실패:', response.message);
         }
-      })
-      .catch((error) => {
+      } catch (error) {
         console.error('카테고리 목록 조회 중 오류:', error);
-      });
-  };  
+      }
+    };
+
+    fetchCategoryOptions();
+  }, []);
+
+  const handleCategoryChange = (selectedOption) => {
+    setCategoryCode(selectedOption.value); // 선택된 카테고리 코드 설정
+    setSelectedCategory(selectedOption); // 선택된 카테고리 설정
+    setIsCategorySelected(true); // 선택 여부 설정
+  };
+
 
   const resizeTextarea = (e) => {
     e.target.style.height = 'auto'; // 높이 초기화
@@ -131,7 +137,7 @@ export default function Editor({
         setUploadedFiles(initialUploadedFiles);
         */
         // 카테고리 업데이트
-        setGrade({ value: initialCategoryCode, label: initialCategoryCode });
+        setCategory({ value: initialCategoryCode, label: initialCategoryCode });
   
         console.log('수정 글 불러오기 성공:', title);
   };
@@ -558,7 +564,7 @@ const fetchDraftDetails = async (boardId) => {
       setUploadedFiles(uploadedFilesFromDraft);
 
       // 카테고리 업데이트
-      setGrade({ value: draft.category, label: draft.category });
+      setCategory({ value: draft.category, label: draft.category });
 
       console.log('임시저장 글 불러오기 성공:', draft);
     } else {
@@ -599,7 +605,7 @@ const fetchDraftDetails = async (boardId) => {
   const requestData = {
     title: title.trim(),
     content: content,
-    //category: categoryCode,
+    category: categoryCode,
     fileUrlList: fileUrls,
     saveYn: true,
   };
@@ -647,16 +653,16 @@ const fetchDraftDetails = async (boardId) => {
 
         <Styled.LIContainer>
         <Styled.BlankLabel>게시판 선택</Styled.BlankLabel>
-        <Styled.GradeSelect
-          options={gradeOptions}
-          placeholder={gradePlaceholderText}
-          value={gradeOptions[0]} // 기본값을 "공지사항"으로 설정
+        <Styled.CategorySelect
+          options={categoryOptions}
+          placeholder={categoryPlaceholderText}
+          value={categoryOptions[0]} // 기본값을 "공지사항"으로 설정
           // isDisabled={true} // 선택 비활성화
-          // defaultValue={gradeOptions[0]}
+          // defaultValue={categoryOptions[0]}
           components={{ DropdownIndicator: null, IndicatorSeparator: null }}
           isSearchable={false}
-          onChange={handleGradeChange}
-          isGradeSelected={isGradeSelected}
+          onChange={handleCategoryChange}
+          isCategorySelected={isCategorySelected}
 
         />
         </Styled.LIContainer>

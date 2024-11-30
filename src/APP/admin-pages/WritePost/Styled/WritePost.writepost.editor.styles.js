@@ -53,7 +53,7 @@ export const InnerEditorContainer = styled.div`
   ${(props) =>
     props.isScrolling &&
     css`
-      scrollbar-color: ${tokens.colors.B_Grey_3} transparent; /* 스크롤 시 색상 변경 */
+      scrollbar-color: ${tokens.colors.B_Grey_2} transparent; /* 스크롤 시 색상 변경 */
     `}
 
   .cm-editor.cm-focused {
@@ -111,15 +111,17 @@ export const BlankLabel = styled.label`
   margin-bottom: 0.42rem;
 `;
 
-export const GradeSelect = styled(Select).attrs({
+export const CategorySelect = styled(Select).attrs({
   classNamePrefix: 'react-select',
 })`
+z-index: 20; /* 다른 요소 위에 표시 */
+
 .react-select__control {
   width: 100%;
   height: 2.25rem;
   color: ${tokens.colors.Grey_8};
   ${tokens.typography.B3_M_14};
-  border: ${(props) => (props.isGradeSelected ? `0.042rem solid ${tokens.colors.Grey_6}` : `0.042rem solid ${tokens.colors.B_Grey_3}`)};
+  border: ${(props) => (props.isCategorySelected ? `0.042rem solid ${tokens.colors.Grey_6}` : `0.042rem solid ${tokens.colors.B_Grey_3}`)};
   border-radius: 0.17rem;
   text-align: center;
   cursor: pointer;

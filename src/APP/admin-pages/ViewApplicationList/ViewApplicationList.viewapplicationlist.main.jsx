@@ -14,7 +14,7 @@ export default function ViewApplicationList() {
 	const [generation, setGeneration] = useState(null);
 	const [generations, setGenerations] = useState([]);
 	const [page, setPage] = useState(1);
-	const [size, setSize] = useState(20);
+	const [size, setSize] = useState(20); //TODO - 확인 필요
 	const [filteredApplications, setFilteredApplications] = useState([]);
 	const [tabs, setTabs] = useState(['전체 지원자']);
 	const [selectedTab, setSelectedTab] = useState('전체 지원자');
@@ -87,7 +87,7 @@ export default function ViewApplicationList() {
 		}
 		setTabs(newTabs);
 
-		setFilteredApplications(applications); // Initial setting to show all applications
+		setFilteredApplications(applications); 
 
 	}, [applications]);
 

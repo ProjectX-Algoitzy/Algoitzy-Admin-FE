@@ -13,18 +13,22 @@ export const HeaderContainer = styled.div`
   height: ${({ activeMenu }) => ['study', 'application', 'coding'].includes(activeMenu) ? '10rem' : 'auto'};
 `;
 
+export const InnerContainer = styled.div`
+  width: 100%;
+  border-bottom: 1px solid ${tokens.colors.B_Grey_3};
+`;
+
 export const HeaderWrap = styled.div`
+  width: 50rem;
   height: 3.333rem;
   margin: 0 auto;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between; /* 좌우 간격을 자동 조정 */
-  border-bottom: 1px solid ${tokens.colors.B_Grey_3};
-
-  padding: 0 5rem;
   @media (max-width: 600px) {
-      padding: 0 0.33rem;
+    width: 0;
+    justify-content: center;
   }
 `;
 
@@ -75,7 +79,6 @@ export const ProfileBox = styled.div`
   flex-direction: row;
   height: 0.88rem;
   margin-left: 2.08rem;
-  margin-right: 2.08rem;
   @media (max-width: 600px) {
      margin-left: 1rem;
      margin-right: 0;

@@ -7,7 +7,7 @@ const GlobalStyle = createGlobalStyle`
 
     /* Extra small devices (phones, 600px and down). */
     @media only screen and (max-width: 600px) {
-      font-size: 8px;
+      font-size: 2.8vw;
     }
 
     /* Small devices (portrait tablets and large phones, 600px and up) */
@@ -27,7 +27,7 @@ const GlobalStyle = createGlobalStyle`
 
     /* Extra large devices (large laptops and desktops, 1200px and up) */
     @media only screen and (min-width: 1200px) {
-      font-size: 24px;
+      font-size: 20px;
     }
   }
 

@@ -15,6 +15,7 @@ jobs:
     name: react build & deploy
     # runner가 실행될 환경을 지정합니다.
     runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true  # PR이 merge된 경우에만 job 실행
     
     # name은 단계별로 실행되는 액션들의 설명을 담은 것으로, 나중에 github action에서 workflow에 표시됩니다.
     # uses 키워드로 Action을 불러올 수 있습니다.

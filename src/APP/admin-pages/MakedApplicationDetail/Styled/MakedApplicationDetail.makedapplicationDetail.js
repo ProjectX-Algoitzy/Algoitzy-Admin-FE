@@ -7,21 +7,17 @@ export const Container = styled.div`
   flex-direction: column;
   overflow: auto;
   align-items : center;
-  /* justify-content: center; */
-  width: 100%;
-  height: 100vh;
-  padding: 20px;
-  /* box-sizing: border-box; */
   background-image: url('/img/login.png');
+  min-height: 100%;
 `;
 
 export const InnerContainer = styled.div`
   display: flex;
   flex-direction: row;
+  margin-left: 12.5px;
   align-items: flex-start;
   gap: 0.5rem;
   margin-top: 4.167rem;
-  /* margin-left: 20.833rem; */
 `;
 
 export const SecondInnerContainer = styled.div` /*문항들 하나하나를 감싸주는 컨테이너*/
@@ -30,8 +26,6 @@ export const SecondInnerContainer = styled.div` /*문항들 하나하나를 감�
   align-items: flex-start;
   gap: 0.5rem;
   margin-top: 1rem;
-  margin-left: 18rem;
-  margin-right: 20rem;
 `;
 
 export const TitleContainer = styled.div`
@@ -198,6 +192,7 @@ export const QuestionNumberContainer = styled.div`  /*문항1, 문항2 같은 �
   border-top: 0.042rem solid ${tokens.colors.Grey_4};
   justify-content: center;
   ${tokens.typography.T5_SB_16};
+  cursor: pointer;
 
    /*조건부 스타일링*/ 
    ${({ innerContainerClicked }) => 
@@ -207,13 +202,12 @@ export const QuestionNumberContainer = styled.div`  /*문항1, 문항2 같은 �
     `: css`
       width: 2.75rem;
       height: 1.542rem;
-      margin-left: 1.375rem;
     `} 
 `;
 
 export const QuestionNumberImg = styled.img`
   ${({ innerContainerClicked }) => innerContainerClicked ? css`
-    width: 0.717rem;
+    width: 0.517rem;
     height: 0.708rem;
     margin-right: 0.5rem;
   `: css`
@@ -238,6 +232,7 @@ export const ContentContainer = styled.div` /*하나의 질문 전체를 담아�
   ${({ innerContainerClicked }) => 
     innerContainerClicked ? css`
       border-top: 0.333rem solid #3083F7;
+      margin-right: 26.5px;
     `: css`
       pointer-events: none;
   `} 
@@ -772,16 +767,16 @@ export const BtnContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: center; 
   width: 100%;
   height: 4rem;
 
   position: fixed;
   bottom: 0; /* 아래쪽으로 고정 */
   left: 0; /* 왼쪽으로 고정 */
-  background-color: rgba(255, 255, 255, 0.1); /* 색상 코드를 rgba 형식으로 변경하고, 투명도를 20%로 설정 */
-  backdrop-filter: blur(200px); /* 필터를 원하는 것으로 설정 */
-  z-index: 1000; /* 다른 요소 위에 표시되도록 z-index 설정 */
+  background-color: rgba(255, 255, 255, 0.1); 
+  backdrop-filter: blur(200px); 
+  z-index: 1000; 
 `;
 
 export const BtnContainer2 = styled.div`
@@ -791,23 +786,26 @@ export const BtnContainer2 = styled.div`
 
 export const ArbitaryBtn = styled.button` /* 임시 저장하기 버튼*/
   width: 16.167rem;
-  height: 2rem;
+	height: 2rem;
   border-radius: 0.167rem;
-  border: none;
-  cursor: pointer;
-  color: ${tokens.colors.White};
-  ${tokens.typography.T5_SB_16};
+	border: none;
+	cursor: pointer;
+	color: ${tokens.colors.White};
+	${tokens.typography.T5_SB_16}
   background-color: ${tokens.colors.B_Grey_7};
 `;
 
 export const Btn = styled.button` /*저장하기 버튼*/
-  margin-left: 3.042rem;
   width: 16.167rem;
-  height: 2rem;
+	height: 2rem;
   border-radius: 0.167rem;
-  border: none;
-  cursor: pointer;
-  color: ${tokens.colors.White};
-  ${tokens.typography.T5_SB_16};
+	border: none;
+	cursor: pointer;
+	color: ${tokens.colors.White};
+	${tokens.typography.T5_SB_16}
   background-color: ${tokens.colors.Blue_0_Main};
+  margin-left: 3.042rem;
+  @media only screen and (max-width: 600px) {
+    margin-left: 1rem;
+  }
 `;

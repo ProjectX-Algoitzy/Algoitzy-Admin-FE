@@ -115,6 +115,10 @@ export const TableHead = styled.th`
     width: 15rem;
     padding-left: 2.083rem;
   }
+    
+  &:nth-child(3) {
+    width: 0;
+  }
 
   /* 세 번째 열은 공백, 네 번째 열은 레벨 */
   &:nth-child(4) {
@@ -139,17 +143,18 @@ export const TableCell = styled.td`
 
   /* 두 번째 열: 제목 */
   &:nth-child(2) {
+    width: 20rem;
     padding-left: 2.083rem;
   }
 
   /* 세 번째 열: 레벨 */
   &:nth-child(3) {
-    padding-left: 11.042rem;
+    padding-left: 2.8rem;
   }
 
   /* 오른쪽 정렬 추가 */
   &:nth-child(4) {
-    padding-left: 6.667rem;
+    padding-left: 7rem;
   }
 `;
 // 테이블 스타일 끝
@@ -157,7 +162,7 @@ export const TableCell = styled.td`
 export const Pagination = styled.div`
   display: flex;
   justify-content: center;
-  align-items: center;  // 추가
+  align-items: center;  
   padding: 0.833rem;
   list-style: none;
 `;
@@ -168,18 +173,19 @@ export const PaginationArrow = styled.div`
   background-image: url('/img/grayarrow.png');
   background-size: contain;
   background-repeat: no-repeat;
+  
   transform: ${(props) => (props.left ? 'rotate(180deg)' : 'none')};
   cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
   opacity: ${(props) => (props.disabled ? 0.5 : 1)};
 `;
 
 export const PaginationNumber = styled.div`
-  margin: 0 0.208rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;  
+  margin: 0.417rem;
   width: 0.333rem;
   height: 0.875rem;
-  padding-left: 0.417rem;
-  padding-right: 0.417rem;
-  /* padding: 0.417rem; */
   cursor: pointer;
   color: ${(props) => (props.active ? tokens.colors.Blue_3 : tokens.colors.B_Grey_7)};
   font-weight: ${(props) => (props.active ? 'bold' : 'normal')};

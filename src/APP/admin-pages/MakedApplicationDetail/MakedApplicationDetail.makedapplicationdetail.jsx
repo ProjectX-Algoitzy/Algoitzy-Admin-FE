@@ -399,7 +399,7 @@ export default function MakedApplicationDetail() {
         const CustomDropdownIndicator = props => {
             return (
                 <components.DropdownIndicator {...props}>
-                    <img src="/img/icontriangle.png" alt="triangle-icon" style={{width: "1rem", height: "1rem"}} />
+                    <img src="/img/Polygon.png" alt="triangle-icon" style={{width: "14px", height: "10px"}} />
                 </components.DropdownIndicator>
             );
         };
@@ -659,7 +659,8 @@ export default function MakedApplicationDetail() {
                 </items.ContentContainer>
             </items.SecondInnerContainer>
             ))}
-            <img src="/img/makingapplicationbtn.png" alt="문항추가하기" onClick={addQuestion} style={{ marginTop:"1.667rem", width: "7.875rem", height:"2.625rem", marginBottom:"4.167rem"}} />
+            <img src="/img/makingapplicationbtn.png" alt="문항추가하기" onClick={addQuestion} style={{ marginTop:"1.667rem", width: "7.875rem", height:"2.625rem", marginBottom:"8.167rem"}} />
+
             
             <items.BtnContainer>
                 <items.BtnContainer2>

@@ -6,51 +6,56 @@ export const Container = styled.div`
   flex-direction: column;
   padding-left: 1.333rem;
   height: 100%;
+  width: 39.042rem;
 `;
 
 export const Title = styled.div`
   display: flex;
   flex-direction: row;
-  width: 33.042rem;
+  /* width: 33.042rem; */
+  width: 100%;
   justify-content: space-between;
-  margin-top: 4.167rem;
+  margin-top: 4.17rem;
   margin-bottom: 1.5rem;
-  padding-bottom: 0.833rem;
-  border-bottom: 1px solid ${tokens.colors.B_Grey_2};
+  padding-bottom: 0.83rem;
+  border-bottom: 0.042rem solid ${tokens.colors.B_Grey_2};
   ${tokens.typography.T1_SB_32};
   color: ${tokens.colors.Grey_8};
 `;
 
 export const BtnMakeCurri = styled.button`
-  width: 7.917rem;
-  height: 1.958rem;
+  width: 7.92rem;
+  height: 1.96rem;
   background: #00A5FF; 
   color: white;
-  border-radius: 0.208rem; 
-  border: none; 
-  cursor: pointer;
+  border-radius: 0.21rem; 
+  border: none;
+  cursor: pointer; 
   ${tokens.typography.T6_SB_14}; 
 `;
 
 export const CurriculumContainer = styled.div`
   display: flex;
-  align-items: center;
+  flex-direction: row;
   justify-content: space-between;
   margin-bottom: 0.833rem;
-  width: 33.042rem;
-  height: 4.167rem;
-  background-color: ${(props) => (props.isCurrentWeek ? tokens.colors.White : tokens.colors.Grey_2)}; /* props로 배경색 변경 */
-  box-shadow: 0px 0.167rem 0.417rem rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+  /* width: 33.04rem; */
+  width: 100%;
+  height: 4.17rem;
+  background-color: ${tokens.colors.White};
+  box-shadow: 0px 0.167rem 0.417rem rgba(0, 0, 0, 0.1);
 `;
 
 export const TextContainer = styled.div`
   display: flex;
   width: 48%;
+  align-items: center;
   justify-content: space-between;
 `;
 
 export const CurriculumText = styled.div`
   display: flex;
+  max-width: 60%;
   align-items: center;
   ${tokens.typography.T3_B_24};
   color: ${tokens.colors.Grey_8};
@@ -63,8 +68,8 @@ export const HighlightBox = styled.div`
   align-items: center;
   justify-content: center;
   ${tokens.typography.T5_SB_16};
-  padding: 2px 8px 2px 8px;
-  margin-top: 3px;
+  height: 21px;
+  width: 62px;
   background-color: rgba(251, 170, 132, 0.2); 
   color: #F88F78;
   border-radius: 4px; 
@@ -113,4 +118,7 @@ export const CurriculumDate = styled.div`
 export const DeleteIcon = styled.div`
   background-size: cover;
   margin-right: 1.583rem;
+    display: flex;
+  flex-direction: column;
+  justify-content: center;
 `;

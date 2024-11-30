@@ -37,6 +37,10 @@ export const ArrowBubble = styled.div`
     left: 4.58rem;
     z-index: -1;
   }
+
+  @media (max-width: 600px) {
+    left: -150%;
+  }
 `;
 
 export const TopContainer = styled.div`
@@ -55,12 +59,12 @@ export const Profile = styled.img`
 
 export const Name = styled.div`
   display: flex;
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
   // width: 3.5rem;
   height: 1.67rem;
-  color: ${tokens.colors.B_Grey_7};
-  ${tokens.typography.B2_M_16};
+  color: ${tokens.colors.B_Grey_7}; 
+  ${tokens.typography.B3_M_14};  // tokens.typography.B2_M_16}
   font-weight: 800;
   margin: 0.75rem 0 0.13rem 0;
 `;

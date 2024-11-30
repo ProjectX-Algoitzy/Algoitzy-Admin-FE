@@ -35,7 +35,7 @@ export default function RegularStudyListIndividual({ application }){
           {/* <itemS.Title>{truncateStudyName(application.name)}</itemS.Title> */}
 		  <itemS.Title onClick={() => moveToDetail(application.studyId)}>{truncateStudyName(application.name)}</itemS.Title>
 					<itemS.BottomHeadCount>
-						<itemS.PeopleIcon></itemS.PeopleIcon>		
+						<itemS.PeopleIcon />	
 						<itemS.BottomInner>
 							<itemS.HeadCount>{application.memberCount}</itemS.HeadCount>
 							<itemS.CountText>명</itemS.CountText>

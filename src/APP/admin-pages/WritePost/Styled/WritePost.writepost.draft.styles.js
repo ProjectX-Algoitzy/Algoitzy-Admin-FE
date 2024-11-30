@@ -69,11 +69,18 @@ export const DraftItem = styled.div`
 export const DraftTitle = styled.div`
   ${tokens.typography.B3_M_14};
   color: ${tokens.colors.Grey_8};
+  width: 26rem;
 `;
 
+export const DraftCategory = styled.div`
+  ${tokens.typography.B3_M_14};
+  color: ${tokens.colors.Grey_8};
+`;
+
+
 export const DraftDate = styled.div`
-  ${tokens.typography.B3_R_14};
-  color: ${tokens.colors.Grey_6};
+  ${tokens.typography.B3_M_14};
+  color: ${tokens.colors.Grey_8};
 `;
 
 export const EmptyDraftMessage = styled.div`

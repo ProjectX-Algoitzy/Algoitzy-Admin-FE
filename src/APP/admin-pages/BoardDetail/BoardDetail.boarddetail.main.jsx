@@ -8,7 +8,7 @@ import WriteBox from './WriteBox';
 
 export default function BoardDetail() {
 	const { id } = useParams();  // 게시글 ID 가져오기
-
+	const navigate = useNavigate();
 
 	const [board, setBoard] = useState({});
 	const [comment, setComment] = useState([]);
@@ -86,6 +86,12 @@ export default function BoardDetail() {
     }
   };
 
+  const handleEdit = () => {
+    navigate(`/writepost`, {
+		state: { boardId: id }, 
+    });
+  };
+
 	const handlePageChange = (newPage) => {
 		if (newPage >= 0 && newPage < totalPages) {
       setCurrentPage(newPage);
@@ -120,7 +126,7 @@ export default function BoardDetail() {
 							{board.category === '공지' && (
 								<>
 									<itemS.EditBtn onClick={handleFix}>고정</itemS.EditBtn>
-									<itemS.EditBtn>수정</itemS.EditBtn>
+									<itemS.EditBtn onClick={handleEdit}>수정</itemS.EditBtn>
 								</>
 							)}
 							<itemS.DeleteBtn>삭제</itemS.DeleteBtn>

@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import * as Styled from './Styled/WritePost.writepost.draft.styles';
+import request from '../../Api/request';
 
 export default function DraftModal({ isDraftModalOpen, toggleDraftModal, drafts, onSelectDraft }) {
+  const [mappedDrafts, setMappedDrafts] = useState([]); // 카테고리가 매핑된 drafts 상태
+
   if (!isDraftModalOpen) return null;
 
   return (
@@ -18,6 +21,7 @@ export default function DraftModal({ isDraftModalOpen, toggleDraftModal, drafts,
               onClick={() => {
                 toggleDraftModal();
                 onSelectDraft(draft)}}>
+                <Styled.DraftCategory>{draft.name}</Styled.DraftCategory>
                 <Styled.DraftTitle>{draft.title}</Styled.DraftTitle>
                 <Styled.DraftDate>{new Date(draft.createdTime).toLocaleString()}</Styled.DraftDate>
               </Styled.DraftItem>

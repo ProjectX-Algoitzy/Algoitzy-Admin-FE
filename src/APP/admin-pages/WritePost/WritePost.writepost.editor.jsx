@@ -10,24 +10,16 @@ import DraftModal from './WritePost.writepost.draft';
 import FileTable from './WritePost.writepost.filetable';
 import { ConfirmContext } from '../../Common/Confirm/ConfirmContext';
 
-
-const gradeOptions = [
-  {value: "공지사항", label:"공지사항"},
-  /*
-  {value: "자유", label:"자유"},
-  {value: "질문", label:"질문"},
-  {value: "정보 공유", label:"정보 공유"},
-  {value: "홍보", label:"홍보"},
-  */
-]
-
-const gradePlaceholderText = '카테고리 선택';
-
+const categoryPlaceholderText = '카테고리 선택';
 
 export default function Editor({
   title,
   setTitle,
   setMarkdownContent,
+  boardId,
+  initialCategoryCode,
+  initialContent, // 초기 content 전달
+  initialUploadedFiles,
 }) {
 
   const navigate = useNavigate();
@@ -35,60 +27,126 @@ export default function Editor({
   const imageInputRef = useRef(null); // 이미지 파일 입력창을 제어할 useRef
   const fileInputRef = useRef(null); // 일반 파일 입력창을 제어할 useRef
   const modalRef = useRef(null);
-  const { confirm } = useContext(ConfirmContext); // ConfirmContext 사용
   const [editorView, setEditorView] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalPosition, setModalPosition] = useState({ top: 0, left: 0 });
+  const [isScrolling, setIsScrolling] = useState(false); // 스크롤 상태 관리
+
+  const [selectedCategory, setSelectedCategory] = useState(null); // 선택된 카테고리 상태
+  const [isCategorySelected, setIsCategorySelected] = useState(false); // 카테고리 선택 여부 상태
+  const [categoryCode, setCategoryCode] = useState(initialCategoryCode || null);
+  const [categoryOptions, setCategoryOptions] = useState([]); // 동적 카테고리 옵션
+  const [category, setCategory] = useState(categoryOptions[0]);
+
   const [linkURL, setLinkURL] = useState('');
   const [selectedFiles, setSelectedFiles] = useState([]); // 선택된 파일들 상태
   const [uploadedFiles, setUploadedFiles] = useState([]);
-  const [isGradeSelected, setisGradeSelected] = useState(false); 
-  const [categoryCode, setCategoryCode] = useState(null);
-  const [grade, setGrade] = useState(gradeOptions[0]);
-  const [saveYn, setSaveYn] = useState(true); // 임시 저장 여부 (default: true)
+
   const [uploadedImageUrls, setUploadedImageUrls] = useState([]);
+
+  const [saveYn, setSaveYn] = useState(true); // 임시 저장 여부 (default: true)
+
   const [draftCount, setDraftCount] = useState(0); // 임시저장 게시글 수
   const [isDraftModalOpen, setIsDraftModalOpen] = useState(false); // 모달 상태
   const [drafts, setDrafts] = useState([]); // 임시저장 게시글 목록
+  const loadCount = useRef(0);
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalPosition, setModalPosition] = useState({ top: 0, left: 0 });
 
-  const handleGradeChange = (selectedOption) => {
-    // 카테고리 목록 요청
-    request.get('/board/category')
-      .then((response) => {
+  const { confirm } = useContext(ConfirmContext); // ConfirmContext 사용
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolling(true); // 스크롤 상태 활성화
+      // 일정 시간 후 스크롤 상태 비활성화
+      setTimeout(() => setIsScrolling(false), 1000);
+    };
+
+    const editorElement = editorRef.current;
+    if (editorElement) {
+      editorElement.addEventListener("scroll", handleScroll);
+    }
+
+    return () => {
+      if (editorElement) {
+        editorElement.removeEventListener("scroll", handleScroll);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    // 카테고리 옵션을 API에서 가져오기
+    const fetchCategoryOptions = async () => {
+      try {
+        const response = await request.get('/board/category');
         if (response.isSuccess) {
-          const categoryList = response.result.categoryList;
-  
-          // 선택된 옵션과 일치하는 카테고리 찾기
-          const matchedCategory = categoryList.find(
-            (category) => category.name === selectedOption.label
+          const options = response.result.categoryList.map((category) => ({
+            value: category.code,
+            label: category.name,
+          }));
+
+          // '공지' 옵션 제외 (필요 시 주석 제거 가능)
+          const filteredOptions = options.filter(
+            (option) => option.label == '공지'
           );
-  
-          if (matchedCategory) {
-            setCategoryCode(matchedCategory.code); // 카테고리 코드 저장
-            setGrade(selectedOption); // 선택한 옵션 설정
-          } else {
-            alert('선택한 카테고리가 목록에 없습니다.');
-          }
+
+          setCategoryOptions(filteredOptions);
+          setSelectedCategory(filteredOptions[0] || null); // 첫 번째 옵션 선택
         } else {
-          alert(`카테고리 목록 조회 실패: ${response.message}`);
+          console.error('카테고리 목록 조회 실패:', response.message);
         }
-      })
-      .catch((error) => {
+      } catch (error) {
         console.error('카테고리 목록 조회 중 오류:', error);
-      });
-  };  
+      }
+    };
+
+    fetchCategoryOptions();
+  }, []);
+
+  const handleCategoryChange = (selectedOption) => {
+    setCategoryCode(selectedOption.value); // 선택된 카테고리 코드 설정
+    setSelectedCategory(selectedOption); // 선택된 카테고리 설정
+    setIsCategorySelected(true); // 선택 여부 설정
+  };
+
 
   const resizeTextarea = (e) => {
     e.target.style.height = 'auto'; // 높이 초기화
     e.target.style.height = `${e.target.scrollHeight}px`; // 내용에 맞게 높이 조정
   };
 
+  const fetchEditDetails = async () => {
+        // 제목과 내용을 업데이트
+        setTitle(title);
+        setMarkdownContent(initialContent);
+  
+        // 에디터 내용 업데이트
+        editorView.dispatch({
+          changes: {
+            from: 0,
+            to: editorView.state.doc.length, // 기존 내용 삭제
+            insert: initialContent, // 새로운 내용 삽입
+          },
+        });
+  
+        // 파일 리스트 업데이트
+        /*
+        const initialUploadedFiles = boardFileList.map((file) => ({
+          originalName: file.originalName,
+          fileUrl: file.fileUrl,
+        }));
+        setUploadedFiles(initialUploadedFiles);
+        */
+        // 카테고리 업데이트
+        setCategory({ value: initialCategoryCode, label: initialCategoryCode });
+  
+        console.log('수정 글 불러오기 성공:', title);
+  };
+
   useEffect(() => {
-    if (!editorRef.current) return;
+    if (!editorRef.current || initialContent === undefined) return;
 
     const startState = EditorState.create({
-      doc: '',
+      doc: initialContent || '', // 수정 시 초기 내용을 Codemirror에 반영
       extensions: [
         keymap.of(defaultKeymap),
         markdown(),
@@ -114,6 +172,23 @@ export default function Editor({
       view.destroy();
     };
   }, []);
+
+  useEffect(() => {
+    // initialContent가 늦게 바뀌므로 2번 변경 감지 후 초기화 끄기
+  
+    if (editorView && initialContent !== undefined) {
+      if (loadCount.current < 2) {
+        editorView.dispatch({
+          changes: {
+            from: 0,
+            to: editorView.state.doc.length, 
+            insert: initialContent || '',
+          },
+        });
+        loadCount.current += 1; // 실행 횟수 증가
+      }
+    }
+  }, [editorView, initialContent]); // initialContent를 포함해 변경 감지
 
   const applyMarkdownSyntax = (syntax) => {
     if (!editorView) return;
@@ -275,7 +350,7 @@ export default function Editor({
         const imageURL = await uploadImage(file); // S3 업로드 후 URL 반환
         setUploadedImageUrls((prevUrls) => [...prevUrls, imageURL]); // 업로드된 URL 저장
   
-        const markdownImage = `<img src="${imageURL}" alt="" style="width:100%;" />`;
+        const markdownImage = `<img src="${imageURL}" alt="" style="max-width: 100%; height: auto;" />`;
         editorView.dispatch(
           editorView.state.changeByRange((range) => ({
             changes: { from: range.from, to: range.to, insert: markdownImage },
@@ -329,8 +404,19 @@ export default function Editor({
     }, []);
   
     const handleExit = async () => {
-      await deleteAllUploadedImages();
-      navigate(-1); // 이전 페이지로 이동
+      try {
+        const confirmed = await confirm(
+          '저장하지 않은 내용은 사라집니다. 계속하시겠습니까?'
+        );
+        if (confirmed) {
+          await deleteAllUploadedImages(); // 이미지 삭제 로직 실행
+          navigate(-1); // 이전 페이지로 이동
+        } else {
+          console.log('사용자가 취소했습니다.');
+        }
+      } catch (error) {
+        console.error('나가기 처리 중 오류 발생:', error);
+      }
     };
     
   const openImageFileExplorer = () => {
@@ -348,6 +434,7 @@ export default function Editor({
   const handleFileChange = (event) => {
     const files = Array.from(event.target.files); // 선택된 파일 배열로 변환
     setSelectedFiles(files); // 상태에 파일 목록 저장
+    handleFileUpload(event);
   };
 
   const deleteFile = async (file) => {
@@ -368,7 +455,7 @@ export default function Editor({
 
   const handleFileUpload = async (event) => {
     const files = Array.from(event.target.files); // 다중 파일 처리
-  
+   
     for (const file of files) {
       try {
         const formData = new FormData();
@@ -393,12 +480,22 @@ export default function Editor({
     }
   };
 
+
   // 임시저장 게시글 목록 조회
   const fetchDrafts = async () => {
     try {
       const response = await request.get('board/draft');
       if (response.isSuccess) {
-        const draftList = response.result.boardList || [];
+        const draftList = response.result.boardList.map((draft) => {
+          const matchedCategory = categoryOptions.find(
+            (option) => option.value === draft.category
+          );
+          return {
+            ...draft,
+            name: matchedCategory ? matchedCategory.label : '알 수 없음',
+          };
+        });
+        
         console.log('Fetched Drafts:', draftList); // 디버깅용 출력
 
         setDrafts(draftList);
@@ -476,7 +573,7 @@ const fetchDraftDetails = async (boardId) => {
       setUploadedFiles(uploadedFilesFromDraft);
 
       // 카테고리 업데이트
-      setGrade({ value: draft.category, label: draft.category });
+      setCategory({ value: draft.category, label: draft.category });
 
       console.log('임시저장 글 불러오기 성공:', draft);
     } else {
@@ -512,16 +609,12 @@ const fetchDraftDetails = async (boardId) => {
  const handlePostSubmit = async () => {
   const content = editorView.state.doc.toString().trim();
 
-  if (!title.trim() || !content) {
-    alert('제목과 내용을 입력하세요.');
-    return;
-  }
-
   const fileUrls = selectedFiles.map((file) => URL.createObjectURL(file));
 
   const requestData = {
     title: title.trim(),
     content: content,
+    category: categoryCode,
     fileUrlList: fileUrls,
     saveYn: true,
   };
@@ -529,24 +622,31 @@ const fetchDraftDetails = async (boardId) => {
   console.log('요청 데이터:', requestData);
 
   try {
-    const response = await request.post('board', requestData);
+    let response;
 
-    if (response.isSuccess) {
-      alert('게시글이 성공적으로 등록되었습니다.');
-      navigate(-1);
-    } else {
-      alert(`등록 실패: ${response.message}`);
+      if (boardId) {
+        // 수정 요청
+        response = await request.patch(`/board/${boardId}`, requestData);
+      } else {
+        // 새 게시글 작성 요청
+        response = await request.post('/board', requestData);
+      }
+
+      if (response.isSuccess) {
+        alert(boardId ? '게시글이 수정되었습니다.' : '게시글이 등록되었습니다.');
+        navigate(-1); // 이전 페이지로 이동
+      } else {
+        alert(`저장 실패: ${response.message}`);
+      }
+    } catch (error) {
+      console.error('게시글 저장 중 오류 발생:', error);
     }
-  } catch (error) {
-    console.error('게시글 등록 중 오류 발생:', error);
-    console.error('에러 응답 데이터:', error.response?.data);
-    alert('게시글 등록 중 오류가 발생했습니다.');
-  }
-};
+  };
 
 
   return (
     <Styled.LeftContainer>
+      <Styled.InnerEditorContainer ref={editorRef} isScrolling={isScrolling}>
       <Styled.EditorHeader>
       <Styled.TitleInput
         placeholder="제목을 입력하세요"
@@ -562,16 +662,16 @@ const fetchDraftDetails = async (boardId) => {
 
         <Styled.LIContainer>
         <Styled.BlankLabel>게시판 선택</Styled.BlankLabel>
-        <Styled.GradeSelect
-          options={gradeOptions}
-          placeholder={gradePlaceholderText}
-          value={gradeOptions[0]} // 기본값을 "공지사항"으로 설정
+        <Styled.CategorySelect
+          options={categoryOptions}
+          placeholder={categoryPlaceholderText}
+          value={categoryOptions[0]} // 기본값을 "공지사항"으로 설정
           // isDisabled={true} // 선택 비활성화
-          // defaultValue={gradeOptions[0]}
+          // defaultValue={categoryOptions[0]}
           components={{ DropdownIndicator: null, IndicatorSeparator: null }}
           isSearchable={false}
-          onChange={handleGradeChange}
-          isGradeSelected={isGradeSelected}
+          onChange={handleCategoryChange}
+          isCategorySelected={isCategorySelected}
 
         />
         </Styled.LIContainer>
@@ -640,10 +740,11 @@ const fetchDraftDetails = async (boardId) => {
           </Styled.UrlContainer>
         </Styled.ModalContent>
       )}
-
+    </Styled.InnerEditorContainer> 
       <Styled.BtnContainer>
       <Styled.ExitButton onClick={handleExit}>← 나가기</Styled.ExitButton>
       <Styled.BtnContainer2>
+      {!boardId && ( // boardId가 없을 때만 표시
       <Styled.DraftButton>
         {/* 임시저장 클릭 영역 */}
         <Styled.DraftSaveArea onClick={handleSaveDraft}>
@@ -654,8 +755,11 @@ const fetchDraftDetails = async (boardId) => {
           | {draftCount}
         </Styled.DraftCountArea>
       </Styled.DraftButton>
-    <Styled.Btn onClick={handlePostSubmit}>등록하기</Styled.Btn>
-    </Styled.BtnContainer2>
+    )}
+      <Styled.Btn onClick={handlePostSubmit}>
+        {boardId ? '수정하기' : '등록하기'}
+      </Styled.Btn>
+      </Styled.BtnContainer2>
       </Styled.BtnContainer>
 
       <DraftModal

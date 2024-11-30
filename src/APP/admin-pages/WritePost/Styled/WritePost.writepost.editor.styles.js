@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import * as tokens from "../../../../tokens";
 import Select from 'react-select';
+import { css } from "styled-components";
+
 
 
 export const LeftContainer = styled.div`
@@ -9,18 +11,66 @@ export const LeftContainer = styled.div`
   width: 50%;
 `;
 
+export const InnerEditorContainer = styled.div`
+  padding: 0 1rem;
+  flex: 1;
+  border: 1px solid #ffffff;
+  font-size: 0.8rem;
+  font-family: 'Pretendard', sans-serif;
+  line-height: 1.6;
+  overflow-y: auto; /* 스크롤 가능 */
+  max-height: 100rem; /* 최대 높이 제한 */
+  white-space: pre-wrap;
+  word-wrap: break-word;
+
+  /* 기본 스크롤바 설정 (투명색) */
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: transparent; /* 기본적으로 투명 */
+    border-radius: 4px; /* 스크롤바 모서리 둥글게 */
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: transparent; /* 트랙 배경 투명 */
+  }
+
+  /* 스크롤 상태에 따라 동적 스타일 적용 */
+  ${(props) =>
+    props.isScrolling &&
+    css`
+      &::-webkit-scrollbar-thumb {
+        background-color: ${tokens.colors.B_Grey_3}; /* 스크롤 시 색상 변경 */
+      }
+    `}
+
+  /* Firefox 스크롤바 설정 */
+  scrollbar-width: thin; /* 얇은 스크롤바 */
+  scrollbar-color: transparent transparent; /* 기본적으로 투명 */
+
+  ${(props) =>
+    props.isScrolling &&
+    css`
+      scrollbar-color: ${tokens.colors.B_Grey_2} transparent; /* 스크롤 시 색상 변경 */
+    `}
+
+  .cm-editor.cm-focused {
+    outline: none;
+  }
+`;
+
 export const EditorHeader = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 1rem;
-  padding-bottom: 0.542rem;
+  padding: 0.542rem 0;
   gap: 0.5rem;
 `
 
 export const TitleInput = styled.textarea`
   width: 100%;
   height: auto;
-  max-height: 10rem; /* 드래그 기능 개발 후에는 삭제 필요 */
   overflow-y: hidden; /* 내용이 넘치면 자동으로 높이 조절되도록 설정 */
   color: ${({ hasText }) => hasText ? tokens.colors.B_Grey_8 : tokens.colors.B_Grey_6}; /* hasText에 따라 색상 변경 */
 	${tokens.typography.H2_SB_48}
@@ -61,15 +111,17 @@ export const BlankLabel = styled.label`
   margin-bottom: 0.42rem;
 `;
 
-export const GradeSelect = styled(Select).attrs({
+export const CategorySelect = styled(Select).attrs({
   classNamePrefix: 'react-select',
 })`
+z-index: 20; /* 다른 요소 위에 표시 */
+
 .react-select__control {
   width: 100%;
   height: 2.25rem;
   color: ${tokens.colors.Grey_8};
   ${tokens.typography.B3_M_14};
-  border: ${(props) => (props.isGradeSelected ? `0.042rem solid ${tokens.colors.Grey_6}` : `0.042rem solid ${tokens.colors.B_Grey_3}`)};
+  border: ${(props) => (props.isCategorySelected ? `0.042rem solid ${tokens.colors.Grey_6}` : `0.042rem solid ${tokens.colors.B_Grey_3}`)};
   border-radius: 0.17rem;
   text-align: center;
   cursor: pointer;
@@ -141,10 +193,15 @@ export const GradeSelect = styled(Select).attrs({
 
 export const Toolbar = styled.div`
   position: sticky; /* 스크롤 시 상단 고정 */
-  padding: 0.542rem 1rem;
+  top: 0; /* 뷰포트 상단에 고정 */
+  z-index: 10; /* 다른 요소 위에 표시 */
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.4rem;
+  background-color: white;
+  padding: 0.5rem;
+  padding-bottom: 0.25rem;
+
   button {
     background: none;
     border: none;
@@ -152,14 +209,17 @@ export const Toolbar = styled.div`
     cursor: pointer;
     padding: 0.2rem;
     color: #666;
+
     &:hover {
       color: #333;
     }
   }
+
   img {
     width: 1.25rem;
     height: 1.25rem;
   }
+
   span {
     color: #ccc;
   }
@@ -172,7 +232,6 @@ export const EditorContainer = styled.div`
   font-size: 0.8rem;
   font-family: 'Pretendard', sans-serif;
   line-height: 1.6;
-  overflow-y: auto;
   white-space: pre-wrap;
   word-wrap: break-word;
   .cm-editor.cm-focused {

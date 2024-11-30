@@ -39,7 +39,7 @@ export const TableColumn = styled.div`
   }
 
   &:nth-child(2) { /* 파일명 */
-    flex: 0 0 16rem; /* 파일명 컬럼 길이 */
+    flex: 0 0 17rem; /* 파일명 컬럼 길이 */
     text-align: left;
   }
 
@@ -58,7 +58,7 @@ export const TableCell = styled.div`
   }
 
   &:nth-child(2) { /* 파일명 */
-    flex: 0 0 16rem; /* 파일명 컬럼 길이 */
+    flex: 0 0 18rem; /* 파일명 컬럼 길이 */
     text-align: left;
   }
 
@@ -86,6 +86,22 @@ export const DeleteButton = styled.button`
     width: 0.667rem;
     height: 0.667rem;
   }
+`;
+
+export const FileIcon = styled.img`
+  width: auto;
+  height: 1rem;
+  margin-right: 0.5rem; /* 아이콘과 파일명 사이 여백 */
+  vertical-align: middle;
+`;
+
+export const FileName = styled.span`
+  display: inline-block;
+  max-width: 16rem; /* 파일 이름 최대 너비 설정 */
+  white-space: nowrap; /* 텍스트를 한 줄로 유지 */
+  overflow: hidden; /* 넘치는 텍스트 숨기기 */
+  text-overflow: ellipsis; /* 넘치는 텍스트는 ...으로 표시 */
+  vertical-align: middle; /* 아이콘과 수직 정렬 */
 `;
 
 export const EmptyMessage = styled.div`

@@ -80,7 +80,7 @@ export default function BoardDetail() {
       const response = await request.patch(`/board/${id}/fix`);
       if (response.isSuccess) {
         console.log("게시글 고정 토글 성공:", response);
-       
+				fetchBoard();
       } else {
         console.error("게시글 고정 토글 실패:", response);
       }
@@ -149,7 +149,7 @@ export default function BoardDetail() {
 						<itemS.ButtonBox>
 							{board.category === '공지' && (
 								<>
-									<itemS.EditBtn onClick={handleFix}>고정</itemS.EditBtn>
+									<itemS.EditBtn onClick={handleFix}>{board.fixYn ? '고정 해제' : '고정'}</itemS.EditBtn>
 									<itemS.EditBtn onClick={handleEdit}>수정</itemS.EditBtn>
 								</>
 							)}

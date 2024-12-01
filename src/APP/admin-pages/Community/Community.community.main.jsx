@@ -145,7 +145,7 @@ export default function Community() {
 									type="text"
 									value={searchKeyword}
 									onChange={(e) => setSearchKeyword(e.target.value)}
-									placeholder='제목, 내용, 작성자 검색'
+									placeholder='제목, 작성자 검색'
 								/>
 								<itemS.SearchIcon onClick={() => handleSearch()} src='/img/search.svg' alt='돋보기' />
 								{/* <itemS.SearchIcon onClick={() => fetchInstitutionList()} src='/img/search.svg' alt='돋보기' /> */}

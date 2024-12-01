@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { EditorState, EditorSelection } from '@codemirror/state';
 import { EditorView, keymap, placeholder } from '@codemirror/view';
 import { markdown } from '@codemirror/lang-markdown';
@@ -13,32 +13,33 @@ import { ConfirmContext } from '../../Common/Confirm/ConfirmContext';
 const categoryPlaceholderText = '카테고리 선택';
 
 export default function Editor({
+  boardId,
   title,
   setTitle,
+  initialContent,
   setMarkdownContent,
-  boardId,
   initialCategoryCode,
-  initialContent, // 초기 content 전달
   initialUploadedFiles,
 }) {
-
   const navigate = useNavigate();
+  const location = useLocation(); // useLocation으로 전달된 state 접근
+  const { state } = location;
+
   const editorRef = useRef(null);
   const imageInputRef = useRef(null); // 이미지 파일 입력창을 제어할 useRef
   const fileInputRef = useRef(null); // 일반 파일 입력창을 제어할 useRef
   const modalRef = useRef(null);
   const [editorView, setEditorView] = useState(null);
   const [isScrolling, setIsScrolling] = useState(false); // 스크롤 상태 관리
-
   const [selectedCategory, setSelectedCategory] = useState(null); // 선택된 카테고리 상태
   const [isCategorySelected, setIsCategorySelected] = useState(false); // 카테고리 선택 여부 상태
-  const [categoryCode, setCategoryCode] = useState(initialCategoryCode || null);
+  const [categoryCode, setCategoryCode] = useState(state.initialCategoryCode || null);
   const [categoryOptions, setCategoryOptions] = useState([]); // 동적 카테고리 옵션
   const [category, setCategory] = useState(categoryOptions[0]);
 
   const [linkURL, setLinkURL] = useState('');
   const [selectedFiles, setSelectedFiles] = useState([]); // 선택된 파일들 상태
-  const [uploadedFiles, setUploadedFiles] = useState([]);
+  const [uploadedFiles, setUploadedFiles] = useState(state.initialUploadedFiles || []);
 
   const [uploadedImageUrls, setUploadedImageUrls] = useState([]);
 
@@ -53,7 +54,7 @@ export default function Editor({
   const [modalPosition, setModalPosition] = useState({ top: 0, left: 0 });
 
   const { confirm } = useContext(ConfirmContext); // ConfirmContext 사용
-
+  
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolling(true); // 스크롤 상태 활성화
@@ -118,7 +119,6 @@ export default function Editor({
         // 제목과 내용을 업데이트
         setTitle(title);
         setMarkdownContent(initialContent);
-  
         // 에디터 내용 업데이트
         editorView.dispatch({
           changes: {
@@ -144,7 +144,6 @@ export default function Editor({
 
   useEffect(() => {
     if (!editorRef.current || initialContent === undefined) return;
-
     const startState = EditorState.create({
       doc: initialContent || '', // 수정 시 초기 내용을 Codemirror에 반영
       extensions: [

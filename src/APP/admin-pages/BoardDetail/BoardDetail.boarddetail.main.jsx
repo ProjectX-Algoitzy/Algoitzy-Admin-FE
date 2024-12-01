@@ -108,7 +108,13 @@ export default function BoardDetail() {
 
   const handleEdit = () => {
     navigate(`/writepost`, {
-		state: { boardId: id }, 
+		state: {
+			boardId: id,
+			title: board.title,
+			initialContent: board.content,
+			initcateategoryCode: board.category,
+			initialUploadedFiles: board.boardFileList,
+		  },
     });
   };
 

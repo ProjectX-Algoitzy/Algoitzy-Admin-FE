@@ -77,9 +77,10 @@ export const PreviewContainer = styled.div`
     font-size: 0.9rem;
   }
   blockquote {
-    border-left: 0.2rem solid ${tokens.colors.B_Grey_2};
     padding-left: 1rem;
-    color: #666;
+    border-left: 0.2rem solid ${tokens.colors.Blue_0_Main};
+    background-color: ${tokens.colors.B_Grey_2}; /* 배경색 추가 */
+    color: ${tokens.colors.B_Grey_6};
     font-style: italic;
     margin: 1rem 0;
   }

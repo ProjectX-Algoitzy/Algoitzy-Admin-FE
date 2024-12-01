@@ -9,6 +9,7 @@ import request from '../../Api/request';
 import DraftModal from './WritePost.writepost.draft';
 import FileTable from './WritePost.writepost.filetable';
 import { ConfirmContext } from '../../Common/Confirm/ConfirmContext';
+import { AlertContext } from '../../Common/Alert/AlertContext';
 
 const categoryPlaceholderText = '카테고리 선택';
 
@@ -54,6 +55,7 @@ export default function Editor({
   const [modalPosition, setModalPosition] = useState({ top: 0, left: 0 });
 
   const { confirm } = useContext(ConfirmContext); // ConfirmContext 사용
+  const { alert } = useContext(AlertContext);
 
   useEffect(() => {
     const handleScroll = () => {

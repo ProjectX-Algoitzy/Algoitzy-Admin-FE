@@ -4,13 +4,14 @@ import request from '../../Api/request';
 import * as itemS from "./Styled/BoardDetail.boarddetail.main.styles";
 import Content from './BoardDetail.boarddetail.content';
 import Comment from './BoardDetail.boarddetail.comment';
-import WriteBox from './WriteBox';
 import { AlertContext } from '../../Common/Alert/AlertContext';
+import { ConfirmContext } from '../../Common/Confirm/ConfirmContext';
 
 export default function BoardDetail() {
 	const { id } = useParams();  // 게시글 ID 가져오기
 	const navigate = useNavigate();
 	const { alert } = useContext(AlertContext);
+	const { confirm } = useContext(ConfirmContext);
 
 	const [board, setBoard] = useState({});
 	const [comment, setComment] = useState([]);
@@ -91,19 +92,22 @@ export default function BoardDetail() {
 
 	// 게시글 삭제
 	const handleDelete = async () => {
-
-    try {
-      const response = await request.delete(`/board/${id}`);
-      if (response.isSuccess) {
-        console.log("게시글 삭제 성공:", response);
-				navigate('/community');
-      } else {
-        console.error("게시글 삭제 실패:", response);
-      }
-    } catch (error) {
-      console.error("게시글 삭제 에러:", error);
-      
-    }
+		const confirmed = await confirm("정말 삭제하시겠습니까?");
+		if (confirmed) {
+			try {
+				const response = await request.delete(`/board/${id}`);
+				if (response.isSuccess) {
+					console.log("게시글 삭제 성공:", response);
+					alert('게시글이 삭제되었습니다.')
+					navigate('/community');
+				} else {
+					console.error("게시글 삭제 실패:", response);
+				}
+			} catch (error) {
+				console.error("게시글 삭제 에러:", error);
+				
+			}
+		}
   };
 
   const handleEdit = () => {

@@ -11,10 +11,6 @@ export default function Comment({ item, formatDate, fetchComment }) {
 
 	const [isReplyBoxVisible, setIsReplyBoxVisible] = useState(false);
   const [isUtilBoxVisible, setIsUtilBoxVisible] = useState(false);
-  
-  // const handleReplyClick = () => {
-  //   setIsReplyBoxVisible(!isReplyBoxVisible);
-  // };
 
   const handleDotClick = () => {
     setIsUtilBoxVisible(!isUtilBoxVisible); // DotBox 클릭 시 토글
@@ -25,13 +21,10 @@ export default function Comment({ item, formatDate, fetchComment }) {
       setIsUtilBoxVisible(false); // 외부 클릭 시 UtilBox 닫기
     }
   };
-  // useEffect(() => {
-	// 	console.log('item',item);
-	// }, []);
-
+  
   // 댓글 삭제
   const handleDelete = async () => {
-    const confirmed = await confirm("정말로 삭제하시겠습니까?");
+    const confirmed = await confirm("정말 삭제하시겠습니까?");
 
     if (confirmed) { 
       try {
@@ -86,11 +79,6 @@ export default function Comment({ item, formatDate, fetchComment }) {
               )}
             <itemS.InfoBottomBox>
               <itemS.CreatedTime>{formatDate(item.createdTime)}</itemS.CreatedTime>
-              {/* <itemS.Reply onClick={handleReplyClick}>답글 달기</itemS.Reply> */}
-              {/* <itemS.CommentLike
-                src={item.myLikeYn ? '/img/like-s-fill.svg' : '/img/like-s.svg'}
-                alt='하뚜'
-              /> */}
             </itemS.InfoBottomBox>
           </itemS.CommentBox>
         </itemS.CommentContainer>

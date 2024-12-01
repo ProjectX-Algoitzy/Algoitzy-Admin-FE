@@ -1,16 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { marked } from 'marked';
 import * as Styled from './Styled/WritePost.writepost.preview.styles';
-import hljs from "highlight.js";
-import "highlight.js/styles/default.css";
+import hljs from 'highlight.js';
+import 'highlight.js/styles/atom-one-dark-reasonable.css';
 
 marked.setOptions({
-  gfm: true, // GitHub Flavored Markdown 지원
-  breaks: true, // 줄바꿈 처리
-  highlight: function (code, language) {
-    const validLanguage = hljs.getLanguage(language) ? language : "plaintext";
-    return hljs.highlight(code, { language: validLanguage }).value;
-  },
+  gfm: true,
+  breaks: true,
 });
 
 const removeExtraLineBreaks = (htmlContent) => {
@@ -44,6 +40,13 @@ const preprocessMarkdownContent = (content) => {
 };
 
 export default function Preview({ title, markdownContent }) {
+  useEffect(() => {
+    // 코드블록에 하이라이트 적용
+    document.querySelectorAll('pre code').forEach((block) => {
+      hljs.highlightElement(block); 
+    });
+  }, [markdownContent]); // markdownContent가 변경될 때마다 하이라이트 적용
+  
   const renderPreview = () => {
     const processedContent = preprocessMarkdownContent(markdownContent);
 

@@ -62,15 +62,19 @@ export const PreviewContainer = styled.div`
     font-size: 0.7rem;
   }
   a {
-    color: #1e90ff;
+    color: ${tokens.colors.Blue_0_Main};
     text-decoration: none;
   }
   a:hover {
     text-decoration: underline;
   }
   ul, ol {
-    margin: 1rem 0;
+    margin: 0;
     padding-left: 2rem;
+  }
+  li {
+    line-height: 1; /* 리스트 항목의 라인 높이 조정 */
+    margin: 0.3rem 0; /* 리스트 항목 간격 조정 */
   }
   blockquote {
     border-left: 0.2rem solid ${tokens.colors.B_Grey_2};
@@ -78,5 +82,32 @@ export const PreviewContainer = styled.div`
     color: #666;
     font-style: italic;
     margin: 1rem 0;
+  }
+  strong {
+    font-weight: 900;
+    -webkit-text-stroke: 0.02rem currentColor;
+  }
+  table {
+    width: 100%;
+    border-spacing: 0; /* 셀 간격 초기화 */
+    border-collapse: separate; /* 테두리 분리 */
+    border: 0.05rem solid ${tokens.colors.B_Grey_4}; /* 바깥 테두리 굵게 */
+  }
+  th, td {
+    padding: 0.2rem;
+    border: 0.02rem solid ${tokens.colors.B_Grey_4}; /* 셀 사이 테두리 추가 */
+  }
+  th:first-child, td:first-child {
+    border-left: 0.02rem solid ${tokens.colors.B_Grey_4}; /* 첫 번째 셀 왼쪽 테두리 유지 */
+  }
+  tr:first-child th {
+    border-top: 0.02rem solid ${tokens.colors.B_Grey_4}; /* 첫 번째 행 위쪽 테두리 유지 */
+  }
+  summary {
+    cursor: pointer;
+    font-weight: bold;
+  }
+  details > *:not(summary) {
+    margin-top: 0.5rem; /* 불필요한 공백 제거 */
   }
 `;

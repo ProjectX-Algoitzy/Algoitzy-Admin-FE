@@ -262,7 +262,7 @@ export default function Editor({
 
     const wraps = {
       bold: '**',
-      italic: '*',
+      italic: '_',
       strikethrough: '~~',
     };
 

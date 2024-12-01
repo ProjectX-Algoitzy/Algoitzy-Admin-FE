@@ -16,9 +16,9 @@ marked.setOptions({
 const preprocessMarkdownContent = (content) => {
   // 공백이 포함된 텍스트에도 Markdown 문법 적용
   const patterns = [
-    { regex: /(\s|^)\*(.*?)\*(\s|$)/g, wrap: "*" }, // 이탈릭
-    { regex: /(\s|^)\*\*(.*?)\*\*(\s|$)/g, wrap: "**" }, // 볼드
-    { regex: /(\s|^)~~(.*?)~~(\s|$)/g, wrap: "~~" }, // 취소선
+    { regex: /(\s|^)_([^_]+?)_(\s|$)/g, wrap: "_" }, // 이탈릭 (underscore 사용)
+    { regex: /(\s|^)\*\*([^*]+?)\*\*(\s|$)/g, wrap: "**" }, // 볼드 (별표 사용)
+    { regex: /(\s|^)~~([^~]+?)~~(\s|$)/g, wrap: "~~" }, // 취소선 (물결표 사용)
   ];
 
   let processedContent = content;

@@ -33,13 +33,13 @@ export default function Editor({
   const [isScrolling, setIsScrolling] = useState(false); // 스크롤 상태 관리
   const [selectedCategory, setSelectedCategory] = useState(null); // 선택된 카테고리 상태
   const [isCategorySelected, setIsCategorySelected] = useState(false); // 카테고리 선택 여부 상태
-  const [categoryCode, setCategoryCode] = useState(state.initialCategoryCode || null);
+  const [categoryCode, setCategoryCode] = useState(state?.initialCategoryCode || null);
   const [categoryOptions, setCategoryOptions] = useState([]); // 동적 카테고리 옵션
   const [category, setCategory] = useState(categoryOptions[0]);
 
   const [linkURL, setLinkURL] = useState('');
   const [selectedFiles, setSelectedFiles] = useState([]); // 선택된 파일들 상태
-  const [uploadedFiles, setUploadedFiles] = useState(state.initialUploadedFiles || []);
+  const [uploadedFiles, setUploadedFiles] = useState(state?.initialUploadedFiles || []);
 
   const [uploadedImageUrls, setUploadedImageUrls] = useState([]);
 
@@ -54,7 +54,7 @@ export default function Editor({
   const [modalPosition, setModalPosition] = useState({ top: 0, left: 0 });
 
   const { confirm } = useContext(ConfirmContext); // ConfirmContext 사용
-  
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolling(true); // 스크롤 상태 활성화
@@ -523,7 +523,7 @@ export default function Editor({
       const fileUrls = uploadedFiles.map(file => file.fileUrl);
 
       const requestData = {
-        title: title.trim() || '제목 없음',
+        title: title.trim() || '',
         content: content || '',
         fileUrlList: fileUrls,
         saveYn: false, // 임시저장

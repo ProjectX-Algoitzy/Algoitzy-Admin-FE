@@ -85,7 +85,6 @@ export default function Editor({
             label: category.name,
           }));
 
-          // '공지' 옵션 제외 (필요 시 주석 제거 가능)
           const filteredOptions = options.filter(
             (option) => option.label == '공지'
           );
@@ -642,7 +641,6 @@ const fetchDraftDetails = async (boardId) => {
       console.error('게시글 저장 중 오류 발생:', error);
     }
   };
-
 
   return (
     <Styled.LeftContainer>

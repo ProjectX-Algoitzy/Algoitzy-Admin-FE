@@ -112,7 +112,7 @@ export default function BoardDetail() {
 			boardId: id,
 			title: board.title,
 			initialContent: board.content,
-			initcateategoryCode: board.category,
+			initialCategoryCode: board.category,
 			initialUploadedFiles: board.boardFileList,
 		  },
     });

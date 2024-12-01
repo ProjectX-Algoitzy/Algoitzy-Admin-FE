@@ -58,6 +58,7 @@ export default function Community() {
 			if (response.isSuccess) {
 				console.log("게시글 목록 조회 성공");
 				setPosts(response.result.boardList);
+				setTotalPages(Math.ceil(response.result.totalCount / itemsPerPage));
 			} else {
 				console.error("게시글 목록 조회 실패:", response);
 			}

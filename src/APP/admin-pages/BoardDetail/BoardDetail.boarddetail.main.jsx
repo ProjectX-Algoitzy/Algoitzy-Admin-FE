@@ -145,7 +145,6 @@ export default function BoardDetail() {
 					<itemS.TopContainer>
 						<itemS.HeadContainer>
 							<itemS.Head>커뮤니티 &gt; {board.category}</itemS.Head>
-							{/* <itemS.SemiHead>{title}</itemS.SemiHead> */}
 						</itemS.HeadContainer>
 					</itemS.TopContainer>
 					<itemS.TitleContainer>

@@ -69,7 +69,7 @@ export const TitleContainer = styled.div`
 `;
 
 export const Title = styled.div`
-  width: 28rem;
+  // width: 28rem;
   ${tokens.typography.H3_SB_40};
   color: ${tokens.colors.Black};
 `;

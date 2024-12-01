@@ -56,7 +56,10 @@ export default function Comment({ item, formatDate, fetchComment }) {
           <itemS.CommentProfile src={item.profileUrl} alt='프로필' />
           <itemS.CommentBox>
             <itemS.WriterBox>
-              <itemS.WriterName>{item.createdName}</itemS.WriterName>
+              <itemS.WriterNameBox>
+                <itemS.WriterName>{item.createdName}</itemS.WriterName>
+                {item.myBoardYn && <itemS.WriterIcon>작성자</itemS.WriterIcon>}
+              </itemS.WriterNameBox>
               <itemS.DotBox ref={modalRef} onClick={handleDotClick}>
                 <itemS.DotButton src='/img/hamberg.svg' alt='...' />
                 {isUtilBoxVisible && ( // isUtilBoxVisible 상태에 따라 표시

@@ -48,12 +48,36 @@ export const WriterBox = styled.div`
   width: 42.291rem;
 `;
 
+export const WriterNameBox = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  // width: 26.667rem;
+  // min-height: 2.333rem;
+  // margin-left: 3.417rem;
+  margin-bottom: 6px;
+`;
+
+export const WriterIcon = styled.div`
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   ${tokens.typography.B3_M_14};
+   background-color: rgba(251, 170, 132, 0.2);
+   color: ${tokens.colors.Sub_3};
+   width: 2.17rem;
+   height: 21px;
+   border: none;
+   border-radius: 0.17rem;
+  //  margin-left: 0.17rem;
+`;
+
 export const WriterName = styled.div`
   ${tokens.typography.B2_M_16};
   font-size: 0.625rem;
   font-weight: semibold;
   color: ${tokens.colors.Black};
-  margin: 0 0.666rem 0.5rem 0;
+  margin: 0 0.666rem 0 0;
 `;
 
 export const DotBox = styled.div`

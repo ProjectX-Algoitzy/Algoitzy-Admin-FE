@@ -521,8 +521,8 @@ export default function Editor({
         return;
       }
     
-      const fileUrls = selectedFiles.map((file) => URL.createObjectURL(file));
-    
+      const fileUrls = uploadedFiles.map(file => file.fileUrl);
+
       const requestData = {
         title: title.trim() || '제목 없음',
         content: content || '',
@@ -571,6 +571,7 @@ const fetchDraftDetails = async (boardId) => {
         fileUrl: file.fileUrl,
       }));
       setUploadedFiles(uploadedFilesFromDraft);
+      console.log(uploadedFiles);
 
       // 카테고리 업데이트
       setCategory({ value: draft.category, label: draft.category });
@@ -609,7 +610,7 @@ const fetchDraftDetails = async (boardId) => {
  const handlePostSubmit = async () => {
   const content = editorView.state.doc.toString().trim();
 
-  const fileUrls = selectedFiles.map((file) => URL.createObjectURL(file));
+  const fileUrls = uploadedFiles.map(file => file.fileUrl);
 
   const requestData = {
     title: title.trim(),

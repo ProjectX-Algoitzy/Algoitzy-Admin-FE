@@ -16,16 +16,17 @@ marked.setOptions({
 const preprocessMarkdownContent = (content) => {
   // 공백이 포함된 텍스트에도 Markdown 문법 적용
   const patterns = [
-    { regex: /(\s|^)_([^_]+?)_(\s|$)/g, wrap: "_" }, // 이탈릭 (underscore 사용)
-    { regex: /(\s|^)\*\*([^*]+?)\*\*(\s|$)/g, wrap: "**" }, // 볼드 (별표 사용)
-    { regex: /(\s|^)~~([^~]+?)~~(\s|$)/g, wrap: "~~" }, // 취소선 (물결표 사용)
+    { regex: /(\s|^)\s*_(.*?)_\s*(\s|$)/g, wrap: "_" }, // 이탈릭 (underscore 사용)
+    { regex: /(\s|^)\s*\*\*(.*?)\*\*\s*(\s|$)/g, wrap: "**" }, // 볼드 (별표 사용)
+    { regex: /(\s|^)\s*~~(.*?)~~\s*(\s|$)/g, wrap: "~~" }, // 취소선 (물결표 사용)
   ];
 
   let processedContent = content;
 
-  patterns.forEach(({ regex }) => {
-    processedContent = processedContent.replace(regex, (_, prefix, text, suffix) => {
-      return `${prefix}${text.trim()}${suffix}`; // 텍스트 주변의 공백 유지
+  patterns.forEach(({ regex, wrap }) => {
+    processedContent = processedContent.replace(regex, (match, prefix, text, suffix) => {
+      const trimmedText = text.trim(); // 텍스트 양쪽 공백 제거
+      return `${prefix || ""}${wrap}${trimmedText}${wrap}${suffix || ""}`; // 공백 보존
     });
   });
 

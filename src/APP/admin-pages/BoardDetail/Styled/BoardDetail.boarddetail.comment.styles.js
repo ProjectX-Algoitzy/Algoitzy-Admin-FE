@@ -1,15 +1,14 @@
-import styled from 'styled-components';
-import * as tokens from "../../../../tokens"
+import styled from 'styled-components'; 
+import * as tokens from "../../../../tokens";
 
 export const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: row;
-  // width: 50rem;
-  padding-bottom: 18px;
+  padding-bottom: 0.75rem;
   border-bottom: 1px solid ${tokens.colors.B_Grey_3};
-  margin-top: 18px;
+  margin-top: 0.75rem;
 `;
 
 export const WriteContainer = styled.div`
@@ -27,11 +26,11 @@ export const CommentContainer = styled.div`
 `;
 
 export const CommentProfile = styled.img`
-  width: 64px;
-  height: 64px;
-  border: 0.04rem solid ${tokens.colors.B_Grey_2}; 
-  border-radius: 32px;
-  margin-right: 32px;
+  width: 2.666rem;
+  height: 2.666rem;
+  border: 0.04rem solid ${tokens.colors.B_Grey_2};
+  border-radius: 1.333rem;
+  margin-right: 1.333rem;
 `;
 
 export const CommentBox = styled.div`
@@ -46,29 +45,29 @@ export const WriterBox = styled.div`
   justify-content: space-between;
   align-items: flex-start;
   flex-direction: row;
-  width: 1015px;
+  width: 42.291rem;
 `;
 
 export const WriterName = styled.div`
   ${tokens.typography.B2_M_16};
-  font-size: 15px;
+  font-size: 0.625rem;
   font-weight: semibold;
   color: ${tokens.colors.Black};
-  margin: 0 16px 12px 0;
+  margin: 0 0.666rem 0.5rem 0;
 `;
 
 export const DotBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 45px;
+  width: 1.875rem;
   position: relative;
   cursor: pointer;
 `;
 
 export const DotButton = styled.img`
-  width: 3px;
-  height: 15px;
+  width: 0.125rem;
+  height: 0.625rem;
 `;
 
 export const UtilButtonBox = styled.div`
@@ -78,19 +77,19 @@ export const UtilButtonBox = styled.div`
   flex-direction: row;
   background-color: ${tokens.colors.White};
   position: absolute;
-  left: 10px;
-  top: 27px;
-  width: 142px;
-  height: 36px;
-  border-radius: 4px;
-  box-shadow: 2px 2px 10px 5px rgba(58, 107, 135, 0.08);
+  left: 0.416rem;
+  top: 1.125rem;
+  width: 5.916rem;
+  height: 1.5rem;
+  border-radius: 0.166rem;
+  box-shadow: 0.083rem 0.083rem 0.416rem 0.208rem rgba(58, 107, 135, 0.08);
   cursor: pointer;
 `;
 
 export const UtilIcon = styled.img`
-  width: 17px;
-  height: 17px;
-  margin-right: 6px;
+  width: 0.708rem;
+  height: 0.708rem;
+  margin-right: 0.25rem;
 `;
 
 export const UtilText = styled.div`
@@ -102,14 +101,14 @@ export const ContentBox = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  width: 1015px;
-  margin-bottom: 12px;
+  width: 42.291rem;
+  margin-bottom: 0.5rem;
 `;
 
 export const DeletedIcon = styled.img`
   width: 0.833rem;
   height: 0.833rem;
-  margin-right: 0.16rem;
+  margin-right: 0.166rem;
 `;
 
 export const Content = styled.div`
@@ -122,25 +121,25 @@ export const InfoBottomBox = styled.div`
   justify-content: flex-start;
   align-items: center;
   flex-direction: row;
-  width: 1015px;
+  width: 42.291rem;
 `;
 
 export const CreatedTime = styled.div`
   ${tokens.typography.B2_M_16};
   color: #888888;
-  margin-right: 12px;
+  margin-right: 0.5rem;
 `;
 
 export const Reply = styled.div`
   ${tokens.typography.B2_M_16};
   color: #888888;
-  margin-right: 12px;
+  margin-right: 0.5rem;
   cursor: pointer;
 `;
 
 export const CommentLike = styled.img`
-  width: 20px;
-  height: 20px;
+  width: 1.25rem;
+  height: 1.25rem;
   margin-right: 0.5rem;
 `;
 
@@ -149,9 +148,9 @@ export const WriteBox = styled.div`
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  margin-top: 13px;
+  margin-top: 0.541rem;
 `;
 
 export const Blank = styled.div`
-  width: 96px;
+  width: 4rem;
 `;

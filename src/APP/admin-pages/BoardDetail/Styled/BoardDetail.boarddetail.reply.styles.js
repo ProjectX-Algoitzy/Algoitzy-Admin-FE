@@ -1,16 +1,12 @@
 import styled from 'styled-components';
-import * as tokens from "../../../../tokens"
+import * as tokens from "../../../../tokens";
 
 export const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: row;
-  // width: 50rem;
-  // padding-bottom: 18px;
-  // border-bottom: 1px solid ${tokens.colors.B_Grey_3};
-  margin-top: 18px;
-  // margin-left: 50px;
+  margin-top: 0.75rem;
 `;
 
 export const WriteContainer = styled.div`
@@ -25,75 +21,74 @@ export const CommentContainer = styled.div`
   flex-direction: row;
   justify-content: flex-start;
   align-items: flex-start;
-  margin-left: 104px;
-  // margin-left: 54px;
+  margin-left: 4.33rem;
 `;
 
 export const CommentProfile = styled.img`
-  width: 40px;
-  height: 40px;
-  border: 0.04rem solid ${tokens.colors.B_Grey_2}; 
-  border-radius: 20px;
-  margin-right: 17px;
+  width: 1.67rem;
+  height: 1.67rem;
+  border: 0.04rem solid ${tokens.colors.B_Grey_2};
+  border-radius: 0.83rem;
+  margin-right: 0.71rem;
 `;
 
 export const CommentBox = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  flex-direction: column;
 `;
 
 export const WriterBox = styled.div`
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
-  flex-direction: row;
-  width: 960px;
+  width: 40rem;
 `;
 
 export const WriterName = styled.div`
   ${tokens.typography.B2_M_16};
-  font-size: 15px;
+  font-size: 0.625rem;
   font-weight: semibold;
   color: ${tokens.colors.Black};
-  margin: 0 10px 6px 0;
+  margin: 0 0.42rem 0.25rem 0;
 `;
 
 export const DotBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 45px;
+  width: 1.875rem;
   position: relative;
   cursor: pointer;
 `;
 
 export const DotButton = styled.img`
-  width: 3px;
-  height: 15px;
+  width: 0.125rem;
+  height: 0.625rem;
 `;
 
 export const UtilButtonBox = styled.div`
   display: flex;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
-  flex-direction: row;
   background-color: ${tokens.colors.White};
   position: absolute;
-  left: 10px;
-  top: 27px;
-  width: 142px;
-  height: 36px;
-  border-radius: 4px;
+  left: 0.42rem;
+  top: 1.125rem;
+  width: 5.92rem;
+  height: 1.5rem;
+  border-radius: 0.17rem;
   box-shadow: 2px 2px 10px 5px rgba(58, 107, 135, 0.08);
   cursor: pointer;
 `;
 
 export const UtilIcon = styled.img`
-  width: 17px;
-  height: 17px;
-  margin-right: 6px;
+  width: 0.71rem;
+  height: 0.71rem;
+  margin-right: 0.25rem;
 `;
 
 export const UtilText = styled.div`
@@ -101,13 +96,12 @@ export const UtilText = styled.div`
   color: ${tokens.colors.Grey_8};
 `;
 
-
 export const ContentBox = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  width: 957px;
-  margin-bottom: 6px;
+  width: 39.875rem;
+  margin-bottom: 0.25rem;
 `;
 
 export const DeletedIcon = styled.img`
@@ -119,7 +113,7 @@ export const DeletedIcon = styled.img`
 export const Mention = styled.span`
   ${tokens.typography.B2_M_16};
   color: ${tokens.colors.Blue_0_Main};
-  margin-right: 4px;
+  margin-right: 0.17rem;
 `;
 
 export const Content = styled.div`
@@ -129,28 +123,28 @@ export const Content = styled.div`
 
 export const InfoBottomBox = styled.div`
   display: flex;
+  flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  flex-direction: row;
-  width: 957px;
+  width: 39.875rem;
 `;
 
 export const CreatedTime = styled.div`
   ${tokens.typography.B2_M_16};
   color: #888888;
-  margin-right: 12px;
+  margin-right: 0.5rem;
 `;
 
 export const Reply = styled.div`
   ${tokens.typography.B2_M_16};
   color: #888888;
-  margin-right: 12px;
+  margin-right: 0.5rem;
   cursor: pointer;
 `;
 
 export const CommentLike = styled.img`
-  width: 20px;
-  height: 20px;
+  width: 0.83rem;
+  height: 0.83rem;
   margin-right: 0.5rem;
 `;
 
@@ -159,9 +153,9 @@ export const WriteBox = styled.div`
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  margin-top: 13px;
+  margin-top: 0.54rem;
 `;
 
 export const Blank = styled.div`
-  width: 96px;
+  width: 4rem;
 `;

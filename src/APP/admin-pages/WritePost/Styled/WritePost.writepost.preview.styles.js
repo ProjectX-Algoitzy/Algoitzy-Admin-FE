@@ -43,8 +43,7 @@ export const PreviewContainer = styled.div`
   }
   p {
     margin: 1rem 0;
-    font-size: 0.8rem;
-
+    font-size: 0.9rem;
   }
   code {
     background-color: #f5f5f5;
@@ -75,6 +74,7 @@ export const PreviewContainer = styled.div`
   li {
     line-height: 1; /* 리스트 항목의 라인 높이 조정 */
     margin: 0.3rem 0; /* 리스트 항목 간격 조정 */
+    font-size: 0.9rem;
   }
   blockquote {
     border-left: 0.2rem solid ${tokens.colors.B_Grey_2};
@@ -92,6 +92,7 @@ export const PreviewContainer = styled.div`
     border-spacing: 0; /* 셀 간격 초기화 */
     border-collapse: separate; /* 테두리 분리 */
     border: 0.05rem solid ${tokens.colors.B_Grey_4}; /* 바깥 테두리 굵게 */
+    font-size: 0.9rem;
   }
   th, td {
     padding: 0.2rem;
@@ -106,6 +107,9 @@ export const PreviewContainer = styled.div`
   summary {
     cursor: pointer;
     font-weight: bold;
+  }
+  details {
+    font-size: 0.9rem; /* details 글자 크기 조정 */
   }
   details > *:not(summary) {
     margin-top: 0.5rem; /* 불필요한 공백 제거 */

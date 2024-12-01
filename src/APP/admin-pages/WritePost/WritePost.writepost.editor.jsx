@@ -515,12 +515,6 @@ export default function Editor({
 
     const handleSaveDraft = async () => {
       const content = editorView.state.doc.toString().trim();
-    
-      if (!title.trim() && !content.trim()) {
-        alert('제목이나 내용을 입력하세요.');
-        return;
-      }
-    
       const fileUrls = uploadedFiles.map(file => file.fileUrl);
 
       const requestData = {
@@ -541,7 +535,6 @@ export default function Editor({
         }
       } catch (error) {
         console.error('임시저장 중 오류 발생:', error);
-        alert('임시저장 중 오류가 발생했습니다.');
       }
     };
 
@@ -637,10 +630,10 @@ const fetchDraftDetails = async (boardId) => {
         alert(boardId ? '게시글이 수정되었습니다.' : '게시글이 등록되었습니다.');
         navigate(-1); // 이전 페이지로 이동
       } else {
-        alert(`저장 실패: ${response.message}`);
+        alert('게시글을 저장하는 중 오류가 발생했습니다.');
       }
     } catch (error) {
-      console.error('게시글 저장 중 오류 발생:', error);
+      alert('게시글을 저장하는 중 오류가 발생했습니다.');
     }
   };
 

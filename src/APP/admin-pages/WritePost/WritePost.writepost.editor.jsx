@@ -678,7 +678,7 @@ const fetchDraftDetails = async (boardId) => {
         </Styled.LIContainer>
 
         {/* 선택된 파일 목록 표시 */}
-        {selectedFiles.length > 0 && (
+        {uploadedFiles.length > 0 && (
         <Styled.FileContainer>
           <FileTable uploadedFiles={uploadedFiles} deleteFile={deleteFile} />
           <input

@@ -531,10 +531,11 @@ export default function Editor({
           alert('글이 임시저장되었습니다.');
           fetchDrafts(); // 임시저장 목록 갱신
         } else {
-          alert(`임시저장 실패: ${response.message}`);
+          alert('게시글을 임시저장하는 중 오류가 발생했습니다.');
         }
       } catch (error) {
         console.error('임시저장 중 오류 발생:', error);
+        // alert('게시글을 임시저장하는 중 오류가 발생했습니다.');
       }
     };
 

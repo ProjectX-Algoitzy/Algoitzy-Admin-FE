@@ -262,7 +262,7 @@ export default function Editor({
 
     const wraps = {
       bold: '**',
-      italic: '_',
+      italic: '*',
       strikethrough: '~~',
     };
 
@@ -634,7 +634,7 @@ const fetchDraftDetails = async (boardId) => {
         alert('게시글을 저장하는 중 오류가 발생했습니다.');
       }
     } catch (error) {
-      alert('게시글을 저장하는 중 오류가 발생했습니다.');
+      // alert('게시글을 저장하는 중 오류가 발생했습니다.');
     }
   };
 

@@ -59,8 +59,9 @@ export default function BoardDetail() {
       const response = await request.get(`/board/${id}/reply?page=${currentPage + 1}&size=${itemsPerPage}`);
 
       if (response.isSuccess) {
-        console.log("댓글 조회 성공", response.result.replyList);
+        console.log("댓글 조회 성공", response.result);
         setComment(response.result.replyList);
+				setTotalPages(Math.ceil(response.result.parentReplyCount / itemsPerPage));
       } else {
         console.error("댓글 조회 실패:", response);
       }

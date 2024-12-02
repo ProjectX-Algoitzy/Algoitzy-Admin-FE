@@ -14,13 +14,14 @@ import { AlertContext } from '../../Common/Alert/AlertContext';
 const categoryPlaceholderText = '카테고리 선택';
 
 export default function Editor({
-  boardId,
+  initialBoardId,
   title,
   setTitle,
   initialContent,
   setMarkdownContent,
   initialCategoryCode,
   initialUploadedFiles,
+  initialSaveYn,
 }) {
   const navigate = useNavigate();
   const location = useLocation(); // useLocation으로 전달된 state 접근
@@ -32,6 +33,9 @@ export default function Editor({
   const modalRef = useRef(null);
   const [editorView, setEditorView] = useState(null);
   const [isScrolling, setIsScrolling] = useState(false); // 스크롤 상태 관리
+  
+  const [boardId, setBoardId] = useState(initialBoardId); // boardId를 상태로 관리
+
   const [selectedCategory, setSelectedCategory] = useState(null); // 선택된 카테고리 상태
   const [isCategorySelected, setIsCategorySelected] = useState(false); // 카테고리 선택 여부 상태
   const [categoryCode, setCategoryCode] = useState(state?.initialCategoryCode || null);
@@ -44,7 +48,7 @@ export default function Editor({
 
   const [uploadedImageUrls, setUploadedImageUrls] = useState([]);
 
-  const [saveYn, setSaveYn] = useState(true); // 임시 저장 여부 (default: true)
+  const [saveYn, setSaveYn] = useState(state?.initialSaveYn || false); // 임시 저장 여부 (default: true)
 
   const [draftCount, setDraftCount] = useState(0); // 임시저장 게시글 수
   const [isDraftModalOpen, setIsDraftModalOpen] = useState(false); // 모달 상태
@@ -527,9 +531,20 @@ export default function Editor({
       };
     
       try {
-        const response = await request.post('board', requestData);
-    
+        let response;
+        console.log("currentBoardId before post",boardId);
+        if (boardId) {
+          // boardId가 존재하면 PATCH 요청
+          response = await request.patch(`/board/${boardId}`, requestData);
+        } else {
+          // boardId가 없으면 POST 요청
+          response = await request.post('/board', requestData);
+          console.log(response.result);
+          setBoardId(response.result);
+          console.log(boardId);
+        }    
         if (response.isSuccess) {
+          console.log("saveYnasldkfj;laksdjf;aklfsjd",saveYn);
           alert('글이 임시저장되었습니다.');
           fetchDrafts(); // 임시저장 목록 갱신
         } else {
@@ -589,6 +604,8 @@ const fetchDraftDetails = async (boardId) => {
         );
   
         if (confirmed) {
+          setBoardId(draft.boardId);
+          console.log(boardId);
           fetchDraftDetails(draft.boardId); // 선택된 글 불러오기
         }
       } catch {
@@ -630,6 +647,9 @@ const fetchDraftDetails = async (boardId) => {
       }
 
       if (response.isSuccess) {
+        setSaveYn(true);
+        setBoardId(response.result);
+
         alert(boardId ? '게시글이 수정되었습니다.' : '게시글이 등록되었습니다.');
         navigate(-1); // 이전 페이지로 이동
       } else {
@@ -740,7 +760,7 @@ const fetchDraftDetails = async (boardId) => {
       <Styled.BtnContainer>
       <Styled.ExitButton onClick={handleExit}>← 나가기</Styled.ExitButton>
       <Styled.BtnContainer2>
-      {!boardId && ( // boardId가 없을 때만 표시
+      {!saveYn && ( // boardId가 없을 때만 표시
       <Styled.DraftButton>
         {/* 임시저장 클릭 영역 */}
         <Styled.DraftSaveArea onClick={handleSaveDraft}>
@@ -753,7 +773,7 @@ const fetchDraftDetails = async (boardId) => {
       </Styled.DraftButton>
     )}
       <Styled.Btn onClick={handlePostSubmit}>
-        {boardId ? '수정하기' : '등록하기'}
+        {boardId && saveYn ? '수정하기' : '등록하기'}
       </Styled.Btn>
       </Styled.BtnContainer2>
       </Styled.BtnContainer>

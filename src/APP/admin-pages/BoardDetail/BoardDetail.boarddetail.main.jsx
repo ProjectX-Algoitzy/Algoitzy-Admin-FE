@@ -114,6 +114,7 @@ export default function BoardDetail() {
 			initialContent: board.content,
 			initialCategoryCode: board.category,
 			initialUploadedFiles: board.boardFileList,
+			initialSaveYn: true,
 		  },
     });
   };

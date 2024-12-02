@@ -52,7 +52,7 @@ export default function WritePost() {
           title={title}
           setTitle={setTitle}
           setMarkdownContent={setMarkdownContent}
-          boardId={boardId} // 수정 시 boardId 전달
+          initialBoardId={boardId} // 수정 시 boardId 전달
           initialCategoryCode={categoryCode} // 수정 시 카테고리 코드 전달
           initialContent={markdownContent} // Codemirror 초기 값 전달
 />

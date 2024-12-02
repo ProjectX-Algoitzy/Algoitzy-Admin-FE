@@ -16,6 +16,7 @@ export default function DraftModal({ isDraftModalOpen, toggleDraftModal, drafts,
             value: category.code,
             label: category.name,
           }));
+          setCategoryOptions(options);
         } else {
           console.error('카테고리 목록 조회 실패:', response.message);
         }
@@ -29,6 +30,7 @@ export default function DraftModal({ isDraftModalOpen, toggleDraftModal, drafts,
   // drafts와 categoryOptions 매핑
   useEffect(() => {
     if (categoryOptions.length > 0 && drafts.length > 0) {
+
       const mapped = drafts.map((draft) => {
         const matchedCategory = categoryOptions.find(
           (option) => option.value === draft.category // 매칭

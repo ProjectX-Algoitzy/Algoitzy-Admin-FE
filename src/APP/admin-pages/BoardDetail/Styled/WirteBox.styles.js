@@ -10,7 +10,7 @@ export const WriteBox = styled.div`
   align-items: center;
   flex-direction: row;
   background-color: ${tokens.colors.White};
-  width: 63.33rem; /* 1016px */
+  width: 42.33rem; /* 1016px */
   padding: 1.25rem 1.25rem 1.25rem 1rem; /* 20px 20px 20px 16px */
   border: 0.06rem solid ${tokens.colors.B_Grey_2}; /* 1px */
 `;

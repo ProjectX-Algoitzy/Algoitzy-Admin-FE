@@ -52,10 +52,7 @@ export const WriterNameBox = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  // width: 26.667rem;
-  // min-height: 2.333rem;
-  // margin-left: 3.417rem;
-  margin-bottom: 6px;
+  margin-bottom: 0.5rem;
 `;
 
 export const WriterIcon = styled.div`
@@ -66,10 +63,9 @@ export const WriterIcon = styled.div`
    background-color: rgba(251, 170, 132, 0.2);
    color: ${tokens.colors.Sub_3};
    width: 2.17rem;
-   height: 21px;
+   height: 0.875rem;
    border: none;
    border-radius: 0.17rem;
-  //  margin-left: 0.17rem;
 `;
 
 export const WriterName = styled.div`
@@ -137,7 +133,7 @@ export const DeletedIcon = styled.img`
 
 export const Content = styled.div`
   ${tokens.typography.B2_M_16};
-  color: ${({ deleteYn }) => (deleteYn ? '#888888' : tokens.colors.Black)};
+  color: ${(props) => (props['data-delete-yn'] ? '#888888' : tokens.colors.Black)};
 `;
 
 export const InfoBottomBox = styled.div`
@@ -162,8 +158,8 @@ export const Reply = styled.div`
 `;
 
 export const CommentLike = styled.img`
-  width: 1.25rem;
-  height: 1.25rem;
+  width: 0.833rem;
+  height: 0.833rem;
   margin-right: 0.5rem;
 `;
 

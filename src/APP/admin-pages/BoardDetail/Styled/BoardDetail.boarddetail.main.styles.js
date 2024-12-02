@@ -2,8 +2,6 @@ import styled from 'styled-components';
 import * as tokens from "../../../../tokens";
 
 export const OuterContainer = styled.div`
-  // background: linear-gradient(to bottom, #EFF1FD, #E8F7FF);
-  // position: relative;
   width: 100%;
 `;
 
@@ -16,23 +14,16 @@ export const InnerContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
   background-color: ${tokens.colors.White};
   border-radius: 0.25rem;
   padding: 1.4rem 15rem 4rem 15rem;
   margin-top: 5.583rem;
-  // margin-bottom: 4.083rem;
-  // box-shadow: 0 0.17rem 1rem 0.17rem rgba(0, 0, 0, 0.04);
 `;
 
 export const TopContainer = styled.div`
   display: flex;
   justify-content: space-between;
   width: 50rem;
-  // border-bottom: 0.04rem solid ${tokens.colors.B_Grey_2};
-  // @media (max-width: 600px) {
-  //   width: 100%;
-  // }
 `;
 
 export const HeadContainer = styled.div`
@@ -40,11 +31,7 @@ export const HeadContainer = styled.div`
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  // width: 14.58rem;
   margin-bottom: 0.83rem;
-  // @media (max-width: 600px) {
-  //   width: 100%;
-  // }
 `;
 
 export const Head = styled.div`
@@ -79,8 +66,7 @@ export const ButtonBox = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
-  // width: 22rem;
+  align-items: center
 `;
 
 export const EditBtn = styled.button`

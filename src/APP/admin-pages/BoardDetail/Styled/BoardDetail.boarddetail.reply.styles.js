@@ -142,7 +142,7 @@ export const Mention = styled.span`
 
 export const Content = styled.div`
   ${tokens.typography.B2_M_16};
-  color: ${({ deleteYn }) => (deleteYn ? '#888888' : tokens.colors.Black)};
+  color: ${(props) => (props['data-delete-yn'] ? '#888888' : tokens.colors.Black)};
 `;
 
 export const InfoBottomBox = styled.div`

@@ -464,11 +464,14 @@ export default function Editor({
         const response = await request.post('/s3/v2', formData);
         if (response.isSuccess) {
           const uploadedFile = response.result.s3FileList?.[0];
+          console.log("asdfasdfasdfasdfasdf",uploadedFile);
           if (uploadedFile) {
             setUploadedFiles((prevFiles) => [
               ...prevFiles,
-              { ...uploadedFile, size: file.size },
+              { ...uploadedFile, size: uploadedFile.fileSize },
             ]);
+
+            console.log("eeeee",uploadedFiles.size);
           }
         } else {
           throw new Error('파일 업로드 실패');

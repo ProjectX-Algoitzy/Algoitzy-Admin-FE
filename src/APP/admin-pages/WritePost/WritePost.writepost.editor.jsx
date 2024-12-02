@@ -23,6 +23,7 @@ export default function Editor({
   initialUploadedFiles,
   initialSaveYn,
 }) {
+
   const navigate = useNavigate();
   const location = useLocation(); // useLocation으로 전달된 state 접근
   const { state } = location;
@@ -113,7 +114,6 @@ export default function Editor({
     setSelectedCategory(selectedOption); // 선택된 카테고리 설정
     setIsCategorySelected(true); // 선택 여부 설정
   };
-
 
   const resizeTextarea = (e) => {
     e.target.style.height = 'auto'; // 높이 초기화
@@ -319,32 +319,31 @@ export default function Editor({
     };
   }, [isModalOpen]);
 
-
     // S3 이미지 업로드 함수
-    const uploadImage = async (file) => {
-      try {
-        const formData = new FormData();
-        formData.append('multipartFileList', file); // 파일 추가
-    
-        // 요청 경로를 /s3/v2로 변경
-        const response = await request.post('/s3/v2', formData);
-    
-        if (response.isSuccess) {
-          // 반환된 파일 URL 추출
-          const uploadedFile = response.result.s3FileList?.[0];
-          if (uploadedFile) {
-            return uploadedFile.fileUrl; // 파일 URL 반환
-          } else {
-            throw new Error('파일 정보가 응답에 없습니다.');
-          }
+  const uploadImage = async (file) => {
+    try {
+      const formData = new FormData();
+      formData.append('multipartFileList', file); // 파일 추가
+  
+      // 요청 경로를 /s3/v2로 변경
+      const response = await request.post('/s3/v2', formData);
+  
+      if (response.isSuccess) {
+        // 반환된 파일 URL 추출
+        const uploadedFile = response.result.s3FileList?.[0];
+        if (uploadedFile) {
+          return uploadedFile.fileUrl; // 파일 URL 반환
         } else {
-          throw new Error(`이미지 업로드 실패: ${response.message}`);
+          throw new Error('파일 정보가 응답에 없습니다.');
         }
-      } catch (error) {
-        console.error('이미지 업로드 오류:', error);
-        throw error;
+      } else {
+        throw new Error(`이미지 업로드 실패: ${response.message}`);
       }
-    };
+    } catch (error) {
+      console.error('이미지 업로드 오류:', error);
+      throw error;
+    }
+  };
   
     // 이미지 업로드 핸들러
     const handleImageUpload = async (event) => {
@@ -469,7 +468,6 @@ export default function Editor({
         const response = await request.post('/s3/v2', formData);
         if (response.isSuccess) {
           const uploadedFile = response.result.s3FileList?.[0];
-          console.log("asdfasdfasdfasdfasdf",uploadedFile);
           if (uploadedFile) {
             setUploadedFiles((prevFiles) => [
               ...prevFiles,
@@ -485,7 +483,6 @@ export default function Editor({
       }
     }
   };
-
 
   // 임시저장 게시글 목록 조회
   const fetchDrafts = async () => {
@@ -532,19 +529,15 @@ export default function Editor({
     
       try {
         let response;
-        console.log("currentBoardId before post",boardId);
         if (boardId) {
           // boardId가 존재하면 PATCH 요청
           response = await request.patch(`/board/${boardId}`, requestData);
         } else {
           // boardId가 없으면 POST 요청
           response = await request.post('/board', requestData);
-          console.log(response.result);
           setBoardId(response.result);
-          console.log(boardId);
         }    
         if (response.isSuccess) {
-          console.log("saveYnasldkfj;laksdjf;aklfsjd",saveYn);
           alert('글이 임시저장되었습니다.');
           fetchDrafts(); // 임시저장 목록 갱신
         } else {
@@ -605,7 +598,6 @@ const fetchDraftDetails = async (boardId) => {
   
         if (confirmed) {
           setBoardId(draft.boardId);
-          console.log(boardId);
           fetchDraftDetails(draft.boardId); // 선택된 글 불러오기
         }
       } catch {
@@ -703,7 +695,6 @@ const fetchDraftDetails = async (boardId) => {
             onChange={handleFileUpload}
             multiple // 다중 파일 업로드 지원
           />
-
 
         </Styled.FileContainer>
       )}

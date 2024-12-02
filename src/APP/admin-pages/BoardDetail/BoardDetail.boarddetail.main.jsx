@@ -15,7 +15,6 @@ export default function BoardDetail() {
 	const [board, setBoard] = useState({});
 	const [comment, setComment] = useState([]);
 
-	// 페이지
 	const [currentPage, setCurrentPage] = useState(0);
 	const [totalPages, setTotalPages] = useState(5); //TODO - 임시 ) 전체 페이지 수 -> response 값으로 전체 개수 받아와야함
 	const [currentPageGroup, setCurrentPageGroup] = useState(0);
@@ -85,7 +84,6 @@ export default function BoardDetail() {
       }
     } catch (error) {
       console.error("게시글 고정 토글 에러:", error);
-      
     }
   };
 
@@ -96,13 +94,12 @@ export default function BoardDetail() {
       const response = await request.delete(`/board/${id}`);
       if (response.isSuccess) {
         console.log("게시글 삭제 성공:", response);
-				navigate('/community');
+		navigate('/community');
       } else {
         console.error("게시글 삭제 실패:", response);
       }
     } catch (error) {
       console.error("게시글 삭제 에러:", error);
-      
     }
   };
 
@@ -135,7 +132,6 @@ export default function BoardDetail() {
       setCurrentPage((currentPageGroup - 1) * 5); // 새로운 그룹의 첫 번째 페이지로 이동
     }
 	};
-	
 
 	return (
 		<itemS.OuterContainer>

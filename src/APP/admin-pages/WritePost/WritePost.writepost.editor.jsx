@@ -257,7 +257,7 @@ export default function Editor({
   const toggleInlineStyle = (text, style) => {
     const styles = {
       bold: /^\*\*(.*)\*\*$/,
-      italic: /^\*(.*)\*$/,
+      italic: /^_(.*?)_$/,  
       strikethrough: /^~~(.*)~~$/,
     };
 

@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { EditorState, EditorSelection } from '@codemirror/state';
 import { EditorView, keymap, placeholder } from '@codemirror/view';
 import { markdown } from '@codemirror/lang-markdown';
-import { defaultKeymap } from '@codemirror/commands';
+import { history, historyKeymap, defaultKeymap } from '@codemirror/commands';
 import * as Styled from './Styled/WritePost.writepost.editor.styles';
 import request from '../../Api/request';
 import DraftModal from './WritePost.writepost.draft';
@@ -148,7 +148,8 @@ export default function Editor({
     const startState = EditorState.create({
       doc: initialContent || '', // 수정 시 초기 내용을 Codemirror에 반영
       extensions: [
-        keymap.of(defaultKeymap),
+        keymap.of([...defaultKeymap, ...historyKeymap]), // 기본 키맵 및 Undo/Redo 키맵 추가
+        history(), // 히스토리 확장 추가
         markdown(),
         placeholder("내용을 적어보세요"),
         EditorView.lineWrapping,
@@ -470,8 +471,6 @@ export default function Editor({
               ...prevFiles,
               { ...uploadedFile, size: uploadedFile.fileSize },
             ]);
-
-            console.log("eeeee",uploadedFiles.size);
           }
         } else {
           throw new Error('파일 업로드 실패');

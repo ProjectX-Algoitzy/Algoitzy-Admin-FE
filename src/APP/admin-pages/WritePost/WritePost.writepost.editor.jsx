@@ -362,7 +362,6 @@ export default function Editor({
           }))
         );
       } catch (error) {
-        alert('이미지 업로드에 실패했습니다.');
       }
     };
   

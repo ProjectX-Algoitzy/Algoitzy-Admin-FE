@@ -43,7 +43,7 @@ export default function Content({ content, files }) {
             {files.map((file, index) => (
               <itemS.FileTupleContainer
                 key={file.fileUrl || index}
-                as="a" // Treat FileTupleContainer as an <a> element
+                as="a" 
                 href={file.fileUrl}
                 download={file.originalName}
                 target="_blank"

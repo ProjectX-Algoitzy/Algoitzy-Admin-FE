@@ -116,6 +116,7 @@ export default function Header() {
                   </itemS.SubMenu>
                 </itemS.SubMenuContaier>
               )}
+            </itemS.StyledLink>
             <itemS.StyledLink to={isLoggedIn ? "/community" : "/login"}>
               <itemS.PageLink>커뮤니티</itemS.PageLink>
             </itemS.StyledLink>

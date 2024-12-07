@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { marked } from 'marked';
-import * as Styled from './Styled/WritePost.writepost.preview.styles';
+import * as itemS from './Styled/BoardDetail.boarddetail.markdowncontent.styles';
 import hljs from 'highlight.js';
 import 'highlight.js/styles/atom-one-dark-reasonable.css';
 
@@ -39,7 +39,8 @@ const preprocessMarkdownContent = (content) => {
   return processedContent;
 };
 
-export default function Preview({ title, markdownContent }) {
+export default function MarkdownContent({ markdownContent }) {
+  console.log(markdownContent);
   useEffect(() => {
     // 코드블록에 하이라이트 적용
     document.querySelectorAll('pre code').forEach((block) => {
@@ -55,13 +56,10 @@ export default function Preview({ title, markdownContent }) {
     const cleanedContent = removeExtraLineBreaks(renderedContent); // 줄바꿈 제거
 
     // 제목 추가
-    const finalContent = `
-      <h1>${title || ''}</h1>
-      ${cleanedContent}
-    `;
+    const finalContent = `${cleanedContent}`;
 
     return { __html: finalContent };
   };
 
-  return <Styled.PreviewContainer dangerouslySetInnerHTML={renderPreview()} />;
+  return <itemS.MarkdownContentContainer dangerouslySetInnerHTML={renderPreview()} />;
 }

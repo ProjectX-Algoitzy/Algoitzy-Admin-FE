@@ -1,48 +1,57 @@
 import React, { useState, useEffect, useRef, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { EditorState, EditorSelection } from '@codemirror/state';
 import { EditorView, keymap, placeholder } from '@codemirror/view';
 import { markdown } from '@codemirror/lang-markdown';
-import { defaultKeymap } from '@codemirror/commands';
+import { history, historyKeymap, defaultKeymap } from '@codemirror/commands';
 import * as Styled from './Styled/WritePost.writepost.editor.styles';
 import request from '../../Api/request';
 import DraftModal from './WritePost.writepost.draft';
 import FileTable from './WritePost.writepost.filetable';
 import { ConfirmContext } from '../../Common/Confirm/ConfirmContext';
+import { AlertContext } from '../../Common/Alert/AlertContext';
 
 const categoryPlaceholderText = '카테고리 선택';
 
 export default function Editor({
+  initialBoardId,
   title,
   setTitle,
+  initialContent,
   setMarkdownContent,
-  boardId,
   initialCategoryCode,
-  initialContent, // 초기 content 전달
+  initialCategory,
   initialUploadedFiles,
+  initialSaveYn,
 }) {
 
   const navigate = useNavigate();
+  const location = useLocation(); // useLocation으로 전달된 state 접근
+  const { state } = location;
+
   const editorRef = useRef(null);
   const imageInputRef = useRef(null); // 이미지 파일 입력창을 제어할 useRef
   const fileInputRef = useRef(null); // 일반 파일 입력창을 제어할 useRef
   const modalRef = useRef(null);
   const [editorView, setEditorView] = useState(null);
   const [isScrolling, setIsScrolling] = useState(false); // 스크롤 상태 관리
+  
+  const [boardId, setBoardId] = useState(initialBoardId); // boardId를 상태로 관리
 
-  const [selectedCategory, setSelectedCategory] = useState(null); // 선택된 카테고리 상태
+  const [selectedCategory, setSelectedCategory] = useState(initialCategory); // 선택된 카테고리 상태
   const [isCategorySelected, setIsCategorySelected] = useState(false); // 카테고리 선택 여부 상태
-  const [categoryCode, setCategoryCode] = useState(initialCategoryCode || null);
+
+  const [categoryCode, setCategoryCode] = useState(state?.initialCategoryCode || null);
   const [categoryOptions, setCategoryOptions] = useState([]); // 동적 카테고리 옵션
-  const [category, setCategory] = useState(categoryOptions[0]);
+  const [category, setCategory] = useState(state?.initialCategory || categoryOptions[0]);
 
   const [linkURL, setLinkURL] = useState('');
   const [selectedFiles, setSelectedFiles] = useState([]); // 선택된 파일들 상태
-  const [uploadedFiles, setUploadedFiles] = useState([]);
+  const [uploadedFiles, setUploadedFiles] = useState(state?.initialUploadedFiles || []);
 
   const [uploadedImageUrls, setUploadedImageUrls] = useState([]);
 
-  const [saveYn, setSaveYn] = useState(true); // 임시 저장 여부 (default: true)
+  const [saveYn, setSaveYn] = useState(state?.initialSaveYn || false); // 임시 저장 여부 (default: true)
 
   const [draftCount, setDraftCount] = useState(0); // 임시저장 게시글 수
   const [isDraftModalOpen, setIsDraftModalOpen] = useState(false); // 모달 상태
@@ -53,7 +62,23 @@ export default function Editor({
   const [modalPosition, setModalPosition] = useState({ top: 0, left: 0 });
 
   const { confirm } = useContext(ConfirmContext); // ConfirmContext 사용
+  const { alert } = useContext(AlertContext);
 
+  useEffect(() => {
+    const handleBeforeUnload = (event) => {
+      // 기본 브라우저 확인창 표시
+      event.preventDefault();
+      event.returnValue = ''; // 대부분의 브라우저에서 이 설정으로 기본 메시지가 표시됨
+    };
+  
+    window.addEventListener('beforeunload', handleBeforeUnload);
+  
+    return () => {
+      // 컴포넌트 언마운트 시 이벤트 제거
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, []);
+  
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolling(true); // 스크롤 상태 활성화
@@ -84,13 +109,12 @@ export default function Editor({
             label: category.name,
           }));
 
-          // '공지' 옵션 제외 (필요 시 주석 제거 가능)
           const filteredOptions = options.filter(
             (option) => option.label == '공지'
           );
 
           setCategoryOptions(filteredOptions);
-          setSelectedCategory(filteredOptions[0] || null); // 첫 번째 옵션 선택
+          //setSelectedCategory(filteredOptions[0] || null); // 첫 번째 옵션 선택
         } else {
           console.error('카테고리 목록 조회 실패:', response.message);
         }
@@ -102,12 +126,26 @@ export default function Editor({
     fetchCategoryOptions();
   }, []);
 
+  // 카테고리 변환 함수
+const categoryConverter = (categoryOptions) => {
+  const nameToCode = (name) => {
+    const found = categoryOptions.find((option) => option.label === name);
+    return found ? found.value : null; // name에 해당하는 code 반환
+  };
+
+  const codeToName = (code) => {
+    const found = categoryOptions.find((option) => option.value === code);
+    return found ? found.label : null; // code에 해당하는 name 반환
+  };
+
+  return { nameToCode, codeToName };
+};
+
   const handleCategoryChange = (selectedOption) => {
     setCategoryCode(selectedOption.value); // 선택된 카테고리 코드 설정
     setSelectedCategory(selectedOption); // 선택된 카테고리 설정
     setIsCategorySelected(true); // 선택 여부 설정
   };
-
 
   const resizeTextarea = (e) => {
     e.target.style.height = 'auto'; // 높이 초기화
@@ -118,7 +156,6 @@ export default function Editor({
         // 제목과 내용을 업데이트
         setTitle(title);
         setMarkdownContent(initialContent);
-  
         // 에디터 내용 업데이트
         editorView.dispatch({
           changes: {
@@ -143,12 +180,13 @@ export default function Editor({
   };
 
   useEffect(() => {
-    if (!editorRef.current || initialContent === undefined) return;
 
+    if (!editorRef.current || initialContent === undefined) return;
     const startState = EditorState.create({
       doc: initialContent || '', // 수정 시 초기 내용을 Codemirror에 반영
       extensions: [
-        keymap.of(defaultKeymap),
+        keymap.of([...defaultKeymap, ...historyKeymap]), // 기본 키맵 및 Undo/Redo 키맵 추가
+        history(), // 히스토리 확장 추가
         markdown(),
         placeholder("내용을 적어보세요"),
         EditorView.lineWrapping,
@@ -185,6 +223,12 @@ export default function Editor({
             insert: initialContent || '',
           },
         });
+        // 카테고리 업데이트
+
+        if (category){
+        const { nameToCode, codeToName } = categoryConverter(categoryOptions);
+        setSelectedCategory({ value: nameToCode(categoryCode), label: category });
+        }
         loadCount.current += 1; // 실행 횟수 증가
       }
     }
@@ -256,13 +300,13 @@ export default function Editor({
   const toggleInlineStyle = (text, style) => {
     const styles = {
       bold: /^\*\*(.*)\*\*$/,
-      italic: /^\*(.*)\*$/,
+      italic: /^_(.*?)_$/,  
       strikethrough: /^~~(.*)~~$/,
     };
 
     const wraps = {
       bold: '**',
-      italic: '*',
+      italic: '_',
       strikethrough: '~~',
     };
 
@@ -314,32 +358,31 @@ export default function Editor({
     };
   }, [isModalOpen]);
 
-
     // S3 이미지 업로드 함수
-    const uploadImage = async (file) => {
-      try {
-        const formData = new FormData();
-        formData.append('multipartFileList', file); // 파일 추가
-    
-        // 요청 경로를 /s3/v2로 변경
-        const response = await request.post('/s3/v2', formData);
-    
-        if (response.isSuccess) {
-          // 반환된 파일 URL 추출
-          const uploadedFile = response.result.s3FileList?.[0];
-          if (uploadedFile) {
-            return uploadedFile.fileUrl; // 파일 URL 반환
-          } else {
-            throw new Error('파일 정보가 응답에 없습니다.');
-          }
+  const uploadImage = async (file) => {
+    try {
+      const formData = new FormData();
+      formData.append('multipartFileList', file); // 파일 추가
+  
+      // 요청 경로를 /s3/v2로 변경
+      const response = await request.post('/s3/v2', formData);
+  
+      if (response.isSuccess) {
+        // 반환된 파일 URL 추출
+        const uploadedFile = response.result.s3FileList?.[0];
+        if (uploadedFile) {
+          return uploadedFile.fileUrl; // 파일 URL 반환
         } else {
-          throw new Error(`이미지 업로드 실패: ${response.message}`);
+          throw new Error('파일 정보가 응답에 없습니다.');
         }
-      } catch (error) {
-        console.error('이미지 업로드 오류:', error);
-        throw error;
+      } else {
+        throw new Error(`이미지 업로드 실패: ${response.message}`);
       }
-    };
+    } catch (error) {
+      console.error('이미지 업로드 오류:', error);
+      throw error;
+    }
+  };
   
     // 이미지 업로드 핸들러
     const handleImageUpload = async (event) => {
@@ -358,7 +401,6 @@ export default function Editor({
           }))
         );
       } catch (error) {
-        alert('이미지 업로드에 실패했습니다.');
       }
     };
   
@@ -467,7 +509,7 @@ export default function Editor({
           if (uploadedFile) {
             setUploadedFiles((prevFiles) => [
               ...prevFiles,
-              { ...uploadedFile, size: file.size },
+              { ...uploadedFile, size: uploadedFile.fileSize },
             ]);
           }
         } else {
@@ -475,11 +517,15 @@ export default function Editor({
         }
       } catch (error) {
         console.error('파일 업로드 오류:', error);
-        alert('파일 업로드 중 오류가 발생했습니다.');
+      }
+      finally {
+        // 파일 입력 초기화
+        if (fileInputRef.current) {
+          fileInputRef.current.value = '';
+        }
       }
     }
   };
-
 
   // 임시저장 게시글 목록 조회
   const fetchDrafts = async () => {
@@ -488,15 +534,13 @@ export default function Editor({
       if (response.isSuccess) {
         const draftList = response.result.boardList.map((draft) => {
           const matchedCategory = categoryOptions.find(
-            (option) => option.value === draft.category
+            (option) => option.value === draft.categoryCode
           );
           return {
             ...draft,
             name: matchedCategory ? matchedCategory.label : '알 수 없음',
           };
         });
-        
-        console.log('Fetched Drafts:', draftList); // 디버깅용 출력
 
         setDrafts(draftList);
         setDraftCount(draftList.length); // 게시글 수 업데이트
@@ -515,33 +559,35 @@ export default function Editor({
 
     const handleSaveDraft = async () => {
       const content = editorView.state.doc.toString().trim();
-    
-      if (!title.trim() && !content.trim()) {
-        alert('제목이나 내용을 입력하세요.');
-        return;
-      }
-    
-      const fileUrls = selectedFiles.map((file) => URL.createObjectURL(file));
-    
+      const fileUrls = uploadedFiles.map(file => file.fileUrl);
+
       const requestData = {
-        title: title.trim() || '제목 없음',
+        title: title.trim() || '',
         content: content || '',
+        category: categoryCode,
         fileUrlList: fileUrls,
         saveYn: false, // 임시저장
       };
     
       try {
-        const response = await request.post('board', requestData);
-    
+        let response;
+        if (boardId) {
+          // boardId가 존재하면 PATCH 요청
+          response = await request.patch(`/board/${boardId}`, requestData);
+        } else {
+          // boardId가 없으면 POST 요청
+          response = await request.post('/board', requestData);
+          setBoardId(response.result);
+        }    
         if (response.isSuccess) {
           alert('글이 임시저장되었습니다.');
           fetchDrafts(); // 임시저장 목록 갱신
         } else {
-          alert(`임시저장 실패: ${response.message}`);
+          alert('게시글을 임시저장하는 중 오류가 발생했습니다.');
         }
       } catch (error) {
         console.error('임시저장 중 오류 발생:', error);
-        alert('임시저장 중 오류가 발생했습니다.');
+        // alert('게시글을 임시저장하는 중 오류가 발생했습니다.');
       }
     };
 
@@ -569,11 +615,15 @@ const fetchDraftDetails = async (boardId) => {
       const uploadedFilesFromDraft = draft.boardFileList.map((file) => ({
         originalName: file.originalName,
         fileUrl: file.fileUrl,
+        size: file.fileSize,
       }));
       setUploadedFiles(uploadedFilesFromDraft);
 
       // 카테고리 업데이트
-      setCategory({ value: draft.category, label: draft.category });
+      const { nameToCode, codeToName } = categoryConverter(categoryOptions);
+      setSelectedCategory({ value: draft.categoryCode, label: draft.category });
+      setCategoryCode(draft.categoryCode);
+      setCategory(draft.category);
 
       console.log('임시저장 글 불러오기 성공:', draft);
     } else {
@@ -592,6 +642,7 @@ const fetchDraftDetails = async (boardId) => {
         );
   
         if (confirmed) {
+          setBoardId(draft.boardId);
           fetchDraftDetails(draft.boardId); // 선택된 글 불러오기
         }
       } catch {
@@ -609,7 +660,7 @@ const fetchDraftDetails = async (boardId) => {
  const handlePostSubmit = async () => {
   const content = editorView.state.doc.toString().trim();
 
-  const fileUrls = selectedFiles.map((file) => URL.createObjectURL(file));
+  const fileUrls = uploadedFiles.map(file => file.fileUrl);
 
   const requestData = {
     title: title.trim(),
@@ -618,8 +669,6 @@ const fetchDraftDetails = async (boardId) => {
     fileUrlList: fileUrls,
     saveYn: true,
   };
-
-  console.log('요청 데이터:', requestData);
 
   try {
     let response;
@@ -633,16 +682,19 @@ const fetchDraftDetails = async (boardId) => {
       }
 
       if (response.isSuccess) {
+        setSaveYn(true);
+        setBoardId(response.result);
+        setCategory(selectedCategory);
+
         alert(boardId ? '게시글이 수정되었습니다.' : '게시글이 등록되었습니다.');
         navigate(-1); // 이전 페이지로 이동
       } else {
-        alert(`저장 실패: ${response.message}`);
+        alert('게시글을 저장하는 중 오류가 발생했습니다.');
       }
     } catch (error) {
-      console.error('게시글 저장 중 오류 발생:', error);
+      // alert('게시글을 저장하는 중 오류가 발생했습니다.');
     }
   };
-
 
   return (
     <Styled.LeftContainer>
@@ -665,7 +717,7 @@ const fetchDraftDetails = async (boardId) => {
         <Styled.CategorySelect
           options={categoryOptions}
           placeholder={categoryPlaceholderText}
-          value={categoryOptions[0]} // 기본값을 "공지사항"으로 설정
+          value={categoryOptions[0]}
           // isDisabled={true} // 선택 비활성화
           // defaultValue={categoryOptions[0]}
           components={{ DropdownIndicator: null, IndicatorSeparator: null }}
@@ -677,17 +729,9 @@ const fetchDraftDetails = async (boardId) => {
         </Styled.LIContainer>
 
         {/* 선택된 파일 목록 표시 */}
-        {selectedFiles.length > 0 && (
+        {uploadedFiles.length > 0 && (
         <Styled.FileContainer>
           <FileTable uploadedFiles={uploadedFiles} deleteFile={deleteFile} />
-          <input
-            type="file"
-            ref={fileInputRef}
-            style={{ display: 'none' }}
-            onChange={handleFileUpload}
-            multiple // 다중 파일 업로드 지원
-          />
-
 
         </Styled.FileContainer>
       )}
@@ -744,7 +788,7 @@ const fetchDraftDetails = async (boardId) => {
       <Styled.BtnContainer>
       <Styled.ExitButton onClick={handleExit}>← 나가기</Styled.ExitButton>
       <Styled.BtnContainer2>
-      {!boardId && ( // boardId가 없을 때만 표시
+      {!saveYn && ( // boardId가 없을 때만 표시
       <Styled.DraftButton>
         {/* 임시저장 클릭 영역 */}
         <Styled.DraftSaveArea onClick={handleSaveDraft}>
@@ -757,7 +801,7 @@ const fetchDraftDetails = async (boardId) => {
       </Styled.DraftButton>
     )}
       <Styled.Btn onClick={handlePostSubmit}>
-        {boardId ? '수정하기' : '등록하기'}
+        {boardId && saveYn ? '수정하기' : '등록하기'}
       </Styled.Btn>
       </Styled.BtnContainer2>
       </Styled.BtnContainer>

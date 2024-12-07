@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import Editor from './WritePost.writepost.editor';
 import Preview from './WritePost.writepost.preview';
 import * as Styled from './Styled/WritePost.writepost.main.styles';
@@ -7,10 +7,12 @@ import request from '../../Api/request';
 
 export default function WritePost() {
   const location = useLocation();
+  const { id } = useParams();  // 게시글 ID 가져오기
   const { boardId } = location.state || {}; // 수정 시 전달받은 게시글 ID
   const [markdownContent, setMarkdownContent] = useState('');
   const [title, setTitle] = useState('');
   const [categoryCode, setCategoryCode] = useState(null);
+  const [category, setCategory] = useState(null);
 
   useEffect(() => {
     // 게시글 ID가 있을 경우 수정 데이터를 불러옵니다.
@@ -22,12 +24,13 @@ export default function WritePost() {
             const { title, content, category } = response.result;
             setTitle(title);
             setMarkdownContent(content);
-            setCategoryCode(category); // 카테고리 설정
+            setCategoryCode(categoryCode); // 카테고리 설정
+            setCategory(category);
           } else {
-            console.error('게시글 조회 실패:', response.message);
+            console.error('게시글 상세 조회 실패:', response.message);
           }
         } catch (error) {
-          console.error('게시글 조회 중 오류:', error);
+          console.error('게시글 상세 조회 중 오류:', error);
         }
       };
 
@@ -52,8 +55,9 @@ export default function WritePost() {
           title={title}
           setTitle={setTitle}
           setMarkdownContent={setMarkdownContent}
-          boardId={boardId} // 수정 시 boardId 전달
+          initialBoardId={boardId} // 수정 시 boardId 전달
           initialCategoryCode={categoryCode} // 수정 시 카테고리 코드 전달
+          initialCategory={category}
           initialContent={markdownContent} // Codemirror 초기 값 전달
 />
 

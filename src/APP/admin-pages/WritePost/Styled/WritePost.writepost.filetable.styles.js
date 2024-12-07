@@ -85,6 +85,7 @@ export const DeleteButton = styled.button`
   img {
     width: 0.667rem;
     height: 0.667rem;
+    vertical-align: middle;
   }
 `;
 

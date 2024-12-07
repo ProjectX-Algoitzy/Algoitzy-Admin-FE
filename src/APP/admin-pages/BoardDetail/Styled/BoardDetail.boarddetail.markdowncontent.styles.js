@@ -1,11 +1,10 @@
 import styled from 'styled-components';
 import * as tokens from "../../../../tokens";
 
-export const PreviewContainer = styled.div`
-  width: 50%;
+export const MarkdownContentContainer = styled.div`
+  width: 100%;
   padding: 1.25rem;
   border: 0.0417rem solid #ffffff;
-  background-color: #F5FBFF;
   font-family: 'Pretendard', sans-serif;
   font-size: 1rem;
   color: ${tokens.colors.B_Grey_8}; /* 텍스트 기본 색상 설정 */

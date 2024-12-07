@@ -515,7 +515,7 @@ const categoryConverter = (categoryOptions) => {
           if (uploadedFile) {
             setUploadedFiles((prevFiles) => [
               ...prevFiles,
-              { ...uploadedFile, size: uploadedFile.fileSize, onlyS3: false },
+              { ...uploadedFile, size: uploadedFile.fileSize, onlyS3: true },
             ]);
           }
         } else {
@@ -587,6 +587,12 @@ const categoryConverter = (categoryOptions) => {
         }    
         if (response.isSuccess) {
           alert('글이 임시저장되었습니다.');
+          setUploadedFiles((prevFiles) =>
+            prevFiles.map((file) => ({
+              ...file,
+              onlyS3: false, // 모든 파일의 onlyS3 값을 true로 설정
+            }))
+          );
           fetchDrafts(); // 임시저장 목록 갱신
         } else {
           alert('게시글을 임시저장하는 중 오류가 발생했습니다.');

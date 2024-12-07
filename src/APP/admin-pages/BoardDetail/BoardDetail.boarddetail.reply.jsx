@@ -76,7 +76,7 @@ export default function Reply({ item, parentName, formatDate, fetchComment }) {
             {item.deleteYn ? (
               <itemS.ContentBox>
                 <itemS.DeletedIcon src='/img/deleted_icon_black.svg' alt='삭제된 글' />
-                <itemS.Content data-delete-yn={item.deleteYn ? true : undefined}>{item.deleteByAdminYn ? '관리자에 의해 삭제된 댓글 입니다.' : '작성자에 의해 삭제된 댓글 입니다.'}</itemS.Content>
+                <itemS.Content data-delete-yn={item.deleteYn ? true : undefined}>{item.deleteByAdminYn ? '관리자에 의해 삭제된 댓글입니다.' : '작성자에 의해 삭제된 댓글입니다.'}</itemS.Content>
               </itemS.ContentBox>
             ) : (
               <itemS.ContentBox>

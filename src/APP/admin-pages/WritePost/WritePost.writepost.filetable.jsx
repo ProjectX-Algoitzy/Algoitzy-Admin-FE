@@ -41,7 +41,7 @@ const getFileIcon = (fileName) => {
   // hwp 확장자 처리
   const hwpExtensions = ['hwp', 'hwpx'];
   if (hwpExtensions.includes(extension)) {
-    return fileIcons.ppt;
+    return fileIcons.hwp;
   }
 
   // img 확장자 처리
@@ -60,7 +60,6 @@ export default function FileTable({ uploadedFiles, deleteFile }) {
       {/* 라벨 영역 */}
       <Styled.FileTableHeader>
         <Styled.TableColumn style={{ flex: '0 0 3rem', textAlign: 'center' }}>
-        <Styled.HeaderIcon src='/img/deleteX2.svg' alt="삭제" style={{ width: '0.833rem', height: '0.833rem' }}/>
         </Styled.TableColumn>
         <Styled.TableColumn style={{ flex: '0 0 18rem', textAlign: 'left' }}>
           파일명

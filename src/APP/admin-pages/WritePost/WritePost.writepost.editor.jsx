@@ -480,8 +480,14 @@ const categoryConverter = (categoryOptions) => {
   };
 
   const deleteFile = async (file) => {
+    let response;
     try {
-      const response = await request.delete('/s3', { params: { fileUrl: file.fileUrl } });
+      if (file.onlyS3==true){
+        response = await request.delete('/s3', { params: { fileUrl: file.fileUrl } });
+      } else {
+        response = await request.delete('/board-file', {
+          params: { fileUrl: file.fileUrl },
+        });      }
       if (response.isSuccess) {
         setUploadedFiles((prevFiles) =>
           prevFiles.filter((f) => f.fileUrl !== file.fileUrl)
@@ -509,7 +515,7 @@ const categoryConverter = (categoryOptions) => {
           if (uploadedFile) {
             setUploadedFiles((prevFiles) => [
               ...prevFiles,
-              { ...uploadedFile, size: uploadedFile.fileSize },
+              { ...uploadedFile, size: uploadedFile.fileSize, onlyS3: true },
             ]);
           }
         } else {
@@ -581,6 +587,12 @@ const categoryConverter = (categoryOptions) => {
         }    
         if (response.isSuccess) {
           alert('글이 임시저장되었습니다.');
+          setUploadedFiles((prevFiles) =>
+            prevFiles.map((file) => ({
+              ...file,
+              onlyS3: false, // 모든 파일의 onlyS3 값을 true로 설정
+            }))
+          );
           fetchDrafts(); // 임시저장 목록 갱신
         } else {
           alert('게시글을 임시저장하는 중 오류가 발생했습니다.');

@@ -178,6 +178,7 @@ export const ContentContainer = styled.div`
   justify-content: flex-start;
   align-items: center;
   flex-direction: column;
+  width: 50rem;
   background-color: ${tokens.colors.Grey_1};
   padding: 1.25rem 0 1rem 0;
   border: 1px solid ${tokens.colors.B_Grey_2};

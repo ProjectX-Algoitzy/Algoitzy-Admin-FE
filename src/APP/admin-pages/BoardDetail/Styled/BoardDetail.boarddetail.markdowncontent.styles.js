@@ -3,7 +3,6 @@ import * as tokens from "../../../../tokens";
 
 export const MarkdownContentContainer = styled.div`
   width: 100%;
-  padding: 1.25rem;
   border: 0.0417rem solid #ffffff;
   font-family: 'Pretendard', sans-serif;
   font-size: 1rem;

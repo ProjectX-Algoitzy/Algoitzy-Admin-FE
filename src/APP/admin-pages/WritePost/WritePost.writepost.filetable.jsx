@@ -86,7 +86,7 @@ export default function FileTable({ uploadedFiles, deleteFile }) {
                 <Styled.FileName>{file.originalName}</Styled.FileName> {/* 파일명에 스타일 적용 */}
               </Styled.TableCell>
               <Styled.TableCell style={{ textAlign: 'center' }}>
-                {file.size}
+                {file.size || file.fileSize}
               </Styled.TableCell>
             </Styled.FileRow>
           ))

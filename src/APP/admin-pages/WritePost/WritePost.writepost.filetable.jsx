@@ -20,13 +20,37 @@ const defaultIcon = '/img/file_default.png';
 const getFileIcon = (fileName) => {
   const extension = fileName.split('.').pop().toLowerCase();
 
-  // 이미지 확장자 처리
-  const imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'svg'];
-  if (imageExtensions.includes(extension)) {
-    return fileIcons.img; // 이미지 아이콘 반환
+  // doc 확장자 처리
+  const docExtensions = ['doc', 'docx'];
+  if (docExtensions.includes(extension)) {
+    return fileIcons.doc;
   }
-  
-  return fileIcons[extension] || defaultIcon; // 확장자 매칭되지 않으면 기본 아이콘 반환
+
+  // xls 확장자 처리
+  const xlsExtensions = ['xls', 'xlsx'];
+  if (xlsExtensions.includes(extension)) {
+    return fileIcons.xls;
+  }
+
+  // ppt 확장자 처리
+  const pptExtensions = ['ppt', 'pptx'];
+  if (pptExtensions.includes(extension)) {
+    return fileIcons.ppt;
+  }
+
+  // hwp 확장자 처리
+  const hwpExtensions = ['hwp', 'hwpx'];
+  if (hwpExtensions.includes(extension)) {
+    return fileIcons.ppt;
+  }
+
+  // img 확장자 처리
+  const imgExtensions = ['jpg', 'jpeg', 'png', 'gif', 'svg'];
+  if (imgExtensions.includes(extension)) {
+    return fileIcons.img;
+  }
+
+  return fileIcons[extension] || defaultIcon;
 };
 
 
@@ -62,7 +86,7 @@ export default function FileTable({ uploadedFiles, deleteFile }) {
                 <Styled.FileName>{file.originalName}</Styled.FileName> {/* 파일명에 스타일 적용 */}
               </Styled.TableCell>
               <Styled.TableCell style={{ textAlign: 'center' }}>
-                {formatFileSize(file.size)}
+                {file.size || file.fileSize}
               </Styled.TableCell>
             </Styled.FileRow>
           ))

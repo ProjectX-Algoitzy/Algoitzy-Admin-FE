@@ -216,14 +216,14 @@ export const PaginationContainer = styled.div`
 `;
 
 export const BlankBtn = styled.div`
-  width: 190px;
+  width: 7.917rem;
 `;
 
 export const WriteBtn = styled.button`
   background-color: ${tokens.colors.Blue_0_Main};
   color: ${tokens.colors.White};
-  width: 190px;
-  height: 47px;
+  width: 7.917rem;
+  height: 2rem;
   border: none;
   border-radius: 0.167rem;
   cursor: pointer; 

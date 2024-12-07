@@ -11,10 +11,6 @@ export default function Comment({ item, formatDate, fetchComment }) {
 
 	const [isReplyBoxVisible, setIsReplyBoxVisible] = useState(false);
   const [isUtilBoxVisible, setIsUtilBoxVisible] = useState(false);
-  
-  // const handleReplyClick = () => {
-  //   setIsReplyBoxVisible(!isReplyBoxVisible);
-  // };
 
   const handleDotClick = () => {
     setIsUtilBoxVisible(!isUtilBoxVisible); // DotBox 클릭 시 토글
@@ -25,13 +21,10 @@ export default function Comment({ item, formatDate, fetchComment }) {
       setIsUtilBoxVisible(false); // 외부 클릭 시 UtilBox 닫기
     }
   };
-  // useEffect(() => {
-	// 	console.log('item',item);
-	// }, []);
-
+  
   // 댓글 삭제
   const handleDelete = async () => {
-    const confirmed = await confirm("정말로 삭제하시겠습니까?");
+    const confirmed = await confirm("정말 삭제하시겠습니까?");
 
     if (confirmed) { 
       try {
@@ -63,7 +56,10 @@ export default function Comment({ item, formatDate, fetchComment }) {
           <itemS.CommentProfile src={item.profileUrl} alt='프로필' />
           <itemS.CommentBox>
             <itemS.WriterBox>
-              <itemS.WriterName>{item.createdName}</itemS.WriterName>
+              <itemS.WriterNameBox>
+                <itemS.WriterName>{item.createdName}</itemS.WriterName>
+                {item.myBoardYn && <itemS.WriterIcon>작성자</itemS.WriterIcon>}
+              </itemS.WriterNameBox>
               <itemS.DotBox ref={modalRef} onClick={handleDotClick}>
                 <itemS.DotButton src='/img/hamberg.svg' alt='...' />
                 {isUtilBoxVisible && ( // isUtilBoxVisible 상태에 따라 표시
@@ -74,23 +70,18 @@ export default function Comment({ item, formatDate, fetchComment }) {
                 )}
               </itemS.DotBox>
             </itemS.WriterBox>
-            {item.deleteYn || item.deleteByAdminYn ? (
+            {item.deleteYn ? (
               <itemS.ContentBox>
                   <itemS.DeletedIcon src='/img/deleted_icon_black.svg' alt='삭제된 글' />
-                  <itemS.Content deleteYn={item.deleteYn || item.deleteByAdminYn}>{item.deleteYn ? '작성자에 의해 삭제된 댓글 입니다.' : '관리자에 의해 삭제된 댓글 입니다.'}</itemS.Content>
+                  <itemS.Content data-delete-yn={item.deleteYn ? true : undefined}>{item.deleteByAdminYn ? '관리자에 의해 삭제된 댓글입니다.' : '작성자에 의해 삭제된댓글 입니다.'}</itemS.Content>
                 </itemS.ContentBox>
               ) : (
                 <itemS.ContentBox>
-                  <itemS.Content deleteYn={item.deleteYn || item.deleteByAdminYn}>{item.content}</itemS.Content>
+                  <itemS.Content data-delete-yn={item.deleteYn ? true : undefined}>{item.content}</itemS.Content>
                 </itemS.ContentBox>
               )}
             <itemS.InfoBottomBox>
               <itemS.CreatedTime>{formatDate(item.createdTime)}</itemS.CreatedTime>
-              {/* <itemS.Reply onClick={handleReplyClick}>답글 달기</itemS.Reply> */}
-              {/* <itemS.CommentLike
-                src={item.myLikeYn ? '/img/like-s-fill.svg' : '/img/like-s.svg'}
-                alt='하뚜'
-              /> */}
             </itemS.InfoBottomBox>
           </itemS.CommentBox>
         </itemS.CommentContainer>

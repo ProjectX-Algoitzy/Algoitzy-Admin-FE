@@ -4,18 +4,18 @@ import request from '../../Api/request';
 import * as itemS from "./Styled/BoardDetail.boarddetail.main.styles";
 import Content from './BoardDetail.boarddetail.content';
 import Comment from './BoardDetail.boarddetail.comment';
-import WriteBox from './WriteBox';
 import { AlertContext } from '../../Common/Alert/AlertContext';
+import { ConfirmContext } from '../../Common/Confirm/ConfirmContext';
 
 export default function BoardDetail() {
 	const { id } = useParams();  // 게시글 ID 가져오기
 	const navigate = useNavigate();
 	const { alert } = useContext(AlertContext);
+	const { confirm } = useContext(ConfirmContext);
 
 	const [board, setBoard] = useState({});
 	const [comment, setComment] = useState([]);
 
-	// 페이지
 	const [currentPage, setCurrentPage] = useState(0);
 	const [totalPages, setTotalPages] = useState(5); //TODO - 임시 ) 전체 페이지 수 -> response 값으로 전체 개수 받아와야함
 	const [currentPageGroup, setCurrentPageGroup] = useState(0);
@@ -26,13 +26,17 @@ export default function BoardDetail() {
 		(_, i) => currentPageGroup * 5 + i
 	);
 
-	const formatDate = (createdTime) => {
-    const date = new Date(createdTime);
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    return `${year}.${month}.${day}`;
-  };
+	const formatDate = (createdTime) => {  
+    const date = new Date(createdTime);  
+    const year = date.getFullYear();  
+    const month = String(date.getMonth() + 1).padStart(2, '0');  
+    const day = String(date.getDate()).padStart(2, '0');  
+    const hours = String(date.getHours()).padStart(2, '0');  
+    const minutes = String(date.getMinutes()).padStart(2, '0');  
+    const seconds = String(date.getSeconds()).padStart(2, '0');  
+    
+    return `${year}.${month}.${day} ${hours}:${minutes}:${seconds}`;  
+};
 
 	const fetchBoard = async () => { // 게시글 조회
     try {
@@ -54,8 +58,9 @@ export default function BoardDetail() {
       const response = await request.get(`/board/${id}/reply?page=${currentPage + 1}&size=${itemsPerPage}`);
 
       if (response.isSuccess) {
-        console.log("댓글 조회 성공", response.result.replyList);
+        console.log("댓글 조회 성공", response.result);
         setComment(response.result.replyList);
+				setTotalPages(Math.ceil(response.result.parentReplyCount / itemsPerPage));
       } else {
         console.error("댓글 조회 실패:", response);
       }
@@ -79,36 +84,45 @@ export default function BoardDetail() {
       const response = await request.patch(`/board/${id}/fix`);
       if (response.isSuccess) {
         console.log("게시글 고정 토글 성공:", response);
-       
+				fetchBoard();
       } else {
         console.error("게시글 고정 토글 실패:", response);
       }
     } catch (error) {
       console.error("게시글 고정 토글 에러:", error);
-      
     }
   };
 
 	// 게시글 삭제
 	const handleDelete = async () => {
-
-    try {
-      const response = await request.delete(`/board/${id}`);
-      if (response.isSuccess) {
-        console.log("게시글 삭제 성공:", response);
-				navigate('/community');
-      } else {
-        console.error("게시글 삭제 실패:", response);
-      }
-    } catch (error) {
-      console.error("게시글 삭제 에러:", error);
-      
-    }
+		const confirmed = await confirm("정말 삭제하시겠습니까?");
+		if (confirmed) {
+			try {
+				const response = await request.delete(`/board/${id}`);
+				if (response.isSuccess) {
+					console.log("게시글 삭제 성공:", response);
+					alert('게시글이 삭제되었습니다.')
+					navigate('/community');
+				} else {
+					console.error("게시글 삭제 실패:", response);
+				}
+			} catch (error) {
+				console.error("게시글 삭제 에러:", error);
+				
+			}
+		}
   };
 
   const handleEdit = () => {
     navigate(`/writepost`, {
-		state: { boardId: id }, 
+		state: {
+			boardId: id,
+			title: board.title,
+			initialContent: board.content,
+			initialCategoryCode: board.category,
+			initialUploadedFiles: board.boardFileList,
+			initialSaveYn: true,
+		  },
     });
   };
 
@@ -128,7 +142,7 @@ export default function BoardDetail() {
       setCurrentPage((currentPageGroup - 1) * 5); // 새로운 그룹의 첫 번째 페이지로 이동
     }
 	};
-	
+
 
 	return (
 		<itemS.OuterContainer>
@@ -137,7 +151,6 @@ export default function BoardDetail() {
 					<itemS.TopContainer>
 						<itemS.HeadContainer>
 							<itemS.Head>커뮤니티 &gt; {board.category}</itemS.Head>
-							{/* <itemS.SemiHead>{title}</itemS.SemiHead> */}
 						</itemS.HeadContainer>
 					</itemS.TopContainer>
 					<itemS.TitleContainer>
@@ -145,7 +158,7 @@ export default function BoardDetail() {
 						<itemS.ButtonBox>
 							{board.category === '공지' && (
 								<>
-									<itemS.EditBtn onClick={handleFix}>고정</itemS.EditBtn>
+									<itemS.EditBtn onClick={handleFix}>{board.fixYn ? '고정 해제' : '고정'}</itemS.EditBtn>
 									<itemS.EditBtn onClick={handleEdit}>수정</itemS.EditBtn>
 								</>
 							)}

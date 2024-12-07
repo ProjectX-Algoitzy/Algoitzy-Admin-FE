@@ -58,6 +58,7 @@ export default function Community() {
 			if (response.isSuccess) {
 				console.log("게시글 목록 조회 성공");
 				setPosts(response.result.boardList);
+				setTotalPages(Math.ceil(response.result.totalCount / itemsPerPage));
 			} else {
 				console.error("게시글 목록 조회 실패:", response);
 			}
@@ -145,7 +146,7 @@ export default function Community() {
 									type="text"
 									value={searchKeyword}
 									onChange={(e) => setSearchKeyword(e.target.value)}
-									placeholder='제목, 내용, 작성자 검색'
+									placeholder='제목, 작성자 검색'
 								/>
 								<itemS.SearchIcon onClick={() => handleSearch()} src='/img/search.svg' alt='돋보기' />
 								{/* <itemS.SearchIcon onClick={() => fetchInstitutionList()} src='/img/search.svg' alt='돋보기' /> */}

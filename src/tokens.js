@@ -113,6 +113,11 @@ export const typography = {
         fontSize: "1.667rem",
         lineHeight: "2.25rem",
       },
+      H4_SB_35: {
+        fontWeight: "600",
+        fontSize: "1.458rem",
+        lineHeight: "2.25rem",
+      },
       T1_SB_32: {
         fontWeight: "600",
         fontSize: "1.333rem",
@@ -162,6 +167,11 @@ export const typography = {
         fontWeight: "500",
         fontSize: "0.5rem",
         lineHeight: "0.625rem",
+      },
+      Sub_M_13: {
+        fontWeight: "500",
+        fontSize: "0.5rem",
+        lineHeight: "0.583rem",
       },
     }
 /* 예시 사용법

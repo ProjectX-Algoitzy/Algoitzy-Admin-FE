@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import request from '../../Api/request';
 import * as itemS from "../../admin-pages/EnterpriseBootcampList/Styled/EnterpriseBootcampList.enterprisebootcamplist.main.styles";
 import EnterBootListTable from './EnterpriseBootcampList.enterprisebootcamplist.table';
-// import { dummyCompanyList, dummyBootList } from './dummy';
 import MakingInstitutionModal from './MakingInstitutionModal';
 
 export default function EnterBootList() {

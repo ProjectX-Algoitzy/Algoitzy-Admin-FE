@@ -481,12 +481,10 @@ const categoryConverter = (categoryOptions) => {
 
   const deleteFile = async (file) => {
     let response;
-    console.log("file:  asdfasdfasdfasdf",file)
     try {
-      if (file.onlyS3){
+      if (file.onlyS3==true){
         response = await request.delete('/s3', { params: { fileUrl: file.fileUrl } });
       } else {
-        console.log("logggggggg",file.onlyS3);
         response = await request.delete('/board-file', {
           params: { fileUrl: file.fileUrl },
         });      }
@@ -517,7 +515,7 @@ const categoryConverter = (categoryOptions) => {
           if (uploadedFile) {
             setUploadedFiles((prevFiles) => [
               ...prevFiles,
-              { ...uploadedFile, size: uploadedFile.fileSize, onlyS3: true },
+              { ...uploadedFile, size: uploadedFile.fileSize, onlyS3: false },
             ]);
           }
         } else {

@@ -7,7 +7,8 @@ export const Container = styled.div`
   flex-direction: column;
   padding-left: 1.33rem;
   height: 100%;
-  width: 39.042rem;
+  width: 100%;
+  max-width: 34rem;
 `;
 
 export const Title = styled.div`
@@ -131,9 +132,7 @@ export const TableContainer = styled.div`
 `;
 
 export const Table = styled.table`
-  /* width: 33.04rem; */
   width: 100%;
-  /* height: 18.63rem; */
   border-collapse: collapse;
   background-color: #fff;
   table-layout: fixed; /* 열 너비 고정 */
@@ -196,8 +195,7 @@ export const TableCell = styled.td`
   }
 
   &:nth-child(4) {
-    /* padding-left: 7.5rem; */
-    padding-left: 9.77rem;
+    padding-left: 7.5rem;
   }
 `;
 // 테이블 스타일 끝

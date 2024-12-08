@@ -89,8 +89,7 @@ export const ProfileBox = styled.div`
 export const AdminName = styled.div`
   color: ${tokens.colors.Blue_0_Main};
   ${tokens.typography.T5_SB_16};
-  min-width: 5rem;
-  max-width: 5.83rem;
+  /* max-width: 5.83rem; */
   margin-right: 0.3rem;
   @media (max-width: 600px) {
     display: none;

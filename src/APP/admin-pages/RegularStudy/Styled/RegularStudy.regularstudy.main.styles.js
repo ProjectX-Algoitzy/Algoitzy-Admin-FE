@@ -11,6 +11,7 @@ export const Container = styled.div`
   margin-top: 3.33rem;
   overflow: auto; 
   justify-content: center; 
+  width: 50rem; 
   
   @media (max-width: 600px) {
     flex-direction: column; 

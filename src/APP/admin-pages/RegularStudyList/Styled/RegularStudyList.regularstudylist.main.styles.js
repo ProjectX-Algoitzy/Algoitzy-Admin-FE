@@ -12,7 +12,8 @@ export const InnerContainer = styled.div`
   flex-direction: column;
   align-items: center; 
   border-radius: 0.833rem;
-  padding: 6.583rem 0;
+  width: 50rem; 
+  padding: 6.58rem 0;
 `;
 
 export const TitleContainer = styled.div`

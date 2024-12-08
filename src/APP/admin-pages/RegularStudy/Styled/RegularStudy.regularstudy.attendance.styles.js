@@ -6,7 +6,8 @@ export const Container = styled.div`
   flex-direction: column;
   padding-left: 1.333rem;
   height: 100%;
-  width: 39.042rem;
+  width: 100%;
+  max-width: 34rem;
 `;
 
 export const Title = styled.div`

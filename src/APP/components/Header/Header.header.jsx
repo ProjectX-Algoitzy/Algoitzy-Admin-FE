@@ -90,12 +90,12 @@ export default function Header() {
             <itemS.StyledLink onClick={() => handleMenuClick('application')}>
               <itemS.PageLink>지원자 관리</itemS.PageLink>
               {activeMenu === 'application' && (
-                <itemS.SubMenuContaier ref={applicationMenuRef} onClick={(e) => e.stopPropagation()}>
+                <itemS.SubMenuContaier ref={applicationMenuRef}>
                   <itemS.SubMenu isLoggedIn={isLoggedIn}>
-                    <itemS.StyledLink to={isLoggedIn ? "/manageauth" : "/login"} onClick={handleNav}>
+                    <itemS.StyledLink to={isLoggedIn ? "/manageauth" : "/login"} onClick={(e) => {e.stopPropagation(); handleNav();}}>
                       <itemS.SubMenuItem>권한 관리</itemS.SubMenuItem>
                     </itemS.StyledLink>
-                    <itemS.StyledLink to={isLoggedIn ? "/answer" : "/login"} onClick={handleNav}>
+                    <itemS.StyledLink to={isLoggedIn ? "/answer" : "/login"} onClick={(e) => {e.stopPropagation(); handleNav();}}>
                       <itemS.SubMenuItem>지원자 관리</itemS.SubMenuItem>
                     </itemS.StyledLink>
                   </itemS.SubMenu>
@@ -105,12 +105,12 @@ export default function Header() {
             <itemS.StyledLink onClick={() => handleMenuClick('study')}>
               <itemS.PageLink>스터디 관리</itemS.PageLink>
               {activeMenu === 'study' && (
-                <itemS.SubMenuContaier ref={studyMenuRef} onClick={(e) => e.stopPropagation()}>
+                <itemS.SubMenuContaier ref={studyMenuRef}>
                   <itemS.SubMenu isLoggedIn={isLoggedIn}>
-                    <itemS.StyledLink to={isLoggedIn ? "/regularstudylist" : "/login"} onClick={handleNav}>
+                    <itemS.StyledLink to={isLoggedIn ? "/regularstudylist" : "/login"} onClick={(e) => {e.stopPropagation(); handleNav();}}>
                       <itemS.SubMenuItem>정규 스터디</itemS.SubMenuItem>
                     </itemS.StyledLink>
-                    <itemS.StyledLink to={isLoggedIn ? "/generation" : "/login"} onClick={handleNav}>
+                    <itemS.StyledLink to={isLoggedIn ? "/generation" : "/login"} onClick={(e) => {e.stopPropagation(); handleNav();}}>
                       <itemS.SubMenuItem>기수 갱신</itemS.SubMenuItem>
                     </itemS.StyledLink>
                   </itemS.SubMenu>
@@ -126,9 +126,9 @@ export default function Header() {
             <itemS.StyledLink onClick={() => handleMenuClick('coding')}>
               <itemS.PageLink>코딩테스트 분석</itemS.PageLink>
               {activeMenu === 'coding' && (
-                <itemS.SubMenuContaier ref={codingMenuRef} onClick={(e) => e.stopPropagation()}>
+                <itemS.SubMenuContaier ref={codingMenuRef}>
                   <itemS.SubMenu isLoggedIn={isLoggedIn}>
-                    <itemS.StyledLink to={isLoggedIn ? "/enterbootlist" : "/login"} onClick={handleNav}>
+                    <itemS.StyledLink to={isLoggedIn ? "/enterbootlist" : "/login"} onClick={(e) => {e.stopPropagation(); handleNav();}}>
                       <itemS.SubMenuItem style={{marginBottom:"2.5rem"}}>기업/부트캠프</itemS.SubMenuItem>
                     </itemS.StyledLink>
                   </itemS.SubMenu>

@@ -137,6 +137,7 @@ export const WeeksSelectContainer = styled(Select).attrs({
   .react-select__dropdown-indicator {
     padding: 0;
     height: auto;
+  }
 `;
 
 export const ContentsContainer = styled.div`

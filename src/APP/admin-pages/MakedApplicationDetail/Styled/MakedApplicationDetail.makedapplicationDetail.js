@@ -804,7 +804,7 @@ export const Btn = styled.button` /*저장하기 버튼*/
 	color: ${tokens.colors.White};
 	${tokens.typography.T5_SB_16}
   background-color: ${tokens.colors.Blue_0_Main};
-  margin-left: 3.042rem;
+  margin-left: 4rem;
   @media only screen and (max-width: 600px) {
     margin-left: 1rem;
   }

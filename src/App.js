@@ -84,7 +84,7 @@ function App() {
           <Route path="/newapplication/:id" element={isLoggedIn() ? <MakedApplicationDetail />: <Navigate to="/login" />} />
           <Route path="/answer" element={isLoggedIn() ? <ViewApplicationList /> : <Navigate to="/login" />} />
           <Route path="/answer/:id" element={isLoggedIn() ? <ViewApplicationDetail /> : <Navigate to="/login" />} />
-          <Route path="/makedselfstudylist" element={isLoggedIn() ? <MakedSelfStudyList /> : <Navigate to="/login" />} />
+          {/* <Route path="/makedselfstudylist" element={isLoggedIn() ? <MakedSelfStudyList /> : <Navigate to="/login" />} /> */}
           <Route path="/regularstudy/:id" element={isLoggedIn() ? <RegularStudy /> : <Navigate to="/login" />} />
           {/* <Route path="/quillpractice" element={<QuillPractice />} /> */}
           <Route path="/makingregularstudyinfo" element={isLoggedIn() ? <MakingRegularStudyStudyinfo /> : <Navigate to="/login" />} />

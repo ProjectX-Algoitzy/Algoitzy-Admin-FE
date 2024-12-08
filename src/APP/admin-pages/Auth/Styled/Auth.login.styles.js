@@ -16,6 +16,7 @@ export const InnerContainer = styled.div`
   background-color: ${tokens.colors.White};
   border: 0.042rem solid ${tokens.colors.Grey_4};
   border-radius: 0.83rem;
+  width: 50rem;
   padding: 5.29rem 16.96rem;
   margin: 5rem 0;
 `;

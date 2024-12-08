@@ -8,7 +8,7 @@ export const Container = styled.div`
 `;
 
 export const EditorWrapper = styled.div`
-  width: 24.583rem;
+  width: 100%;
 
   .ql-editor {
       height: 10.792rem;

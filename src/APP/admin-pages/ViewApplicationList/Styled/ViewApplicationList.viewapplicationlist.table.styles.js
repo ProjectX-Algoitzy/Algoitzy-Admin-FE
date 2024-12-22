@@ -95,7 +95,7 @@ export const SortIcon = styled.img`
 export const TupleContainer = styled.div`
   display: flex;
   flex-direction: column;
-  height: 25.458rem;
+  height: 24rem;
   overflow: auto;
 
   &::-webkit-scrollbar {

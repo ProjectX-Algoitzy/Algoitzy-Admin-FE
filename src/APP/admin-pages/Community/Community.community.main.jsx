@@ -36,7 +36,7 @@ export default function Community() {
 		(_, i) => currentPageGroup * 5 + i
 	);
 
-	const fetchCategories = async () => {
+	const fetchCategories = async () => { // 카테고리 목록
     try {
       const response = await request.get('/board/category');
       if (response.isSuccess) {
@@ -92,6 +92,8 @@ export default function Community() {
 		} else if (tab.name === '홍보') {
 				setContent('궁금한 점을 나누며 성장하는 공간입니다.');
 		}
+		setCurrentPage(0);
+		setCurrentPageGroup(0);
 	};
 
 	const handleSearch = () => {

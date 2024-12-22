@@ -154,3 +154,44 @@ export const BtnFinalNonPass = styled.button`
   cursor: pointer;
   margin: 1rem 0.333rem;
 `;
+
+export const PaginationContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 50rem;
+  margin-top: 1rem;
+`;
+
+export const Pagination = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.83rem;
+  list-style: none;
+  // margin-top: 1.6rem;
+`;
+
+export const PaginationArrow = styled.div`
+  width: 1rem;
+  height: 1rem;
+  background-image: url('/img/grayarrow.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  transform: ${(props) => (props.left ? 'rotate(180deg)' : 'none')};
+  cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
+  opacity: ${(props) => (props.disabled ? 0.5 : 1)};
+`;
+
+export const PaginationNumber = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 0.21rem;
+  width: 0.33rem;
+  height: 0.88rem;
+  padding: 0.42rem;
+  cursor: pointer;
+  color: ${(props) => (props.active ? tokens.colors.Blue_3 : tokens.colors.B_Grey_7)};
+  font-weight: ${(props) => (props.active ? 'bold' : 'normal')};
+  ${tokens.typography.B3_M_14};
+`;

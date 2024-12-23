@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
 import * as itemS from "./Styled/RegularStudy.regularstudy.mocktest.styles"
 import Select, { components } from 'react-select';
 import request from '../../Api/request';
@@ -8,21 +8,22 @@ import { ConfirmContext } from '../../Common/Confirm/ConfirmContext';
 
 export default function RegularStudyMocktest() {
   const { id } = useParams();
-  const [week, setWeek] = useState(1);
+  const [week, setWeek] = useState(null);
+  const [currentWeek, setCurrentWeek] = useState(1); // 만약 기수가 다를 경우 1주차를 디폴트로
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [weekData, setWeekData] = useState({});
   const [workbookId, setWorkbookId] = useState(null);
   const { confirm } = useContext(ConfirmContext);
 
   const WeeksSelect = ({ value, onChange }) => {
-    const CustomDropdownIndicator = props => {
+    const CustomDropdownIndicator = (props) => {
       return (
         <components.DropdownIndicator {...props}>
-          <img src="/img/triangle.png" alt="triangle-icon" style={{ width: "1rem", height: "1rem"}} />
+          <img src="/img/triangle.png" alt="triangle-icon" style={{ width: "1rem", height: "1rem" }} />
         </components.DropdownIndicator>
       );
     };
-
+  
     const options = [
       { value: '1', label: '1주차' },
       { value: '2', label: '2주차' },
@@ -33,11 +34,13 @@ export default function RegularStudyMocktest() {
       { value: '7', label: '7주차' },
       { value: '8', label: '8주차' },
     ];
-
+  
+    const defaultValue = options.find(option => option.value === currentWeek?.toString()) || options[0];
+  
     return (
       <itemS.WeeksSelectContainer
         options={options}
-        value={options.find(option => option.value === value.toString())}
+        value={value ? options.find(option => option.value === value.toString()) : defaultValue}
         onChange={selectedOption => onChange(selectedOption.value)}
         placeholder="주차 선택"
         components={{ DropdownIndicator: CustomDropdownIndicator, IndicatorSeparator: null }}
@@ -45,6 +48,18 @@ export default function RegularStudyMocktest() {
       />
     );
   };
+
+  const fetchCurrentWeek = useCallback(async () => {
+    try {
+      const responseCurrentWeek = await request.get('/week/current');
+      console.log("현재 주차 정보 조회: ", responseCurrentWeek);
+      if (responseCurrentWeek.isSuccess) {
+        setCurrentWeek(responseCurrentWeek.result.week); // 현재 주차 상태 업데이트
+      }
+    } catch (error) {
+      console.error('현재 주차 정보 조회 오류: ', error);
+    }
+  }, []);
 
   const fetchQuestions = async () => {
     try {
@@ -80,8 +95,13 @@ export default function RegularStudyMocktest() {
   };
 
   useEffect(() => {
-    fetchQuestions();
-  }, [id]);
+    const fetchData = async () => {
+      await fetchCurrentWeek();  // 현재 주차를 가져오고
+      fetchQuestions();  // 그 후에 문제 목록을 가져옵니다.
+    };
+  
+    fetchData();
+  }, [id]);  // id가 변경될 때마다 호출
 
   const handleDeleteQuestion = async (workbookId, problemNumber) => {
     const confirmation = await confirm("정말로 삭제하시겠습니까?");
@@ -108,22 +128,6 @@ export default function RegularStudyMocktest() {
     setIsModalOpen(true)
   };
   const handleCloseModal = () => setIsModalOpen(false);
-
-  // const handleAddQuestion = (id, title, levelImg) => {
-  //   setWeekData(prevData => {
-  //     const updatedWeekData = { ...prevData };
-  //     const newQuestion = {
-  //       id,
-  //       title,
-  //       levelImg,
-  //       cancelImg: '/img/GrayX.png',
-  //       baekjoonUrl: `https://www.acmicpc.net/problem/${id}`,
-  //       workbookId: workbookId // 현재 선택된 workbookId를 추가합니다
-  //     };
-  //     updatedWeekData[week] = [...(updatedWeekData[week] || []), newQuestion];
-  //     return updatedWeekData;
-  //   });
-  // };
 
   const handleAddQuestion = async (id, title, levelImg) => {
     try {

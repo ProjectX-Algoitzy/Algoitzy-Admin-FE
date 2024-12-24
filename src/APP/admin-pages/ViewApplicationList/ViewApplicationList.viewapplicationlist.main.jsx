@@ -6,23 +6,38 @@ import StudySelect from './ViewApplicationList.viewapplicationlist.select';
 import { useRecoilState } from "recoil";
 import { IsSendMail } from '../Recoil/Recoil.state';
 import { AlertContext } from '../../Common/Alert/AlertContext';
+import { dummyData } from './dummy';
 
 export default function ViewApplicationList() {
 	const { alert } = useContext(AlertContext);
+	// const tabObj = {'전체 지원자' : 'all',
+	// 								'서류 전형' : 'doc',
+	// 								'면접 전형' : 'interview'}
+	const [categories, setCategories] = useState([{ code: '', name: '전체 지원자' }]); // Default '전체 지원자' tab									
+	const [selectedTab, setSelectedTab] = useState('');
 	
 	const [applications, setApplications] = useState([]);
 	const [generation, setGeneration] = useState(null);
 	const [generations, setGenerations] = useState([]);
-	const [page, setPage] = useState(1);
-	const [size, setSize] = useState(20); //TODO - 확인 필요
+	const [totalCount, setTotalCount] = useState(0);
 	const [filteredApplications, setFilteredApplications] = useState([]);
-	const [tabs, setTabs] = useState(['전체 지원자']);
-	const [selectedTab, setSelectedTab] = useState('전체 지원자');
+	// const [tabs, setTabs] = useState(['전체 지원자']);
+	// const [selectedTab, setSelectedTab] = useState('전체 지원자');
 	const [checkedItems, setCheckedItems] = useState([]);
 	const [sendMailItems, setSendMailItems] = useState([]); // 메일 발송한 id 들 -> 발송 후 체크 해제 위한 변수
 	const [firstCheckedStage, setFirstCheckedStage] = useState(null);
 	const [sortOrder, setSortOrder] = useState('desc');
 	const [isSendMail, setIsSendMail] = useRecoilState(IsSendMail);
+
+	const [currentPage, setCurrentPage] = useState(0);
+	const [totalPages, setTotalPages] = useState(5); //TODO - 임시 ) 전체 페이지 수 -> response 값으로 전체 개수 받아와야함
+	const [currentPageGroup, setCurrentPageGroup] = useState(0);
+	const itemsPerPage = 10; // 페이지당 항목 수
+
+	const pageNumbers = Array.from(
+		{ length: Math.min(5, totalPages - currentPageGroup * 5) },
+		(_, i) => currentPageGroup * 5 + i
+	);
 
 	useEffect(() => {
 		const fetchGeneration = async () => { // 최신 4기수 가져오기
@@ -47,15 +62,31 @@ export default function ViewApplicationList() {
 		fetchGeneration();
 	}, []);
 
+	const fetchCategories = async () => { // 카테고리 목록
+    try {
+      const response = await request.get('/answer/status');
+      if (response.isSuccess) {
+        const apiCategories = response.result.statusList;
+        setCategories([{ code: '', name: '전체' }, ...apiCategories]); // Add '전체' as the first tab
+      } else {
+        console.error('카테고리 목록 조회 실패:', response);
+      }
+    } catch (error) {
+      console.error('카테고리 목록 조회 오류', error);
+    }
+  };
+
 	const fetchApplication = async () => {
 		try {
-			const response = await request.get(`/answer?generation=${generation}&page=${page}&size=${size}`);
+			const response = await request.get(`/answer?status=${selectedTab}&generation=${generation}&page=${currentPage + 1}&size=${itemsPerPage}`);
 			console.log("response", response);
 
 			if (response.isSuccess) {
 				console.log("지원서 조회 성공");
 				setApplications(response.result.answerList);
 				setFilteredApplications(response.result.answerList);
+				setTotalPages(Math.ceil(response.result.totalCount / itemsPerPage));
+				setTotalCount(response.result.totalCount);
 			} else {
 				console.error("지원서 조회 실패:", response);
 			}
@@ -65,31 +96,35 @@ export default function ViewApplicationList() {
 	};
 
 	useEffect(() => {
-		fetchApplication();
-	}, [page, size, generation]);
+    fetchCategories();
+  }, []);
 
 	useEffect(() => {
-		const stages = [...new Set(applications.map(app => app.status))];
-		const newTabs = ['전체 지원자'];
-		if (
-			stages.includes('서류 전형') || 
-			stages.includes('서류 합격') || 
-			stages.includes('서류 불합격')
-		) {
-			newTabs.push('서류 전형');
-		}
-		if (
-			stages.includes('면접 전형') || 
-			stages.includes('최종 합격') ||
-			stages.includes('불합격')
-		) {
-			newTabs.push('면접 전형');
-		}
-		setTabs(newTabs);
+		fetchApplication();
+	}, [currentPage, selectedTab, generation]);
 
-		setFilteredApplications(applications); 
+	// useEffect(() => {
+	// 	const stages = [...new Set(applications.map(app => app.status))];
+	// 	const newTabs = ['전체 지원자'];
+	// 	if (
+	// 		stages.includes('서류 전형') || 
+	// 		stages.includes('서류 합격') || 
+	// 		stages.includes('서류 불합격')
+	// 	) {
+	// 		newTabs.push('서류 전형');
+	// 	}
+	// 	if (
+	// 		stages.includes('면접 전형') || 
+	// 		stages.includes('최종 합격') ||
+	// 		stages.includes('불합격')
+	// 	) {
+	// 		newTabs.push('면접 전형');
+	// 	}
+	// 	setTabs(newTabs);
 
-	}, [applications]);
+	// 	setFilteredApplications(applications); 
+
+	// }, [applications]);
 
 	useEffect(() => {
 		let sortedApplications = sortApplications(filteredApplications, sortOrder);
@@ -136,29 +171,31 @@ export default function ViewApplicationList() {
 	};
 
 	const handleTabClick = (tab) => {
-		setSelectedTab(tab);
-		if (tab === '전체 지원자') {
-			setFilteredApplications(applications);
-		} else if (tab === '서류 전형') {
-			setFilteredApplications(applications.filter(app => 
-				app.status === '서류 전형' ||
-				app.status === '서류 합격' ||
-				app.status === '서류 불합격'
-			));
-		} else if (tab === '면접 전형') {
-			setFilteredApplications(applications.filter(app => 
-				app.status === '면접 전형' ||
-				app.status === '최종 합격' ||
-				app.status === '불합격'
-			));
-		}
+		setSelectedTab(tab.code);
+		// if (tab === '전체 지원자') {
+		// 	setFilteredApplications(applications);
+		// } else if (tab === '서류 전형') {
+		// 	setFilteredApplications(applications.filter(app => 
+		// 		app.status === '서류 전형' ||
+		// 		app.status === '서류 합격' ||
+		// 		app.status === '서류 불합격'
+		// 	));
+		// } else if (tab === '면접 전형') {
+		// 	setFilteredApplications(applications.filter(app => 
+		// 		app.status === '면접 전형' ||
+		// 		app.status === '최종 합격' ||
+		// 		app.status === '불합격'
+		// 	));
+		// }
+		setCurrentPage(0);
+		setCurrentPageGroup(0);
 	};
 
 	const handleCheckChange = (id, isChecked, stage) => {
 		if (isChecked) {
 			setCheckedItems(prev => {
 				const newCheckedItems = [...prev, id];
-				console.log('Checked Items:', newCheckedItems); 
+				// console.log('Checked Items:', newCheckedItems); 
 				return newCheckedItems;
 			});
 			if (!firstCheckedStage) {
@@ -167,7 +204,7 @@ export default function ViewApplicationList() {
 		} else {
 			setCheckedItems(prev => {
 				const newCheckedItems = prev.filter(item => item !== id);
-				console.log('Checked Items:', newCheckedItems); 
+				// console.log('Checked Items:', newCheckedItems); 
 				return newCheckedItems;
 			});
 			if (checkedItems.length === 1) {
@@ -214,6 +251,24 @@ export default function ViewApplicationList() {
 			console.error('이메일 전송 오류:', error);
 		}
 	};
+
+	const handlePageChange = (newPage) => {
+		if (newPage >= 0 && newPage < totalPages) {
+      setCurrentPage(newPage);
+      setCurrentPageGroup(Math.floor(newPage / 5)); // 페이지 그룹을 업데이트
+		}
+	};
+
+	const handlePageGroupChange = (direction) => {
+    if (direction === 'next' && (currentPageGroup + 1) * 5 < totalPages) {
+      setCurrentPageGroup(currentPageGroup + 1);
+      setCurrentPage((currentPageGroup + 1) * 5); // 새로운 그룹의 첫 번째 페이지로 이동
+    } else if (direction === 'prev' && currentPageGroup > 0) {
+      setCurrentPageGroup(currentPageGroup - 1);
+      setCurrentPage((currentPageGroup - 1) * 5); // 새로운 그룹의 첫 번째 페이지로 이동
+    }
+	};
+
 
 	const renderButton = () => {
 		if (firstCheckedStage === '서류 전형') {
@@ -263,21 +318,21 @@ export default function ViewApplicationList() {
 						/>
 					</itemS.HeadContainer>
 					<itemS.TabContainer>
-						{tabs.map(tab => (
-							tab === selectedTab ? (
-								<itemS.TabSelected key={tab} onClick={() => handleTabClick(tab)}>
-									{tab}
+						{categories.map(tab => (
+							tab.code === selectedTab ? (
+								<itemS.TabSelected key={tab.code} onClick={() => handleTabClick(tab)}>
+									{tab.name}
 								</itemS.TabSelected>
 							) : (
-								<itemS.Tab key={tab} onClick={() => handleTabClick(tab)}>
-									{tab}
+								<itemS.Tab key={tab.code} onClick={() => handleTabClick(tab)}>
+									{tab.name}
 								</itemS.Tab>
 							)
 						))}
 					</itemS.TabContainer>
 					<itemS.TextContainer>
 						<itemS.NormText>총</itemS.NormText>
-						<itemS.CntText>{filteredApplications.length}</itemS.CntText>
+						<itemS.CntText>{totalCount}</itemS.CntText>
 						<itemS.NormText>개의 지원서</itemS.NormText>
 					</itemS.TextContainer>
 					<ViewApplicationListTable 
@@ -286,9 +341,31 @@ export default function ViewApplicationList() {
 						firstCheckedStage={firstCheckedStage}
 						onSortClick={handleSortClick}
 						fetchApplication={fetchApplication}
-
 						sendMailItems={sendMailItems}
 					/>
+					<itemS.PaginationContainer>
+						<itemS.Pagination>
+							<itemS.PaginationArrow
+								left
+								onClick={() => handlePageGroupChange('prev')}
+								disabled={currentPageGroup === 0}
+							/>
+							{pageNumbers.map((pageNumber) => (
+								<itemS.PaginationNumber
+									key={pageNumber}
+									onClick={() => handlePageChange(pageNumber)}
+									active={pageNumber === currentPage}
+								>
+									{pageNumber + 1}
+								</itemS.PaginationNumber>
+							))}
+							<itemS.PaginationArrow
+								onClick={() => handlePageGroupChange('next')}
+								disabled={(currentPageGroup + 1) * 5 >= totalPages}
+							/>
+						</itemS.Pagination>
+
+					</itemS.PaginationContainer>
 				</itemS.InnerContainer>
 			</itemS.Container>
 			{checkedItems.length > 0 && (

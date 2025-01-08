@@ -55,4 +55,18 @@ export const StyledSpanBaekjoon = styled.span`
 export const ImgIcon = styled.img`
   width: 1.958rem;
   height: 1.958rem;
+  cursor: pointer;
+`;
+
+export const ModifyBtn = styled.button`
+  float: right;
+  width: 6.667rem;
+  height: 2rem;
+  margin-top: 2.25rem;
+  ${tokens.typography.B2_M_16};
+  color: ${tokens.colors.White};
+  background-color: ${({ isModified }) => isModified ? tokens.colors.B_Grey_7 : tokens.colors.B_Grey_3};
+  border-radius: 0.167rem;
+	border: none;
+	cursor: ${({ isModified }) => (isModified ? 'pointer' : 'default')};
 `;

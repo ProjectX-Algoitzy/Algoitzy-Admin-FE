@@ -1,67 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import * as itemS from '../RegularStudy/Styled/RegularStudy.regularstudy.attendance.styles';
 import request from '../../Api/request';
 import { useParams } from 'react-router-dom';
+import { AlertContext } from '../../Common/Alert/AlertContext';
 
-// API로부터 받은 데이터를 변환하는 함수
-// const transformData = (attendanceList) => {
-//   console.log("attendanceList: ", attendanceList);
-//   const data = {
-//     '문제 인증': [['문제 인증', '1주차', '2주차', '3주차', '4주차', '5주차', '6주차', '7주차', '8주차']],
-//     '블로그 포스팅': [['블로그 포스팅', '1주차', '2주차', '3주차', '4주차', '5주차', '6주차', '7주차', '8주차']],
-//     '주말 모의테스트': [['주말 모의테스트', '1주차', '2주차', '3주차', '4주차', '5주차', '6주차', '7주차', '8주차']]
-//   };
-
-//   if (attendanceList.length === 0) {
-//     Object.keys(data).forEach(key => {
-//       const emptyRow = Array(data[key][0].length).fill("");
-//       emptyRow[0] = "학생이 없습니다";
-//       data[key].push(emptyRow);
-//     });
-//     return data;
-//   }
-
-//   const students = {};
-
-//   attendanceList.forEach(({ name, problemYN, blogYN, workbookYN, week }) => {
-//     if (!students[name]) {
-//       students[name] = {
-//         '문제 인증': Array(9).fill(""),
-//         '블로그 포스팅': Array(9).fill(""),
-//         '주말 모의테스트': Array(9).fill("")
-//       };
-//       students[name]['문제 인증'][0] = name;
-//       students[name]['블로그 포스팅'][0] = name;
-//       students[name]['주말 모의테스트'][0] = name;
-//     }
-
-//     if (problemYN){
-//       students[name]['문제 인증'][week] = <itemS.ImgIcon src='/img/attendanceicon.png' alt="출석" />;
-//     }  else {
-//       students[name]['문제 인증'][week] = <itemS.ImgIcon src='/img/noattendanceicon.png' alt="결석" />;
-//     }
-//     if (blogYN) {
-//       students[name]['블로그 포스팅'][week] = <itemS.ImgIcon src='/img/attendanceicon.png' alt="출석" />;
-//     } else {
-//       students[name]['블로그 포스팅'][week] = <itemS.ImgIcon src='/img/noattendanceicon.png' alt="결석" />;
-//     }
-//     if (workbookYN) {
-//       students[name]['주말 모의테스트'][week] = <itemS.ImgIcon src='/img/attendanceicon.png' alt="출석" />;
-//     } else {
-//       students[name]['주말 모의테스트'][week] = <itemS.ImgIcon src='/img/noattendanceicon.png' alt="결석" />;
-//     }
-//   });
-
-//   Object.keys(students).forEach(name => {
-//     data['문제 인증'].push(students[name]['문제 인증']);
-//     data['블로그 포스팅'].push(students[name]['블로그 포스팅']);
-//     data['주말 모의테스트'].push(students[name]['주말 모의테스트']);
-//   });
-
-//   return data;
-// };
 const transformData = (attendanceList) => {
-  console.log("attendanceList: ", attendanceList);
   const data = {
     '문제 인증': [['문제 인증', '1주차', '2주차', '3주차', '4주차', '5주차', '6주차', '7주차', '8주차']],
     '블로그 포스팅': [['블로그 포스팅', '1주차', '2주차', '3주차', '4주차', '5주차', '6주차', '7주차', '8주차']],
@@ -79,57 +22,48 @@ const transformData = (attendanceList) => {
 
   const students = {};
 
-  attendanceList.forEach(({ name, handle, problemYN, blogYN, workbookYN, week }) => {
+  attendanceList.forEach(({ attendanceId, name, handle, problemYN, blogYN, workbookYN, week }) => {
     const uniqueKey = `${name}-${handle}`;
     if (!students[uniqueKey]) {
       students[uniqueKey] = {
+        'attendanceId': attendanceId, // attendanceId 추가
         '문제 인증': Array(9).fill(""),
         '블로그 포스팅': Array(9).fill(""),
         '주말 모의테스트': Array(9).fill("")
       };
-      students[uniqueKey]['문제 인증'][0] = (
-        <>
-          {name} <br />
-          <itemS.StyledSpanBaekjoon>{handle}</itemS.StyledSpanBaekjoon>
-        </>
-      );
-      students[uniqueKey]['블로그 포스팅'][0] = (
-        <>
-          {name} <br />
-          <itemS.StyledSpanBaekjoon>{handle}</itemS.StyledSpanBaekjoon>
-        </>
-      );
-      students[uniqueKey]['주말 모의테스트'][0] = (
-        <>
-          {name} <br />
-          <itemS.StyledSpanBaekjoon>{handle}</itemS.StyledSpanBaekjoon>
-        </>
-      );
+      ['문제 인증', '블로그 포스팅', '주말 모의테스트'].forEach((key) => {
+        students[uniqueKey][key][0] = (
+          <>
+            {name} <br />
+            <itemS.StyledSpanBaekjoon>{handle}</itemS.StyledSpanBaekjoon>
+          </>
+        );
+      });
     }
 
     // week와 YN 필드들이 null인 경우 빈 값 유지
     if (week !== null) {
       if (problemYN !== null) {
         students[uniqueKey]['문제 인증'][week] = problemYN ? (
-          <itemS.ImgIcon src='/img/attendanceicon.png' alt="출석" />
+          <itemS.ImgIcon src='/img/attendanceicon.png' alt="출석" attendanceId={attendanceId}/>
         ) : (
-          <itemS.ImgIcon src='/img/noattendanceicon.png' alt="결석" />
+          <itemS.ImgIcon src='/img/noattendanceicon.png' alt="결석" attendanceId={attendanceId}/>
         );
       }
 
       if (blogYN !== null) {
         students[uniqueKey]['블로그 포스팅'][week] = blogYN ? (
-          <itemS.ImgIcon src='/img/attendanceicon.png' alt="출석" />
+          <itemS.ImgIcon src='/img/attendanceicon.png' alt="출석" attendanceId={attendanceId}/>
         ) : (
-          <itemS.ImgIcon src='/img/noattendanceicon.png' alt="결석" />
+          <itemS.ImgIcon src='/img/noattendanceicon.png' alt="결석" attendanceId={attendanceId}/>
         );
       }
 
       if (workbookYN !== null) {
         students[uniqueKey]['주말 모의테스트'][week] = workbookYN ? (
-          <itemS.ImgIcon src='/img/attendanceicon.png' alt="출석" />
+          <itemS.ImgIcon src='/img/attendanceicon.png' alt="출석" attendanceId={attendanceId}/>
         ) : (
-          <itemS.ImgIcon src='/img/noattendanceicon.png' alt="결석" />
+          <itemS.ImgIcon src='/img/noattendanceicon.png' alt="결석" attendanceId={attendanceId}/>
         );
       }
     }
@@ -144,8 +78,7 @@ const transformData = (attendanceList) => {
   return data;
 };
 
-
-const Table = ({ currentTab, onArrowClick, data }) => (
+const Table = ({ currentTab, onArrowClick, data, onIconClick }) => (
   <itemS.StyledTable>
     <tbody>
       {data[currentTab]?.map((row, rowIndex) => (
@@ -169,7 +102,11 @@ const Table = ({ currentTab, onArrowClick, data }) => (
                   />
                 </div>
               ) : (
-                cell
+                React.isValidElement(cell) ? (
+                  React.cloneElement(cell, { onClick: () => onIconClick(rowIndex, colIndex) })
+                ) : (
+                  cell
+                )
               )}
             </itemS.StyledTd>
           ))}
@@ -183,6 +120,9 @@ export default function RegularStudyAttendance() {
   const { id } = useParams(); //해당 스터디의 ID를 받아온다
   const [currentTab, setCurrentTab] = useState('문제 인증');
   const [data, setData] = useState({}); // 초기 데이터 상태를 빈 객체로 설정
+  const [isModified, setIsModified] = useState(false);
+  const [modifiedAttendance, setModifiedAttendance] = useState([]);
+  const { alert } = useContext(AlertContext);
 
   useEffect(() => {
     const fetchAttendance = async () => {
@@ -209,11 +149,113 @@ export default function RegularStudyAttendance() {
     setCurrentTab(tabs[newIndex]);
   };
 
+  const handleIconClick = (rowIndex, colIndex) => {
+    const updatedData = { ...data };
+    const tabData = updatedData[currentTab];
+    const currentIcon = tabData[rowIndex][colIndex];
+  
+    if (React.isValidElement(currentIcon) && currentIcon.props && currentIcon.props.src) {
+      const currentSrc = currentIcon.props.src;
+      let newSrc = '';
+  
+      if (currentSrc && currentSrc.includes('attendanceicon')) {
+        newSrc = currentSrc.replace('attendanceicon', 'checknoattendanceicon');
+      } 
+      if (currentSrc && currentSrc.includes('noattendanceicon')) {
+        newSrc = currentSrc.replace('noattendanceicon', 'checkattendanceicon');
+      } 
+      if (currentSrc && currentSrc.includes('checkattendanceicon')) {
+        newSrc = currentSrc.replace('checkattendanceicon', 'noattendanceicon');
+      } 
+      if (currentSrc && currentSrc.includes('checknoattendanceicon')) {
+        newSrc = currentSrc.replace('checknoattendanceicon', 'attendanceicon');
+      }
+  
+      const updatedIcon = (
+        <itemS.ImgIcon 
+          src={newSrc} 
+          alt="변경된 아이콘" 
+          onClick={() => handleIconClick(rowIndex, colIndex)} 
+          attendanceId={currentIcon.props.attendanceId}
+        />
+      );
+  
+      tabData[rowIndex][colIndex] = updatedIcon;
+      updatedData[currentTab] = tabData;
+      setData(updatedData);
+  
+      const updatedAttendanceList = { ...modifiedAttendance };
+      const attendanceType = currentTab === '문제 인증' ? 'PROBLEM' : currentTab === '블로그 포스팅' ? 'BLOG' : 'WORKBOOK';
+      const attendanceId = updatedData[currentTab][rowIndex][colIndex].props.attendanceId;  
+  
+      if (!updatedAttendanceList[currentTab]) {
+        updatedAttendanceList[currentTab] = [];
+      }
+  
+      if (
+        (currentSrc.includes('checkattendanceicon') && newSrc.includes('noattendanceicon')) ||
+        (currentSrc.includes('checknoattendanceicon') && newSrc.includes('attendanceicon'))
+      ) {
+        const attendanceIndex = updatedAttendanceList[currentTab].findIndex(item => item.attendanceId === attendanceId);
+        if (attendanceIndex !== -1) {
+          updatedAttendanceList[currentTab].splice(attendanceIndex, 1);
+        }
+      } else {
+        const attendanceIndex = updatedAttendanceList[currentTab].findIndex(item => item.attendanceId === attendanceId);
+        if (attendanceIndex !== -1) {
+          updatedAttendanceList[currentTab][attendanceIndex].attendanceType = attendanceType;
+        } else {
+          updatedAttendanceList[currentTab].push({ attendanceId, attendanceType });
+        }
+      }
+  
+      setModifiedAttendance(updatedAttendanceList);
+  
+      const allIconsUnmodified = Object.values(updatedData).every(tab =>
+        tab.every(row =>
+          row.every(cell =>
+            !React.isValidElement(cell) || !cell.props.src || !cell.props.src.includes('check')
+          )
+        )
+      );
+  
+      setIsModified(!allIconsUnmodified);
+    }
+  };
+    
+  const updateAttendance = async () => {
+    try {
+      if (!isModified) return;
+
+      const updatedDataForServer = Object.values(modifiedAttendance).flatMap(tabData => 
+        tabData.map(item => ({
+          attendanceId: item.attendanceId,
+          attendanceType: item.attendanceType
+        }))
+      );
+
+      const response = await request.patch(`/attendance`, { attendanceList: updatedDataForServer });
+      if (response.isSuccess) {
+        await alert("출석 정보가 성공적으로 갱신되었습니다.");
+        setIsModified(false);
+        setModifiedAttendance([]);
+        window.location.reload();
+      } 
+    } catch (error) {
+      console.error("출석 정보 갱신 실패:", error);
+    }
+  };
+  
   return (
     <itemS.Container>
       <itemS.Title>출석부</itemS.Title>
       {Object.keys(data).length > 0 ? (
-        <Table currentTab={currentTab} onArrowClick={handleArrowClick} data={data} />
+        <div>
+          <Table currentTab={currentTab} onArrowClick={handleArrowClick} data={data} onIconClick={handleIconClick} />
+          <itemS.ModifyBtn isModified={isModified} disabled={!isModified} onClick={updateAttendance}>
+            수정하기
+          </itemS.ModifyBtn>
+        </div>
       ) : (
         <p>로딩 중...</p>
       )}

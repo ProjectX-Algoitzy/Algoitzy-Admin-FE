@@ -236,7 +236,7 @@ export default function RegularStudyAttendance() {
 
       const response = await request.patch(`/attendance`, { attendanceList: updatedDataForServer });
       if (response.isSuccess) {
-        await alert("출석부가 갱신되었습니다");
+        await alert("출석부가 갱신되었습니다.");
         setIsModified(false);
         setModifiedAttendance([]);
         window.location.reload();

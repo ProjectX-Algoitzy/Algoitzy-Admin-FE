@@ -54,7 +54,7 @@ export const WeeksSelectContainer = styled(Select).attrs({
   .react-select__menu {
     position: absolute;
     top: -0.5rem;
-    left: 0.03rem;
+    /* left: 0.03rem; */
     width: 100%;
     max-height: 14.5rem; /* Adjusted height to fit 8 items */
     border-radius: 0.167rem;

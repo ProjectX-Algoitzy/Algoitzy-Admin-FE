@@ -54,11 +54,14 @@ export default function RegularStudyMocktest() {
       const responseCurrentWeek = await request.get('/week/current');
       console.log("현재 주차 정보 조회: ", responseCurrentWeek);
       if (responseCurrentWeek.isSuccess) {
-        setCurrentWeek(responseCurrentWeek.result.week); // 현재 주차 상태 업데이트
+        const currentWeekValue = responseCurrentWeek.result.week;
+        setCurrentWeek(currentWeekValue); // 상태 업데이트
+        return currentWeekValue; // 현재 주차 반환
       }
     } catch (error) {
       console.error('현재 주차 정보 조회 오류: ', error);
     }
+    return null; // 실패 시 null 반환
   }, []);
 
   const fetchQuestions = async () => {
@@ -86,22 +89,37 @@ export default function RegularStudyMocktest() {
           }
         });
         setWeekData(newWeekData);
+        return { isSuccess: true };
       } else {
         console.error('API call failed:', response.message);
+        return { isSuccess: false };
       }
     } catch (error) {
       console.error('API error:', error);
+      return { isSuccess: false };
     }
   };
 
   useEffect(() => {
     const fetchData = async () => {
-      await fetchCurrentWeek();  // 현재 주차를 가져오고
-      fetchQuestions();  // 그 후에 문제 목록을 가져옵니다.
+      try {
+        // 현재 주차를 먼저 가져온다
+        const currentWeekResponse = await fetchCurrentWeek();
+        if (!currentWeekResponse) return; // 실패 시 처리
+  
+        // 문제 데이터를 가져온다
+        const questionsResponse = await fetchQuestions();
+        if (questionsResponse?.isSuccess) {
+          // currentWeek가 업데이트된 후에만 초기 week 상태 설정
+          setWeek(currentWeekResponse); 
+        }
+      } catch (error) {
+        console.error('데이터 초기화 중 오류:', error);
+      }
     };
   
     fetchData();
-  }, [id]);  // id가 변경될 때마다 호출
+  }, [id]); // id가 변경될 때마다 호출
 
   const handleDeleteQuestion = async (workbookId, problemNumber) => {
     const confirmation = await confirm("정말로 삭제하시겠습니까?");

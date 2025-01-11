@@ -20,7 +20,7 @@ const ProfileModal = ({ userName, profileUrl, setIsLoggedIn }) => {
       console.error("로그인 멤버 정보 조회 실패", error);
     }
   };
-
+  
   return (
       <itemS.ArrowBubble onClick={e => e.stopPropagation()}>
         <itemS.TopContainer>

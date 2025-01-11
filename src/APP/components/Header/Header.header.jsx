@@ -16,21 +16,25 @@ export default function Header() {
   const applicationMenuRef = useRef(null);
   const codingMenuRef = useRef(null);
 
-  useEffect(() => {
-    const checkLoginStatus = async () => {
-      try {
-        const response = await request.get('/member/info');
-        console.log("로그인 멤버 정보 조회", response);
-        if(response["isSuccess"]) {
-          setUserName(response.result.name);
-          setProfileUrl(response.result.profileUrl);
-          setIsLoggedIn(true);
-        }
-      } catch (error) {
-        console.error("로그인 멤버 정보 조회 실패", error);
+  const checkLoginStatus = async () => {
+    try {
+      const response = await request.get('/member/info');
+      console.log("로그인 멤버 정보 조회", response);
+      if (response["isSuccess"]) {
+        setUserName(response.result.name);
+        setProfileUrl(response.result.profileUrl);
+        setIsLoggedIn(true);
       }
-    };
-    checkLoginStatus();
+    } catch (error) {
+      console.error("로그인 멤버 정보 조회 실패", error);
+    }
+  };
+  useEffect(() => {
+
+    const accessToken = localStorage.getItem('accessToken');
+    if (accessToken) {
+      checkLoginStatus();
+    }
   }, []);
 
   const toggleProfileModal = () => {

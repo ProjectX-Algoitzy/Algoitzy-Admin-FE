@@ -5,17 +5,21 @@ export const FileTableContainer = styled.div`
   display: flex;
   flex-direction: column;
   border: 0.042rem solid ${tokens.colors.B_Grey_3};
-  border-radius: 4px;
+  border-radius: 0.167rem;
+  margin-bottom: 1.042rem;
+
+  color: ${tokens.colors.B_Grey_8};
+	${tokens.typography.B2_M_16}
 `;
 
 export const FileTableHeader = styled.div`
   display: flex;
-  align-items: center; /* 높이를 글자에 맞게 정렬 */
+  align-items: center;
   background-color: ${tokens.colors.B_Grey_1};
   padding: 0.333rem 0;
   ${tokens.typography.B2_M_16};
   color: ${tokens.colors.B_Grey_6};
-  height: auto; /* 글자 높이에 맞춤 */
+  height: auto;
 `;
 
 export const FileTableBody = styled.div`
@@ -25,7 +29,7 @@ export const FileTableBody = styled.div`
 
 export const FileRow = styled.div`
   display: flex;
-  align-items: center; /* 높이를 글자에 맞게 정렬 */
+  align-items: center; 
   padding: 0.1rem 0;
 `;
 
@@ -58,7 +62,7 @@ export const TableCell = styled.div`
   }
 
   &:nth-child(2) { /* 파일명 */
-    flex: 0 0 18rem; /* 파일명 컬럼 길이 */
+    flex: 0 0 17rem; /* 파일명 컬럼 길이 */
     text-align: left;
   }
 
@@ -98,16 +102,17 @@ export const FileIcon = styled.img`
 
 export const FileName = styled.span`
   display: inline-block;
-  max-width: 16rem; /* 파일 이름 최대 너비 설정 */
-  white-space: nowrap; /* 텍스트를 한 줄로 유지 */
-  overflow: hidden; /* 넘치는 텍스트 숨기기 */
-  text-overflow: ellipsis; /* 넘치는 텍스트는 ...으로 표시 */
-  vertical-align: middle; /* 아이콘과 수직 정렬 */
+  max-width: 16rem;
+  white-space: nowrap; 
+  overflow: hidden; 
+  text-overflow: ellipsis; 
+  vertical-align: middle;
 `;
 
 export const EmptyMessage = styled.div`
-  padding: 1rem;
+  margin: 0.1rem 0;
+  height: 1rem;
   text-align: center;
   color: ${tokens.colors.B_Grey_6};
-  ${tokens.typography.B3_M_14};
+  ${tokens.typography.B2_M_16}
 `;

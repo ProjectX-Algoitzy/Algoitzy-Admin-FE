@@ -3,8 +3,6 @@ import * as tokens from "../../../../tokens";
 import Select from 'react-select';
 import { css } from "styled-components";
 
-
-
 export const LeftContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -12,9 +10,9 @@ export const LeftContainer = styled.div`
 `;
 
 export const InnerEditorContainer = styled.div`
-  padding: 0 1rem;
+  padding: 0 2.833rem;
   flex: 1;
-  border: 1px solid #ffffff;
+  border: 0;
   font-size: 0.8rem;
   font-family: 'Pretendard', sans-serif;
   line-height: 1.6;
@@ -62,59 +60,58 @@ export const InnerEditorContainer = styled.div`
 `;
 
 export const EditorHeader = styled.div`
+  padding : 2.833rem 0 1.042rem 0;
   display: flex;
   flex-direction: column;
-  padding: 0.542rem 0;
-  gap: 0.5rem;
 `
 
-export const TitleInput = styled.textarea`
-  width: 100%;
-  height: auto;
-  overflow-y: hidden; /* 내용이 넘치면 자동으로 높이 조절되도록 설정 */
-  color: ${({ hasText }) => hasText ? tokens.colors.B_Grey_8 : tokens.colors.B_Grey_6}; /* hasText에 따라 색상 변경 */
-	${tokens.typography.H2_SB_48}
+export const PageLabel = styled.div`
+  color: ${tokens.colors.B_Grey_6};
+	${tokens.typography.T8_B_35}
   font-family: 'Pretendard', sans-serif;
-  border: 1px solid #ffffff;
   outline: none;
   resize: none;
   overflow: hidden;
 `;
 
 export const Divider = styled.div`
-  width: 4.3rem;
-  height: 0.1rem;
-  background-color: ${tokens.colors.B_Grey_4}; /* 구분선 색상 */
+  width: 4.375rem;
+  height: 0.125rem;
+  background-color: ${tokens.colors.B_Grey_4};
+  margin: 0.5rem 0;
 `;
 
-// 라벨+입력 컨테이너
-export const LIContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-// 입력값 라벨
-export const Label = styled.label`
-  height: 1rem;
-  ${tokens.typography.T4_SB_20}
-  color: ${tokens.colors.Grey_8};
-  margin-top: 1.25rem;
-  margin-bottom: 0.42rem;
-`;
-
-// 토글 에러 메시지 아래 라벨
-export const BlankLabel = styled.label`
-  height: 1rem;
+export const OptionLabel = styled.label`
   ${tokens.typography.T4_SB_20}
   color: ${tokens.colors.Grey_6};
   margin-top: 1.56rem;
   margin-bottom: 0.42rem;
 `;
 
+export const TextInput = styled.input`
+  width: 100%;
+  height: 2.27rem;
+  padding: 0 0.42rem;
+  margin-bottom: 0.17rem;
+
+  color: ${tokens.colors.Grey_8}; 
+  ${tokens.typography.B2_M_16}
+
+  border: 0.042rem solid ${tokens.colors.Grey_4};
+  border-radius: 0.17rem;
+
+  &::placeholder {
+    color: ${tokens.colors.Grey_4}; 
+  }
+
+  &:not(:placeholder-shown) { 
+    border: 0.042rem solid ${tokens.colors.Grey_6};
+  }
+`;
+
 export const CategorySelect = styled(Select).attrs({
   classNamePrefix: 'react-select',
 })`
-z-index: 20; /* 다른 요소 위에 표시 */
 
 .react-select__control {
   width: 100%;
@@ -129,8 +126,9 @@ z-index: 20; /* 다른 요소 위에 표시 */
 
 .react-select__menu {
   position: absolute;
-  top: -0.43rem;  
-  width: 100%;
+  top: -0.43rem;
+  left: -0.1rem;
+  width: 102%;
   border-radius: 0.17rem;
   border: none;
   box-shadow: 0 0.08rem 0.17rem rgba(0, 0, 0, 0.1);
@@ -138,6 +136,7 @@ z-index: 20; /* 다른 요소 위에 표시 */
   text-align: center;
   ${tokens.typography.B3_M_14};
   overflow: hidden; /* Hide scrollbar */
+  z-index: 20;
 }
 
 .react-select__menu-list {
@@ -189,233 +188,4 @@ z-index: 20; /* 다른 요소 위에 표시 */
 .react-select__option:hover {
   background-color: rgba(102, 201, 255, 0.2);
 }
-`;
-
-export const Toolbar = styled.div`
-  position: sticky; /* 스크롤 시 상단 고정 */
-  top: 0; /* 뷰포트 상단에 고정 */
-  z-index: 10; /* 다른 요소 위에 표시 */
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  background-color: white;
-  padding: 0.5rem;
-  padding-bottom: 0.25rem;
-
-  button {
-    background: none;
-    border: none;
-    font-size: 1rem;
-    cursor: pointer;
-    padding: 0.2rem;
-    color: #666;
-
-    &:hover {
-      color: #333;
-    }
-  }
-
-  img {
-    width: 1.25rem;
-    height: 1.25rem;
-  }
-
-  span {
-    color: #ccc;
-  }
-`;
-
-export const EditorContainer = styled.div`
-  padding: 0.667rem 1rem;
-  flex: 1;
-  border: 1px solid #ffffff;
-  font-size: 0.8rem;
-  font-family: 'Pretendard', sans-serif;
-  line-height: 1.6;
-  white-space: pre-wrap;
-  word-wrap: break-word;
-  .cm-editor.cm-focused {
-    outline: none;
-  }
-`;
-
-export const UrlContainer = styled.div`
-  display: flex;
-  gap: 0.3rem;
-`;
-
-export const ModalContent = styled.div`
-  background: #ffffff;
-  padding: 0.8rem;
-  border-radius: 4px;
-  width: 12rem;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  align-items: center;
-  justify-content: space-between;
-  p{
-    margin: 0 0 0.2rem 0 ;
-    color: ${tokens.colors.B_Grey_8};
-	  ${tokens.typography.B2_M_16}
-  }
-  input {
-    flex: 1;
-    width: 100%;
-    color: ${tokens.colors.B_Grey_8};
-	  ${tokens.typography.B3_M_14}
-    border: 1px solid #ddd;
-    border-radius: 4px;
-  }
-  button {
-    padding: 0.2rem 0.4rem;
-    font-size: 16px;
-    cursor: pointer;
-    border: none;
-    border-radius: 4px;
-    background-color: ${tokens.colors.Blue_0_Main};
-    color: ${tokens.colors.White};
-    ${tokens.typography.T5_SB_16};
-  }
-`;
-
-
-
-export const FileContainer = styled.div`
-  color: ${tokens.colors.B_Grey_8};
-	${tokens.typography.B2_M_16}
-  gap: 1rem;
-`;
-
-
-export const BtnContainer = styled.div`
- 
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  height: 4rem;
-  padding: 1.2rem;
-  background-color: rgba(246, 252, 255, 100);
-`;
-
-export const ExitButton = styled.button`
-  background: none;
-  border: none;
-  ${tokens.typography.T5_SB_16}
-  color: ${tokens.colors.B_Grey_7};
-  cursor: pointer;
-`;
-
-export const BtnContainer2 = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: 1.2rem;
-`;
-
-export const ArbitaryBtn = styled.button` /* 임시 저장하기 버튼*/
-  width: 6.67rem;
-  height: 2rem;
-  border-radius: 0.167rem;
-  border: none;
-  cursor: pointer;
-  color: ${tokens.colors.White};
-  ${tokens.typography.T5_SB_16}
-  background-color: ${tokens.colors.B_Grey_7};
-`;
-
-export const Btn = styled.button` /*저장하기 버튼*/
-  width: 6.67rem;
-  height: 2rem;
-  border-radius: 0.167rem;
-  border: none;
-  cursor: pointer;
-  color: ${tokens.colors.White};
-  ${tokens.typography.T5_SB_16};
-  background-color: ${tokens.colors.Blue_0_Main};
-`;
-
-export const DraftButtonContainer = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-export const DraftButton = styled.button`
-display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 6.67rem;
-  height: 2rem;
-  border-radius: 0.167rem;
-  border: none;
-  cursor: pointer;
-  color: ${tokens.colors.White};
-  ${tokens.typography.T5_SB_16}
-  background-color: ${tokens.colors.B_Grey_7};
-`;
-
-export const DraftSaveArea = styled.div`
-  padding: 0.5rem;
-  cursor: pointer;
-`;
-
-export const DraftCountArea = styled.div`
-  padding: 0.5rem;
-  cursor: pointer;
-`;
-
-export const DraftModal = styled.div`
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: white;
-  border: 1px solid #ddd;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  width: 400px;
-  max-height: 500px;
-  overflow-y: auto;
-  z-index: 1000;
-  border-radius: 8px;
-`;
-
-export const DraftText = styled.span`
-  cursor: pointer;
-  margin-right: 4px;
-  color: #007bff;
-  &:hover {
-    text-decoration: underline;
-  }
-`;
-
-export const DraftCount = styled.span`
-  cursor: pointer;
-  color: #555;
-  &:hover {
-    text-decoration: underline;
-  }
-`;
-
-export const ModalHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding: 1rem;
-  background: #f9f9f9;
-  border-bottom: 1px solid #ddd;
-`;
-
-export const ModalBody = styled.div`
-  padding: 1rem;
-`;
-
-export const DraftItem = styled.div`
-  padding: 0.5rem 0;
-  border-bottom: 1px solid #f1f1f1;
-
-  &:last-child {
-    border-bottom: none;
-  }
-
-  p {
-    margin: 0;
-  }
 `;

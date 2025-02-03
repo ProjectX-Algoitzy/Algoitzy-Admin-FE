@@ -24,7 +24,7 @@ export default function InstitutionDetail() {
   const fetchWorkbookExplain = async () => {
     try {
       const response = await request.get(`/institution/${institutionId}`);
-
+      console.log(institutionId);
       if (response.isSuccess) {
         console.log("기관 분석 조회 성공", response);
         setName(response.result.name);
@@ -105,6 +105,14 @@ export default function InstitutionDetail() {
     setIsModalOpen(true);
     // setSelectedWorkbookId(workbookId);
   };
+  
+  const handleEdit = () => {
+    navigate(`/writeInstitution`, {
+		state: {
+			boardId: institutionId,
+		  },
+    });
+  };
 
   return (
     <itemS.OuterContainer>
@@ -116,7 +124,7 @@ export default function InstitutionDetail() {
           </itemS.TitleBox>
           <itemS.PartBox>
             <itemS.FirstPart>코딩테스트 분석</itemS.FirstPart>
-            <itemS.EditButtonBox onClick={openModal}>
+            <itemS.EditButtonBox onClick={handleEdit}>
               <itemS.EditIcon src='/img/edit.svg' alt='수정' />
               <itemS.EditText>수정하기</itemS.EditText>
             </itemS.EditButtonBox>

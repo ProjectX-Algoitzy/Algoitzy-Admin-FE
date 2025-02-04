@@ -71,9 +71,11 @@ export default function Editor({
     };
   }, []);
 
+  
   useEffect(() => {
     setSelectedCategory({ value: categoryCode, label: category });
   },[categoryCode]);
+  
 
   /*
   // 카테고리 옵션 리스트 가져오기

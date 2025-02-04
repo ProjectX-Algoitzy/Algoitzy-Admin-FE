@@ -66,11 +66,17 @@ export default function RegularStudyCurriculum() {
       }
     }
   }
+
+  const handleWriteClick = () => {
+    navigate("/writecurriculum");
+    window.location.reload(); // 페이지 전환 후 강제 새로고침
+  };
   
+
   return (
     <itemS.Container>
       <itemS.Title>커리큘럼
-        <itemS.BtnMakeCurri onClick={handleMakeCurri}>+ 커리큘럼 생성하기</itemS.BtnMakeCurri>
+        <itemS.BtnMakeCurri onClick={handleWriteClick}>+ 커리큘럼 생성하기</itemS.BtnMakeCurri>
       </itemS.Title>
       {curriculumList.map(curriculum => (
         <itemS.CurriculumContainer

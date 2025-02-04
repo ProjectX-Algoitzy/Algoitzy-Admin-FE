@@ -29,6 +29,7 @@ import WritePost from "./APP/admin-pages/WritePost/WritePost.writepost.main";
 import BoardDetail from "./APP/admin-pages/BoardDetail/BoardDetail.boarddetail.main"
 import WriteInstitution from "./APP/admin-pages/WriteInstitution/WriteInstitution.writeinstitution.main"
 import WriteRegularStudy from "./APP/admin-pages/WriteRegularStudy/WriteRegularStudy.writeregularstudy.main"
+import WriteCurriculum from "./APP/admin-pages/WriteCurriculum/WriteCurriculum.writecurriculum.main"
 import styled from "styled-components"
 import ScrollToTop from "./APP/Common/ScrollToTop"
 import useInterval from "./APP/Common/UseInterval"
@@ -106,6 +107,8 @@ function App() {
 
           <Route path="/writeinstitution" element={<WriteInstitution />} /> {/* 새 글쓰기 */}
           <Route path="/writeregularstudy" element={<WriteRegularStudy />} /> {/* 새 글쓰기 */}
+          <Route path="/writecurriculum" element={<WriteCurriculum />} /> {/* 새 글쓰기 */}
+
         </Routes>
         {/* <Footer /> */} {/* figma에 보니 admin은 푸터가 없었기에 일단 임시로 주석처리를 했다 */}
     </Root>

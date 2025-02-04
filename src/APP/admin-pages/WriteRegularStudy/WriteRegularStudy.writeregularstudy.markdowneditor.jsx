@@ -369,6 +369,7 @@ export default function MarkdownEditor({
 
         <Styled.ToolbarInnerGroup>
         <button onClick={() => applyMarkdownSyntax('blockquote')}><img src='/img/toolbar_blockquote.svg' alt="Blockquote"/></button>
+        {/*}
         <button onClick={() => fileInputRef.current?.click()}><img src='/img/toolbar_attach.svg' alt="Attach" /></button>
           <input
             type="file"
@@ -377,6 +378,7 @@ export default function MarkdownEditor({
             multiple
             onChange={handleFileChange} // 모든 형식 허용
           />
+        */}
         <button onClick={() => applyMarkdownSyntax('link')}><img src='/img/toolbar_link.svg' alt="Link"/></button>
         <button onClick={() => imageInputRef.current?.click()}><img src='/img/toolbar_image.svg' alt="Image" /></button>
           <input

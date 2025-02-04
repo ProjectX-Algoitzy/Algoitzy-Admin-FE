@@ -26,32 +26,33 @@ export default function WritePost() {
   
   // 게시글 상세 조회
   const fetchBoardData = async () => {
-  try {
-    let response;
-    if (boardId !== null) {
-      if (saveYn == false){ // 임시저장
-        response = await request.get(`/board/draft/${boardId}`);
+    try {
+      let response;
+      if (boardId !== null) {
+        if (saveYn == false){ // 임시저장
+          response = await request.get(`/board/draft/${boardId}`);
+        }
+        else { // 수정
+          response = await request.get(`/study/${boardId}`);
+        }
+  
+      if (response.isSuccess) {
+        const { studyName, content, profileUrl } = response.result;
+        setTitle(studyName);
+        setMarkdownContent(content);
+        setProfileUrl(profileUrl);
+        // setCategoryCode(categoryCode);
+        // setCategory(category);
+        // setBoardFileList(boardFileList);
+        // setSaveYn(saveYn);
+      } else {
+        console.error('게시글 상세 조회 실패:', response.message);
       }
-      else { // 수정
-        response = await request.get(`/board/${boardId}`);
-      }
-
-    if (response.isSuccess) {
-      const { title, content, categoryCode, category, boardFileList, saveYn } = response.result;
-      setTitle(title);
-      setMarkdownContent(content);
-      setCategoryCode(categoryCode);
-      setCategory(category);
-      setBoardFileList(boardFileList);
-      setSaveYn(saveYn);
-    } else {
-      console.error('게시글 상세 조회 실패:', response.message);
     }
-  }
-  } catch (error) {
-    console.error('게시글 상세 조회 중 오류:', error);
-  }
-  };
+    } catch (error) {
+      console.error('게시글 상세 조회 중 오류:', error);
+    }
+    };
 
 
   useEffect(() => {

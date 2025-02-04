@@ -166,7 +166,7 @@ export default function Editor({
     <Styled.LeftContainer>
       <Styled.InnerEditorContainer ref={editorRef} isScrolling={isScrolling}>
         <Styled.EditorHeader>
-          <Styled.PageLabel>새로운 스터디</Styled.PageLabel>
+          <Styled.PageLabel>{boardId ? '스터디 수정' : '새로운 스터디'}</Styled.PageLabel>
           <Styled.Divider/>
 
           <Styled.OptionLabel>스터디 이름</Styled.OptionLabel>

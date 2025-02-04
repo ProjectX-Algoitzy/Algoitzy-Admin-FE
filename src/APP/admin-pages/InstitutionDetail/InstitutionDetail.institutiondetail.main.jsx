@@ -24,7 +24,6 @@ export default function InstitutionDetail() {
   const fetchWorkbookExplain = async () => {
     try {
       const response = await request.get(`/institution/${institutionId}`);
-      console.log(institutionId);
       if (response.isSuccess) {
         console.log("기관 분석 조회 성공", response);
         setName(response.result.name);

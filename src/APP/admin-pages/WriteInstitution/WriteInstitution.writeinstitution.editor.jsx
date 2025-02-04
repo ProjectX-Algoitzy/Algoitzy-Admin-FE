@@ -120,7 +120,7 @@ export default function Editor({
     <Styled.LeftContainer>
       <Styled.InnerEditorContainer ref={editorRef} isScrolling={isScrolling}>
         <Styled.EditorHeader>
-          <Styled.PageLabel>기업/부트캠프 추가</Styled.PageLabel>
+          <Styled.PageLabel>{boardId ? '기업/부트캠프 수정' : '기업/부트캠프 추가'}</Styled.PageLabel>
           <Styled.Divider/>
 
           <Styled.OptionLabel>이름</Styled.OptionLabel>

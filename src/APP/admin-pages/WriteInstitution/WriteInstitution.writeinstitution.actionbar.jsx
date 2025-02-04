@@ -253,7 +253,7 @@ export default function ActionBar({
         }
         if (response.isSuccess) {
           if (response.result) setBoardId(response.result);
-          alert(saveYn==true ? '기업/부트캠프 수정이 완료되었습니다.' : '기업/부트캠프 생성이 완료되었습니다.');
+          alert(boardId ? '기업/부트캠프 수정이 완료되었습니다.' : '기업/부트캠프 생성이 완료되었습니다.');
           navigate(-1);
         } else {
           alert('기업/부트캠프 생성 중 오류가 발생했습니다.');
@@ -281,7 +281,7 @@ export default function ActionBar({
           </Styled.DraftButton>
         )}
           <Styled.Btn onClick={handlePostSubmit}>
-            {boardId && saveYn ? '수정하기' : '등록하기'}
+            {boardId ? '수정하기' : '등록하기'}
           </Styled.Btn>
         </Styled.BtnContainer2>
       </Styled.BtnContainer>

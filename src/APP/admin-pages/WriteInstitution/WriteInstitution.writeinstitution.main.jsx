@@ -20,8 +20,8 @@ export default function WritePost() {
   const [markdownContent, setMarkdownContent] = useState('');
 
   const [saveYn, setSaveYn] = useState(location.state?.saveYn);
-  const [isLoading, setIsLoading] = useState(true);
   
+
   // 게시글 상세 조회
   const fetchBoardData = async () => {
   try {
@@ -47,9 +47,6 @@ export default function WritePost() {
       } else {
         setCategoryCode(null);
       }
-      setIsLoading(false);
-
-      // console.log(type,category,categoryCode);
 
       // setBoardFileList(boardFileList);
       // setSaveYn(saveYn);

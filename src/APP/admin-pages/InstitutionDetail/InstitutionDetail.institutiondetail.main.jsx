@@ -9,6 +9,8 @@ import { ConfirmContext } from '../../Common/Confirm/ConfirmContext';
 import hljs from 'highlight.js';
 import 'highlight.js/styles/atom-one-dark-reasonable.css';
 
+import MarkdownContent from './InstitutionDetail.institutiondetail.markdowncontent';
+
 export default function InstitutionDetail() {
   const { institutionId } = useParams();
   // const { state } = useLocation();
@@ -138,9 +140,12 @@ export default function InstitutionDetail() {
               fetchWorkbookExplain={fetchWorkbookExplain}
             />
           </itemS.PartBox>
+          <MarkdownContent markdownContent={content || ''} /> {/* content 전달 */}
+          {/*
           <InstitutionDetailExplanation
             content={content}
           />
+          */}
           <itemS.PartBox>
             <itemS.SecondPart>추천 문제집</itemS.SecondPart>
             <itemS.AddButtonBox>

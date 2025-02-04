@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useContext } from 'react';
+import React, { useCallback, useState, useEffect, useRef, useContext } from 'react';
 import * as Styled from './Styled/WriteRegularStudy.writeregularstudy.editor.styles';
 import request from '../../Api/request';
 import MarkdownEditor from './WriteRegularStudy.writeregularstudy.markdowneditor';
@@ -6,6 +6,9 @@ import ActionBar from './WriteRegularStudy.writeregularstudy.actionbar';
 
 import { ConfirmContext } from '../../Common/Confirm/ConfirmContext';
 import { AlertContext } from '../../Common/Alert/AlertContext';
+
+import { useDropzone } from 'react-dropzone';
+
 
 export default function Editor({
   boardId,
@@ -21,6 +24,9 @@ export default function Editor({
 
   category,
   setCategory,
+
+  profileUrl,
+  setProfileUrl,
 
   boardFileList,
   setBoardFileList,
@@ -69,6 +75,7 @@ export default function Editor({
   }, []);
 
 
+  /*
   // 카테고리 옵션 리스트 가져오기
   useEffect(() => {
     const fetchCategoryOptions = async () => {
@@ -105,6 +112,54 @@ export default function Editor({
     setCategory(selectedOption.label);
     setSelectedCategory(selectedOption);
   };
+  */
+
+
+  // 스터디 이미지 업로드
+  const uploadImage = async (file) => {
+    try {
+        const formData = new FormData();
+        formData.append('multipartFileList', file);
+
+        const response = await request.post('/s3', formData);
+        if (response.isSuccess) {
+            console.log("업로드된 이미지 URL:", response.result[0]); // 콘솔에 URL 출력
+            return response.result[0]; // 반환된 이미지 URL
+        } else {
+            throw new Error('이미지 업로드 실패');
+        }
+    } catch (error) {
+        console.error('이미지 업로드 오류:', error);
+        throw error;
+    }
+  };
+
+  const FileUpload = ({ onFileUpload }) => {
+    const onDrop = useCallback(async (acceptedFiles) => {
+        const uploadedFile = acceptedFiles[0];
+        try {
+            const url = await uploadImage(uploadedFile);
+            setProfileUrl(url); // 이미지 URL을 상태에 저장
+            onFileUpload(url); // 부모 컴포넌트에 URL 전달
+        } catch (error) {
+            console.error("파일 업로드 중 오류가 발생했습니다.", error);
+        }
+    }, [onFileUpload]);
+
+    const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+
+    return (
+        <Styled.FileUploadContainer {...getRootProps()} className={isDragActive ? 'dragActive' : ''} >
+            <input {...getInputProps()} />
+            {!profileUrl && <p>이미지 드래그 혹은 <Styled.HighlightText>파일 업로드</Styled.HighlightText></p>}
+            {profileUrl && (
+                <Styled.ImagePreview>
+                    <img src={profileUrl} alt="Preview" />
+                </Styled.ImagePreview>
+            )}
+        </Styled.FileUploadContainer>
+    );
+  };
 
   
   return (
@@ -122,6 +177,9 @@ export default function Editor({
           />
 
           <Styled.OptionLabel>스터디 대표 이미지</Styled.OptionLabel>
+          <FileUpload onFileUpload={(url) => setProfileUrl(url)}/>
+
+          {/*}
           <Styled.CategorySelect
             options={categoryOptions}
             placeholder={categoryPlaceholderText}
@@ -132,6 +190,7 @@ export default function Editor({
             isSearchable={false}
             onChange={handleCategoryChange}
           />
+          */}
         </Styled.EditorHeader>
 
         <MarkdownEditor
@@ -159,6 +218,9 @@ export default function Editor({
 
           category={category}
           setCategory={setCategory}
+
+          profileUrl={profileUrl}
+          setProfileUrl={setProfileUrl}
 
           boardFileList={boardFileList}
           setBoardFileList={setBoardFileList}

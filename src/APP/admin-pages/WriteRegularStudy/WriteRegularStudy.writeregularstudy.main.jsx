@@ -14,6 +14,8 @@ export default function WritePost() {
   const [categoryCode, setCategoryCode] = useState(null);
   const [category, setCategory] = useState(null);
 
+  const [profileUrl, setProfileUrl] = useState(null);
+
   const [boardFileList, setBoardFileList] = useState([]);
   const [uploadedImageUrls, setUploadedImageUrls] = useState([]);
 
@@ -122,6 +124,9 @@ export default function WritePost() {
 
         category={category}
         setCategory={setCategory}
+
+        profileUrl={profileUrl}
+        setProfileUrl={setProfileUrl}
 
         boardFileList={boardFileList}
         setBoardFileList={setBoardFileList}

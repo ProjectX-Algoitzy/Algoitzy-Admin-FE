@@ -21,6 +21,9 @@ export default function ActionBar({
   category,
   setCategory,
 
+  profileUrl,
+  setProfileUrl,
+
   boardFileList,
   setBoardFileList,
   
@@ -237,28 +240,29 @@ export default function ActionBar({
     const fileUrlList = boardFileList.map(file => file.fileUrl);
 
     const requestData = {
-      title: title,
+      name: title,
       content: markdownContent,
-      category: categoryCode,
-      fileUrlList: fileUrlList,
-      saveYn: true,
+      profileUrl: profileUrl,
+      // category: categoryCode,
+      // fileUrlList: fileUrlList,
+      // saveYn: true,
     };
 
     try {
       let response;
         if (boardId) {
           // 게시글 수정(임시저장 글 포함)
-          response = await request.patch(`/board/${boardId}`, requestData);
+          response = await request.patch(`/study/${boardId}`, requestData);
         } else {
           // 새 게시글 작성
-          response = await request.post('/board', requestData);
+          response = await request.post('/study', requestData);
         }
         if (response.isSuccess) {
           if (response.result) setBoardId(response.result);
-          alert(saveYn==true ? '게시글이 수정되었습니다.' : '게시글이 등록되었습니다.');
+          alert(saveYn==true ? '정규 스터디가 수정되었습니다.' : '정규 스터디가 등록되었습니다.');
           navigate(-1); // 커뮤니티 게시글 목록으로 이동
         } else {
-          alert('게시글을 저장하는 중 오류가 발생했습니다.');
+          alert('정규 스터디를 저장하는 중 오류가 발생했습니다.');
         }
       } catch (error) {
         // alert('게시글을 저장하는 중 오류가 발생했습니다.');

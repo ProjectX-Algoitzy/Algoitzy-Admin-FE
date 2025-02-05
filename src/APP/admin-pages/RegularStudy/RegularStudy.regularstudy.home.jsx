@@ -4,6 +4,7 @@ import request from '../../Api/request'
 import { useNavigate, useParams } from 'react-router-dom';
 import hljs from 'highlight.js';
 import 'highlight.js/styles/atom-one-dark-reasonable.css';
+import MarkdownContent from './RegularStudy.regularstudy.markdowncontent';
 
 
 export default function RegularStudyHome() {
@@ -55,7 +56,8 @@ export default function RegularStudyHome() {
       <itemS.Title>홈
         <img src="/img/btnedit.png" alt="편집버튼" onClick={handleEdit} style={{width:"2.5rem", height:"1.708rem", cursor:"pointer"}}  />
       </itemS.Title>
-      <itemS.ContentContainer dangerouslySetInnerHTML={{ __html: regularStudyHome }} />
+      <MarkdownContent markdownContent={regularStudyHome || ''} /> {/* content 전달 */}
+      {/*<itemS.ContentContainer dangerouslySetInnerHTML={{ __html: regularStudyHome }} />*/}
     </itemS.Container>
   )
 }

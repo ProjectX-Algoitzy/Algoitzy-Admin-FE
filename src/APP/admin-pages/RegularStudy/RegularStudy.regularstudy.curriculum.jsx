@@ -68,8 +68,11 @@ export default function RegularStudyCurriculum() {
   }
 
   const handleWriteClick = () => {
-    navigate("/writecurriculum");
-    window.location.reload(); // 페이지 전환 후 강제 새로고침
+    navigate(`/writecurriculum`, {
+      state: {
+        studyId: id,
+      },
+    });
   };
   
 

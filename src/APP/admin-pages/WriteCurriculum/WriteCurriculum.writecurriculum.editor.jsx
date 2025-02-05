@@ -8,10 +8,16 @@ import { ConfirmContext } from '../../Common/Confirm/ConfirmContext';
 import { AlertContext } from '../../Common/Alert/AlertContext';
 
 export default function Editor({
+  studyId,
+  setStudyId,
+  
   boardId,
   setBoardId,
 
   fetchBoardData,
+
+  studyName,
+  setStudyName,
 
   title,
   setTitle,
@@ -40,7 +46,16 @@ export default function Editor({
   const [isScrolling, setIsScrolling] = useState(false); // 스크롤 상태 관리
   
   const [selectedCategory, setSelectedCategory] = useState({ value: categoryCode, label: category }); // 선택된 카테고리 상태
-  const [categoryOptions, setCategoryOptions] = useState([]); // 동적 카테고리 옵션
+  const [categoryOptions, setCategoryOptions] = useState([
+    { value: "1", label: "1주차" },
+    { value: "2", label: "2주차" },
+    { value: "3", label: "3주차" },
+    { value: "4", label: "4주차" },
+    { value: "5", label: "5주차" },
+    { value: "6", label: "6주차" },
+    { value: "7", label: "7주차" },
+    { value: "8", label: "8주차" }
+  ]);
 
   const { confirm } = useContext(ConfirmContext);
   const { alert } = useContext(AlertContext);
@@ -67,6 +82,11 @@ export default function Editor({
       }
     };
   }, []);
+
+
+  useEffect(() => {
+    setSelectedCategory({ value: categoryCode, label: category });
+  }, [categoryCode]);
 
 
   /*
@@ -112,7 +132,7 @@ export default function Editor({
     <Styled.LeftContainer>
       <Styled.InnerEditorContainer ref={editorRef} isScrolling={isScrolling}>
         <Styled.EditorHeader>
-          <Styled.PageLabel>커리큘럼</Styled.PageLabel>
+          <Styled.PageLabel>{studyName} 커리큘럼 {boardId ? '수정' : ''}</Styled.PageLabel>
           <Styled.Divider/>
 
           <Styled.OptionLabel>커리큘럼 제목</Styled.OptionLabel>
@@ -147,10 +167,16 @@ export default function Editor({
       </Styled.InnerEditorContainer>
 
       <ActionBar
+          studyId={studyId}
+          setStudyId={setStudyId}
+              
           boardId={boardId}
           setBoardId={setBoardId}
 
           fetchBoardData={fetchBoardData}
+
+          studyName={studyName}
+          setStudyName={setStudyName}
 
           title={title}
           setTitle={setTitle}

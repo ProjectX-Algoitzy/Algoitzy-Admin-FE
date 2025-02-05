@@ -7,6 +7,9 @@ import { ConfirmContext } from '../../Common/Confirm/ConfirmContext';
 import { AlertContext } from '../../Common/Alert/AlertContext';
 
 export default function ActionBar({
+  studyId,
+  setStudyId,
+
   boardId,
   setBoardId,
 
@@ -233,25 +236,27 @@ export default function ActionBar({
 
   // 등록하기
   const handlePostSubmit = async () => {
+    console.log(studyId);
     await updateDeletedFiles();
     const fileUrlList = boardFileList.map(file => file.fileUrl);
 
     const requestData = {
+      studyId: studyId,
       title: title,
       content: markdownContent,
-      category: categoryCode,
-      fileUrlList: fileUrlList,
-      saveYn: true,
+      week: categoryCode,
+      // fileUrlList: fileUrlList,
+      // saveYn: true,
     };
 
     try {
       let response;
         if (boardId) {
           // 게시글 수정(임시저장 글 포함)
-          response = await request.patch(`/board/${boardId}`, requestData);
+          response = await request.patch(`/curriculum/${boardId}`, requestData);
         } else {
           // 새 게시글 작성
-          response = await request.post('/board', requestData);
+          response = await request.post('/curriculum', requestData);
         }
         if (response.isSuccess) {
           if (response.result) setBoardId(response.result);

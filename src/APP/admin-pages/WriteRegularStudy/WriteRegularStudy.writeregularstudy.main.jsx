@@ -23,7 +23,33 @@ export default function WritePost() {
 
   const [saveYn, setSaveYn] = useState(location.state?.saveYn);
 
+  const fetchBoardData = async () => {
+    try {
+      if (boardId !== null) {
+        // 두 개의 API 호출을 동시에 수행
+        const [infoResponse, homeResponse] = await Promise.all([
+            request.get(`study/${boardId}/info`),
+            request.get(`study/${boardId}/home`)
+        ]);
+
+        console.log("infoResponse: ", infoResponse);
+        console.log("homeResponse: ", homeResponse);
+
+        // 받은 데이터로 상태 업데이트
+        setTitle(infoResponse.result.studyName);
+        setProfileUrl(infoResponse.result.profileUrl);
+        setMarkdownContent(homeResponse.result);
+    }
+    } catch (error) {
+        console.error('데이터 불러오기 오류:', error);
+    }
+};
+
+useEffect(() => {
+    fetchBoardData();
+}, [boardId]);
   
+/*
   // 게시글 상세 조회
   const fetchBoardData = async () => {
     try {
@@ -58,7 +84,7 @@ export default function WritePost() {
   useEffect(() => {
     fetchBoardData();
   }, [boardId]);
-
+*/
 
   useEffect(() => {
     // 스크롤 비활성화

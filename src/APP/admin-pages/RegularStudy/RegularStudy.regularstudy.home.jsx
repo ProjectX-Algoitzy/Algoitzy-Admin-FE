@@ -42,10 +42,18 @@ export default function RegularStudyHome() {
     navigate(`/editingregularstudyinfo/${id}`);
   };
 
+  const handleEdit = () => {
+    navigate(`/writeregularstudy`, {
+      state: {
+        boardId: id,
+      },
+    });
+  };
+
   return (
     <itemS.Container>
       <itemS.Title>홈
-        <img src="/img/btnedit.png" alt="편집버튼" onClick={handleEditStduyInfo} style={{width:"2.5rem", height:"1.708rem", cursor:"pointer"}}  />
+        <img src="/img/btnedit.png" alt="편집버튼" onClick={handleEdit} style={{width:"2.5rem", height:"1.708rem", cursor:"pointer"}}  />
       </itemS.Title>
       <itemS.ContentContainer dangerouslySetInnerHTML={{ __html: regularStudyHome }} />
     </itemS.Container>

@@ -124,9 +124,9 @@ export default function Header() {
             <itemS.StyledLink to={isLoggedIn ? "/community" : "/login"}>
               <itemS.PageLink>커뮤니티</itemS.PageLink>
             </itemS.StyledLink>
-            {/* <itemS.StyledLink>
+            <itemS.StyledLink to={isLoggedIn ? "/inquiry" : "/login"}>
               <itemS.PageLink>문의 관리</itemS.PageLink>
-            </itemS.StyledLink> */}
+            </itemS.StyledLink>
             <itemS.StyledLink onClick={() => handleMenuClick('coding')}>
               <itemS.PageLink>코딩테스트 분석</itemS.PageLink>
               {activeMenu === 'coding' && (

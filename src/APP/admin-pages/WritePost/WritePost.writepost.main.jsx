@@ -57,10 +57,14 @@ export default function WritePost() {
   }, [boardId]);
 
 
+  // 에디터 스크롤 비활성화
   useEffect(() => {
-    // 스크롤 비활성화
     document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
   }, []);
+  
 
   const deleteImageFromS3 = async (fileUrl) => {
     try {

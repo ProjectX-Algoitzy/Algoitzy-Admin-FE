@@ -75,7 +75,7 @@ export default function InquiryReply({ item, parentName, formatDate, fetchCommen
 
   // 계정 링크 이동
 	const handlePage = (handle) => {
-    navigate(`/mypage/${handle}`);
+    if (handle != null) { navigate(`/mypage/${handle}`); }
   };
 
   return (

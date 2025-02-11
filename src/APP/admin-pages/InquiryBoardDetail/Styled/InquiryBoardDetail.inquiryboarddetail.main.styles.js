@@ -140,17 +140,10 @@ export const CountContainer = styled.div`
   margin: 0 0 1rem 0.625rem;
 `;
 
-export const LikeIcon = styled.img`
-  width: 0.833rem;
-  height: 0.833rem;
-  margin-right: 0.5rem;
-  cursor: pointer;
-`;
-
 export const CommentIcon = styled.img`
   width: 0.833rem;
   height: 0.833rem;
-  margin-right: 0.5rem;
+  margin-right: 0.542rem;
 `;
 
 export const CountText = styled.div`

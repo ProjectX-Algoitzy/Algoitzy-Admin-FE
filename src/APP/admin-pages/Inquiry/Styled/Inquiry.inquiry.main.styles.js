@@ -48,15 +48,6 @@ export const Head = styled.div`
   ${tokens.typography.T3_B_24};
 `;
 
-export const SemiHead = styled.div`
-  display: flex;
-  align-items: center;
-  ${tokens.typography.B2_M_16};
-  color: ${tokens.colors.B_Grey_6};
-  margin-left: 1rem;
-  line-height: 1.333rem;
-`;
-
 // 검색 컨테이너
 export const SearchContainer = styled.div`
   display: flex;

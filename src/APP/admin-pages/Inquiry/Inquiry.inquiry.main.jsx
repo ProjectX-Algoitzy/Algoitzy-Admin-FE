@@ -1,13 +1,10 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import request from '../../Api/request';
 import * as itemS from "./Styled/Inquiry.inquiry.main.styles";
 import InquiryTable from "./Inquiry.inquiry.table";
-import { useNavigate } from 'react-router-dom';
 
 export default function Inquiry() {
-  const [isRegularMember, setIsRegularMember] = useState(false);
-	const navigate = useNavigate();
-
+  	const [isRegularMember, setIsRegularMember] = useState(false);
 	const [posts, setPosts] = useState([]);
 	const [categories, setCategories] = useState([{ code: '', name: '전체' }]); // Default '전체' tab
 
@@ -15,8 +12,6 @@ export default function Inquiry() {
 	const [searchKeyword, setSearchKeyword] = useState('');
 	const [sortType, setSortType] = useState('LATEST');
 	const [selectedTab, setSelectedTab] = useState('');
-
-	// const [content, setContent] = useState('커뮤니티 내의 모든 글을 볼 수 있습니다.');
 
 	const [sortText, setSortText] = useState('최신순');
 	const [isSortDropVisible, setIsSortDropVisible] = useState(false); // 정렬 드롭박스 열기/닫기
@@ -79,19 +74,6 @@ export default function Inquiry() {
 		setSelectedTab(tab.code);
 		setIsTabClick(tab.code !== '');
 		// 탭에 맞는 내용 설정
-		if (tab.name === '전체') {
-			// setContent('커뮤니티 내의 모든 글을 볼 수 있습니다.');
-		} else if (tab.name === '기능 제안') {
-			// setContent('Koala의 중요한 소식과 공지들을 확인할 수 있습니다.');
-		} else if (tab.name === '이용 문의') {
-			// setContent('자유롭게 소통하는 공간입니다.');
-		} else if (tab.name === '오류 신고') {
-			// setContent('다양한 이벤트, 서비스, 동아리 등을 홍보하는 공간입니다.');
-		} else if (tab.name === '스터디 관련') {
-			// setContent('기업 채용, 대회 일정 등 유용한 정보를 공유하는 공간입니다.');
-		} else if (tab.name === '기타') {
-			// setContent('궁금한 점을 나누며 성장하는 공간입니다.');
-		}
 		setCurrentPage(0);
 		setCurrentPageGroup(0);
 	};
@@ -135,7 +117,6 @@ export default function Inquiry() {
 					<itemS.TopContainer>
 						<itemS.HeadContainer>
 							<itemS.Head>문의하기 &gt; {selectedTab ? categories.find(tab => tab.code === selectedTab)?.name : '전체'}</itemS.Head>
-							{/* <itemS.SemiHead>{content}</itemS.SemiHead> */}
 						</itemS.HeadContainer>
 						<itemS.SearchContainer>
 							<itemS.Search

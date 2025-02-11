@@ -58,15 +58,15 @@ export default function InquiryBoardDetail() {
           const response = await request.get(`/inquiry/${id}/reply?page=${currentPage + 1}&size=${itemsPerPage}`);
 
           if (response.isSuccess) {
-              console.log("댓글 조회 성공", response.result.replyList);
+            //   console.log("답글 조회 성공", response.result.replyList);
               setComment(response.result.replyList);
               setCommentCount(response.result.replyList.length)
               setTotalPages(Math.ceil(response.result.parentReplyCount / itemsPerPage));
           } else {
-              console.error("댓글 조회 실패:", response);
+              console.error("답글 조회 실패:", response);
           }
       } catch (error) {
-          console.error('댓글 조회 오류', error);
+          console.error('답글 조회 오류', error);
       }
   };
 
@@ -171,6 +171,12 @@ export default function InquiryBoardDetail() {
                         </itemS.ProcessingYNBox>
 					</itemS.WriterInfoContainer>
 					<InquiryContent content={inquiry.content} />
+
+                    <itemS.CountContainer>
+						<itemS.CommentIcon src='/img/comment.svg' alt='댓글' />
+						<itemS.CountText>답변 {inquiry.replyCount}</itemS.CountText>
+					</itemS.CountContainer>
+
 					<itemS.Body>답변</itemS.Body>
 					<itemS.ContentContainer>
                         <itemS.WriteContainer>

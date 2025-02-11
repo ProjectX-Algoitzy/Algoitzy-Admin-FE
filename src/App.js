@@ -25,8 +25,10 @@ import UpdateGeneration from "./APP/admin-pages/UpdateGeneration/UpdateGeneratio
 import ManageAuth from "./APP/admin-pages/ManageAuth/ManageAuth.manageauth.main"
 import InstitutionDetail from "./APP/admin-pages/InstitutionDetail/InstitutionDetail.institutiondetail.main"
 import Community from "./APP/admin-pages/Community/Community.community.main"
+import Inquiry from "./APP/admin-pages/Inquiry/Inquiry.inquiry.main";
 import WritePost from "./APP/admin-pages/WritePost/WritePost.writepost.main";
-import BoardDetail from "./APP/admin-pages/BoardDetail/BoardDetail.boarddetail.main"
+import BoardDetail from "./APP/admin-pages/BoardDetail/BoardDetail.boarddetail.main";
+import InquiryBoardDetail from "./APP/admin-pages/InquiryBoardDetail/InquiryBoardDetail.inquiryboarddetail.main";
 import styled from "styled-components"
 import ScrollToTop from "./APP/Common/ScrollToTop"
 import useInterval from "./APP/Common/UseInterval"
@@ -101,6 +103,9 @@ function App() {
           <Route path="/writepost" element={<WritePost />} /> {/* 새 글쓰기 */}
           <Route path="/community" element={isLoggedIn() ? <Community /> : <Navigate to="/login" />} /> {/* 커뮤니티 */}
           <Route path="/board/:id" element={isLoggedIn() ? <BoardDetail /> : <Navigate to="/login" />} /> {/* 커뮤니티 글 세부 */} {/* ANCHOR - id로 설정하기 */}
+
+          <Route path="/inquiry" element={isLoggedIn() ? <Inquiry /> : <Navigate to="/" />} /> 
+          <Route path="/inquiryboard/:id" element={isLoggedIn() ? <InquiryBoardDetail /> : <Navigate to="/" />} /> {/*문의하기 글 세부 */}
 
         </Routes>
         {/* <Footer /> */} {/* figma에 보니 admin은 푸터가 없었기에 일단 임시로 주석처리를 했다 */}

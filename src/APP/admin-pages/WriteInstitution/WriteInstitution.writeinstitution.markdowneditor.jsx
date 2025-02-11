@@ -65,13 +65,18 @@ export default function MarkdownEditor({
   // 에디터 내용 업데이트
   useEffect(() => {
     if (editorView) {
-      editorView.dispatch({
-        changes: {
-          from: 0,
-          to: editorView.state.doc.length, // 기존 내용 삭제
-          insert: markdownContent, // 새로운 내용 삽입
-        },
-      });
+      const currentSelection = editorView.state.selection.main.head; // 현재 커서 위치 저장
+  
+      if (editorView.state.doc.toString() !== markdownContent) {
+        editorView.dispatch({
+          changes: {
+            from: 0,
+            to: editorView.state.doc.length, // 기존 내용 삭제
+            insert: markdownContent, // 새로운 내용 삽입
+          },
+          selection: EditorSelection.cursor(currentSelection), // 기존 커서 위치 복원
+        });
+      }
     }
   }, [markdownContent]);
 

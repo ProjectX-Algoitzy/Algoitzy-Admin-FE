@@ -7,6 +7,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { AlertContext } from '../../Common/Alert/AlertContext';
 import hljs from 'highlight.js';
 import 'highlight.js/styles/atom-one-dark-reasonable.css';
+import MarkdownContent from './MakingCurriculum.makingcurriculum.markdowncontent';
+
 
 export default function CurriculumCheck() {
   const navigate = useNavigate();
@@ -153,7 +155,7 @@ export default function CurriculumCheck() {
           <QuillPractice setContent={setContent} content={content} />
         ) : (
           <itemS.ContentsContainer>
-            <div dangerouslySetInnerHTML={{ __html: content }} />
+            <MarkdownContent markdownContent={content || ''} />
           </itemS.ContentsContainer>
         )}
       </>

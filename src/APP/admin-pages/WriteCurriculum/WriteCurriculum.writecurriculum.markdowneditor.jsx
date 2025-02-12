@@ -65,13 +65,18 @@ export default function MarkdownEditor({
   // 에디터 내용 업데이트
   useEffect(() => {
     if (editorView) {
-      editorView.dispatch({
-        changes: {
-          from: 0,
-          to: editorView.state.doc.length, // 기존 내용 삭제
-          insert: markdownContent, // 새로운 내용 삽입
-        },
-      });
+      const currentSelection = editorView.state.selection.main.head; // 현재 커서 위치 저장
+  
+      if (editorView.state.doc.toString() !== markdownContent) {
+        editorView.dispatch({
+          changes: {
+            from: 0,
+            to: editorView.state.doc.length, // 기존 내용 삭제
+            insert: markdownContent, // 새로운 내용 삽입
+          },
+          selection: EditorSelection.cursor(currentSelection), // 기존 커서 위치 복원
+        });
+      }
     }
   }, [markdownContent]);
 
@@ -369,6 +374,7 @@ export default function MarkdownEditor({
 
         <Styled.ToolbarInnerGroup>
         <button onClick={() => applyMarkdownSyntax('blockquote')}><img src='/img/toolbar_blockquote.svg' alt="Blockquote"/></button>
+        {/*
         <button onClick={() => fileInputRef.current?.click()}><img src='/img/toolbar_attach.svg' alt="Attach" /></button>
           <input
             type="file"
@@ -377,6 +383,7 @@ export default function MarkdownEditor({
             multiple
             onChange={handleFileChange} // 모든 형식 허용
           />
+        */}
         <button onClick={() => applyMarkdownSyntax('link')}><img src='/img/toolbar_link.svg' alt="Link"/></button>
         <button onClick={() => imageInputRef.current?.click()}><img src='/img/toolbar_image.svg' alt="Image" /></button>
           <input

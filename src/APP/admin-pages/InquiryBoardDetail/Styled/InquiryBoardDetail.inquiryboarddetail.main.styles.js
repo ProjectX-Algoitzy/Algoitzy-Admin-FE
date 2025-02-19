@@ -38,15 +38,6 @@ export const Head = styled.div`
   ${tokens.typography.T3_B_24};
 `;
 
-export const SemiHead = styled.div`
-  display: flex;
-  align-items: center;
-  ${tokens.typography.B2_M_16};
-  color: ${tokens.colors.B_Grey_6};
-  margin-left: 1rem;
-  line-height: 1.333rem;
-`;
-
 export const TitleContainer = styled.div`
   display: flex;
   flex-direction: row;
@@ -195,10 +186,6 @@ export const PaginationContainer = styled.div`
   justify-content: center;
   width: 50rem;
   margin-top: 1rem;
-`;
-
-export const BlankBtn = styled.div`
-  width: 7.917rem;
 `;
 
 export const WriteBtn = styled.button`

@@ -13,13 +13,21 @@ export const Container = styled.div`
 export const Title = styled.div`
   display: flex;
   margin-top: 4.167rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.792rem;
   /* width: 33.042rem; */
   width: 100%;
   ${tokens.typography.T1_SB_32};
   color: ${tokens.colors.Grey_8};
   padding-bottom: 0.667rem;
   border-bottom: 0.042rem solid ${tokens.colors.B_Grey_2};
+`;
+
+export const BlueComment = styled.div`
+  display: flex;
+  width: 100%;
+  margin-bottom: 0.5rem;
+  ${tokens.typography.B3_M_14};
+  color: ${tokens.colors.Blue_0_Main};
 `;
 
 export const StyledTable = styled.table`
@@ -45,6 +53,11 @@ export const StyledTd = styled.td`
   border-right: ${({ colIndex }) => (colIndex === 8 ? 'none' : '0.042rem solid #B9C4D2')};
   width: ${({ colIndex }) => (colIndex === 0 ? '7.333rem' : 'auto')};
   height: ${({ rowIndex }) => (rowIndex === 0 ? '1.875rem' : '2.5rem')};
+`;
+
+export const StyledTableCell = styled.div`
+  cursor: pointer;
+  background-color: transparent;
 `;
 
 export const StyledSpanBaekjoon = styled.span`

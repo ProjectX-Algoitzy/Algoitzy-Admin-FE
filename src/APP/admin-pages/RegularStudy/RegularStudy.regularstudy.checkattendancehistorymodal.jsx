@@ -1,79 +1,71 @@
 import React from 'react';
 import * as itemS from "./Styled/RegularStudy.regularstudy.checkattendancehistorymodal.styles";
+import { useState } from 'react';
 
-export default function RegularStudyCheckAttendanceHistoryModal({onClose}) {
+export default function RegularStudyCheckAttendanceHistoryModal({ attendanceRequesterName, attendanceRequestList, onClose }) {
+  const [selectedWeek, setSelectedWeek] = useState(1);  // 기본값을 1주차로 설정
+
+  const handleWeekClick = (week) => {
+    setSelectedWeek(week);
+  };
+  
+  const selectedWeekData = attendanceRequestList.find((data) => data.week === selectedWeek);
+  const lastWeek = Math.max(...attendanceRequestList.map((data) => data.week)); // 마지막 주차 계산
+
   return (
     <itemS.ModalOverlay>
         <itemS.ModalContent>
             <itemS.FirstSentence>
-                <itemS.BigTitle>누구누구의 출석 인증</itemS.BigTitle>
+                <itemS.BigTitle>{attendanceRequesterName} 출석 인증</itemS.BigTitle>
                 <img src="/img/close.png" onClick={onClose} style={{ marginTop: "0.667rem", marginRight: "1rem", cursor: "pointer" }} alt="x" />
             </itemS.FirstSentence>
 
             <itemS.ContentContainer>
               <itemS.WeeksContainer>
-                <itemS.Weeks>1주차</itemS.Weeks>
-                <itemS.Weeks>2주차</itemS.Weeks>
-                <itemS.Weeks>3주차</itemS.Weeks>
-                <itemS.Weeks>4주차</itemS.Weeks>
-                <itemS.Weeks>5주차</itemS.Weeks>
-                <itemS.Weeks>6주차</itemS.Weeks>
-                <itemS.Weeks>7주차</itemS.Weeks>
-                <itemS.Weeks>8주차</itemS.Weeks>
+                {Array.from({ length: 8 }, (_, index) => {
+                  const week = index + 1;
+                  const isDisabled = week > lastWeek; // 6, 7, 8주차 비활성화
+                  const isSelected = week == selectedWeek; // 선택된 주차
+
+                  return (
+                    <itemS.Weeks
+                      key={index}
+                      disabled={isDisabled}  // 비활성화 상태 전달
+                      selected={isSelected}  // 선택된 상태 전달
+                      onClick={() => !isDisabled && handleWeekClick(week)}  // 비활성화된 주차는 클릭하지 않음
+                    >
+                      {week}주차
+                    </itemS.Weeks>
+                  );
+                })}
               </itemS.WeeksContainer>
             </itemS.ContentContainer>
 
-            <itemS.ContentContainer>
-              <itemS.LittleContainer>
-                  <itemS.SmallTitle>문제 인증1</itemS.SmallTitle>
-                  <itemS.StyledInputContainer>
-                      <itemS.LinkImg src="/img/imglink.png" alt="클립" />
-                      <itemS.StyledInput 
-                          type="text" 
-                          // value={item.title} 
-                          // onChange={(e) => handleProblemTitleChange(item.id, e.target.value)} 
-                      />
-                  </itemS.StyledInputContainer>
-              </itemS.LittleContainer>
+            {selectedWeekData ? (
+                <itemS.ContentContainer>
+                    {selectedWeekData.problemUrlList.map((url, index) => (
+                    <itemS.LittleContainer key={index}>
+                        <itemS.SmallTitle>문제 인증{index + 1}</itemS.SmallTitle>
+                        <itemS.StyledInputContainer>
+                        <itemS.LinkImg src="/img/imglink.png" alt="클립" />
+                        <itemS.StyledInput type="text" value={url} readOnly />
+                        </itemS.StyledInputContainer>
+                    </itemS.LittleContainer>
+                    ))}
 
-              <itemS.LittleContainer>
-                  <itemS.SmallTitle>문제 인증2</itemS.SmallTitle>
-                  <itemS.StyledInputContainer>
-                      <itemS.LinkImg src="/img/imglink.png" alt="클립" />
-                      <itemS.StyledInput 
-                          type="text" 
-                          // value={item.title} 
-                          // onChange={(e) => handleProblemTitleChange(item.id, e.target.value)} 
-                      />
-                  </itemS.StyledInputContainer>
-              </itemS.LittleContainer>
-
-              <itemS.LittleContainer>
-                  <itemS.SmallTitle>문제 인증3</itemS.SmallTitle>
-                  <itemS.StyledInputContainer>
-                      <itemS.LinkImg src="/img/imglink.png" alt="클립" />
-                      <itemS.StyledInput 
-                          type="text" 
-                          // value={item.title} 
-                          // onChange={(e) => handleProblemTitleChange(item.id, e.target.value)} 
-                      />
-                  </itemS.StyledInputContainer>
-              </itemS.LittleContainer>
-
-              <itemS.LittleContainer>
-                  <itemS.SmallTitle>블로그 인증</itemS.SmallTitle>
-                  <itemS.StyledInputContainer>
-                      <itemS.LinkImg src="/img/imglink.png" alt="클립" />
-                      <itemS.StyledInput 
-                          type="text" 
-                          // value={item.title} 
-                          // onChange={(e) => handleProblemTitleChange(item.id, e.target.value)} 
-                      />
-                  </itemS.StyledInputContainer>
-              </itemS.LittleContainer>
-
-
-            </itemS.ContentContainer>
+                    <itemS.LittleContainer>
+                        <itemS.SmallTitle>블로그 인증</itemS.SmallTitle>
+                        <itemS.StyledInputContainer>
+                            <itemS.LinkImg src="/img/imglink.png" alt="클립" />
+                            <itemS.StyledInput type="text" value={selectedWeekData.blogUrl} readOnly />
+                        </itemS.StyledInputContainer>
+                    </itemS.LittleContainer>
+                </itemS.ContentContainer>
+            ) : (
+                <itemS.BlueCommentContainer> 
+                    <itemS.BlueComment>*문제 인증을 하지 않았습니다.</itemS.BlueComment>
+                </itemS.BlueCommentContainer>
+            )}
         </itemS.ModalContent>
     </itemS.ModalOverlay>
   )

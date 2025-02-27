@@ -56,7 +56,13 @@ export const Weeks = styled.div`
   font-weight: 600;
   font-size: 0.833rem;
   line-height: 1.333rem;
-  color: ${tokens.colors.B_Grey_6};
+  color: ${({ disabled, selected }) => {
+    if (disabled) return tokens.colors.B_Grey_4;  // 비활성화된 주차는 회색
+    if (selected) return tokens.colors.B_Grey_8;  // 선택된 주차는 어두운 회색
+    return tokens.colors.B_Grey_6;  // 기본 주차 색상
+  }};
+  cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};  // 비활성화된 주차는 클릭 불가
+  pointer-events: ${({ disabled }) => (disabled ? 'none' : 'auto')};  // 비활성화된 주차는 클릭 불가
 `;
 
 export const ContentContainer = styled.div`
@@ -121,30 +127,16 @@ export const StyledInput = styled.input`
   }
 `;
 
-export const BtnContainer = styled.div`
+export const BlueCommentContainer = styled.div`
   display: flex;
-  width: 80%;
-  justify-content: center;
-  margin-top: 1rem; /* 버튼 위에 여백 추가 */
+  justify-content: flex-start;
+  margin-left: 2.17rem;
 `;
 
-export const Btn = styled.button` /* 개설하기 버튼 */
-  margin-bottom: 3.25rem;
-  width: 14.33rem;
-  height: 2rem;
-  border-radius: 0.167rem;
-  border: none;
-  cursor: pointer;
-  color: ${tokens.colors.White};
-  ${tokens.typography.T5_SB_16};
-  background-color: ${tokens.colors.Blue_0_Main};
-`;
-
-export const StyledAddButton = styled.img`
-  margin-bottom: 1.333rem;
-  width: 80%;
-  cursor: pointer;
-  @media (max-width: 600px) {
-    width: 26rem;
-  }
+export const BlueComment = styled.div`
+  display: flex;
+  width: 100%;
+  margin-bottom: 0.5rem;
+  ${tokens.typography.B3_M_14};
+  color: ${tokens.colors.Blue_0_Main};
 `;

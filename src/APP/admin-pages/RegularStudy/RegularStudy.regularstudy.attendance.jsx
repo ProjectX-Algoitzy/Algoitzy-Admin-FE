@@ -12,6 +12,8 @@ export default function RegularStudyAttendance() {
   const [data, setData] = useState({}); // 초기 데이터 상태를 빈 객체로 설정
   const [isModified, setIsModified] = useState(false);
   const [modifiedAttendance, setModifiedAttendance] = useState([]);
+  const [attendanceRequestList, setAttendanceRequestList] = useState([]);
+  const [attendanceRequesterName, setAttendanceRequesterName] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { alert } = useContext(AlertContext);
 
@@ -114,6 +116,19 @@ export default function RegularStudyAttendance() {
     }
   };
 
+  const fetchAttendanceRequestList = async (handle) => {
+    try {
+      const response = await request.get(`/attendance-request/${id}/${handle}`);
+      console.log("출석 요청 내역 목록 조회: ", response);
+
+      if (response["isSuccess"]) {
+        setAttendanceRequestList(response.result.attendanceRequestList || []);
+      }
+    } catch (error) {
+      console.error("출석 요청 내역 목록 조회 오류", error);
+    }
+  };
+
   const transformData = (attendanceList) => {
     const data = {
       '문제 인증': [['문제 인증', '1주차', '2주차', '3주차', '4주차', '5주차', '6주차', '7주차', '8주차']],
@@ -155,7 +170,11 @@ export default function RegularStudyAttendance() {
 
                // 클릭 시 모달 열기
             >
-              <div onClick={() => setIsModalOpen(true)}>
+              <div onClick={() => {
+                setIsModalOpen(true); 
+                fetchAttendanceRequestList(handle); 
+                handleName(name); 
+              }}>
                 {name} <br />
                 <itemS.StyledSpanBaekjoon>{handle}</itemS.StyledSpanBaekjoon>
               </div>
@@ -263,7 +282,10 @@ export default function RegularStudyAttendance() {
   };
 
   const handleCloseModal = () => setIsModalOpen(false);
-  
+  const handleName = (name) => {
+    setAttendanceRequesterName(name);
+  }
+
   return (
     <itemS.Container>
       <itemS.Title>출석부</itemS.Title>
@@ -280,7 +302,7 @@ export default function RegularStudyAttendance() {
       )}
 
       {isModalOpen && (
-        <RegularStudyCheckAttendanceHistoryModal onClose={handleCloseModal} />
+        <RegularStudyCheckAttendanceHistoryModal attendanceRequesterName={attendanceRequesterName} attendanceRequestList={attendanceRequestList} onClose={handleCloseModal} />
       )}
     </itemS.Container>
   );

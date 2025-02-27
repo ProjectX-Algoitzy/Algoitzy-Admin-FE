@@ -6,7 +6,7 @@ export const BackGroundContainer = styled.div`
   flex-direction: column;
   overflow: auto;
   align-items: center;
-  background-image: url('/img/login.png');
+  background-image: url("/img/login.png");
   min-height: 100%;
 `;
 
@@ -73,11 +73,16 @@ export const FileUploadContainer = styled.div`
   }
 `;
 
+export const HiddenFileInput = styled.input`
+  display: none;
+`;
+
 export const HighlightText = styled.span`
   color: ${tokens.colors.Blue_0_Main};
 `;
 
-export const ImagePreview = styled.div` /* 이미지 미리보기를 위한 스타일 */
+export const ImagePreview = styled.div`
+  /* 이미지 미리보기를 위한 스타일 */
   width: 100%;
   height: 100%;
   display: flex;
@@ -134,7 +139,8 @@ export const BtnContainer2 = styled.div`
   flex-direction: row;
 `;
 
-export const ArbitaryBtn = styled.button` /* 임시 저장하기 버튼*/
+export const ArbitaryBtn = styled.button`
+  /* 임시 저장하기 버튼*/
   width: 16.167rem;
   height: 2rem;
   border-radius: 0.167rem;
@@ -145,7 +151,8 @@ export const ArbitaryBtn = styled.button` /* 임시 저장하기 버튼*/
   background-color: ${tokens.colors.B_Grey_7};
 `;
 
-export const Btn = styled.button` /*다음 버튼*/
+export const Btn = styled.button`
+  /*다음 버튼*/
   margin-left: 0.667rem;
   width: 16.167rem;
   height: 2rem;

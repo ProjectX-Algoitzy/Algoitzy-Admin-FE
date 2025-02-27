@@ -6,7 +6,7 @@ export const BackGroundContainer = styled.div`
   flex-direction: column;
   overflow: auto;
   align-items: center;
-  background-image: url('/img/login.png');
+  background-image: url("/img/login.png");
   min-height: 100%;
 `;
 
@@ -14,18 +14,18 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 4.167rem; 
-  margin-bottom: 4.708rem; 
-  width: 50rem; 
+  margin-top: 4.167rem;
+  margin-bottom: 4.708rem;
+  width: 50rem;
   height: auto;
   background-color: white;
-  border-radius: 0.333rem; 
-  box-shadow: 0rem 0.167rem 0.417rem 0.167rem rgba(58, 107, 135, 0.2); 
+  border-radius: 0.333rem;
+  box-shadow: 0rem 0.167rem 0.417rem 0.167rem rgba(58, 107, 135, 0.2);
 `;
 
 export const StyledPageName = styled.div`
-  margin-top: 5rem; 
-  margin-bottom: 3.333rem; 
+  margin-top: 5rem;
+  margin-bottom: 3.333rem;
   color: ${tokens.colors.Grey_8};
   ${tokens.typography.H3_SB_40};
 `;
@@ -40,7 +40,7 @@ export const LittleContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: start;
-  margin-bottom: 1.333rem; 
+  margin-bottom: 1.333rem;
 `;
 
 export const StyledTitle = styled.div`
@@ -51,10 +51,10 @@ export const StyledTitle = styled.div`
 
 export const FileUploadContainer = styled.div`
   width: 100%;
-  height: 9.333rem; 
-  border: 0.042rem dashed ${tokens.colors.B_Grey_4}; 
+  height: 9.333rem;
+  border: 0.042rem dashed ${tokens.colors.B_Grey_4};
   background-color: #f7f8fc;
-  border-radius: 0.333rem; 
+  border-radius: 0.333rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -73,11 +73,16 @@ export const FileUploadContainer = styled.div`
   }
 `;
 
+export const HiddenFileInput = styled.input`
+  display: none;
+`;
+
 export const HighlightText = styled.span`
   color: ${tokens.colors.Blue_0_Main};
 `;
 
-export const ImagePreview = styled.div` /* 이미지 미리보기를 위한 스타일 */
+export const ImagePreview = styled.div`
+  /* 이미지 미리보기를 위한 스타일 */
   width: 100%;
   height: 100%;
   display: flex;
@@ -89,7 +94,7 @@ export const ImagePreview = styled.div` /* 이미지 미리보기를 위한 스�
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
-    border-radius: 0.208rem; 
+    border-radius: 0.208rem;
   }
 `;
 
@@ -97,9 +102,9 @@ export const StyledInput = styled.input`
   box-sizing: border-box;
   border-radius: 0.167rem;
   border: none;
-  border: 0.042rem solid ${tokens.colors.Grey_4}; 
+  border: 0.042rem solid ${tokens.colors.Grey_4};
   width: 24.583rem;
-  height: 2.333rem; 
+  height: 2.333rem;
   color: ${tokens.colors.Grey_7};
   ${tokens.typography.B3_M_14};
   padding-left: 0.667rem;
@@ -124,7 +129,7 @@ export const BtnContainer = styled.div`
   bottom: 0;
   left: 0;
   background-color: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(8.333rem); 
+  backdrop-filter: blur(8.333rem);
   z-index: 1000;
 `;
 
@@ -133,10 +138,11 @@ export const BtnContainer2 = styled.div`
   flex-direction: row;
 `;
 
-export const ArbitaryBtn = styled.button` /* 임시 저장하기 버튼*/
-  width: 16.167rem; 
-  height: 2rem; 
-  border-radius: 0.167rem; 
+export const ArbitaryBtn = styled.button`
+  /* 임시 저장하기 버튼*/
+  width: 16.167rem;
+  height: 2rem;
+  border-radius: 0.167rem;
   border: none;
   cursor: pointer;
   color: ${tokens.colors.White};
@@ -144,10 +150,11 @@ export const ArbitaryBtn = styled.button` /* 임시 저장하기 버튼*/
   background-color: ${tokens.colors.B_Grey_7};
 `;
 
-export const Btn = styled.button` /*다음 버튼*/
-  margin-left: 0.667rem; 
-  width: 16.167rem; 
-  height: 2rem; 
+export const Btn = styled.button`
+  /*다음 버튼*/
+  margin-left: 0.667rem;
+  width: 16.167rem;
+  height: 2rem;
   border-radius: 0.167rem;
   border: none;
   cursor: pointer;

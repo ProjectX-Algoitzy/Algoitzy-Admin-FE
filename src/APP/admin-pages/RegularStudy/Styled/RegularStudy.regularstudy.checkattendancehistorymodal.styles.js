@@ -19,9 +19,9 @@ export const ModalContent = styled.div`
   display: flex;
   flex-direction: column;
   background-color: #fff;
-  padding: 1rem; /* 모달 내부에 패딩 추가 */
-  border-radius: 0.33rem;
+  border-radius: 0.167rem;
   width: 41.13rem;
+  height: 39.833rem;
   max-width: 90%; /* 화면 크기에 맞춰 모달 크기를 조정 */
   max-height: 90%; /* 화면 크기에 맞춰 모달 크기를 조정 */
   box-shadow: 0 0.083rem 0.42rem rgba(0, 0, 0, 0.1);
@@ -32,24 +32,33 @@ export const FirstSentence = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-bottom: 0.5rem; /* 내부에 패딩 추가 */
+  margin-top: 0.667rem;
   border-bottom: 0.042rem solid ${tokens.colors.B_Grey_3};
 `;
 
 export const BigTitle = styled.div`
   ${tokens.typography.T3_B_24};
   color: ${tokens.colors.Grey_8};
-  margin-left: 2.17rem;
-  margin-top: 0.58rem;
-  margin-bottom: 0.78rem;
+  margin-left: 4.875rem;
+  margin-bottom: 0.708rem;
+`;
+
+export const XBtn = styled.img`
+  width: 1.333rem;
+  height: 1.333rem;
+  margin-right: 1rem;
+  margin-bottom: 0.708rem;
+  cursor: pointer;
 `;
 
 export const WeeksContainer = styled.div`
   display: flex;
-  width: 31.38rem;
+  justify-content: space-between;
+  width: 22.958rem;
+  height: 1.333rem;
   margin-top: 0.958rem;
   margin-bottom: 2.167rem;
-  justify-content: space-between;
+  margin-left: 4.875rem;
 `;
 
 export const Weeks = styled.div`
@@ -74,7 +83,7 @@ export const ContentContainer = styled.div`
 export const LittleContainer = styled.div`
   display: flex;
   flex-direction: column;
-  margin-bottom: 1.33rem;
+  margin-bottom: 1.333rem;
 `;
 
 export const SmallTitle = styled.div`
@@ -130,7 +139,7 @@ export const StyledInput = styled.input`
 export const BlueCommentContainer = styled.div`
   display: flex;
   justify-content: flex-start;
-  margin-left: 2.17rem;
+  margin-left: 4.875rem;
 `;
 
 export const BlueComment = styled.div`

@@ -16,30 +16,28 @@ export default function RegularStudyCheckAttendanceHistoryModal({ attendanceRequ
     <itemS.ModalOverlay>
         <itemS.ModalContent>
             <itemS.FirstSentence>
-                <itemS.BigTitle>{attendanceRequesterName} 출석 인증</itemS.BigTitle>
-                <img src="/img/close.png" onClick={onClose} style={{ marginTop: "0.667rem", marginRight: "1rem", cursor: "pointer" }} alt="x" />
+              <itemS.BigTitle>{attendanceRequesterName} 출석 인증</itemS.BigTitle>
+              <itemS.XBtn onClick={onClose} src="/img/close.png" alt="x"/>
             </itemS.FirstSentence>
 
-            <itemS.ContentContainer>
-              <itemS.WeeksContainer>
-                {Array.from({ length: 8 }, (_, index) => {
-                  const week = index + 1;
-                  const isDisabled = week > lastWeek; // 6, 7, 8주차 비활성화
-                  const isSelected = week == selectedWeek; // 선택된 주차
+            <itemS.WeeksContainer>
+              {Array.from({ length: 8 }, (_, index) => {
+                const week = index + 1;
+                const isDisabled = week > lastWeek; // 비활성화
+                const isSelected = week == selectedWeek; // 선택된 주차
 
-                  return (
-                    <itemS.Weeks
-                      key={index}
-                      disabled={isDisabled}  // 비활성화 상태 전달
-                      selected={isSelected}  // 선택된 상태 전달
-                      onClick={() => !isDisabled && handleWeekClick(week)}  // 비활성화된 주차는 클릭하지 않음
-                    >
-                      {week}주차
-                    </itemS.Weeks>
-                  );
-                })}
-              </itemS.WeeksContainer>
-            </itemS.ContentContainer>
+                return (
+                  <itemS.Weeks
+                    key={index}
+                    disabled={isDisabled}  // 비활성화 상태 전달
+                    selected={isSelected}  // 선택된 상태 전달
+                    onClick={() => !isDisabled && handleWeekClick(week)}  // 비활성화된 주차는 클릭하지 않음
+                  >
+                    {week}주차
+                  </itemS.Weeks>
+                );
+              })}
+            </itemS.WeeksContainer>
 
             {selectedWeekData ? (
                 <itemS.ContentContainer>

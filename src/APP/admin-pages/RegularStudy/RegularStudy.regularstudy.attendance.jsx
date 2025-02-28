@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
 import * as itemS from '../RegularStudy/Styled/RegularStudy.regularstudy.attendance.styles';
-import * as tokens from '../../../tokens';
 import RegularStudyCheckAttendanceHistoryModal from "./RegularStudy.regularstudy.checkattendancehistorymodal";
 import request from '../../Api/request';
 import { useParams } from 'react-router-dom';
@@ -158,18 +157,7 @@ export default function RegularStudyAttendance() {
         };
         ['문제 인증', '블로그 포스팅', '주말 모의테스트'].forEach((key) => {
           students[uniqueKey][key][0] = (
-            <itemS.StyledTableCell
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = tokens.colors.Blue_0_Main;
-                e.currentTarget.style.color = tokens.colors.B_Grey_1;
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = "transparent";
-                e.currentTarget.style.removeProperty("color"); // 기존 스타일 제거
-              }}
-
-               // 클릭 시 모달 열기
-            >
+            <div>
               <div onClick={() => {
                 setIsModalOpen(true); 
                 fetchAttendanceRequestList(handle); 
@@ -178,7 +166,7 @@ export default function RegularStudyAttendance() {
                 {name} <br />
                 <itemS.StyledSpanBaekjoon>{handle}</itemS.StyledSpanBaekjoon>
               </div>
-            </itemS.StyledTableCell>
+            </div>
           );
         });
       }

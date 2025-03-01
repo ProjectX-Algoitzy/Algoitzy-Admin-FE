@@ -9,6 +9,7 @@ export default function RegularStudyAttendance() {
   const { id } = useParams(); //해당 스터디의 ID를 받아온다
   const [currentTab, setCurrentTab] = useState('문제 인증');
   const [data, setData] = useState({}); // 초기 데이터 상태를 빈 객체로 설정
+  const [week, setWeek] = useState(0);
   const [isModified, setIsModified] = useState(false);
   const [modifiedAttendance, setModifiedAttendance] = useState([]);
   const [attendanceRequestList, setAttendanceRequestList] = useState([]);
@@ -20,7 +21,7 @@ export default function RegularStudyAttendance() {
     const fetchAttendance = async () => {
       try {
         const response = await request.get(`study/${id}/attendance`);
-        console.log("정규스터디 출석부 조회: ", response);
+        // console.log("정규스터디 출석부 조회: ", response);
 
         if (response["isSuccess"]) {
           const transformedData = transformData(response.result.attendanceList);
@@ -31,7 +32,20 @@ export default function RegularStudyAttendance() {
         console.error("정규스터디 출석부 조회 오류", error);
       }
     };
+    const fetchWeek = async () => {
+      try {
+        const response = await request.get('/week/current');
+        // console.log("현재 주차 정보 조회: ", response);
+        if(response["isSuccess"]){
+          setWeek(response.result.week);
+        } else {
+        }
+      } catch (error) {
+        console.error("현재 주차 정보 조회 실패: ", error);
+      }
+    };
     fetchAttendance();
+    fetchWeek();
   }, [id]);
 
   const handleArrowClick = (direction) => {
@@ -118,7 +132,7 @@ export default function RegularStudyAttendance() {
   const fetchAttendanceRequestList = async (handle) => {
     try {
       const response = await request.get(`/attendance-request/${id}/${handle}`);
-      console.log("출석 요청 내역 목록 조회: ", response);
+      // console.log("출석 요청 내역 목록 조회: ", response);
 
       if (response["isSuccess"]) {
         setAttendanceRequestList(response.result.attendanceRequestList || []);
@@ -157,15 +171,9 @@ export default function RegularStudyAttendance() {
         };
         ['문제 인증', '블로그 포스팅', '주말 모의테스트'].forEach((key) => {
           students[uniqueKey][key][0] = (
-            <div>
-              <div onClick={() => {
-                setIsModalOpen(true); 
-                fetchAttendanceRequestList(handle); 
-                handleName(name); 
-              }}>
-                {name} <br />
-                <itemS.StyledSpanBaekjoon>{handle}</itemS.StyledSpanBaekjoon>
-              </div>
+            <div data-handle={handle} > {/* handle을 데이터 속성으로 저장 (표시 X) */}
+              {name} <br />
+              <itemS.StyledSpanBaekjoon>{handle}</itemS.StyledSpanBaekjoon>
             </div>
           );
         });
@@ -207,6 +215,20 @@ export default function RegularStudyAttendance() {
   
     return data;
   };
+
+  const extractText = (element) => {
+    if (typeof element === "string") return element;
+    if (React.isValidElement(element)) {
+      return React.Children.map(element.props.children, child =>
+        typeof child === "string" ? child : ""
+      ).join("");
+    }
+    return "";
+  };
+
+  const getHandle = (element) => {
+    return element?.props?.["data-handle"] || null;
+  };
   
   const Table = ({ currentTab, onArrowClick, data, onIconClick }) => (
     <itemS.StyledTable>
@@ -214,7 +236,18 @@ export default function RegularStudyAttendance() {
         {data[currentTab]?.map((row, rowIndex) => (
           <tr key={rowIndex}>
             {row.map((cell, colIndex) => (
-              <itemS.StyledTd key={colIndex} rowIndex={rowIndex} colIndex={colIndex}>
+              <itemS.StyledTd 
+                key={colIndex} 
+                rowIndex={rowIndex} 
+                colIndex={colIndex}
+                onClick={rowIndex !== 0 && colIndex === 0 ? () => {
+                  setIsModalOpen(true);
+                  const extractedText = extractText(data[currentTab][rowIndex][0]);
+                  const handle = getHandle(data[currentTab][rowIndex][0]);
+                  fetchAttendanceRequestList(handle); 
+                  handleName(extractedText);
+                } : undefined}
+              >
                 {rowIndex === 0 && colIndex === 0 ? (
                   <div style={{ position: 'relative', width: '100%', textAlign: 'center' }}>
                     <img 
@@ -290,7 +323,7 @@ export default function RegularStudyAttendance() {
       )}
 
       {isModalOpen && (
-        <RegularStudyCheckAttendanceHistoryModal attendanceRequesterName={attendanceRequesterName} attendanceRequestList={attendanceRequestList} onClose={handleCloseModal} />
+        <RegularStudyCheckAttendanceHistoryModal currentWeek={week} attendanceRequesterName={attendanceRequesterName} attendanceRequestList={attendanceRequestList} onClose={handleCloseModal} />
       )}
     </itemS.Container>
   );

@@ -2,15 +2,15 @@ import React from 'react';
 import * as itemS from "./Styled/RegularStudy.regularstudy.checkattendancehistorymodal.styles";
 import { useState } from 'react';
 
-export default function RegularStudyCheckAttendanceHistoryModal({ attendanceRequesterName, attendanceRequestList, onClose }) {
-  const [selectedWeek, setSelectedWeek] = useState(1);  // 기본값을 1주차로 설정
+export default function RegularStudyCheckAttendanceHistoryModal({ currentWeek, attendanceRequesterName, attendanceRequestList, onClose }) {
+  const [selectedWeek, setSelectedWeek] = useState(currentWeek);  // 기본값을 현재주차로 설정
 
   const handleWeekClick = (week) => {
     setSelectedWeek(week);
   };
   
   const selectedWeekData = attendanceRequestList.find((data) => data.week === selectedWeek);
-  const lastWeek = Math.max(...attendanceRequestList.map((data) => data.week)); // 마지막 주차 계산
+  // const lastWeek = Math.max(...attendanceRequestList.map((data) => data.week)); // 마지막 주차 계산
 
   return (
     <itemS.ModalOverlay>
@@ -23,7 +23,7 @@ export default function RegularStudyCheckAttendanceHistoryModal({ attendanceRequ
             <itemS.WeeksContainer>
               {Array.from({ length: 8 }, (_, index) => {
                 const week = index + 1;
-                const isDisabled = week > lastWeek; // 비활성화
+                const isDisabled = week > currentWeek; // 비활성화
                 const isSelected = week == selectedWeek; // 선택된 주차
 
                 return (

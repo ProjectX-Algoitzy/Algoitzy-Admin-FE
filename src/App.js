@@ -1,30 +1,27 @@
-import { Navigate, Route, Routes, useLocation } from "react-router-dom" 
-import Home from "./APP/sharing-pages/Home"
-import Login from "./APP/admin-pages/Auth/Auth.login"
-import Header from "./APP/components/Header/Header.header"
-import Footer from "./APP/components/Footer/Footer.footer"
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
+import Home from "./APP/sharing-pages/Home";
+import Login from "./APP/admin-pages/Auth/Auth.login";
+import Header from "./APP/components/Header/Header.header";
+import Footer from "./APP/components/Footer/Footer.footer";
 // import MakingApplicationForm from "./APP/admin-pages/MakingApplication/MakingApplication.makingapplication"
-import ViewApplicationList from "./APP/admin-pages/ViewApplicationList/ViewApplicationList.viewapplicationlist.main"
-import ViewApplicationDetail from "./APP/admin-pages/ViewApplicationDetail/ViewApplicationDetail.viewapplicationdetail"
-import MakedApplicationList from "./APP/admin-pages/MakedApplicationList/MakedApplicationList.makedapplicationlist.main"
-import MakedApplicationDetail from "./APP/admin-pages/MakedApplicationDetail/MakedApplicationDetail.makedapplicationdetail"
-import MakedSelfStudyList from "./APP/admin-pages/MakedSelfStudyList/MakedSelfStudyList.makedselfstudylist.main"
-import RegularStudy from "./APP/admin-pages/RegularStudy/RegularStudy.regularstudy.main"
-import QuillPractice from "./APP/sharing-pages/QuillPractice"
-import MakingRegularStudyStudyinfo from "./APP/admin-pages/MakingRegularStudy/MakingRegularStudy.makingregularstudy.studyinfo"
-import MakingRegularStudyEditStudyInfo from "./APP/admin-pages/MakingRegularStudy/MakingRegularStudy.makingregularstudy.editstudyinfo"
-import MakingCurriculumHome from "./APP/admin-pages/MakingCurriculum/MakingCurriculum.makingcurriculum.home"
-import MakingCurriculum from "./APP/admin-pages/MakingCurriculum/MakingCurriculum.makingcurriculum.curriculum"
-import CurriculumCheck from "./APP/admin-pages/MakingCurriculum/MakingCurriculum.makingcurriculum.curriculumcheck"
-import RegularStudyList from "./APP/admin-pages/RegularStudyList/RegularStudyList.regularstudylist.main"
-import FindEmail from "./APP/admin-pages/FindAuth/FindEmail/FindEmail.findemail"
-import FindEmailSuccess from "./APP/admin-pages/FindAuth/FindEmailSuccess/FindEmailSuccess.findemailsuccess"
-import FindPassword from "./APP/admin-pages/FindAuth/FindPassword/FindPassword.findpassword"
-import EnterBootList from "./APP/admin-pages/EnterpriseBootcampList/EnterpriseBootcampList.enterprisebootcamplist.main"
-import UpdateGeneration from "./APP/admin-pages/UpdateGeneration/UpdateGeneration.updategeneration.main"
-import ManageAuth from "./APP/admin-pages/ManageAuth/ManageAuth.manageauth.main"
-import InstitutionDetail from "./APP/admin-pages/InstitutionDetail/InstitutionDetail.institutiondetail.main"
-import Community from "./APP/admin-pages/Community/Community.community.main"
+import ViewApplicationList from "./APP/admin-pages/ViewApplicationList/ViewApplicationList.viewapplicationlist.main";
+import ViewApplicationDetail from "./APP/admin-pages/ViewApplicationDetail/ViewApplicationDetail.viewapplicationdetail";
+import MakedApplicationList from "./APP/admin-pages/MakedApplicationList/MakedApplicationList.makedapplicationlist.main";
+import MakedApplicationDetail from "./APP/admin-pages/MakedApplicationDetail/MakedApplicationDetail.makedapplicationdetail";
+import MakedSelfStudyList from "./APP/admin-pages/MakedSelfStudyList/MakedSelfStudyList.makedselfstudylist.main";
+import RegularStudy from "./APP/admin-pages/RegularStudy/RegularStudy.regularstudy.main";
+import QuillPractice from "./APP/sharing-pages/QuillPractice";
+import MakingRegularStudyStudyinfo from "./APP/admin-pages/MakingRegularStudy/MakingRegularStudy.makingregularstudy.studyinfo";
+import MakingRegularStudyEditStudyInfo from "./APP/admin-pages/MakingRegularStudy/MakingRegularStudy.makingregularstudy.editstudyinfo";
+import MakingCurriculumHome from "./APP/admin-pages/MakingCurriculum/MakingCurriculum.makingcurriculum.home";
+import MakingCurriculum from "./APP/admin-pages/MakingCurriculum/MakingCurriculum.makingcurriculum.curriculum";
+import CurriculumCheck from "./APP/admin-pages/MakingCurriculum/MakingCurriculum.makingcurriculum.curriculumcheck";
+import RegularStudyList from "./APP/admin-pages/RegularStudyList/RegularStudyList.regularstudylist.main";
+import EnterBootList from "./APP/admin-pages/EnterpriseBootcampList/EnterpriseBootcampList.enterprisebootcamplist.main";
+import UpdateGeneration from "./APP/admin-pages/UpdateGeneration/UpdateGeneration.updategeneration.main";
+import ManageAuth from "./APP/admin-pages/ManageAuth/ManageAuth.manageauth.main";
+import InstitutionDetail from "./APP/admin-pages/InstitutionDetail/InstitutionDetail.institutiondetail.main";
+import Community from "./APP/admin-pages/Community/Community.community.main";
 import WritePost from "./APP/admin-pages/WritePost/WritePost.writepost.main";
 import BoardDetail from "./APP/admin-pages/BoardDetail/BoardDetail.boarddetail.main"
 import WriteInstitution from "./APP/admin-pages/WriteInstitution/WriteInstitution.writeinstitution.main"
@@ -50,7 +47,7 @@ const Root = styled.div`
 `;
 
 function App() {
-  const { showLoading, hideLoading } = useLoading(); 
+  const { showLoading, hideLoading } = useLoading();
 
   setLoadingFunctions(showLoading, hideLoading);
 
@@ -63,7 +60,8 @@ function App() {
     }
   }, 30000);
 
-  const isLoggedIn = () => {  //로그인 확인 유무를 토큰으로 확인하고자 했습니다. 
+  const isLoggedIn = () => {
+    //로그인 확인 유무를 토큰으로 확인하고자 했습니다.
     return !!localStorage.getItem(ACCESS_TOKEN);
   };
 
@@ -112,7 +110,7 @@ function App() {
         </Routes>
         {/* <Footer /> */} {/* figma에 보니 admin은 푸터가 없었기에 일단 임시로 주석처리를 했다 */}
     </Root>
-  ); 
+  );
 }
 
 export default App;

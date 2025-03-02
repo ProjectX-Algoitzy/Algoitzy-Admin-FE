@@ -78,9 +78,11 @@ function App() {
           <Route path="*" element={<Navigate to="/" />} /> {/* 모든 다른 경로는 홈으로 리다이렉트 */}
           {/* <Route path="/home" element={<Home />} />  */}
           <Route path="/login" element={<Login />} />
+          {/*
           <Route path="/findemail" element={<FindEmail /> }/>
           <Route path="/findemailsuccess" element={<FindEmailSuccess />}/>
           <Route path="/findpassword" element={<FindPassword />}/>
+          */}
           <Route path="/application" element={isLoggedIn() ? <MakedApplicationList /> : <Navigate to="/login" />} />
           <Route path="/newapplication/:id" element={isLoggedIn() ? <MakedApplicationDetail />: <Navigate to="/login" />} />
           <Route path="/answer" element={isLoggedIn() ? <ViewApplicationList /> : <Navigate to="/login" />} />

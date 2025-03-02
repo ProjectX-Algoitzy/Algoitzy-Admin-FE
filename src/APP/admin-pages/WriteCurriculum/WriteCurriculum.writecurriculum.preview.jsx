@@ -21,10 +21,10 @@ const removeExtraLineBreaks = (htmlContent) => {
 const preprocessMarkdownContent = (content) => {
   // 공백이 포함된 텍스트에도 Markdown 문법 적용
   const patterns = [
-    { regex: /(\s|^)\s*_(.*?)_\s*(\s|$)/g, wrap: "_" }, // 이탈릭 (underscore 사용)
-    { regex: /(\s|^)\s*\*\*(.*?)\*\*\s*(\s|$)/g, wrap: "**" }, // 볼드 (별표 사용)
-    { regex: /(\s|^)\s*~~(.*?)~~\s*(\s|$)/g, wrap: "~~" }, // 취소선 (물결표 사용)
-    { regex: /(\s|^)___(.*?)___(\s|$)/g, wrap: "___" }, // 굵은 기울임체 (underscore)
+    { regex: /(^|\s)_\s*([\S](?:.*?[\S])?)\s*_(?=\s|$)/g, wrap: "_" }, // 이탤릭
+    { regex: /(^|\s)\*\*\s*([\S](?:.*?[\S])?)\s*\*\*(?=\s|$)/g, wrap: "**" }, // 볼드
+    { regex: /(^|\s)~~\s*([\S](?:.*?[\S])?)\s*~~(?=\s|$)/g, wrap: "~~" }, // 취소선
+    { regex: /(^|\s)___\s*([\S](?:.*?[\S])?)\s*___(?=\s|$)/g, wrap: "___" }, // 굵은 기울임체
   ];
 
   let processedContent = content;
@@ -32,7 +32,7 @@ const preprocessMarkdownContent = (content) => {
   patterns.forEach(({ regex, wrap }) => {
     processedContent = processedContent.replace(regex, (match, prefix, text, suffix) => {
       const trimmedText = text.trim(); // 텍스트 양쪽 공백 제거
-      return `${prefix || ""}${wrap}${trimmedText}${wrap}${suffix || ""}`; // 공백 보존
+      return `${prefix || ""}${wrap}${trimmedText}${wrap}`;
     });
   });
 
@@ -59,7 +59,6 @@ export default function Preview({ title, markdownContent }) {
       <h1>${title || ''}</h1>
       ${cleanedContent}
     `;
-
     return { __html: finalContent };
   };
 

@@ -10,7 +10,6 @@ export default function RegularStudyCheckAttendanceHistoryModal({ currentWeek, a
   };
   
   const selectedWeekData = attendanceRequestList.find((data) => data.week === selectedWeek);
-  // const lastWeek = Math.max(...attendanceRequestList.map((data) => data.week)); // 마지막 주차 계산
 
   return (
     <itemS.ModalOverlay>

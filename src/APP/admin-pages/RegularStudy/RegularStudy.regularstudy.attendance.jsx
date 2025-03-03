@@ -38,10 +38,12 @@ export default function RegularStudyAttendance() {
         // console.log("현재 주차 정보 조회: ", response);
         if(response["isSuccess"]){
           setWeek(response.result.week);
-        } else {
         }
       } catch (error) {
         console.error("현재 주차 정보 조회 실패: ", error);
+        if (error?.response?.data?.code === "ATTENDANCE_ENDED") {
+          setWeek(8)
+        }
       }
     };
     fetchAttendance();

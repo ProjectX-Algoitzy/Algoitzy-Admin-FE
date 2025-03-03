@@ -16,7 +16,7 @@ export default function LoadingOverlay() {
       alignItems: 'center'
     }}>
       <itemS.Loading 
-        src='https://kau-koala.s3.ap-northeast-2.amazonaws.com/basic-image/koala-loading.gif' 
+        src='https://kau-koala-v3.s3.ap-northeast-2.amazonaws.com/basic-image/koala-loading.gif' 
         alt='로딩중..' 
       />
     </div>

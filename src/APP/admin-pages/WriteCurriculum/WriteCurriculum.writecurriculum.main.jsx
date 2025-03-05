@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
-import Editor from './WritePost.writepost.editor';
-import Preview from './WritePost.writepost.preview';
-import * as Styled from './Styled/WritePost.writepost.main.styles';
+import Editor from './WriteCurriculum.writecurriculum.editor';
+import Preview from './WriteCurriculum.writecurriculum.preview';
+import * as Styled from './Styled/WriteCurriculum.writecurriculum.main.styles';
 import request from '../../Api/request';
 
 export default function WritePost() {
   const location = useLocation();
+  const [studyId, setStudyId] = useState(location.state?.studyId || null);
   const [boardId, setBoardId] = useState(location.state?.boardId || null);
+
+  const [studyName, setStudyName] = useState(null);
 
   const [title, setTitle] = useState('');
 
@@ -27,21 +30,17 @@ export default function WritePost() {
   try {
     let response;
     if (boardId !== null) {
-      if (saveYn == false){ // 임시저장
-        response = await request.get(`/board/draft/${boardId}`);
-      }
-      else { // 수정
-        response = await request.get(`/board/${boardId}`);
-      }
+      response = await request.get(`/curriculum/${boardId}`);
 
     if (response.isSuccess) {
-      const { title, content, categoryCode, category, boardFileList, saveYn } = response.result;
+      const { title, content, week, studyName } = response.result;
+      setStudyName(studyName);
       setTitle(title);
       setMarkdownContent(content);
-      setCategoryCode(categoryCode);
-      setCategory(category);
-      setBoardFileList(boardFileList);
-      setSaveYn(saveYn);
+      setCategoryCode(week);
+      setCategory(`${week}주차`);
+      // setBoardFileList(boardFileList);
+      // setSaveYn(saveYn);
     } else {
       console.error('게시글 상세 조회 실패:', response.message);
     }
@@ -53,8 +52,9 @@ export default function WritePost() {
 
 
   useEffect(() => {
+    setStudyId(studyId);
     fetchBoardData();
-  }, [boardId]);
+  }, [studyId, boardId]);
 
 
   // 에디터 스크롤 비활성화
@@ -113,10 +113,16 @@ export default function WritePost() {
     <Styled.Container>
 
       <Editor
+        studyId={studyId}
+        setStudyId={setStudyId}
+        
         boardId={boardId}
         setBoardId={setBoardId}
 
         fetchBoardData={fetchBoardData}
+
+        studyName={studyName}
+        setStudyName={setStudyName}
 
         title={title}
         setTitle={setTitle}

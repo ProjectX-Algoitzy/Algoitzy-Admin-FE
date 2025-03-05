@@ -140,7 +140,7 @@ export const CategorySelect = styled(Select).attrs({
 }
 
 .react-select__menu-list {
-  // max-height: 220px;
+  max-height: 18.375rem;
   overflow-y: auto;
   /* Hide scrollbar for WebKit-based browsers (Chrome, Safari, etc.) */
   &::-webkit-scrollbar {

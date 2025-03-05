@@ -1,17 +1,23 @@
 import React, { useState, useEffect, useRef, useContext } from 'react';
-import * as Styled from './Styled/WritePost.writepost.editor.styles';
+import * as Styled from './Styled/WriteCurriculum.writecurriculum.editor.styles';
 import request from '../../Api/request';
-import MarkdownEditor from './WritePost.writepost.markdowneditor';
-import ActionBar from './WritePost.writepost.actionbar';
+import MarkdownEditor from './WriteCurriculum.writecurriculum.markdowneditor';
+import ActionBar from './WriteCurriculum.writecurriculum.actionbar';
 
 import { ConfirmContext } from '../../Common/Confirm/ConfirmContext';
 import { AlertContext } from '../../Common/Alert/AlertContext';
 
 export default function Editor({
+  studyId,
+  setStudyId,
+  
   boardId,
   setBoardId,
 
   fetchBoardData,
+
+  studyName,
+  setStudyName,
 
   title,
   setTitle,
@@ -40,12 +46,21 @@ export default function Editor({
   const [isScrolling, setIsScrolling] = useState(false); // 스크롤 상태 관리
   
   const [selectedCategory, setSelectedCategory] = useState({ value: categoryCode, label: category }); // 선택된 카테고리 상태
-  const [categoryOptions, setCategoryOptions] = useState([]); // 동적 카테고리 옵션
+  const [categoryOptions, setCategoryOptions] = useState([
+    { value: "1", label: "1주차" },
+    { value: "2", label: "2주차" },
+    { value: "3", label: "3주차" },
+    { value: "4", label: "4주차" },
+    { value: "5", label: "5주차" },
+    { value: "6", label: "6주차" },
+    { value: "7", label: "7주차" },
+    { value: "8", label: "8주차" }
+  ]);
 
   const { confirm } = useContext(ConfirmContext);
   const { alert } = useContext(AlertContext);
   
-  const categoryPlaceholderText = '카테고리 선택';
+  const categoryPlaceholderText = '주차 선택';
     
 
   // 에디터 내부 스크롤
@@ -69,6 +84,12 @@ export default function Editor({
   }, []);
 
 
+  useEffect(() => {
+    setSelectedCategory({ value: categoryCode, label: category });
+  }, [categoryCode]);
+
+
+  /*
   // 카테고리 옵션 리스트 가져오기
   useEffect(() => {
     const fetchCategoryOptions = async () => {
@@ -97,7 +118,7 @@ export default function Editor({
 
     fetchCategoryOptions();
   }, [categoryCode]);
-
+  */
 
   // 카테고리 변경
   const handleCategoryChange = (selectedOption) => {
@@ -111,22 +132,22 @@ export default function Editor({
     <Styled.LeftContainer>
       <Styled.InnerEditorContainer ref={editorRef} isScrolling={isScrolling}>
         <Styled.EditorHeader>
-          <Styled.PageLabel>새로운 글쓰기</Styled.PageLabel>
+          <Styled.PageLabel>{studyName} 커리큘럼 {boardId ? '수정' : ''}</Styled.PageLabel>
           <Styled.Divider/>
 
-          <Styled.OptionLabel>제목</Styled.OptionLabel>
+          <Styled.OptionLabel>커리큘럼 제목</Styled.OptionLabel>
           <Styled.TextInput 
             value={title} 
             onChange={(e) => setTitle(e.target.value)} 
             placeholder="제목을 입력하세요"
           />
 
-          <Styled.OptionLabel>게시판 선택</Styled.OptionLabel>
+          <Styled.OptionLabel>주차</Styled.OptionLabel>
           <Styled.CategorySelect
             options={categoryOptions}
             placeholder={categoryPlaceholderText}
             value={selectedCategory?.value ? selectedCategory : undefined}
-            isDisabled={true} // 선택 비활성화
+            // isDisabled={true} // 선택 비활성화
             // defaultValue={categoryOptions[0]}
             components={{ DropdownIndicator: null, IndicatorSeparator: null }}
             isSearchable={false}
@@ -146,10 +167,16 @@ export default function Editor({
       </Styled.InnerEditorContainer>
 
       <ActionBar
+          studyId={studyId}
+          setStudyId={setStudyId}
+              
           boardId={boardId}
           setBoardId={setBoardId}
 
           fetchBoardData={fetchBoardData}
+
+          studyName={studyName}
+          setStudyName={setStudyName}
 
           title={title}
           setTitle={setTitle}

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import * as Styled from './Styled/WritePost.writepost.draft.styles';
+import * as Styled from './Styled/WriteInstitution.writeinstitution.draft.styles';
 import request from '../../Api/request';
 
 export default function DraftModal({ isDraftModalOpen, toggleDraftModal, drafts, onSelectDraft }) {

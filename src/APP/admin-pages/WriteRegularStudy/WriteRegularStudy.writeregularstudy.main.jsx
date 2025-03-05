@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
-import Editor from './WritePost.writepost.editor';
-import Preview from './WritePost.writepost.preview';
-import * as Styled from './Styled/WritePost.writepost.main.styles';
+import Editor from './WriteRegularStudy.writeregularstudy.editor';
+import Preview from './WriteRegularStudy.writeregularstudy.preview';
+import * as Styled from './Styled/WriteRegularStudy.writeregularstudy.main.styles';
 import request from '../../Api/request';
 
 export default function WritePost() {
@@ -14,6 +14,8 @@ export default function WritePost() {
   const [categoryCode, setCategoryCode] = useState(null);
   const [category, setCategory] = useState(null);
 
+  const [profileUrl, setProfileUrl] = useState(null);
+
   const [boardFileList, setBoardFileList] = useState([]);
   const [uploadedImageUrls, setUploadedImageUrls] = useState([]);
 
@@ -21,41 +23,68 @@ export default function WritePost() {
 
   const [saveYn, setSaveYn] = useState(location.state?.saveYn);
 
+  const fetchBoardData = async () => {
+    try {
+      if (boardId !== null) {
+        // 두 개의 API 호출을 동시에 수행
+        const [infoResponse, homeResponse] = await Promise.all([
+            request.get(`study/${boardId}/info`),
+            request.get(`study/${boardId}/home`)
+        ]);
+
+        console.log("infoResponse: ", infoResponse);
+        console.log("homeResponse: ", homeResponse);
+
+        // 받은 데이터로 상태 업데이트
+        setTitle(infoResponse.result.studyName);
+        setProfileUrl(infoResponse.result.profileUrl);
+        setMarkdownContent(homeResponse.result);
+    }
+    } catch (error) {
+        console.error('데이터 불러오기 오류:', error);
+    }
+};
+
+useEffect(() => {
+    fetchBoardData();
+}, [boardId]);
   
+/*
   // 게시글 상세 조회
   const fetchBoardData = async () => {
-  try {
-    let response;
-    if (boardId !== null) {
-      if (saveYn == false){ // 임시저장
-        response = await request.get(`/board/draft/${boardId}`);
+    try {
+      let response;
+      if (boardId !== null) {
+        if (saveYn == false){ // 임시저장
+          response = await request.get(`/board/draft/${boardId}`);
+        }
+        else { // 수정
+          response = await request.get(`/study/${boardId}`);
+        }
+  
+      if (response.isSuccess) {
+        const { studyName, content, profileUrl } = response.result;
+        setTitle(studyName);
+        setMarkdownContent(content);
+        setProfileUrl(profileUrl);
+        // setCategoryCode(categoryCode);
+        // setCategory(category);
+        // setBoardFileList(boardFileList);
+        // setSaveYn(saveYn);
+      } else {
+        console.error('게시글 상세 조회 실패:', response.message);
       }
-      else { // 수정
-        response = await request.get(`/board/${boardId}`);
-      }
-
-    if (response.isSuccess) {
-      const { title, content, categoryCode, category, boardFileList, saveYn } = response.result;
-      setTitle(title);
-      setMarkdownContent(content);
-      setCategoryCode(categoryCode);
-      setCategory(category);
-      setBoardFileList(boardFileList);
-      setSaveYn(saveYn);
-    } else {
-      console.error('게시글 상세 조회 실패:', response.message);
     }
-  }
-  } catch (error) {
-    console.error('게시글 상세 조회 중 오류:', error);
-  }
-  };
+    } catch (error) {
+      console.error('게시글 상세 조회 중 오류:', error);
+    }
+    };
 
 
   useEffect(() => {
     fetchBoardData();
   }, [boardId]);
-
+*/
 
   // 에디터 스크롤 비활성화
   useEffect(() => {
@@ -64,7 +93,7 @@ export default function WritePost() {
       document.body.style.overflow = 'auto';
     };
   }, []);
-  
+
 
   const deleteImageFromS3 = async (fileUrl) => {
     try {
@@ -126,6 +155,9 @@ export default function WritePost() {
 
         category={category}
         setCategory={setCategory}
+
+        profileUrl={profileUrl}
+        setProfileUrl={setProfileUrl}
 
         boardFileList={boardFileList}
         setBoardFileList={setBoardFileList}

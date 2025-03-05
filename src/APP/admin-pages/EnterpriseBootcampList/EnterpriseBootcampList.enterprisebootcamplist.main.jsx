@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import request from "../../Api/request";
 import * as itemS from "../../admin-pages/EnterpriseBootcampList/Styled/EnterpriseBootcampList.enterprisebootcamplist.main.styles";
 import EnterBootListTable from "./EnterpriseBootcampList.enterprisebootcamplist.table";
@@ -6,6 +7,8 @@ import MakingInstitutionModal from "./MakingInstitutionModal";
 import useDebounce from "../../Common/useDebounce";
 
 export default function EnterBootList() {
+  const navigate = useNavigate();
+
   const [institutionList, setInstitutionList] = useState([]);
   const [selectedTab, setSelectedTab] = useState("기업");
   const [sortText, setSortText] = useState("조회수");
@@ -116,6 +119,11 @@ export default function EnterBootList() {
     // setSelectedWorkbookId(workbookId);
   };
 
+  const handleWriteClick = () => {
+    navigate("/writeInstitution");
+    window.location.reload(); // 페이지 전환 후 강제 새로고침
+  };
+
   return (
     <itemS.OuterContainer>
       <itemS.Container>
@@ -123,7 +131,7 @@ export default function EnterBootList() {
           <itemS.TopContainer>
             <itemS.HeadContainer>
               <itemS.Head>문제 추천 서비스</itemS.Head>
-              <itemS.AddBtn onClick={openModal}>+ 생성하기</itemS.AddBtn>
+              <itemS.AddBtn onClick={handleWriteClick}>+ 생성하기</itemS.AddBtn>
               {/* {isModalOpen && ( */}
               <MakingInstitutionModal
                 isModalOpen={isModalOpen}

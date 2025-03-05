@@ -1,5 +1,5 @@
 import React from 'react';
-import * as Styled from './Styled/WritePost.writepost.filetable.styles';
+import * as Styled from './Styled/WriteInstitution.writeinstitution.filetable.styles';
 import request from '../../Api/request';
 
 export default function FileTable({ boardFileList, setBoardFileList }) {

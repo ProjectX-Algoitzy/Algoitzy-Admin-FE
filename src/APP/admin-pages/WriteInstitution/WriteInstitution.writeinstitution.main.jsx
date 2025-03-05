@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
-import Editor from './WritePost.writepost.editor';
-import Preview from './WritePost.writepost.preview';
-import * as Styled from './Styled/WritePost.writepost.main.styles';
+import Editor from './WriteInstitution.writeinstitution.editor';
+import Preview from './WriteInstitution.writeinstitution.preview';
+import * as Styled from './Styled/WriteInstitution.writeinstitution.main.styles';
 import request from '../../Api/request';
 
 export default function WritePost() {
@@ -20,8 +20,8 @@ export default function WritePost() {
   const [markdownContent, setMarkdownContent] = useState('');
 
   const [saveYn, setSaveYn] = useState(location.state?.saveYn);
-
   
+
   // 게시글 상세 조회
   const fetchBoardData = async () => {
   try {
@@ -31,17 +31,25 @@ export default function WritePost() {
         response = await request.get(`/board/draft/${boardId}`);
       }
       else { // 수정
-        response = await request.get(`/board/${boardId}`);
+        response = await request.get(`/institution/${boardId}`);
       }
 
     if (response.isSuccess) {
-      const { title, content, categoryCode, category, boardFileList, saveYn } = response.result;
-      setTitle(title);
+      const { name, type, content } = response.result;
+      setTitle(name);
       setMarkdownContent(content);
-      setCategoryCode(categoryCode);
-      setCategory(category);
-      setBoardFileList(boardFileList);
-      setSaveYn(saveYn);
+      setCategory(type);
+      // setCategory(category);
+      if (type === '기업') {
+        setCategoryCode('COMPANY');
+      } else if (type === '부트캠프') {
+        setCategoryCode('CAMP');
+      } else {
+        setCategoryCode(null);
+      }
+
+      // setBoardFileList(boardFileList);
+      // setSaveYn(saveYn);
     } else {
       console.error('게시글 상세 조회 실패:', response.message);
     }

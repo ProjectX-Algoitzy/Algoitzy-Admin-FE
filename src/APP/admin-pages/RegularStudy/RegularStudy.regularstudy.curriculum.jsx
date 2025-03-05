@@ -66,11 +66,20 @@ export default function RegularStudyCurriculum() {
       }
     }
   }
+
+  const handleWriteClick = () => {
+    navigate(`/writecurriculum`, {
+      state: {
+        studyId: id,
+      },
+    });
+  };
   
+
   return (
     <itemS.Container>
       <itemS.Title>커리큘럼
-        <itemS.BtnMakeCurri onClick={handleMakeCurri}>+ 커리큘럼 생성하기</itemS.BtnMakeCurri>
+        <itemS.BtnMakeCurri onClick={handleWriteClick}>+ 커리큘럼 생성하기</itemS.BtnMakeCurri>
       </itemS.Title>
       {curriculumList.map(curriculum => (
         <itemS.CurriculumContainer

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { marked } from 'marked';
-import * as Styled from './Styled/WritePost.writepost.preview.styles';
+import * as Styled from './Styled/WriteInstitution.writeinstitution.preview.styles';
 import hljs from 'highlight.js';
 import 'highlight.js/styles/atom-one-dark-reasonable.css';
 

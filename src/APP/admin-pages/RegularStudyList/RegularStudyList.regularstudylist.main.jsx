@@ -29,6 +29,11 @@ export default function RegularStudyList() {
   const MakeRegularStudy = () => { 
 		navigate(`/makingregularstudyinfo`);
 	}
+
+  const handleWriteClick = () => {
+    navigate("/writeRegularStudy");
+    window.location.reload(); // 페이지 전환 후 강제 새로고침
+  };
     
   return (
     <itemS.Container>
@@ -37,7 +42,7 @@ export default function RegularStudyList() {
           <itemS.ApplicationText>
             정규 스터디
           </itemS.ApplicationText>
-          <itemS.BtnMakeApp onClick={MakeRegularStudy}>
+          <itemS.BtnMakeApp onClick={handleWriteClick}>
             + 스터디 생성하기
           </itemS.BtnMakeApp>
           

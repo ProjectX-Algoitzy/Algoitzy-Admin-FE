@@ -189,3 +189,47 @@ export const CategorySelect = styled(Select).attrs({
   background-color: rgba(102, 201, 255, 0.2);
 }
 `;
+
+export const FileUploadContainer = styled.div`
+  width: 100%;
+  height: 9.333rem; 
+  border: 0.042rem dashed ${tokens.colors.B_Grey_4}; 
+  background-color: #f7f8fc;
+  border-radius: 0.333rem; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: ${tokens.colors.B_Grey_7};
+  ${tokens.typography.B2_M_16};
+  transition: border-color 0.3s;
+  position: relative;
+
+  &:hover {
+    border-color: #aaaaaa;
+  }
+
+  &.dragActive {
+    border-color: #000000;
+  }
+`;
+
+export const HighlightText = styled.span`
+  color: ${tokens.colors.Blue_0_Main};
+`;
+
+export const ImagePreview = styled.div` /* 이미지 미리보기를 위한 스타일 */
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.8);
+
+  img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 0.208rem; 
+  }
+`;

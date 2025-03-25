@@ -13,13 +13,21 @@ export const Container = styled.div`
 export const Title = styled.div`
   display: flex;
   margin-top: 4.167rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.792rem;
   /* width: 33.042rem; */
   width: 100%;
   ${tokens.typography.T1_SB_32};
   color: ${tokens.colors.Grey_8};
   padding-bottom: 0.667rem;
   border-bottom: 0.042rem solid ${tokens.colors.B_Grey_2};
+`;
+
+export const BlueComment = styled.div`
+  display: flex;
+  width: 100%;
+  margin-bottom: 0.5rem;
+  ${tokens.typography.B3_M_14};
+  color: ${tokens.colors.Blue_0_Main};
 `;
 
 export const StyledTable = styled.table`
@@ -34,6 +42,10 @@ export const StyledTd = styled.td`
   border: 0.042rem solid #B9C4D2;
   padding: 0.333rem;
   text-align: center;
+  
+  cursor: ${({ rowIndex, colIndex }) => (rowIndex !== 0 && colIndex === 0 ? 'pointer' : 'default')};
+  transition: ${({ rowIndex, colIndex }) => (rowIndex !== 0 && colIndex === 0 ? 'background-color 0.2s ease-in-out, color 0.2s ease-in-out' : 'none')};
+
   background-color: ${({ rowIndex, colIndex }) => {
     if (rowIndex === 0 && colIndex === 0) return 'rgba(0, 165, 255, 0.05)';
     if (rowIndex === 0) return 'rgba(0, 165, 255, 0.05)';
@@ -45,11 +57,26 @@ export const StyledTd = styled.td`
   border-right: ${({ colIndex }) => (colIndex === 8 ? 'none' : '0.042rem solid #B9C4D2')};
   width: ${({ colIndex }) => (colIndex === 0 ? '7.333rem' : 'auto')};
   height: ${({ rowIndex }) => (rowIndex === 0 ? '1.875rem' : '2.5rem')};
+
+  ${({ rowIndex, colIndex }) =>
+    rowIndex !== 0 && colIndex === 0 &&
+    `
+      &:hover {
+        background-color: ${tokens.colors.Blue_0_Main};
+        color: ${tokens.colors.B_Grey_1};
+      }
+    `
+  }
 `;
 
 export const StyledSpanBaekjoon = styled.span`
   font-size: 0.5rem;
   color: ${tokens.colors.Grey_6};
+
+  // 부모 요소가 hover될 때 색상 변경
+  td:hover & {
+    color: ${tokens.colors.B_Grey_1};
+  }
 `;
 
 export const ImgIcon = styled.img`

@@ -147,8 +147,6 @@ export const ContentsContainer = styled.div`
   border: 0.042rem solid ${tokens.colors.B_Grey_2};
   color: ${tokens.colors.Grey_7};
   width: 100%;
-  height: 28.29rem;
-  overflow: auto;
   font-size: 0.75rem;
   padding: 0.5rem;
 

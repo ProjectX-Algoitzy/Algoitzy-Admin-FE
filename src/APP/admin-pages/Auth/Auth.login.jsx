@@ -13,6 +13,27 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const API_BASE_URL =
+  process.env.NODE_ENV === "development"
+    ? "https://95rn1tznaa.execute-api.ap-northeast-2.amazonaws.com/dev-stage/admin"
+    : "https://eelmh0e49j.execute-api.ap-northeast-2.amazonaws.com/prod-stage/admin";
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        console.log("API_BASE_URL",API_BASE_URL);
+        const response = await axios.get(API_BASE_URL);
+        console.log("response",response);
+        // alert(response.data.message || "API 응답 없음");
+      } catch (error) {
+        console.error("API 요청 오류:", error);
+        alert("API 요청 중 오류 발생");
+      }
+    };
+
+    fetchData();
+  }, []);
+
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.key === "Enter" && !isAlertOpen) {

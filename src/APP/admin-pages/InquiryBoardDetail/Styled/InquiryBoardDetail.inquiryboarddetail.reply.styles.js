@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 import * as tokens from "../../../../tokens";
 
 export const Container = styled.div`
@@ -115,7 +115,7 @@ export const UtilBox = styled.div`
 export const Hr = styled.div`
   width: 5.917rem;
   height: 0.008rem;
-  background-color: #E9EEF6;
+  background-color: #e9eef6;
 `;
 
 export const UtilIcon = styled.img`
@@ -151,7 +151,9 @@ export const Mention = styled.span`
 
 export const Content = styled.div`
   ${tokens.typography.B2_M_16};
-  color: ${(props) => (props['data-delete-yn'] ? '#888888' : tokens.colors.Black)};
+  color: ${(props) =>
+    props["data-delete-yn"] ? "#888888" : tokens.colors.Black};
+  white-space: pre-wrap;
 `;
 
 export const InfoBottomBox = styled.div`

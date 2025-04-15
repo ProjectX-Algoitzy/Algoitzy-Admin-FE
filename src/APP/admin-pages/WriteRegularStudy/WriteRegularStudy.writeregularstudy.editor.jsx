@@ -172,7 +172,13 @@ export default function Editor({
           <Styled.OptionLabel>스터디 이름</Styled.OptionLabel>
           <Styled.TextInput 
             value={title} 
-            onChange={(e) => setTitle(e.target.value)} 
+            onChange={(e) => {
+              const value = e.target.value;
+              if (value.length > 250) {
+                alert("제목은 최대 250자까지 입력할 수 있습니다.");
+                return;
+              }
+              setTitle(value)}}
             placeholder="이름을 입력해주세요"
           />
 

@@ -116,6 +116,22 @@ export default function WritePost() {
       deleteAllUploadedImages();
     };
   }, []);
+
+  useEffect(() => {
+    const handleBeforeUnload = (event) => {
+      const hasUnsavedChanges = title.trim() !== '' || markdownContent.trim() !== '';
+      if (hasUnsavedChanges) {
+        event.preventDefault();
+        event.returnValue = '';
+      }
+    };
+  
+    window.addEventListener('beforeunload', handleBeforeUnload);
+  
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, [title, markdownContent]);
   
   return (
     <Styled.Container>

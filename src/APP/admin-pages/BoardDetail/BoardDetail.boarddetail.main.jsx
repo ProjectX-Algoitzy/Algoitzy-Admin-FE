@@ -119,11 +119,6 @@ export default function BoardDetail() {
     navigate(`/writepost`, {
 		state: {
 			boardId: id,
-			title: board.title,
-			initialContent: board.content,
-			initialCategoryCode: board.category,
-			initialUploadedFiles: board.boardFileList,
-			initialSaveYn: true,
 		  },
     });
   };

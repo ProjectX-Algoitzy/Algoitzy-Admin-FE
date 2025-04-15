@@ -3,12 +3,16 @@ import * as itemS from './Styled/MakingCurriculum.makingcurriculum.curriculumche
 import request from '../../Api/request';
 import Select, { components } from 'react-select';
 import QuillPractice from './MakingCurriculum.makingcurriculum.quilleditor';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { AlertContext } from '../../Common/Alert/AlertContext';
 import hljs from 'highlight.js';
 import 'highlight.js/styles/atom-one-dark-reasonable.css';
+import MarkdownContent from './MakingCurriculum.makingcurriculum.markdowncontent';
+
 
 export default function CurriculumCheck() {
+  const navigate = useNavigate();
+
   const { curriculumId } = useParams();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -17,6 +21,7 @@ export default function CurriculumCheck() {
   const [title, setTitle] = useState('');
   const [week, setWeek] = useState(0);
   const [content, setContent] = useState('');
+  const [studyId, setStudyId] = useState('');
   const { alert } = useContext(AlertContext);
 
   useEffect(() => {
@@ -29,6 +34,7 @@ export default function CurriculumCheck() {
           setTitle(response.result.title);
           setWeek(response.result.week);
           setContent(response.result.content);
+          setStudyId(response.result.studyId);
         } else {
           setError('Failed to fetch data');
         }
@@ -112,6 +118,15 @@ export default function CurriculumCheck() {
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
 
+  const handleEdit = () => {
+    navigate(`/writecurriculum`, {
+    state: {
+      studyId: studyId,
+      boardId: curriculumId,
+      },
+    });
+  };
+
   return (
     <itemS.ContentWrapper>
     <itemS.Container>
@@ -121,9 +136,9 @@ export default function CurriculumCheck() {
           ) : (title)
         }
         <img
-          src={isEditing ? "/img/btnsave.png" : "/img/btnedit.png"}
-          alt={isEditing ? "저장 버튼" : "편집 버튼"}
-          onClick={isEditing ? handleSaveCurriculum : handleEditCurriculum}
+          src={false && isEditing ? "/img/btnsave.png" : "/img/btnedit.png"}
+          alt={false && isEditing ? "저장 버튼" : "편집 버튼"}
+          onClick={false && isEditing ? handleSaveCurriculum : handleEdit}
           style={{ width: "2.5rem", height: "1.708rem", cursor: "pointer" }}
         />
       </itemS.Title>
@@ -140,7 +155,7 @@ export default function CurriculumCheck() {
           <QuillPractice setContent={setContent} content={content} />
         ) : (
           <itemS.ContentsContainer>
-            <div dangerouslySetInnerHTML={{ __html: content }} />
+            <MarkdownContent markdownContent={content || ''} />
           </itemS.ContentsContainer>
         )}
       </>

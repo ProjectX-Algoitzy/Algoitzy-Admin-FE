@@ -7,7 +7,7 @@ import InquiryReply from './InquiryBoardDetail.inquiryboarddetail.reply';
 import request from '../../Api/request';
 import {ConfirmContext} from '../../Common/Confirm/ConfirmContext';
 
-export default function InquiryComment({item, formatDate, fetchComment, setInquiry, fetchInquiry}) {
+export default function InquiryComment({item, myProfileUrl, formatDate, fetchComment, setInquiry, fetchInquiry}) {
     const {confirm} = useContext(ConfirmContext);
     const modalRef = useRef(null);
     const navigate = useNavigate();
@@ -139,7 +139,7 @@ export default function InquiryComment({item, formatDate, fetchComment, setInqui
                 {isReplyBoxVisible && (
                     <itemS.WriteBox>
                         <itemS.Blank></itemS.Blank>
-                        <itemS.ReplyProfile src={item.profileUrl} alt="프로필" />
+                        <itemS.ReplyProfile src={myProfileUrl} alt="프로필" />
                         <InquiryWriteBox
                             parentId={item.replyId}
                             fetchComment={fetchComment}
@@ -155,6 +155,7 @@ export default function InquiryComment({item, formatDate, fetchComment, setInqui
                     <InquiryReply
                         key={reply.replyId}
                         item={reply}
+                        myProfileUrl={myProfileUrl}
                         parentName={item.createdName}
                         formatDate={formatDate}
                         fetchComment={fetchComment}

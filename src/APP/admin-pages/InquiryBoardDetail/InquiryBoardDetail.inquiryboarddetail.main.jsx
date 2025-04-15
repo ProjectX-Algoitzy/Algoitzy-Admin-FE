@@ -10,6 +10,7 @@ export default function InquiryBoardDetail() {
     const navigate = useNavigate();
     const [categoryOptions, setCategoryOptions] = useState([]); // 동적 카테고리 옵
     const {id} = useParams(); // 게시글 ID 가져오기
+    const profileUrl = localStorage.getItem('profileUrl');
 
     const [inquiry, setInquiry] = useState({});
     const [comment, setComment] = useState([]);
@@ -180,7 +181,7 @@ export default function InquiryBoardDetail() {
                     <itemS.Body>답변</itemS.Body>
                     <itemS.ContentContainer>
                         <itemS.WriteContainer>
-                            <itemS.CommentProfile src={inquiry.profileUrl} alt="프로필" />
+                            <itemS.CommentProfile src={profileUrl} alt="프로필" />
                             <InquiryWriteBox
                                 fetchComment={fetchComment}
                                 setInquiry={setInquiry}
@@ -192,6 +193,7 @@ export default function InquiryBoardDetail() {
                             <InquiryComment
                                 key={item.replyId}
                                 item={item}
+                                myProfileUrl={profileUrl}
                                 formatDate={formatDate}
                                 fetchComment={fetchComment}
                                 setInquiry={setInquiry}

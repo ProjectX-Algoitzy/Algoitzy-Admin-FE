@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 import * as tokens from "../../../../tokens";
 
 export const Container = styled.div`
@@ -29,7 +29,7 @@ export const CommentProfile = styled.img`
   height: 1.67rem;
   border: 0.04rem solid ${tokens.colors.B_Grey_2};
   border-radius: 0.83rem;
-  margin-right: 0.71rem;
+  margin-right: 0.35rem; // 0.71rem -> 0.35rem
 `;
 
 export const CommentBox = styled.div`
@@ -58,16 +58,16 @@ export const WriterNameBox = styled.div`
 `;
 
 export const WriterIcon = styled.div`
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   ${tokens.typography.B3_M_14};
-   background-color: rgba(251, 170, 132, 0.2);
-   color: ${tokens.colors.Sub_3};
-   width: 2.17rem;
-   height: 21px;
-   border: none;
-   border-radius: 0.17rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  ${tokens.typography.B3_M_14};
+  background-color: rgba(251, 170, 132, 0.2);
+  color: ${tokens.colors.Sub_3};
+  width: 2.17rem;
+  height: 21px;
+  border: none;
+  border-radius: 0.17rem;
   //  margin-left: 0.17rem;
 `;
 
@@ -142,7 +142,9 @@ export const Mention = styled.span`
 
 export const Content = styled.div`
   ${tokens.typography.B2_M_16};
-  color: ${(props) => (props['data-delete-yn'] ? '#888888' : tokens.colors.Black)};
+  color: ${(props) =>
+    props["data-delete-yn"] ? "#888888" : tokens.colors.Black};
+  white-space: pre-wrap;
 `;
 
 export const InfoBottomBox = styled.div`

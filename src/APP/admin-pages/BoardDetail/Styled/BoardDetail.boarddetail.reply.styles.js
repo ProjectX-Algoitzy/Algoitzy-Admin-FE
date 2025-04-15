@@ -29,7 +29,7 @@ export const CommentProfile = styled.img`
   height: 1.67rem;
   border: 0.04rem solid ${tokens.colors.B_Grey_2};
   border-radius: 0.83rem;
-  margin-right: 0.71rem;
+  margin-right: 0.35rem; // 0.71rem -> 0.35rem
 `;
 
 export const CommentBox = styled.div`

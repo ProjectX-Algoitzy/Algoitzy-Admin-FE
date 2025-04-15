@@ -6,7 +6,6 @@ export const MarkdownContentContainer = styled.div`
   background-color: ${tokens.colors.B_Grey_1};
   padding: 0.417rem 0.417rem;
   margin-bottom: 2rem;
-  border: 0.0417rem solid #ffffff;
   font-family: 'Pretendard', sans-serif;
   font-size: 1rem;
   color: ${tokens.colors.B_Grey_8}; /* 텍스트 기본 색상 설정 */

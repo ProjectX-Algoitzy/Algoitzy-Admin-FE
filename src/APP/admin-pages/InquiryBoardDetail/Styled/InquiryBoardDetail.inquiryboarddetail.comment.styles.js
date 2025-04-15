@@ -145,6 +145,9 @@ export const DeletedIcon = styled.img`
 export const Content = styled.div`
     ${tokens.typography.B2_M_16};
     color: ${(props) => (props['data-delete-yn'] ? '#888888' : tokens.colors.Black)};
+    word-break: break-word; /* 단어가 너무 길 경우 줄바꿈 */
+    white-space: pre-wrap; /* 줄바꿈 문자(\n) 인식하고 넘칠 경우 자동 줄바꿈 */
+    overflow-wrap: break-word; /* 긴 단어 잘라서 줄바꿈 */
 `;
 
 export const InfoBottomBox = styled.div`

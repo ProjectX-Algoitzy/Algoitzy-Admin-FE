@@ -23,6 +23,7 @@ export default function Header() {
             if (response['isSuccess']) {
                 setUserName(response.result.name);
                 setProfileUrl(response.result.profileUrl);
+                localStorage.setItem('profileUrl', response.result.profileUrl);
                 setIsLoggedIn(true);
             }
         } catch (error) {

@@ -119,8 +119,8 @@ export default function Editor({
             value={title} 
             onChange={(e) => {
               const value = e.target.value;
-              if (value.length > 250) {
-                alert("제목은 최대 250자까지 입력할 수 있습니다.");
+              if (value.length > 100) {
+                alert("제목은 최대 100자까지 입력할 수 있습니다.");
                 return;
               }
               setTitle(value)}}

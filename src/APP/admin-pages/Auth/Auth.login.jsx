@@ -24,7 +24,7 @@ export default function Login() {
         console.log("API_BASE_URL",API_BASE_URL);
         const response = await axios.get(API_BASE_URL);
         console.log("response",response);
-        // alert(response.data.message || "API 응답 없음");
+        alert(response.data.body || "API 응답 없음");
       } catch (error) {
         console.error("API 요청 오류:", error);
         alert("API 요청 중 오류 발생");

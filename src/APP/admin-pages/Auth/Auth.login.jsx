@@ -17,8 +17,6 @@ export default function Login() {
     const fetchData = async () => {
       try {
         const API_BASE_URL = process.env.REACT_APP_GATEWAY_URL;
-        console.log("API_BASE_URL: ", process.env.REACT_APP_GATEWAY_URL);
-
         const response = await axios.get(API_BASE_URL);
         console.log("response", response.data);
         alert(response.data.body || "API 응답 없음");

@@ -45,7 +45,7 @@ export default function InquiryBoardDetail() {
             const response = await request.get(`/inquiry/${id}`);
 
             if (response.isSuccess) {
-                console.log('문의하기 상세 조회 성공', response);
+                // console.log('문의하기 상세 조회 성공', response);
                 setInquiry(response.result);
             } else {
                 console.error('문의하기 상세 조회 실패:', response);
@@ -61,7 +61,7 @@ export default function InquiryBoardDetail() {
             const response = await request.get(`/inquiry/${id}/reply?page=${currentPage + 1}&size=${itemsPerPage}`);
 
             if (response.isSuccess) {
-                console.log('답글 조회 성공', response.result.replyList);
+                // console.log('답글 조회 성공', response.result.replyList);
                 setComment(response.result.replyList);
                 setCommentCount(response.result.replyList.length);
                 setTotalPages(Math.ceil(response.result.parentReplyCount / itemsPerPage));
@@ -87,7 +87,7 @@ export default function InquiryBoardDetail() {
             try {
                 const response = await request.get('/inquiry/category');
                 if (response.isSuccess) {
-                    console.log('문의하기의 카테고리 종류', response);
+                    // console.log('문의하기의 카테고리 종류', response);
                     const options = response.result.categoryList.map((category) => ({
                         value: category.code,
                         label: category.name,

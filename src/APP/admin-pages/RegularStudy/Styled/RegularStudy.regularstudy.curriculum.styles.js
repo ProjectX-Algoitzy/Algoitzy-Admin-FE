@@ -1,125 +1,148 @@
-import styled from "styled-components";
-import * as tokens from "../../../../tokens";
+import styled from 'styled-components';
+import * as tokens from '../../../../tokens';
 
 export const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding-left: 1.333rem;
-  height: 100%;
-  width: 100%;
-  max-width: 34rem;
+    display: flex;
+    flex-direction: column;
+    padding-left: 1.333rem;
+    height: 100%;
+    width: 100%;
+    max-width: 34rem;
 `;
 
 export const Title = styled.div`
-  display: flex;
-  flex-direction: row;
-  /* width: 33.042rem; */
-  width: 100%;
-  justify-content: space-between;
-  margin-top: 4.17rem;
-  margin-bottom: 1.5rem;
-  padding-bottom: 0.83rem;
-  border-bottom: 0.042rem solid ${tokens.colors.B_Grey_2};
-  ${tokens.typography.T1_SB_32};
-  color: ${tokens.colors.Grey_8};
+    display: flex;
+    flex-direction: row;
+    /* width: 33.042rem; */
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 4.17rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.83rem;
+    border-bottom: 0.042rem solid ${tokens.colors.B_Grey_2};
+    ${tokens.typography.T1_SB_32};
+    color: ${tokens.colors.Grey_8};
+`;
+
+export const BtnContainer = styled.div`
+    display: flex;
+`;
+
+export const BtnChangeOrder = styled.button`
+    width: 6.667rem;
+    height: 2rem;
+    margin-right: 1.25rem;
+    background: #00a5ff;
+    background-color: ${({isModified}) => (isModified ? tokens.colors.B_Grey_7 : tokens.colors.B_Grey_3)};
+    color: white;
+    border-radius: 0.21rem;
+    border: none;
+    cursor: ${({isModified}) => (isModified ? 'pointer' : 'default')};
+    ${tokens.typography.T6_SB_14};
 `;
 
 export const BtnMakeCurri = styled.button`
-  width: 7.92rem;
-  height: 1.96rem;
-  background: #00A5FF; 
-  color: white;
-  border-radius: 0.21rem; 
-  border: none;
-  cursor: pointer; 
-  ${tokens.typography.T6_SB_14}; 
+    width: 6.667rem;
+    height: 2rem;
+    background: ${tokens.colors.Blue_0_Main};
+    color: white;
+    border-radius: 0.21rem;
+    border: none;
+    cursor: pointer;
+    ${tokens.typography.T6_SB_14};
 `;
 
 export const CurriculumContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin-bottom: 0.833rem;
-  /* width: 33.04rem; */
-  width: 100%;
-  height: 4.17rem;
-  background-color: ${tokens.colors.White};
-  box-shadow: 0px 0.167rem 0.417rem rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 0.833rem;
+    width: 100%;
+    height: 4.17rem;
+    background-color: ${tokens.colors.White};
+    box-shadow: 0px 0.167rem 0.417rem rgba(0, 0, 0, 0.1);
+`;
+
+export const CurriArrowImg = styled.img`
+    width: 1rem;
+    height: 1.167rem;
+    margin-left: 1.75rem;
+    cursor: pointer;
 `;
 
 export const TextContainer = styled.div`
-  display: flex;
-  width: 48%;
-  align-items: center;
-  justify-content: space-between;
+    display: flex;
+    width: 48%;
+    align-items: center;
+    justify-content: space-between;
 `;
 
 export const CurriculumText = styled.div`
-  display: flex;
-  max-width: 60%;
-  align-items: center;
-  ${tokens.typography.T3_B_24};
-  color: ${tokens.colors.Grey_8};
-  margin-left: 1.667rem;
-  cursor: pointer;
+    display: flex;
+    max-width: 60%;
+    align-items: center;
+    ${tokens.typography.T3_B_24};
+    color: ${tokens.colors.Grey_8};
+    margin-left: 1.667rem;
+    cursor: pointer;
 `;
 
 export const HighlightBox = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  ${tokens.typography.T5_SB_16};
-  height: 21px;
-  width: 62px;
-  background-color: rgba(251, 170, 132, 0.2); 
-  color: #F88F78;
-  border-radius: 4px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    ${tokens.typography.T5_SB_16};
+    height: 0.875rem;
+    width: 2.583rem;
+    background-color: rgba(251, 170, 132, 0.2);
+    color: #f88f78;
+    border-radius: 0.167rem;
 `;
 
 export const MiddleCurriculumContainer = styled.div`
-  display: flex;
-  width: 30%;
+    display: flex;
+    width: 30%;
 `;
 
 export const SmallCurriculumContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 `;
 
 export const Gray5Text = styled.div`
-  display: flex;
-  align-items: center;
-  ${tokens.typography.Sub_M_12};
-  color: ${tokens.colors.Grey_5};
-  margin-top: 0.125rem;
-  margin-left: 0.333rem;
+    display: flex;
+    align-items: center;
+    ${tokens.typography.Sub_M_12};
+    color: ${tokens.colors.Grey_5};
+    margin-top: 0.125rem;
+    margin-left: 0.333rem;
 `;
 
 export const Gray6Text = styled.div`
-  ${tokens.typography.Sub_M_12};
-  color: ${tokens.colors.Grey_6};
-  margin-bottom: 0.417rem;
+    ${tokens.typography.Sub_M_12};
+    color: ${tokens.colors.Grey_6};
+    margin-bottom: 0.417rem;
 `;
 
 export const Gray7Text = styled.div`
-  display: flex;
-  font-family: Pretendard;
-  font-weight: 600;
-  font-size: 0.583rem;
-  line-height: 0.75rem;
-  color: ${tokens.colors.Grey_7};
+    display: flex;
+    font-family: Pretendard;
+    font-weight: 600;
+    font-size: 0.583rem;
+    line-height: 0.75rem;
+    color: ${tokens.colors.Grey_7};
 `;
 
 export const CurriculumDate = styled.div`
-  ${tokens.typography.B3_M_14};
-  color: #A2A2A2;
+    ${tokens.typography.B3_M_14};
+    color: #a2a2a2;
 `;
 
 export const DeleteIcon = styled.div`
-  background-size: cover;
-  margin-right: 1.583rem;
+    background-size: cover;
+    margin-right: 1.583rem;
     display: flex;
-  flex-direction: column;
-  justify-content: center;
+    flex-direction: column;
+    justify-content: center;
 `;

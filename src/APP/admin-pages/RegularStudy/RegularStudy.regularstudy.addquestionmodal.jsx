@@ -1,31 +1,33 @@
-import React, { useContext, useEffect, useState } from 'react'
-import * as itemS from "./Styled/RegularStudy.regularstudy.addquestionmodal.styles"
+import React, {useContext, useEffect, useState} from 'react';
+import * as itemS from './Styled/RegularStudy.regularstudy.addquestionmodal.styles';
 import request from '../../Api/request';
-import { useParams } from 'react-router-dom';
-import { ConfirmContext } from '../../Common/Confirm/ConfirmContext';
+import {useParams} from 'react-router-dom';
+import {ConfirmContext} from '../../Common/Confirm/ConfirmContext';
 
-export default function RegularStudyAddQuestionModal({ week, onClose, onAddQuestion, workbookId  }) {
-    const { id } = useParams();
+export default function RegularStudyAddQuestionModal({week, onClose, onAddQuestion, workbookId}) {
+    const {id} = useParams();
     const [searchTerm, setSearchTerm] = useState('');
     const [currentPage, setCurrentPage] = useState(0);
     const itemsPerPage = 10;
     const [questions, setQuestions] = useState([]);
     const [totalPages, setTotalPages] = useState(0);
     const [currentPageGroup, setCurrentPageGroup] = useState(0);
-    const { confirm } = useContext(ConfirmContext);
+    const {confirm} = useContext(ConfirmContext);
 
     const fetchQuestions = async (page, searchTerm) => {
         try {
-            const response = await request.get(`/problem?page=${page + 1}&size=${itemsPerPage}&searchKeyword=${encodeURIComponent(searchTerm)}`);
-            console.log("백준 문제 목록 조회: ", response);
+            const response = await request.get(
+                `/problem?page=${page + 1}&size=${itemsPerPage}&searchKeyword=${encodeURIComponent(searchTerm)}`
+            );
+            // console.log("백준 문제 목록 조회: ", response);
             if (response.isSuccess) {
-                const { problemList, totalCount } = response.result;
-                const newQuestions = problemList.map(problem => ({
+                const {problemList, totalCount} = response.result;
+                const newQuestions = problemList.map((problem) => ({
                     id: problem.number.toString(),
                     title: problem.name,
                     levelImg: problem.levelUrl,
                     plusImg: '/img/PlusBtn.png',
-                    baekjoonUrl: problem.baekjoonUrl
+                    baekjoonUrl: problem.baekjoonUrl,
                 }));
                 setQuestions(newQuestions);
                 setTotalPages(Math.ceil(totalCount / itemsPerPage));
@@ -65,20 +67,20 @@ export default function RegularStudyAddQuestionModal({ week, onClose, onAddQuest
     };
 
     const pageNumbers = Array.from(
-        { length: Math.min(5, totalPages - currentPageGroup * 5) },
+        {length: Math.min(5, totalPages - currentPageGroup * 5)},
         (_, i) => currentPageGroup * 5 + i
     );
 
     const handleAddQuestion = async (question) => {
-        const confirmation = await confirm("해당 문제를 추가하시겠습니까?");
-        if(confirmation){
+        const confirmation = await confirm('해당 문제를 추가하시겠습니까?');
+        if (confirmation) {
             try {
                 const response = await request.post(`/workbook/${workbookId}/problem`, {
-                    number: question.id
+                    number: question.id,
                 });
-                if(response.isSuccess){
+                if (response.isSuccess) {
                     onAddQuestion(question.id, question.title, question.levelImg);
-                    console.log("문제 추가 성공: ", response);
+                    // console.log("문제 추가 성공: ", response);
                 }
             } catch (error) {
                 console.error('문제 추가 실패: ', error);
@@ -91,7 +93,12 @@ export default function RegularStudyAddQuestionModal({ week, onClose, onAddQuest
             <itemS.ModalContent>
                 <itemS.ModalHeader>
                     <itemS.ModalTitle>{week}주차 모의테스트 문제 추가</itemS.ModalTitle>
-                    <img src="/img/close.png" onClick={onClose} style={{ marginTop: "0.667rem", marginRight: "1rem", cursor: "pointer" }} alt="x" />
+                    <img
+                        src="/img/close.png"
+                        onClick={onClose}
+                        style={{marginTop: '0.667rem', marginRight: '1rem', cursor: 'pointer'}}
+                        alt="x"
+                    />
                 </itemS.ModalHeader>
                 <itemS.SearchContainer>
                     <itemS.Search
@@ -100,7 +107,7 @@ export default function RegularStudyAddQuestionModal({ week, onClose, onAddQuest
                         value={searchTerm}
                         onChange={handleSearchChange}
                     />
-                    <itemS.SearchIcon src='/img/search.svg' alt='돋보기' />
+                    <itemS.SearchIcon src="/img/search.svg" alt="돋보기" />
                 </itemS.SearchContainer>
                 <itemS.TableContainer>
                     <itemS.Table>
@@ -117,12 +124,18 @@ export default function RegularStudyAddQuestionModal({ week, onClose, onAddQuest
                                             {question.title}
                                         </a>
                                     </itemS.TableCell>
-                                    <itemS.TableCell><img src={question.levelImg} alt="level" style={{ width: "0.813rem", height: "1.042rem"}} /></itemS.TableCell>
+                                    <itemS.TableCell>
+                                        <img
+                                            src={question.levelImg}
+                                            alt="level"
+                                            style={{width: '0.813rem', height: '1.042rem'}}
+                                        />
+                                    </itemS.TableCell>
                                     <itemS.TableCell>
                                         <img
                                             src={question.plusImg}
                                             alt="plus"
-                                            style={{ cursor: "pointer", width: "1.042rem", height: "1.042rem" }}
+                                            style={{cursor: 'pointer', width: '1.042rem', height: '1.042rem'}}
                                             onClick={() => handleAddQuestion(question)}
                                         />
                                     </itemS.TableCell>
@@ -130,7 +143,9 @@ export default function RegularStudyAddQuestionModal({ week, onClose, onAddQuest
                             ))
                         ) : (
                             <itemS.TableRow>
-                                <itemS.TableCell colSpan="4" style={{ textAlign: 'center' }}>준비 중입니다.</itemS.TableCell>
+                                <itemS.TableCell colSpan="4" style={{textAlign: 'center'}}>
+                                    준비 중입니다.
+                                </itemS.TableCell>
                             </itemS.TableRow>
                         )}
                     </itemS.Table>
@@ -157,5 +172,5 @@ export default function RegularStudyAddQuestionModal({ week, onClose, onAddQuest
                 </itemS.Pagination>
             </itemS.ModalContent>
         </itemS.ModalOverlay>
-    )
+    );
 }

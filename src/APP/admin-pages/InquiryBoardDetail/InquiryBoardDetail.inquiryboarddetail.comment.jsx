@@ -50,7 +50,7 @@ export default function InquiryComment({item, myProfileUrl, formatDate, fetchCom
                 const response = await request.delete(`/inquiry-reply/${item.replyId}`);
 
                 if (response.isSuccess) {
-                    console.log('댓글 삭제 성공', response);
+                    // console.log('댓글 삭제 성공', response);
                     fetchComment();
                     window.location.reload(); // 새로고침
                 } else {

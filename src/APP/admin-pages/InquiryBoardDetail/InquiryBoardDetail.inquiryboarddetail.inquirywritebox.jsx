@@ -51,7 +51,7 @@ export default function InquiryWritebox({
             const response = await request.post('/inquiry-reply', requestBody);
 
             if (response.isSuccess) {
-                console.log('댓글 작성 성공', response);
+                // console.log('댓글 작성 성공', response);
                 setComment('');
                 fetchComment();
                 // inquiry.replyCount 수동 증가

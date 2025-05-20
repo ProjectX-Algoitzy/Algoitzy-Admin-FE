@@ -19,7 +19,7 @@ export default function Header() {
     const checkLoginStatus = async () => {
         try {
             const response = await request.get('/member/info');
-            console.log('로그인 멤버 정보 조회', response);
+            // console.log('로그인 멤버 정보 조회', response);
             if (response['isSuccess']) {
                 setUserName(response.result.name);
                 setProfileUrl(response.result.profileUrl);

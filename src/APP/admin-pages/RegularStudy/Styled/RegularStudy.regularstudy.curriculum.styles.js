@@ -72,18 +72,25 @@ export const CurriArrowImg = styled.img`
 
 export const TextContainer = styled.div`
     display: flex;
-    width: 48%;
+    width: 18rem;
+    max-height: 4.17rem;
+    align-items: center;
+`;
+
+export const InnerTextContainer = styled.div`
+    display: flex;
+    margin-left: 1.667rem;
+    width: 13rem;
     align-items: center;
     justify-content: space-between;
 `;
 
 export const CurriculumText = styled.div`
     display: flex;
-    max-width: 60%;
     align-items: center;
+    width: 10rem;
     ${tokens.typography.T3_B_24};
     color: ${tokens.colors.Grey_8};
-    margin-left: 1.667rem;
     cursor: pointer;
 `;
 

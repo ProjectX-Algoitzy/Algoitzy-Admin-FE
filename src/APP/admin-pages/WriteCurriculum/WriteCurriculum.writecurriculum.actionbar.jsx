@@ -260,10 +260,10 @@ export default function ActionBar({
         }
         if (response.isSuccess) {
           if (response.result) setBoardId(response.result);
-          alert(boardId ? '게시글이 수정되었습니다.' : '게시글이 등록되었습니다.');
+          alert(boardId ? '커리큘럼이 수정되었습니다.' : '커리큘럼이 등록되었습니다.');
           navigate(-1); // 커뮤니티 게시글 목록으로 이동
         } else {
-          alert('게시글을 저장하는 중 오류가 발생했습니다.');
+          alert('커리큘럼을 저장하는 중 오류가 발생했습니다.');
         }
       } catch (error) {
         // alert('게시글을 저장하는 중 오류가 발생했습니다.');

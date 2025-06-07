@@ -48,10 +48,6 @@ export default function RegularStudyCurriculum() {
         fetchCurrentWeek();
     }, [fetchCurriculumList, fetchCurrentWeek]);
 
-    // const handleMakeCurri = () => {
-    //     navigate(`/makingcurriculum/${id}`);
-    // };
-
     const handleDragStart = (index) => {
         setDraggedItemIndex(index);
     };

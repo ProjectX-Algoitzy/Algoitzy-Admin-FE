@@ -18,7 +18,7 @@ export const Container = styled.div`
 export const InnerContainer = styled.div`
     display: flex;
     flex-direction: column;
-    width: 14.29rem;
+    max-width: 14.29rem;
     margin-top: 4.17rem;
     margin-bottom: 4.17rem;
 `;
@@ -40,6 +40,11 @@ export const TitleContainer = styled.div`
     ${tokens.typography.T3_B_24};
     margin-top: 0.67rem;
     align-items: center;
+
+    /* 줄바꿈 허용 */
+    width: 100%;
+    word-wrap: break-word;
+    word-break: break-all;
 `;
 
 export const CountAndOnlineContainer = styled.div`

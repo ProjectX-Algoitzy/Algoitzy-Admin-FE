@@ -48,10 +48,6 @@ export default function RegularStudyCurriculum() {
         fetchCurrentWeek();
     }, [fetchCurriculumList, fetchCurrentWeek]);
 
-    // const handleMakeCurri = () => {
-    //     navigate(`/makingcurriculum/${id}`);
-    // };
-
     const handleDragStart = (index) => {
         setDraggedItemIndex(index);
     };
@@ -153,12 +149,14 @@ export default function RegularStudyCurriculum() {
                             draggable
                             onDragStart={() => handleDragStart(index)}
                         />
-                        <itemS.CurriculumText onClick={() => handleCurriculumClick(curriculum.curriculumId)}>
-                            {curriculum.title}
-                        </itemS.CurriculumText>
-                        {curriculum.week === currentWeek || ( // 현재 주차일 경우에만 이미지를 표시
-                            <itemS.HighlightBox>진행 중</itemS.HighlightBox>
-                        )}
+                        <itemS.InnerTextContainer>
+                            <itemS.CurriculumText onClick={() => handleCurriculumClick(curriculum.curriculumId)}>
+                                {curriculum.title}
+                            </itemS.CurriculumText>
+                            {curriculum.week === currentWeek || ( // 현재 주차일 경우에만 이미지를 표시
+                                <itemS.HighlightBox>진행 중</itemS.HighlightBox>
+                            )}
+                        </itemS.InnerTextContainer>
                     </itemS.TextContainer>
                     <itemS.MiddleCurriculumContainer>
                         <itemS.SmallCurriculumContainer style={{marginRight: '2.667rem'}}>

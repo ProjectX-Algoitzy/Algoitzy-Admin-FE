@@ -35,11 +35,13 @@ export default function RegularStudyCurriculum() {
         try {
             const responseCurrentWeek = await request.get('/week/current');
             // console.log('현재 주차 정보 조회: ', responseCurrentWeek);
-            if (responseCurrentWeek.isSuccess) {
-                setCurrentWeek(responseCurrentWeek.result.week); // 현재 주차 상태 업데이트
+            if (responseCurrentWeek['isSuccess']) {
+                setCurrentWeek(responseCurrentWeek.result.week);
             }
         } catch (error) {
-            console.error('현재 주차 정보 조회 오류: ', error);
+            if (error?.response?.data?.code === 'ATTENDANCE_ENDED') {
+                setCurrentWeek(null);
+            }
         }
     }, []);
 
@@ -150,10 +152,13 @@ export default function RegularStudyCurriculum() {
                             onDragStart={() => handleDragStart(index)}
                         />
                         <itemS.InnerTextContainer>
-                            <itemS.CurriculumText onClick={() => handleCurriculumClick(curriculum.curriculumId)}>
+                            <itemS.CurriculumText
+                                isLongText={curriculum.title.length > 30}
+                                onClick={() => handleCurriculumClick(curriculum.curriculumId)}
+                            >
                                 {curriculum.title}
                             </itemS.CurriculumText>
-                            {curriculum.week === currentWeek || ( // 현재 주차일 경우에만 이미지를 표시
+                            {curriculum.week === currentWeek && ( // 현재 주차일 경우에만 이미지를 표시
                                 <itemS.HighlightBox>진행 중</itemS.HighlightBox>
                             )}
                         </itemS.InnerTextContainer>

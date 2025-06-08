@@ -89,9 +89,12 @@ export const CurriculumText = styled.div`
     display: flex;
     align-items: center;
     width: 10rem;
-    ${tokens.typography.T3_B_24};
+    ${(props) => (props.isLongText ? tokens.typography.T4_SB_20 : tokens.typography.T3_B_24)};
     color: ${tokens.colors.Grey_8};
     cursor: pointer;
+    word-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
 `;
 
 export const HighlightBox = styled.div`

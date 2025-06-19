@@ -121,6 +121,7 @@ export default function MakedApplicationDetail() {
     //     }
     // };
 
+    // 1. handleDrop 함수 수정
     const handleClick = (index) => {
         //하나의 문단 클릭했음을 나타내는 함수
         if (isConfirm) {
@@ -186,31 +187,84 @@ export default function MakedApplicationDetail() {
     //     )
     // }
 
+    // const addQuestion = () => {
+    //     // 문항 추가
+    //     if (isConfirm) {
+    //         alert('이 지원서는 이미 배포되었습니다. 수정할 수 없습니다.');
+    //     } else {
+    //         setQuestions([
+    //             ...questions,
+    //             {
+    //                 type: '객관식-단일', // 새로운 문항의 타입을 '객관식-단일'로 설정
+    //                 selectQuestion: '', // 초기값 설정 가능한 필드들은 모두 초기화
+    //                 isRequired: false,
+    //                 isMultiselect: false,
+    //                 sequence: questions.length + 1, // 새로운 문항의 순서 설정
+    //                 howManyFields: 0,
+    //                 stringFields: [''],
+    //             },
+    //         ]);
+    //     }
+    // };
+    // 2. addQuestion 함수 수정
     const addQuestion = () => {
-        // 문항 추가
         if (isConfirm) {
             alert('이 지원서는 이미 배포되었습니다. 수정할 수 없습니다.');
         } else {
-            setQuestions([
-                ...questions,
-                {
-                    type: '객관식-단일', // 새로운 문항의 타입을 '객관식-단일'로 설정
-                    selectQuestion: '', // 초기값 설정 가능한 필드들은 모두 초기화
-                    isRequired: false,
-                    isMultiselect: false,
-                    sequence: questions.length + 1, // 새로운 문항의 순서 설정
-                    howManyFields: 0,
-                    stringFields: [''],
-                },
-            ]);
+            const newSequence = Math.max(...questions.map((q) => q.sequence || 0)) + 1; // 안전한 sequence 생성
+
+            const newQuestion = {
+                type: '객관식-단일',
+                selectQuestion: '',
+                isRequired: false,
+                isMultiselect: false,
+                sequence: newSequence,
+                howManyFields: 0,
+                stringFields: [''],
+            };
+
+            setQuestions([...questions, newQuestion]);
+
+            // 디버깅용 로그
+            console.log(
+                '문항 추가 후 sequence:',
+                [...questions, newQuestion].map((q) => ({
+                    type: q.type,
+                    sequence: q.sequence,
+                    question: q.selectQuestion || q.textQuestion,
+                }))
+            );
         }
     };
 
+    // const removeQuestion = (index) => {
+    //     //문항 제거
+    //     const updatedQuestions = [...questions];
+    //     updatedQuestions.splice(index, 1);
+    //     setQuestions(updatedQuestions);
+    // };
+    // 3. removeQuestion 함수 수정
     const removeQuestion = (index) => {
-        //문항 제거
         const updatedQuestions = [...questions];
         updatedQuestions.splice(index, 1);
-        setQuestions(updatedQuestions);
+
+        // 문항 제거 후 sequence 재정렬
+        const resequencedQuestions = updatedQuestions.map((question, idx) => ({
+            ...question,
+            sequence: idx + 1,
+        }));
+
+        setQuestions(resequencedQuestions);
+
+        // 디버깅용 로그
+        console.log(
+            '문항 삭제 후 sequence:',
+            resequencedQuestions.map((q) => ({
+                type: q.type,
+                sequence: q.sequence,
+                question: q.selectQuestion || q.textQuestion,
+            }))
+        );
     };
 
     const handleDragStart = (e, index) => {
@@ -227,20 +281,47 @@ export default function MakedApplicationDetail() {
         e.preventDefault();
     };
 
+    // const handleDrop = (e, targetIndex) => {
+    //     //드래그앤 드롭을 위한 함수3
+    //     const sourceIndex = e.dataTransfer.getData('index');
+    //     const updatedQuestions = [...questions];
+    //     const temp = updatedQuestions[sourceIndex];
+    //     updatedQuestions[sourceIndex] = updatedQuestions[targetIndex];
+    //     updatedQuestions[targetIndex] = temp;
+
+    //     // 순서 변경에 따라 sequence 업데이트
+    //     updatedQuestions.forEach((question, index) => {
+    //         question.sequence = index + 1;
+    //     });
+
+    //     setQuestions(updatedQuestions.map((question, i) => ({...question, text: `문항 ${i + 1}`})));
+    // };
     const handleDrop = (e, targetIndex) => {
-        //드래그앤 드롭을 위한 함수3
-        const sourceIndex = e.dataTransfer.getData('index');
+        const sourceIndex = parseInt(e.dataTransfer.getData('index'));
+        if (sourceIndex === targetIndex) return; // 같은 위치면 리턴
+
         const updatedQuestions = [...questions];
         const temp = updatedQuestions[sourceIndex];
         updatedQuestions[sourceIndex] = updatedQuestions[targetIndex];
         updatedQuestions[targetIndex] = temp;
 
-        // 순서 변경에 따라 sequence 업데이트
-        updatedQuestions.forEach((question, index) => {
-            question.sequence = index + 1;
-        });
+        // 순서 변경에 따라 sequence를 명확하게 업데이트
+        const resequencedQuestions = updatedQuestions.map((question, index) => ({
+            ...question,
+            sequence: index + 1,
+        }));
 
-        setQuestions(updatedQuestions.map((question, i) => ({...question, text: `문항 ${i + 1}`})));
+        setQuestions(resequencedQuestions);
+
+        // 디버깅용 로그 추가
+        console.log(
+            '드래그 앤 드롭 후 sequence:',
+            resequencedQuestions.map((q) => ({
+                type: q.type,
+                sequence: q.sequence,
+                question: q.selectQuestion || q.textQuestion,
+            }))
+        );
     };
 
     const TypeSelection = ({index, sequenceByIndex}) => {
@@ -518,6 +599,17 @@ export default function MakedApplicationDetail() {
     };
 
     const makeApplicationForm = async (distribution) => {
+        // 4. makeApplicationForm 함수에서 sequence 검증 추가
+        // sequence 중복 검사 추가
+        const sequences = questions.map((q) => q.sequence);
+        const uniqueSequences = [...new Set(sequences)];
+
+        if (sequences.length !== uniqueSequences.length) {
+            console.error('중복된 sequence 발견:', sequences);
+            alert('문항 순서에 오류가 있습니다. 페이지를 새로고침 후 다시 시도해주세요.');
+            return;
+        }
+
         // 지원서를 제작하는 api호출 함수
         const createTextQuestionRequestList = [];
         const createSelectQuestionRequestList = [];
@@ -542,6 +634,17 @@ export default function MakedApplicationDetail() {
                 });
             }
         });
+
+        // 디버깅용 로그
+        console.log('API 전송 전 데이터 검증:');
+        console.log(
+            'Text Questions:',
+            createTextQuestionRequestList.map((q) => ({question: q.question, sequence: q.sequence}))
+        );
+        console.log(
+            'Select Questions:',
+            createSelectQuestionRequestList.map((q) => ({question: q.question, sequence: q.sequence}))
+        );
 
         const requestData = {
             studyId: studyId,

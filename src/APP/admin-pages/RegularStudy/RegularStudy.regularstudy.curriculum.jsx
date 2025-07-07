@@ -18,18 +18,30 @@ export default function RegularStudyCurriculum() {
 
     const [draggedItemIndex, setDraggedItemIndex] = useState(null); // 드래그 시작한 index
 
+    // 1. fetchCurriculumList 함수 수정 (안전한 처리)
     const fetchCurriculumList = useCallback(async () => {
         try {
             const responseCurriculum = await request.get(`/study/${id}/curriculum`);
-            // console.log('정규스터디 커리큘럼 목록 조회: ', responseCurriculum);
+            console.log('정규스터디 커리큘럼 목록 조회: ', responseCurriculum); // 디버깅용
+
             if (responseCurriculum['isSuccess']) {
-                setCurriculumList(responseCurriculum.result.curriculumList);
-                setOriginalCurriculumList(responseCurriculum.result.curriculumList); // 처음 값도 저장
+                // null 체크 및 기본값 설정
+                const curriculumData = responseCurriculum.result?.curriculumList || [];
+                setCurriculumList(curriculumData);
+                setOriginalCurriculumList(curriculumData);
+            } else {
+                // API 호출은 성공했지만 isSuccess가 false인 경우
+                console.warn('커리큘럼 조회 실패:', responseCurriculum);
+                setCurriculumList([]);
+                setOriginalCurriculumList([]);
             }
         } catch (error) {
             console.error('커리큘럼 목록 조회 실패:', error);
+            // 에러 발생 시 빈 배열로 초기화
+            setCurriculumList([]);
+            setOriginalCurriculumList([]);
         }
-    }, [id]); // 'id'가 바뀔 때만 함수가 재생성됨
+    }, [id]);
 
     const fetchCurrentWeek = useCallback(async () => {
         try {
@@ -61,7 +73,13 @@ export default function RegularStudyCurriculum() {
     const handleDrop = (index) => {
         if (draggedItemIndex === null || draggedItemIndex === index) return;
 
+        // curriculumList가 배열인지 확인
+        if (!Array.isArray(curriculumList) || curriculumList.length === 0) return;
+
         const newList = [...curriculumList];
+
+        // 인덱스 범위 체크
+        if (draggedItemIndex < 0 || draggedItemIndex >= newList.length || index < 0 || index >= newList.length) return;
 
         // 아이템 스왑
         const temp = newList[draggedItemIndex];
@@ -71,11 +89,13 @@ export default function RegularStudyCurriculum() {
         setCurriculumList(newList);
         setDraggedItemIndex(null);
 
-        // 순서 변경 여부 확인
-        const isSameOrder =
-            JSON.stringify(newList.map((item) => item.curriculumId)) ===
-            JSON.stringify(originalCurriculumList.map((item) => item.curriculumId));
-        setIsModified(!isSameOrder);
+        // 순서 변경 여부 확인 (안전한 처리)
+        if (Array.isArray(originalCurriculumList)) {
+            const isSameOrder =
+                JSON.stringify(newList.map((item) => item.curriculumId)) ===
+                JSON.stringify(originalCurriculumList.map((item) => item.curriculumId));
+            setIsModified(!isSameOrder);
+        }
     };
 
     const handleCurriculumClick = (curriculumId) => {
@@ -100,22 +120,26 @@ export default function RegularStudyCurriculum() {
     };
 
     const handleChangeOrder = async () => {
-        if (!isModified) return;
+        if (!isModified || !Array.isArray(curriculumList) || curriculumList.length === 0) return;
+
         try {
             const curriculumIdList = curriculumList.map((item) => item.curriculumId);
             const response = await request.patch(`/study/${id}/curriculum/reorder`, {
                 curriculumIdList,
             });
 
-            // console.log('순서 변경 응답:', response);
-
             if (response.isSuccess) {
                 alert('커리큘럼 순서가 성공적으로 변경되었습니다.');
                 setIsModified(false);
-                fetchCurriculumList(); // 최신 데이터 다시 불러오기
+                fetchCurriculumList();
             }
         } catch (error) {
             console.error('순서 변경 API 오류:', error);
+            // 에러 발생 시 원래 순서로 복구
+            if (Array.isArray(originalCurriculumList)) {
+                setCurriculumList([...originalCurriculumList]);
+                setIsModified(false);
+            }
         }
     };
 
@@ -138,56 +162,59 @@ export default function RegularStudyCurriculum() {
                     <itemS.BtnMakeCurri onClick={handleWriteClick}>+ 커리큘럼 생성하기</itemS.BtnMakeCurri>
                 </itemS.BtnContainer>
             </itemS.Title>
-            {curriculumList.map((curriculum, index) => (
-                <itemS.CurriculumContainer
-                    key={curriculum.curriculumId}
-                    isCurrentWeek={curriculum.week >= currentWeek} // 현재 주차인지 확인하여 props로 전달
-                    onDragOver={handleDragOver}
-                    onDrop={() => handleDrop(index)}
-                >
-                    <itemS.TextContainer>
-                        <itemS.CurriArrowImg
-                            src="/img/curriarrow.png"
-                            draggable
-                            onDragStart={() => handleDragStart(index)}
-                        />
-                        <itemS.InnerTextContainer>
-                            <itemS.CurriculumText
-                                isLongText={curriculum.title.length > 30}
-                                onClick={() => handleCurriculumClick(curriculum.curriculumId)}
-                            >
-                                {curriculum.title}
-                            </itemS.CurriculumText>
-                            {curriculum.week === currentWeek && ( // 현재 주차일 경우에만 이미지를 표시
-                                <itemS.HighlightBox>진행 중</itemS.HighlightBox>
-                            )}
-                        </itemS.InnerTextContainer>
-                    </itemS.TextContainer>
-                    <itemS.MiddleCurriculumContainer>
-                        <itemS.SmallCurriculumContainer style={{marginRight: '2.667rem'}}>
-                            <itemS.Gray6Text>주차</itemS.Gray6Text>
-                            <itemS.Gray7Text>{curriculum.week}주차</itemS.Gray7Text>
-                        </itemS.SmallCurriculumContainer>
-                        <itemS.SmallCurriculumContainer>
-                            <itemS.Gray6Text>최종 수정</itemS.Gray6Text>
-                            <itemS.Gray7Text>
-                                {curriculum.updatedName}
-                                <itemS.Gray5Text>{curriculum.updatedTime}</itemS.Gray5Text>
-                            </itemS.Gray7Text>
-                        </itemS.SmallCurriculumContainer>
-                    </itemS.MiddleCurriculumContainer>
-                    <itemS.DeleteIcon
+            {/* 안전한 렌더링 */}
+            {Array.isArray(curriculumList) && curriculumList.length > 0 ? (
+                curriculumList.map((curriculum, index) => (
+                    <itemS.CurriculumContainer
                         key={curriculum.curriculumId}
-                        onClick={() => deleteCurriculumClick(curriculum.curriculumId)}
+                        isCurrentWeek={curriculum.week >= currentWeek}
+                        onDragOver={handleDragOver}
+                        onDrop={() => handleDrop(index)}
                     >
-                        <img
-                            src="/img/GrayX.png"
-                            alt="x"
-                            style={{cursor: 'pointer', width: '0.58rem', height: '0.58rem'}}
-                        />
-                    </itemS.DeleteIcon>
-                </itemS.CurriculumContainer>
-            ))}
+                        <itemS.TextContainer>
+                            <itemS.CurriArrowImg
+                                src="/img/curriarrow.png"
+                                draggable
+                                onDragStart={() => handleDragStart(index)}
+                            />
+                            <itemS.InnerTextContainer>
+                                <itemS.CurriculumText
+                                    isLongText={curriculum.title?.length > 30}
+                                    onClick={() => handleCurriculumClick(curriculum.curriculumId)}
+                                >
+                                    {curriculum.title || '제목 없음'}
+                                </itemS.CurriculumText>
+                                {curriculum.week === currentWeek && <itemS.HighlightBox>진행 중</itemS.HighlightBox>}
+                            </itemS.InnerTextContainer>
+                        </itemS.TextContainer>
+                        <itemS.MiddleCurriculumContainer>
+                            <itemS.SmallCurriculumContainer style={{marginRight: '2.667rem'}}>
+                                <itemS.Gray6Text>주차</itemS.Gray6Text>
+                                <itemS.Gray7Text>{curriculum.week}주차</itemS.Gray7Text>
+                            </itemS.SmallCurriculumContainer>
+                            <itemS.SmallCurriculumContainer>
+                                <itemS.Gray6Text>최종 수정</itemS.Gray6Text>
+                                <itemS.Gray7Text>
+                                    {curriculum.updatedName}
+                                    <itemS.Gray5Text>{curriculum.updatedTime}</itemS.Gray5Text>
+                                </itemS.Gray7Text>
+                            </itemS.SmallCurriculumContainer>
+                        </itemS.MiddleCurriculumContainer>
+                        <itemS.DeleteIcon
+                            key={curriculum.curriculumId}
+                            onClick={() => deleteCurriculumClick(curriculum.curriculumId)}
+                        >
+                            <img
+                                src="/img/GrayX.png"
+                                alt="x"
+                                style={{cursor: 'pointer', width: '0.58rem', height: '0.58rem'}}
+                            />
+                        </itemS.DeleteIcon>
+                    </itemS.CurriculumContainer>
+                ))
+            ) : (
+                <itemS.CurriculumContainer>등록된 커리큘럼이 없습니다.</itemS.CurriculumContainer>
+            )}
         </itemS.Container>
     );
 }

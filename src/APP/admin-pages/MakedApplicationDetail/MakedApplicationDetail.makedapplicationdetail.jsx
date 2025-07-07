@@ -12,7 +12,6 @@ export default function MakedApplicationDetail() {
     const [title, setTitle] = useState(''); // 해당 지원서의 제목을 저장
     const [studyId, setStudyId] = useState(null); // api로 받아온 스터디의 ID를 관리하는 state
     const [studyName, setStudyName] = useState(''); //해당 지원서의 스터디이름을 저장
-    // const [regularStudyList, setRegularStudyList] = useState([]); //정규 스터디의 목록을 저장
     const [questions, setQuestions] = useState([]); //각 문항들을 저장하는 배열
     const [innerContainerClicked, setInnerContainerClicked] = useState(Array(questions.length).fill(false)); // useState(false)하나의 문단 클릭시 색을 변화시키는 용도
     const navigate = useNavigate();
@@ -51,26 +50,12 @@ export default function MakedApplicationDetail() {
             return transformedQuestions.sort((a, b) => a.sequence - b.sequence);
         };
 
-        // const fetchStudyCurriculum = async() => {
-        //     try {
-        //         const responseCurriculum = await request.get('/study');
-        //         console.log("responseCurriculum", responseCurriculum);
-        //         if(responseCurriculum["isSuccess"]) {
-        //             console.log("제작된 커리큘럼 조회 성공");
-        //             setRegularStudyList(responseCurriculum.result.studyList);
-        //         }
-        //     } catch (error) {
-        //         console.error('스터디 커리큘럼 목록 조회 오류', error);
-        //     }
-        // }
-
         const fetchMakedApplicationDetail = async () => {
             try {
                 const response = await request.get(`/application/${id}`);
-                // console.log("response", response);
                 setLoading(false);
                 if (response['isSuccess']) {
-                    // console.log("제작된 지원서 조회 성공: ", response);
+                    console.log('제작된 지원서 조회 성공: ', response);
                     const transformedQuestions = transformReceivedQuestions(
                         response.result.selectQuestionList.concat(response.result.textQuestionList)
                     );
@@ -89,7 +74,6 @@ export default function MakedApplicationDetail() {
             }
         };
         fetchMakedApplicationDetail();
-        // fetchStudyCurriculum();
     }, [id]);
 
     useEffect(() => {
@@ -109,19 +93,6 @@ export default function MakedApplicationDetail() {
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error.message}</div>;
 
-    // const handleContainerClick = () => {  // 배포되었을 때, 못클릭하게 하려고
-    //     if (isConfirm) {
-    //       // isConfirm이 true인 경우 경고창 띄우기
-    //       alert('이 지원서는 이미 배포되었습니다. 수정할 수 없습니다.');
-    //       setInnerContainerClicked(false)
-    //     } else {
-    //       // isConfirm이 false인 경우 원하는 동작 수행
-    //       // 예시: 다른 페이지로 이동하거나 다른 작업 수행
-    //       console.log('items.Container를 클릭했습니다.');
-    //     }
-    // };
-
-    // 1. handleDrop 함수 수정
     const handleClick = (index) => {
         //하나의 문단 클릭했음을 나타내는 함수
         if (isConfirm) {
@@ -134,137 +105,48 @@ export default function MakedApplicationDetail() {
         }
     };
 
-    // const StudySelect =  ({ value, onChange, isConfirm  }) => {  //어떤 스터디인지 react-select를 통해 선택
-    //     const CustomMenu = props => {  //동적으로 메뉴의 높이를 할당한다
-    //         const {  options } = props;
-    //         const menuHeight = options.length * 48;
-    //         return (
-    //             <components.Menu {...props} style={{ height: `${menuHeight}px` }} >
-    //                 {props.children}
-    //             </components.Menu>
-    //         );
-    //     };
+    // sequence 중복을 방지하는 유틸리티 함수
+    const getNextSequence = (questions) => {
+        if (questions.length === 0) return 1;
+        const maxSequence = Math.max(...questions.map((q) => q.sequence || 0));
+        return maxSequence + 1;
+    };
 
-    //     const CustomDropdownIndicator = props => {  //주관식인지 객관식인지 판별하는 과정에서 역삼각형을 꾸며주는 컴포넌트
-    //         return (
-    //           <components.DropdownIndicator {...props}>
-    //             <img src="/img/icontriangle.png" alt="triangle-icon" style={{width: "20px", height: "20px", marginRight:"10px"}} />
-    //           </components.DropdownIndicator>
-    //         );
-    //     };
+    // sequence 재정렬 함수
+    const reorderSequences = (questions) => {
+        return questions.map((question, index) => ({
+            ...question,
+            sequence: index + 1,
+        }));
+    };
 
-    //     // const options = [
-    //     //     {value: "코딩테스트 대비반", label:"코딩테스트 대비반"},
-    //     //     {value: "코딩테스트 기초반", label:"코딩테스트 기초반"},
-    //     //     {value: "CS면접대비", label:"CS면접대비"}
-    //     // ]
-    //     const options = regularStudyList.map(study => ({
-    //         value: study.studyId,
-    //         label: study.name
-    //     }));
-
-    //     const handleStudyChange = selectedOption => {
-    //         setStudyId(selectedOption.value); // 선택된 스터디의 ID를 state로 업데이트
-    //         onChange(selectedOption.label + " 지원서");
-    //     };
-
-    //     useEffect(() => {
-    //         //console.log("스터디아이디", studyId);
-    //     }, [studyId]);
-
-    //     return(
-    //         <div onClick={e => e.stopPropagation()}>
-    //             <items.StudySelectContainer
-    //                 options={options}
-    //                 value={options.find(option => option.label+ " 지원서" === value)}
-    //                 onChange={handleStudyChange}
-    //                 placeholder="스터디 선택"
-    //                 isSearchable={false} // 직접 입력 비활성화
-    //                 components={{DropdownIndicator: CustomDropdownIndicator, IndicatorSeparator: null, Menu: CustomMenu}}
-    //                 disabled={isConfirm} // isConfirm에 따라 비활성화
-    //             />
-    //         </div>
-    //     )
-    // }
-
-    // const addQuestion = () => {
-    //     // 문항 추가
-    //     if (isConfirm) {
-    //         alert('이 지원서는 이미 배포되었습니다. 수정할 수 없습니다.');
-    //     } else {
-    //         setQuestions([
-    //             ...questions,
-    //             {
-    //                 type: '객관식-단일', // 새로운 문항의 타입을 '객관식-단일'로 설정
-    //                 selectQuestion: '', // 초기값 설정 가능한 필드들은 모두 초기화
-    //                 isRequired: false,
-    //                 isMultiselect: false,
-    //                 sequence: questions.length + 1, // 새로운 문항의 순서 설정
-    //                 howManyFields: 0,
-    //                 stringFields: [''],
-    //             },
-    //         ]);
-    //     }
-    // };
-    // 2. addQuestion 함수 수정
     const addQuestion = () => {
         if (isConfirm) {
             alert('이 지원서는 이미 배포되었습니다. 수정할 수 없습니다.');
         } else {
-            const newSequence = Math.max(...questions.map((q) => q.sequence || 0)) + 1; // 안전한 sequence 생성
-
-            const newQuestion = {
-                type: '객관식-단일',
-                selectQuestion: '',
-                isRequired: false,
-                isMultiselect: false,
-                sequence: newSequence,
-                howManyFields: 0,
-                stringFields: [''],
-            };
-
-            setQuestions([...questions, newQuestion]);
-
-            // 디버깅용 로그
-            console.log(
-                '문항 추가 후 sequence:',
-                [...questions, newQuestion].map((q) => ({
-                    type: q.type,
-                    sequence: q.sequence,
-                    question: q.selectQuestion || q.textQuestion,
-                }))
-            );
+            const nextSequence = getNextSequence(questions);
+            setQuestions([
+                ...questions,
+                {
+                    type: '객관식-단일',
+                    selectQuestion: '',
+                    isRequired: false,
+                    isMultiselect: false,
+                    sequence: nextSequence, // 중복되지 않는 sequence 할당
+                    howManyFields: 0,
+                    stringFields: [''],
+                },
+            ]);
         }
     };
 
-    // const removeQuestion = (index) => {
-    //     //문항 제거
-    //     const updatedQuestions = [...questions];
-    //     updatedQuestions.splice(index, 1);
-    //     setQuestions(updatedQuestions);
-    // };
-    // 3. removeQuestion 함수 수정
     const removeQuestion = (index) => {
         const updatedQuestions = [...questions];
         updatedQuestions.splice(index, 1);
 
-        // 문항 제거 후 sequence 재정렬
-        const resequencedQuestions = updatedQuestions.map((question, idx) => ({
-            ...question,
-            sequence: idx + 1,
-        }));
-
-        setQuestions(resequencedQuestions);
-
-        // 디버깅용 로그
-        console.log(
-            '문항 삭제 후 sequence:',
-            resequencedQuestions.map((q) => ({
-                type: q.type,
-                sequence: q.sequence,
-                question: q.selectQuestion || q.textQuestion,
-            }))
-        );
+        // sequence 재정렬
+        const reorderedQuestions = reorderSequences(updatedQuestions);
+        setQuestions(reorderedQuestions);
     };
 
     const handleDragStart = (e, index) => {
@@ -281,49 +163,22 @@ export default function MakedApplicationDetail() {
         e.preventDefault();
     };
 
-    // const handleDrop = (e, targetIndex) => {
-    //     //드래그앤 드롭을 위한 함수3
-    //     const sourceIndex = e.dataTransfer.getData('index');
-    //     const updatedQuestions = [...questions];
-    //     const temp = updatedQuestions[sourceIndex];
-    //     updatedQuestions[sourceIndex] = updatedQuestions[targetIndex];
-    //     updatedQuestions[targetIndex] = temp;
-
-    //     // 순서 변경에 따라 sequence 업데이트
-    //     updatedQuestions.forEach((question, index) => {
-    //         question.sequence = index + 1;
-    //     });
-
-    //     setQuestions(updatedQuestions.map((question, i) => ({...question, text: `문항 ${i + 1}`})));
-    // };
+    // handleDrop 함수 수정 - 더 안전한 sequence 재정렬
     const handleDrop = (e, targetIndex) => {
         const sourceIndex = parseInt(e.dataTransfer.getData('index'));
-        if (sourceIndex === targetIndex) return; // 같은 위치면 리턴
+        if (sourceIndex === targetIndex) return; // 같은 위치면 무시
 
         const updatedQuestions = [...questions];
         const temp = updatedQuestions[sourceIndex];
         updatedQuestions[sourceIndex] = updatedQuestions[targetIndex];
         updatedQuestions[targetIndex] = temp;
 
-        // 순서 변경에 따라 sequence를 명확하게 업데이트
-        const resequencedQuestions = updatedQuestions.map((question, index) => ({
-            ...question,
-            sequence: index + 1,
-        }));
-
-        setQuestions(resequencedQuestions);
-
-        // 디버깅용 로그 추가
-        console.log(
-            '드래그 앤 드롭 후 sequence:',
-            resequencedQuestions.map((q) => ({
-                type: q.type,
-                sequence: q.sequence,
-                question: q.selectQuestion || q.textQuestion,
-            }))
-        );
+        // sequence 재정렬
+        const reorderedQuestions = reorderSequences(updatedQuestions);
+        setQuestions(reorderedQuestions);
     };
 
+    // TypeSelection 컴포넌트의 handleTypeSelection 함수도 수정
     const TypeSelection = ({index, sequenceByIndex}) => {
         const isDisabled = questions[index]?.selectQuestion === '가능한 면접 일자를 선택해주세요.';
 
@@ -332,14 +187,16 @@ export default function MakedApplicationDetail() {
             const updatedQuestions = [...questions];
             let currentQuestion = updatedQuestions[index] || {};
 
+            // sequence는 현재 문항의 sequence를 유지하거나, 없으면 안전한 값 할당
+            const currentSequence = currentQuestion.sequence || getNextSequence(questions);
+
             if (Object.keys(currentQuestion).length === 0) {
-                // currentQuestion이 비어있는 경우 새로운 질문을 생성
                 if (selectedType === '주관식') {
                     currentQuestion = {
                         type: selectedType,
                         textQuestion: '',
                         isRequired: false,
-                        sequence: sequenceByIndex,
+                        sequence: currentSequence,
                     };
                 } else if (selectedType === '객관식-단일') {
                     currentQuestion = {
@@ -347,9 +204,9 @@ export default function MakedApplicationDetail() {
                         selectQuestion: '',
                         isRequired: false,
                         isMultiselect: false,
-                        sequence: sequenceByIndex,
+                        sequence: currentSequence,
                         howManyFields: 0,
-                        stringFields: [''], //기본적으로 하나는 있음
+                        stringFields: [''],
                     };
                 } else if (selectedType === '객관식-복수') {
                     currentQuestion = {
@@ -357,86 +214,46 @@ export default function MakedApplicationDetail() {
                         selectQuestion: '',
                         isRequired: false,
                         isMultiselect: true,
-                        sequence: sequenceByIndex,
+                        sequence: currentSequence,
                         howManyFields: 0,
-                        stringFields: [''], //기본적으로 하나는 있음
+                        stringFields: [''],
                     };
                 }
             } else {
-                // currentQuestion이 비어있지 않은 경우 기존 값을 유지하면서 업데이트
+                // 기존 문항 수정 시에는 sequence 유지
                 if (selectedType === '주관식') {
                     currentQuestion = {
                         ...currentQuestion,
                         type: selectedType,
                         textQuestion: currentQuestion.selectQuestion || currentQuestion.textQuestion || '',
-                        isRequired: currentQuestion.isRequired || false,
-                        sequence: sequenceByIndex,
+                        sequence: currentQuestion.sequence, // 기존 sequence 유지
                     };
                 } else if (selectedType === '객관식-단일') {
                     currentQuestion = {
                         ...currentQuestion,
                         type: selectedType,
                         selectQuestion: currentQuestion.selectQuestion || currentQuestion.textQuestion || '',
-                        isRequired: currentQuestion.isRequired || false,
                         isMultiselect: false,
-                        sequence: sequenceByIndex,
+                        sequence: currentQuestion.sequence, // 기존 sequence 유지
                         howManyFields: currentQuestion.howManyFields || 0,
-                        stringFields: currentQuestion.stringFields || [''], //기본적으로 하나는 있음
+                        stringFields: currentQuestion.stringFields || [''],
                     };
                 } else if (selectedType === '객관식-복수') {
                     currentQuestion = {
                         ...currentQuestion,
                         type: selectedType,
                         selectQuestion: currentQuestion.selectQuestion || currentQuestion.textQuestion || '',
-                        isRequired: currentQuestion.isRequired || false,
                         isMultiselect: true,
-                        sequence: sequenceByIndex,
+                        sequence: currentQuestion.sequence, // 기존 sequence 유지
                         howManyFields: currentQuestion.howManyFields || 0,
-                        stringFields: currentQuestion.stringFields || [''], //기본적으로 하나는 있음
+                        stringFields: currentQuestion.stringFields || [''],
                     };
                 }
             }
 
             updatedQuestions[index] = currentQuestion;
             setQuestions(updatedQuestions);
-            // console.log("Questions updated: ", updatedQuestions);  // 상태 업데이트 확인용 로그
         };
-        // const handleTypeSelection = (selectedOption) => {
-        //     const selectedType = selectedOption.value;
-        //     const updatedQuestions = [...questions];
-        //     let newQuestion = {};
-        //     if (selectedType === "주관식") {
-        //         newQuestion = {
-        //             type: selectedType,
-        //             textQuestion: '',
-        //             isRequired: false,
-        //             sequence: sequenceByIndex
-        //         };
-        //     } else if (selectedType === "객관식-단일") {
-        //         newQuestion = {
-        //             type: selectedType,
-        //             selectQuestion: '',
-        //             isRequired: false,
-        //             isMultiselect: false,
-        //             sequence: sequenceByIndex,
-        //             howManyFields: 0,
-        //             stringFields: [''] //기본적으로 하나는 있음
-        //         };
-        //     } else if (selectedType === '객관식-복수') {
-        //         newQuestion = {
-        //             type: selectedType,
-        //             selectQuestion: '',
-        //             isRequired: false,
-        //             isMultiselect: true,
-        //             sequence: sequenceByIndex,
-        //             howManyFields: 0,
-        //             stringFields: [''] //기본적으로 하나는 있음
-        //         };
-        //     }
-        //     updatedQuestions[index] = newQuestion;
-        //     setQuestions(updatedQuestions);
-        //     console.log("Questions updated: ", updatedQuestions);  // 상태 업데이트 확인용 로그
-        // };
 
         const options = [
             {value: '객관식-단일', label: '객관식 질문 (단일 응답)'},
@@ -521,7 +338,6 @@ export default function MakedApplicationDetail() {
                 <items.TypeSelectContainer
                     options={options}
                     value={options.find((option) => option.value === questions[index]?.type)}
-                    // onChange={handleTypeSelection}
                     onChange={isDisabled ? null : handleTypeSelection} // 비활성화된 경우 변경 함수 비활성화
                     components={{
                         Option: CustomOption,
@@ -598,14 +414,22 @@ export default function MakedApplicationDetail() {
         setQuestions(updatedQuestions);
     };
 
-    const makeApplicationForm = async (distribution) => {
-        // 4. makeApplicationForm 함수에서 sequence 검증 추가
-        // sequence 중복 검사 추가
+    // 지원서 저장 전에 sequence 검증 함수 추가
+    const validateSequences = (questions) => {
         const sequences = questions.map((q) => q.sequence);
-        const uniqueSequences = [...new Set(sequences)];
+        const uniqueSequences = new Set(sequences);
 
-        if (sequences.length !== uniqueSequences.length) {
-            console.error('중복된 sequence 발견:', sequences);
+        if (sequences.length !== uniqueSequences.size) {
+            console.error('Duplicate sequences found:', sequences);
+            return false;
+        }
+
+        return true;
+    };
+
+    const makeApplicationForm = async (distribution) => {
+        // sequence 검증
+        if (!validateSequences(questions)) {
             alert('문항 순서에 오류가 있습니다. 페이지를 새로고침 후 다시 시도해주세요.');
             return;
         }
@@ -623,7 +447,7 @@ export default function MakedApplicationDetail() {
                 });
             } else if (question.type === '객관식-단일' || question.type === '객관식-복수') {
                 const createFieldRequestList = question.stringFields
-                .filter((value) => value.trim() !== '') // 공백인 보기 걸러내기
+                .filter((value) => value.trim() !== '')
                 .map((value) => ({context: value}));
                 createSelectQuestionRequestList.push({
                     question: question.selectQuestion,
